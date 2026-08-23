@@ -2,14 +2,6 @@
 node_modules/
 **/node_modules/
 
-# Environment files
-.env
-.env.*
-**/.env
-**/.env.*
-!.env.example
-!**/.env.example
-
 # Build & Dist
 dist/
 build/
@@ -20,6 +12,6 @@ build/
 *.log
 **/*.log
 
-# OS Files
+# OS Cache
 .DS_Store
 Thumbs.db
