@@ -29,15 +29,83 @@ body {
   margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'DynaPuff', cursive, sans-serif;
+/* Base Typography Scale overriding Tailwind Preflight resets */
+h1, .h1 {
+  font-family: 'DynaPuff', cursive, sans-serif !important;
   color: #222222;
+  font-size: 64px;
+  line-height: 74px;
+  font-weight: 700;
+}
+
+h2, .h2 {
+  font-family: 'DynaPuff', cursive, sans-serif !important;
+  color: #222222;
+  font-size: 42px;
+  line-height: 52px;
+  font-weight: 700;
+}
+
+h3, .h3 {
+  font-family: 'DynaPuff', cursive, sans-serif !important;
+  color: #222222;
+  font-size: 26px;
+  line-height: 36px;
+  font-weight: 700;
+}
+
+h4, .h4 {
+  font-family: 'DynaPuff', cursive, sans-serif !important;
+  color: #222222;
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 700;
+}
+
+h5, .h5 {
+  font-family: 'DynaPuff', cursive, sans-serif !important;
+  color: #222222;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+}
+
+h6, .h6 {
+  font-family: 'DynaPuff', cursive, sans-serif !important;
+  color: #222222;
+  font-size: 16px;
+  line-height: 24px;
   font-weight: 700;
 }
 
 a {
   text-decoration: none;
   transition: all 0.3s ease;
+}
+
+/* Hero Section Enhancements */
+.hero-section {
+  padding: 80px 0 60px 0;
+  position: relative;
+  background-color: #fff8e5;
+  background-image: url('/assets/img/background.png');
+}
+
+.hero-text h1 {
+  font-size: 68px !important;
+  line-height: 78px !important;
+  color: #222222;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.hero-text h3 {
+  font-family: 'Anybody', sans-serif !important;
+  font-size: 20px !important;
+  line-height: 32px !important;
+  color: #666666;
+  font-weight: 400;
+  margin-bottom: 35px;
 }
 
 /* Button Styling */
@@ -48,7 +116,7 @@ a {
   font-family: 'DynaPuff', cursive, sans-serif;
   font-size: 16px;
   font-weight: 600;
-  padding: 14px 34px;
+  padding: 16px 38px;
   border-radius: 50px;
   text-align: center;
   transition: all 0.3s ease-in-out;
@@ -63,68 +131,100 @@ a {
   box-shadow: 0 10px 20px rgba(250, 68, 29, 0.2);
 }
 
-/* Heading section */
+/* Headings with Signature Paw */
 .heading {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 45px;
 }
 
 .heading img {
   display: inline-block;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .heading h6 {
-  color: var(--theme-orange);
+  color: var(--theme-orange) !important;
   font-size: 16px;
-  text-transform: capitalize;
-  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   margin-bottom: 8px;
 }
 
 .heading h2 {
-  font-size: 38px;
-  line-height: 48px;
+  font-size: 42px !important;
+  line-height: 52px !important;
   margin-bottom: 0;
 }
 
-/* Product Card Enhancements */
-.healthy-product {
-  background: #ffffff;
-  border-radius: 15px;
-  padding: 20px;
+/* Section Gap Utility */
+.gap {
+  padding: 90px 0;
+}
+
+.gap.no-bottom {
+  padding-bottom: 0;
+}
+
+.gap.no-top {
+  padding-top: 0;
+}
+
+/* We Provide / Service Highlights */
+.we-provide {
   text-align: center;
-  transition: all 0.3s ease;
-  border: 1px solid #f0f0f0;
+  margin-bottom: 30px;
 }
 
-.healthy-product:hover {
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
-  border-color: #fedc4f;
-  transform: translateY(-4px);
+.we-provide h5 {
+  font-size: 24px !important;
+  line-height: 32px;
+  margin-top: 25px;
+  margin-bottom: 12px;
+  color: #222222;
 }
 
-.healthy-product-img {
-  background: #fbfbfb;
-  border-radius: 12px;
-  padding: 25px 15px;
+.we-provide p {
+  color: #777777;
+  font-size: 15px;
+  line-height: 26px;
+}
+
+/* Welcome Section */
+.welcome-to h2 {
+  font-size: 44px !important;
+  line-height: 54px !important;
+  margin-bottom: 20px;
+}
+
+.welcome-to p {
+  font-size: 16px;
+  line-height: 28px;
+  color: #777777;
+}
+
+/* Dog Walker CTA */
+.dog-walker-text h2 {
+  font-size: 42px !important;
+  line-height: 52px !important;
   margin-bottom: 15px;
-  position: relative;
-  overflow: hidden;
 }
 
-.healthy-product-img img {
-  max-height: 160px;
-  object-fit: contain;
-  margin: 0 auto 10px auto;
-  transition: transform 0.4s ease;
+.dog-walker-text p {
+  font-size: 17px;
+  line-height: 28px;
+  color: #555555;
+  margin-bottom: 25px;
 }
 
-.healthy-product:hover .healthy-product-img img {
-  transform: scale(1.06);
+/* Banner Page Titles */
+.banner-text h2 {
+  font-size: 54px !important;
+  line-height: 64px !important;
+  color: #222222;
+  margin-bottom: 10px;
 }
 
-/* Floating animation for Hero Mascot */
+/* Floating animation */
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
@@ -133,4 +233,30 @@ a {
 
 .hero-main-img {
   animation: float 4s ease-in-out infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .hero-text h1 {
+    font-size: 44px !important;
+    line-height: 52px !important;
+  }
+  .heading h2, .welcome-to h2, .dog-walker-text h2 {
+    font-size: 32px !important;
+    line-height: 40px !important;
+  }
+  .banner-text h2 {
+    font-size: 38px !important;
+    line-height: 46px !important;
+  }
+}
+
+@media (max-width: 575px) {
+  .hero-text h1 {
+    font-size: 34px !important;
+    line-height: 42px !important;
+  }
+  .gap {
+    padding: 60px 0;
+  }
 }
