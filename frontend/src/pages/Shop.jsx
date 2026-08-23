@@ -1,9 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import PageBanner from '../components/Common/PageBanner';
 import ProductCard from '../components/Common/ProductCard';
 import InstaGallery from '../components/Home/InstaGallery';
-import { products } from '../data/products';
+import { products as fallbackProducts } from '../data/products';
+import { getProductsAPI } from '../services/api';
 
 const categoriesList = [
   "All",
@@ -19,6 +20,9 @@ const Shop = () => {
   const activeCategoryParam = searchParams.get('category');
   const searchParam = searchParams.get('search') || '';
 
+  const [productsList, setProductsList] = useState(fallbackProducts);
+  const [isLoading, setIsLoading] = useState(true);
+
   const [selectedCategory, setSelectedCategory] = useState(
     activeCategoryParam
       ? activeCategoryParam.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())
@@ -26,8 +30,26 @@ const Shop = () => {
   );
   const [sortBy, setSortBy] = useState("default");
 
+  useEffect(() => {
+    let isMounted = true;
+    setIsLoading(true);
+    getProductsAPI()
+      .then((data) => {
+        if (isMounted && data && Array.isArray(data) && data.length > 0) {
+          setProductsList(data);
+        }
+      })
+      .catch(() => {
+        // Fallback to local high-fidelity dataset
+      })
+      .finally(() => {
+        if (isMounted) setIsLoading(false);
+      });
+    return () => { isMounted = false; };
+  }, []);
+
   const filteredProducts = useMemo(() => {
-    return products.filter(product => {
+    return productsList.filter(product => {
       const matchesCategory =
         selectedCategory === "All" ||
         product.category.toLowerCase() === selectedCategory.toLowerCase();
@@ -40,9 +62,9 @@ const Shop = () => {
       if (sortBy === "price-low") return a.price - b.price;
       if (sortBy === "price-high") return b.price - a.price;
       if (sortBy === "rating") return b.rating - a.rating;
-      return a.id - b.id;
+      return (a.id || 0) - (b.id || 0);
     });
-  }, [selectedCategory, searchParam, sortBy]);
+  }, [productsList, selectedCategory, searchParam, sortBy]);
 
   return (
     <div className="shop-page">
@@ -102,7 +124,7 @@ const Shop = () => {
           <div className="row g-4">
             {filteredProducts.length > 0 ? (
               filteredProducts.map(product => (
-                <div key={product.id} className="col-lg-3 col-md-4 col-sm-6">
+                <div key={product._id || product.id} className="col-lg-3 col-md-4 col-sm-6">
                   <ProductCard product={product} />
                 </div>
               ))

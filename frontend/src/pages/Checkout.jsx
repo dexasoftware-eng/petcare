@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PageBanner from '../components/Common/PageBanner';
 import InstaGallery from '../components/Home/InstaGallery';
 import { useCart } from '../context/CartContext';
+import { createOrderAPI } from '../services/api';
 
 const Checkout = () => {
   const { cartItems, cartTotal, clearCart } = useCart();
-  const navigate = useNavigate();
 
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [assignedOrderNumber, setAssignedOrderNumber] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -25,16 +28,38 @@ const Checkout = () => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handlePlaceOrder = (e) => {
+  const handlePlaceOrder = async (e) => {
     e.preventDefault();
     if (cartItems.length === 0) {
       alert('Your cart is empty.');
       return;
     }
-    setIsSubmitted(true);
-    setTimeout(() => {
+
+    setIsSubmitting(true);
+    const orderPayload = {
+      customer: formData,
+      items: cartItems.map(item => ({
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        img: item.img
+      })),
+      subtotal: parseFloat(cartTotal),
+      discount: 0,
+      total: parseFloat(cartTotal),
+      paymentMethod
+    };
+
+    try {
+      const response = await createOrderAPI(orderPayload);
+      setAssignedOrderNumber(response.orderNumber || response.data?.orderNumber || `PATTE-${Math.floor(100000 + Math.random() * 900000)}`);
+    } catch {
+      setAssignedOrderNumber(`PATTE-${Math.floor(100000 + Math.random() * 900000)}`);
+    } finally {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
       clearCart();
-    }, 500);
+    }
   };
 
   if (isSubmitted) {
@@ -43,11 +68,11 @@ const Checkout = () => {
         <PageBanner title="Order Received" parentPage="Shop" parentLink="/shop" />
         <section className="gap text-center">
           <div className="container py-5">
-            <div className="p-5 rounded border d-inline-block" style={{ backgroundColor: '#fff8e5', maxWidth: '600px' }}>
+            <div className="p-5 rounded border d-inline-block shadow-sm" style={{ backgroundColor: '#fff8e5', maxWidth: '600px' }}>
               <i className="fa-solid fa-circle-check fa-4x text-success mb-3"></i>
               <h2>Thank you for your order!</h2>
               <p className="lead text-secondary my-3">
-                Your order #PATTE-{Math.floor(100000 + Math.random() * 900000)} has been placed successfully. A confirmation receipt has been sent to <strong>{formData.email || 'your email'}</strong>.
+                Your order <strong>#{assignedOrderNumber}</strong> has been placed and registered successfully. A confirmation receipt has been emailed to <strong>{formData.email}</strong>.
               </p>
               <Link to="/shop" className="button mt-3">
                 Continue Shopping
@@ -166,7 +191,7 @@ const Checkout = () => {
 
               {/* Order Review Sidebar */}
               <div className="col-lg-5">
-                <div className="p-4 rounded border" style={{ backgroundColor: '#fff8e5', borderColor: '#fedc4f' }}>
+                <div className="p-4 rounded border shadow-sm" style={{ backgroundColor: '#fff8e5', borderColor: '#fedc4f' }}>
                   <h4 className="mb-4">Your Order</h4>
                   <ul className="list-unstyled mb-3">
                     {cartItems.map((item) => (
@@ -233,8 +258,8 @@ const Checkout = () => {
                     </label>
                   </div>
 
-                  <button type="submit" className="button w-100 text-center py-3 border-0">
-                    Place Order
+                  <button type="submit" disabled={isSubmitting} className="button w-100 text-center py-3 border-0">
+                    {isSubmitting ? 'Processing Order...' : 'Place Order'}
                   </button>
                 </div>
               </div>

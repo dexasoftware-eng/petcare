@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import PageBanner from '../components/Common/PageBanner';
 import InstaGallery from '../components/Home/InstaGallery';
-import { blogPosts } from '../data/blog';
+import { blogPosts as fallbackBlogs } from '../data/blog';
+import { getBlogPostsAPI, getBlogPostByIdAPI, addCommentAPI } from '../services/api';
 
 const BlogDetails = () => {
   const { id } = useParams();
-  const post = blogPosts.find(p => p.id === parseInt(id || '1')) || blogPosts[0];
-  const recentPosts = blogPosts.filter(p => p.id !== post.id).slice(0, 3);
+  const [post, setPost] = useState(fallbackBlogs[0]);
+  const [recentPosts, setRecentPosts] = useState(fallbackBlogs.slice(1, 4));
 
   const [commentName, setCommentName] = useState('');
+  const [commentEmail, setCommentEmail] = useState('');
   const [commentText, setCommentText] = useState('');
   const [comments, setComments] = useState([
     {
@@ -28,20 +30,61 @@ const BlogDetails = () => {
     }
   ]);
 
-  const handleCommentSubmit = (e) => {
+  useEffect(() => {
+    let isMounted = true;
+    getBlogPostByIdAPI(id || '1')
+      .then((data) => {
+        if (isMounted && data) {
+          setPost(data);
+          if (data.comments && data.comments.length > 0) {
+            setComments(data.comments);
+          }
+        }
+      })
+      .catch(() => {
+        const found = fallbackBlogs.find(p => p.id === parseInt(id || '1')) || fallbackBlogs[0];
+        if (isMounted) setPost(found);
+      });
+
+    getBlogPostsAPI()
+      .then((data) => {
+        if (isMounted && Array.isArray(data) && data.length > 0) {
+          setRecentPosts(data.slice(0, 3));
+        }
+      })
+      .catch(() => {});
+
+    return () => { isMounted = false; };
+  }, [id]);
+
+  const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (commentName.trim() && commentText.trim()) {
-      setComments(prev => [
-        ...prev,
-        {
-          id: Date.now(),
-          name: commentName.trim(),
-          date: 'Just now',
-          avatar: '/assets/img/comment-3.jpg',
-          text: commentText.trim()
+      const newComment = {
+        id: Date.now(),
+        name: commentName.trim(),
+        email: commentEmail.trim(),
+        date: 'Just now',
+        avatar: '/assets/img/comment-3.jpg',
+        text: commentText.trim()
+      };
+
+      setComments(prev => [...prev, newComment]);
+
+      if (post._id) {
+        try {
+          await addCommentAPI(post._id, {
+            name: commentName.trim(),
+            email: commentEmail.trim(),
+            text: commentText.trim()
+          });
+        } catch {
+          // Handled locally
         }
-      ]);
+      }
+
       setCommentName('');
+      setCommentEmail('');
       setCommentText('');
     }
   };
@@ -60,7 +103,7 @@ const BlogDetails = () => {
 
                 <div className="d-flex align-items-center gap-3 mb-3">
                   <span className="badge px-3 py-2 text-white" style={{ backgroundColor: '#fa441d' }}>{post.category}</span>
-                  <span className="text-muted"><i className="fa-regular fa-calendar me-1"></i>{post.date.day} {post.date.monthYear}</span>
+                  <span className="text-muted"><i className="fa-regular fa-calendar me-1"></i>{post.date?.day} {post.date?.monthYear}</span>
                   <span className="text-muted"><i className="fa-regular fa-user me-1"></i>By {post.author}</span>
                 </div>
 
@@ -75,7 +118,7 @@ const BlogDetails = () => {
                 </p>
 
                 {/* Blockquote callout */}
-                <blockquote className="p-4 rounded border-start border-4 my-4" style={{ backgroundColor: '#fff8e5', borderColor: '#fa441d' }}>
+                <blockquote className="p-4 rounded border-start border-4 my-4 shadow-sm" style={{ backgroundColor: '#fff8e5', borderColor: '#fa441d' }}>
                   <p className="fst-italic mb-2 fs-5 text-dark">
                     "A balanced diet is the cornerstone of preventative veterinary medicine. What we put in our pets' bowls directly determines their vigor and lifespan."
                   </p>
@@ -91,12 +134,12 @@ const BlogDetails = () => {
                   <h3 className="mb-4">Comments ({comments.length})</h3>
                   <div className="d-flex flex-column gap-4 mb-5">
                     {comments.map((c) => (
-                      <div key={c.id} className="d-flex gap-3 p-3 rounded" style={{ backgroundColor: '#fcfcfc', border: '1px solid #f0f0f0' }}>
-                        <img src={c.avatar} alt={c.name} className="rounded-circle" style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
+                      <div key={c._id || c.id} className="d-flex gap-3 p-3 rounded" style={{ backgroundColor: '#fcfcfc', border: '1px solid #f0f0f0' }}>
+                        <img src={c.avatar || '/assets/img/comment-1.jpg'} alt={c.name} className="rounded-circle" style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
                         <div>
                           <div className="d-flex align-items-center gap-2">
                             <h6 className="mb-0 fw-bold">{c.name}</h6>
-                            <small className="text-muted">• {c.date}</small>
+                            <small className="text-muted">• {c.date || 'Recently'}</small>
                           </div>
                           <p className="mb-0 text-secondary mt-1">{c.text}</p>
                         </div>
@@ -120,8 +163,9 @@ const BlogDetails = () => {
                     <div className="col-md-6">
                       <input
                         type="email"
-                        placeholder="Your Email *"
-                        required
+                        placeholder="Your Email"
+                        value={commentEmail}
+                        onChange={(e) => setCommentEmail(e.target.value)}
                         className="form-control p-3"
                       />
                     </div>
@@ -149,7 +193,7 @@ const BlogDetails = () => {
             <div className="col-lg-4">
               <div className="blog-sidebar">
                 {/* Search */}
-                <div className="p-4 rounded border mb-4" style={{ backgroundColor: '#fff8e5' }}>
+                <div className="p-4 rounded border mb-4 shadow-sm" style={{ backgroundColor: '#fff8e5' }}>
                   <h5 className="mb-3">Search</h5>
                   <div className="input-group">
                     <input type="text" className="form-control" placeholder="Search..." />
@@ -158,17 +202,17 @@ const BlogDetails = () => {
                 </div>
 
                 {/* Recent Posts */}
-                <div className="p-4 rounded border mb-4" style={{ backgroundColor: '#fff8e5' }}>
+                <div className="p-4 rounded border mb-4 shadow-sm" style={{ backgroundColor: '#fff8e5' }}>
                   <h5 className="mb-3">Recent Posts</h5>
                   <ul className="list-unstyled mb-0">
                     {recentPosts.map((r) => (
-                      <li key={r.id} className="d-flex align-items-center gap-3 mb-3 pb-3 border-bottom">
+                      <li key={r._id || r.id} className="d-flex align-items-center gap-3 mb-3 pb-3 border-bottom">
                         <img src={r.img} alt={r.title} className="rounded" style={{ width: '65px', height: '65px', objectFit: 'cover' }} />
                         <div>
-                          <Link to={`/blog/${r.id}`} className="text-dark fw-bold small d-block mb-1">
+                          <Link to={`/blog/${r._id || r.id}`} className="text-dark fw-bold small d-block mb-1">
                             {r.title}
                           </Link>
-                          <small className="text-muted">{r.date.day} {r.date.monthYear}</small>
+                          <small className="text-muted">{r.date?.day} {r.date?.monthYear}</small>
                         </div>
                       </li>
                     ))}
@@ -176,7 +220,7 @@ const BlogDetails = () => {
                 </div>
 
                 {/* Categories */}
-                <div className="p-4 rounded border mb-4" style={{ backgroundColor: '#fff8e5' }}>
+                <div className="p-4 rounded border mb-4 shadow-sm" style={{ backgroundColor: '#fff8e5' }}>
                   <h5 className="mb-3">Categories</h5>
                   <ul className="list-unstyled mb-0">
                     <li className="py-2 border-bottom d-flex justify-content-between"><Link to="/blog?category=Animal Care" className="text-dark">Animal Care</Link><span>(12)</span></li>
