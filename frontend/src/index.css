@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&family=DynaPuff:wght@400..700&display=swap');
+@import './assets/css/bootstrap.min.css';
 @import './assets/css/style.css';
 @import './assets/css/responsive.css';
 @import './assets/css/color.css';
@@ -37,16 +38,6 @@ h1, h2, h3, h4, h5, h6 {
 a {
   text-decoration: none;
   transition: all 0.3s ease;
-}
-
-/* Base Tailwind Harmonization */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 
 /* Button Styling */
@@ -133,7 +124,7 @@ a {
   transform: scale(1.06);
 }
 
-/* Animations */
+/* Floating animation for Hero Mascot */
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }

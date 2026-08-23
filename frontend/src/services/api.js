@@ -1,88 +1,85 @@
+import axios from 'axios';
+
 const API_BASE_URL = 'http://localhost:5000/api';
 
-/**
- * Universal Fetch Helper with error handling and fallback cache
- */
-async function fetchAPI(endpoint, options = {}) {
+// Create Axios Client
+const apiClient = axios.create({
+  baseURL: API_BASE_URL,
+  timeout: 8000,
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+
+// Helper for requests with error interception
+async function request(endpoint, options = {}) {
   try {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-      },
-      ...options
-    });
-    
-    if (!response.ok) {
-      throw new Error(`API error: ${response.status} ${response.statusText}`);
-    }
-    
-    const result = await response.json();
-    return result.data !== undefined ? result.data : result;
+    const response = await apiClient(endpoint, options);
+    return response.data?.data !== undefined ? response.data.data : response.data;
   } catch (error) {
-    console.warn(`Fetch error for ${endpoint}, falling back to local dataset:`, error.message);
+    console.warn(`Axios request to ${endpoint} failed, continuing with fallback:`, error.message);
     throw error;
   }
 }
 
 // Products API
 export const getProductsAPI = async (params = {}) => {
-  const query = new URLSearchParams(params).toString();
-  return fetchAPI(`/products${query ? `?${query}` : ''}`);
+  return request('/products', { params });
 };
 
 export const getProductByIdAPI = async (id) => {
-  return fetchAPI(`/products/${id}`);
+  return request(`/products/${id}`);
 };
 
 // Services API
 export const getServicesAPI = async (highlight = false) => {
-  return fetchAPI(`/services${highlight ? '?highlight=true' : ''}`);
+  return request('/services', { params: highlight ? { highlight: 'true' } : {} });
 };
 
 export const getServiceByIdAPI = async (id) => {
-  return fetchAPI(`/services/${id}`);
+  return request(`/services/${id}`);
 };
 
 // Categories API
 export const getCategoriesAPI = async () => {
-  return fetchAPI('/categories');
+  return request('/categories');
 };
 
 // Team API
 export const getTeamAPI = async () => {
-  return fetchAPI('/team');
+  return request('/team');
 };
 
 // Blog API
 export const getBlogPostsAPI = async (params = {}) => {
-  const query = new URLSearchParams(params).toString();
-  return fetchAPI(`/blog${query ? `?${query}` : ''}`);
+  return request('/blog', { params });
 };
 
 export const getBlogPostByIdAPI = async (id) => {
-  return fetchAPI(`/blog/${id}`);
+  return request(`/blog/${id}`);
 };
 
 export const addCommentAPI = async (postId, commentData) => {
-  return fetchAPI(`/blog/${postId}/comments`, {
+  return request(`/blog/${postId}/comments`, {
     method: 'POST',
-    body: JSON.stringify(commentData)
+    data: commentData
   });
 };
 
 // Orders API
 export const createOrderAPI = async (orderData) => {
-  return fetchAPI('/orders', {
+  return request('/orders', {
     method: 'POST',
-    body: JSON.stringify(orderData)
+    data: orderData
   });
 };
 
 // Inquiries / Contact API
 export const createInquiryAPI = async (inquiryData) => {
-  return fetchAPI('/inquiries', {
+  return request('/inquiries', {
     method: 'POST',
-    body: JSON.stringify(inquiryData)
+    data: inquiryData
   });
 };
+
+export default apiClient;
