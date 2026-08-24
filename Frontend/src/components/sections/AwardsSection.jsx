@@ -11,7 +11,7 @@ export default function AwardsSection() {
   return (
     <div className="gap">
       <div className="container">
-        <h3 className="awards">Built on Modern Standards & Security</h3>
+        <h3 className="awards">Awards Winning Company</h3>
         <div className="awards">
           {awards.map((award) => (
             <img key={award.id} src={award.img} alt={award.alt} />
