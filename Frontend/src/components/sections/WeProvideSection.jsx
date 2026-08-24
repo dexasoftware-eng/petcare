@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from '../../router/Router';
 import { weProvideItems } from '../../data/templateData';
 
-export default function WeProvideSection() {
+export default function WeProvideSection({ className = 'gap no-bottom', style = {} }) {
   return (
-    <section className="gap no-bottom">
+    <section className={className} style={style}>
       <div className="container">
         <div className="row">
           {weProvideItems.map((item, index) => (

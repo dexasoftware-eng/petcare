@@ -49,8 +49,8 @@ export default function About() {
       {/* 2. Company Story & Welcome Section */}
       <CompanyStorySection />
 
-      {/* 3. What We Provide 3-Card Grid (Built-in Reusable Component) */}
-      <WeProvideSection />
+      {/* 3. What We Provide 3-Card Grid (with custom bottom spacing on About page) */}
+      <WeProvideSection className="gap" style={{ paddingBottom: '90px' }} />
 
       {/* 4. Care Services Grid & Video Highlight */}
       <CareServicesVideoSection onPlayVideo={() => setIsVideoOpen(true)} />

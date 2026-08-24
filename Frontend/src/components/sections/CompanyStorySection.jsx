@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function CompanyStorySection() {
   return (
-    <section className="gap about" style={{ paddingBottom: '120px' }}>
+    <section className="gap about">
       <div className="container">
         <div className="row align-items-center">
           <div className="col-lg-6">
