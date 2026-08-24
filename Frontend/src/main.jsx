@@ -6,7 +6,6 @@ import './assets/css/owl.theme.default.min.css';
 import './assets/css/slick.css';
 import './assets/css/slick-theme.css';
 import './assets/css/jquery.fancybox.min.css';
-import './assets/css/fontawesome.min.css';
 import './assets/css/style.css';
 import './assets/css/color.css';
 import './assets/css/responsive.css';

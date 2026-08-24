@@ -158,7 +158,7 @@ export default function Header({ onOpenCart, onOpenSearch, onOpenMobileNav }) {
               <a href="javascript:void(0)" className="search-btn">
                 <svg height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg">
                   <g id="_12" data-name="12">
-                    <path d="m21.71 20.29-2.83-2.82a9.52 9.52 0 1 0 -1.41 1.41l2.82 2.83a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zm-17.71-8.79a7.5 7.5 0 1 1 7.5 7.5 7.5 0 0 1 -7.5-7.5z" />
+                    <path d="M21.71 20.29l-2.83-2.82A9.52 9.52 0 1 0 17.47 18.88l2.82 2.83a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM4 11.5a7.5 7.5 0 1 1 7.5 7.5A7.5 7.5 0 0 1 4 11.5z" />
                   </g>
                 </svg>
               </a>
