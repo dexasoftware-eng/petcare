@@ -35,7 +35,7 @@ export const services = [
     icon: "/assets/img/welcome-to-2.png",
     accentColor: "#940c69",
     shortDesc: "Track immunization records, core booster deadlines, and daily prescription schedules.",
-    fullDesc: "Never miss a critical immunization. FurShield provides automated timeline reminders for rabies, DHPP, FVRCP, and parasite control alongside ongoing prescription management.",
+    fullDesc: "Never miss a critical immunization. PetGuard provides automated timeline reminders for rabies, DHPP, FVRCP, and parasite control alongside ongoing prescription management.",
     features: [
       "Automated core vaccine renewal timelines",
       "Prescription dosage and frequency tracking",

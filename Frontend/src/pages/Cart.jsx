@@ -12,11 +12,11 @@ const Cart = () => {
 
   const handleApplyCoupon = (e) => {
     e.preventDefault();
-    if (coupon.trim().toUpperCase() === 'FURSHIELD10') {
+    if (coupon.trim().toUpperCase() === 'PETGUARD10') {
       setDiscount(parseFloat((parseFloat(cartTotal) * 0.1).toFixed(2)));
       setCouponApplied(true);
     } else {
-      alert('Invalid coupon code. Try FURSHIELD10 for 10% off!');
+      alert('Invalid coupon code. Try PETGUARD10 for 10% off!');
     }
   };
 
@@ -107,7 +107,7 @@ const Cart = () => {
                     <input
                       type="text"
                       className="form-control form-control-sm"
-                      placeholder="Coupon code (FURSHIELD10)"
+                      placeholder="Coupon code (PETGUARD10)"
                       value={coupon}
                       onChange={(e) => setCoupon(e.target.value)}
                     />

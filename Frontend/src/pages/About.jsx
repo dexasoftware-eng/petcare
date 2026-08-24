@@ -74,7 +74,7 @@ export default function About() {
 
       {/* 10. Discount / CTA Promo Banner */}
       <PromoMockupSection
-        title="Create your pet's digital health profile with FurShield today"
+        title="Create your pet's digital health profile with PetGuard today"
         description="Join proactive pet owners, certified veterinary clinics, and rescue shelters collaborating on one connected platform."
         buttonText="Create Pet Profile"
         buttonLink="/register/owner"
@@ -140,7 +140,7 @@ export default function About() {
               width="100%"
               height="100%"
               src="https://www.youtube-nocookie.com/embed/xKxrkht7CpY?autoplay=1"
-              title="FurShield Pet Care Video"
+              title="PetGuard Pet Care Video"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen

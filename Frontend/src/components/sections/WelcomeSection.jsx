@@ -8,9 +8,9 @@ export default function WelcomeSection() {
         <div className="row">
           <div className="col-lg-6">
             <div className="welcome-to">
-              <h2>Welcome to FurShield Connected Pet Care</h2>
+              <h2>Welcome to PetGuard Connected Pet Care</h2>
               <p>
-                FurShield is a modern, unified platform designed to bridge the gap between pet owners, veterinary professionals, and animal rescue shelters. From digital health records and vaccination tracking to clinical consultations and adoption workflows, we bring every facet of pet wellbeing into one secure, accessible ecosystem.
+                PetGuard is a modern, unified platform designed to bridge the gap between pet owners, veterinary professionals, and animal rescue shelters. From digital health records and vaccination tracking to clinical consultations and adoption workflows, we bring every facet of pet wellbeing into one secure, accessible ecosystem.
               </p>
               <div className="row mt-lg-5">
                 <div className="col-md-6">

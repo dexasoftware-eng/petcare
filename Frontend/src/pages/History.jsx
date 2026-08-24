@@ -50,13 +50,13 @@ export default function History({ onOpenLightbox }) {
             </div>
             <div className="col-lg-6 ps-lg-5 mt-4 mt-lg-0">
               <h2 style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '20px' }}>
-                The Vision Behind FurShield
+                The Vision Behind PetGuard
               </h2>
               <p style={{ lineHeight: '1.8', marginBottom: '20px' }}>
-                FurShield was created to solve one of modern pet ownership's biggest pain points: fragmented pet records and uncoordinated care. Between changing vet clinics, tracking immunization boosters, managing medications, and navigating rescue adoptions, pet information is too often lost in scattered paperwork.
+                PetGuard was created to solve one of modern pet ownership's biggest pain points: fragmented pet records and uncoordinated care. Between changing vet clinics, tracking immunization boosters, managing medications, and navigating rescue adoptions, pet information is too often lost in scattered paperwork.
               </p>
               <p style={{ lineHeight: '1.8', marginBottom: '20px' }}>
-                Our platform unites Pet Owners, licensed Veterinarians, and Animal Rescue Shelters into one secure, connected ecosystem. Today, FurShield provides a unified digital space where pet wellness, clinical consultations, and responsible adoptions thrive together.
+                Our platform unites Pet Owners, licensed Veterinarians, and Animal Rescue Shelters into one secure, connected ecosystem. Today, PetGuard provides a unified digital space where pet wellness, clinical consultations, and responsible adoptions thrive together.
               </p>
             </div>
           </div>

@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 const faqs = [
   {
     id: 1,
-    title: '1. What is FurShield and who is it designed for?',
+    title: '1. What is PetGuard and who is it designed for?',
     content:
-      'FurShield is a digital ecosystem built for Pet Owners, licensed Veterinarians, and registered Animal Shelters to manage pet health profiles, clinical care, and adoption workflows in one place.',
+      'PetGuard is a digital ecosystem built for Pet Owners, licensed Veterinarians, and registered Animal Shelters to manage pet health profiles, clinical care, and adoption workflows in one place.',
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const faqs = [
     id: 4,
     title: "4. How is my pet's data and health information protected?",
     content:
-      'FurShield implements secure role-based access control and protected authentication so that only authorized pet owners and linked veterinary clinics can access pet health records.',
+      'PetGuard implements secure role-based access control and protected authentication so that only authorized pet owners and linked veterinary clinics can access pet health records.',
   },
 ];
 
@@ -41,7 +41,7 @@ export default function ServicesFaqSection() {
           <div className="col-lg-6">
             <div className="heading two w-100 mb-4">
               <h6>Frequently Asked Questions</h6>
-              <h2>How FurShield Works For You</h2>
+              <h2>How PetGuard Works For You</h2>
             </div>
             <div className="accordion">
               {faqs.map((faq) => {

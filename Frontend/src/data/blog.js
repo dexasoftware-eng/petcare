@@ -9,7 +9,7 @@ export const blogPosts = [
     authorImg: "/assets/img/man.jpg",
     img: "/assets/img/blog-1.jpg",
     excerpt: "Understand core vaccines, booster timing guidelines, and how digital health profiles keep your pet protected year-round.",
-    content: "Core immunizations protect canine and feline companions against severe viral diseases. Maintaining an organized, digital vaccination timeline ensures your pet never misses a crucial booster window. With FurShield, pet owners can upload clinic certificates and receive timely reminders before renewals are due."
+    content: "Core immunizations protect canine and feline companions against severe viral diseases. Maintaining an organized, digital vaccination timeline ensures your pet never misses a crucial booster window. With PetGuard, pet owners can upload clinic certificates and receive timely reminders before renewals are due."
   },
   {
     id: 2,
@@ -33,7 +33,7 @@ export const blogPosts = [
     authorImg: "/assets/img/man.jpg",
     img: "/assets/img/blog-3.jpg",
     excerpt: "A compassionate step-by-step roadmap for helping newly adopted shelter pets transition comfortably to their new home.",
-    content: "The 3-3-3 rule represents the phases a rescue pet experiences: 3 days of decompression, 3 weeks of learning routines, and 3 months of true trust. FurShield connects shelters and adopters with digital pet profiles so medical and behavioral records transfer seamlessly."
+    content: "The 3-3-3 rule represents the phases a rescue pet experiences: 3 days of decompression, 3 weeks of learning routines, and 3 months of true trust. PetGuard connects shelters and adopters with digital pet profiles so medical and behavioral records transfer seamlessly."
   },
   {
     id: 4,

@@ -75,7 +75,7 @@ export default function BlogDetails({ onOpenLightbox }) {
                   "Timely vaccination and accessible medical history are the most effective preventive steps against preventable companion animal diseases."
                 </blockquote>
                 <p style={{ lineHeight: '1.8', marginBottom: '20px' }}>
-                  With FurShield digital health records, pet parents can log vaccine dates, upload clinic certificates, and receive automated notifications before boosters are due. When visiting a new veterinarian or animal shelter, all immunization documentation is instantly accessible.
+                  With PetGuard digital health records, pet parents can log vaccine dates, upload clinic certificates, and receive automated notifications before boosters are due. When visiting a new veterinarian or animal shelter, all immunization documentation is instantly accessible.
                 </p>
                 <p style={{ lineHeight: '1.8', marginBottom: '20px', fontSize: '14px', color: '#777', fontStyle: 'italic' }}>
                   *Disclaimer: Always consult your licensed veterinarian for immunization protocols and healthcare advice tailored specifically to your pet's age, medical history, and lifestyle.

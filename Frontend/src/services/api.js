@@ -109,7 +109,7 @@ async function customFetch(endpoint, options = {}) {
     } catch (refreshErr) {
       processQueue(refreshErr, null);
       setAccessToken(null);
-      window.dispatchEvent(new CustomEvent('furshield:auth-expired'));
+      window.dispatchEvent(new CustomEvent('petguard:auth-expired'));
       const error = new Error('Session expired');
       error.response = { status: 401, data: responseData };
       throw error;

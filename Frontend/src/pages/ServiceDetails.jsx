@@ -56,7 +56,7 @@ export default function ServiceDetails({ onOpenLightbox }) {
                   Centralized Digital Pet Profiles &amp; Health Tracking
                 </h3>
                 <p style={{ lineHeight: '1.8', marginBottom: '20px' }}>
-                  FurShield empowers pet owners and veterinary professionals with structured, accessible health profiles. Keep comprehensive track of vaccinations, medical diagnoses, allergies, dietary schedules, and emergency contacts in one secure, accessible cloud environment.
+                  PetGuard empowers pet owners and veterinary professionals with structured, accessible health profiles. Keep comprehensive track of vaccinations, medical diagnoses, allergies, dietary schedules, and emergency contacts in one secure, accessible cloud environment.
                 </p>
                 <div className="row my-4">
                   <div className="col-md-6">

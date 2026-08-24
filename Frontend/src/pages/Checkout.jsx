@@ -52,9 +52,9 @@ const Checkout = () => {
 
     try {
       const response = await createOrderAPI(orderPayload);
-      setAssignedOrderNumber(response.orderNumber || response.data?.orderNumber || `FURSHIELD-${Math.floor(100000 + Math.random() * 900000)}`);
+      setAssignedOrderNumber(response.orderNumber || response.data?.orderNumber || `PETGUARD-${Math.floor(100000 + Math.random() * 900000)}`);
     } catch {
-      setAssignedOrderNumber(`FURSHIELD-${Math.floor(100000 + Math.random() * 900000)}`);
+      setAssignedOrderNumber(`PETGUARD-${Math.floor(100000 + Math.random() * 900000)}`);
     } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);

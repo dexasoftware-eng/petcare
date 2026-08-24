@@ -37,8 +37,8 @@ export const AuthProvider = ({ children }) => {
       setAccessToken(null);
     };
 
-    window.addEventListener('furshield:auth-expired', handleAuthExpired);
-    return () => window.removeEventListener('furshield:auth-expired', handleAuthExpired);
+    window.addEventListener('petguard:auth-expired', handleAuthExpired);
+    return () => window.removeEventListener('petguard:auth-expired', handleAuthExpired);
   }, [checkAuth]);
 
   const login = async (email, password) => {

@@ -11,7 +11,7 @@ export default function CompanyStorySection() {
             </div>
             <div className="love-your-pets">
               <p>
-                FurShield was created to solve a widespread challenge in pet care: fragmented information. We unite pet owners, veterinary clinics, and animal rescue shelters into one structured digital platform, making pet health tracking, appointments, and adoptions seamless and transparent.
+                PetGuard was created to solve a widespread challenge in pet care: fragmented information. We unite pet owners, veterinary clinics, and animal rescue shelters into one structured digital platform, making pet health tracking, appointments, and adoptions seamless and transparent.
               </p>
               <ul className="list">
                 <li>
@@ -28,7 +28,7 @@ export default function CompanyStorySection() {
                 </li>
               </ul>
               <div className="company-oner position-relative">
-                <img src="/assets/img/heading-img.png" alt="FurShield Shield Emblem" style={{ objectFit: 'contain', padding: '10px' }} />
+                <img src="/assets/img/heading-img.png" alt="PetGuard Emblem" style={{ objectFit: 'contain', padding: '10px' }} />
                 <svg width="116" height="116" viewBox="0 0 673 673" xmlns="http://www.w3.org/2000/svg">
                   <path
                     fillRule="evenodd"
@@ -38,7 +38,7 @@ export default function CompanyStorySection() {
                   />
                 </svg>
                 <div>
-                  <h3>FurShield Ecosystem</h3>
+                  <h3>PetGuard Ecosystem</h3>
                   <p>Smarter Pet Health &amp; Care Collaboration</p>
                 </div>
               </div>

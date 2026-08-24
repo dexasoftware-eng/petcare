@@ -11,7 +11,7 @@ export default function Footer() {
               <Link to="/">
                 <img src="/assets/img/logo.svg" alt="Petguard" style={{ height: '48px', width: 'auto' }} />
               </Link>
-              <p>FurShield is a multi-role digital platform connecting pet owners, veterinary clinics, and animal rescue shelters for smarter health management and streamlined care coordination.</p>
+              <p>PetGuard is a multi-role digital platform connecting pet owners, veterinary clinics, and animal rescue shelters for smarter health management and streamlined care coordination.</p>
               <div className="phone">
                 <i>
                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style={{ enableBackground: 'new 0 0 512 512' }}>

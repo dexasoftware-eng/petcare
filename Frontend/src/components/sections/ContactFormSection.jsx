@@ -17,7 +17,7 @@ export default function ContactFormSection() {
   const handleBranchSearch = (e) => {
     e.preventDefault();
     if (branchSearch.trim()) {
-      alert(`Searching for available FurShield branches near: ${branchSearch}`);
+      alert(`Searching for available PetGuard branches near: ${branchSearch}`);
     }
   };
 
@@ -73,7 +73,7 @@ export default function ContactFormSection() {
           <div className="col-lg-6">
             <div className="looking position-relative contact">
               <form className="looking-form" onSubmit={handleBookingSubmit}>
-                <h3>Schedule Care or Contact FurShield</h3>
+                <h3>Schedule Care or Contact PetGuard</h3>
 
                 {/* Pet Selector Radio Pills */}
                 <ul style={{ display: 'flex', gap: '20px', listStyle: 'none', padding: 0, margin: '20px 0' }}>
