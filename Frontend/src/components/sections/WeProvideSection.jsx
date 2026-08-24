@@ -6,59 +6,13 @@ export default function WeProvideSection() {
   return (
     <section className="gap no-bottom">
       <div className="container">
-        <div className="row g-4 align-items-stretch">
-          {weProvideItems.map((item) => (
-            <div key={item.id} className="col-lg-4 col-md-6 d-flex">
-              <div
-                className="we-provide w-100"
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  height: '100%',
-                  padding: '30px 24px',
-                  backgroundColor: '#ffffff',
-                  borderRadius: '24px',
-                  boxShadow: '0 8px 30px rgba(0,0,0,0.04)',
-                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                  border: '1px solid #f2ecdf',
-                }}
-              >
-                <div
-                  className="we-provide-img"
-                  style={{
-                    position: 'relative',
-                    width: '100%',
-                    height: '240px',
-                    borderRadius: '18px',
-                    overflow: 'hidden',
-                    marginBottom: '20px',
-                  }}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      display: 'block',
-                    }}
-                  />
-                  <svg
-                    width="326"
-                    height="326"
-                    viewBox="0 0 673 673"
-                    xmlns="http://www.w3.org/2000/svg"
-                    style={{
-                      position: 'absolute',
-                      top: '-15%',
-                      right: '-15%',
-                      opacity: 0.15,
-                      pointerEvents: 'none',
-                    }}
-                  >
+        <div className="row">
+          {weProvideItems.map((item, index) => (
+            <div key={item.id} className="col-lg-4 col-md-6">
+              <div className={`we-provide ${index === weProvideItems.length - 1 ? 'mb-0' : ''}`}>
+                <div className="we-provide-img">
+                  <img src={item.image} alt={item.title} />
+                  <svg width="326" height="326" viewBox="0 0 673 673" xmlns="http://www.w3.org/2000/svg">
                     <path
                       fillRule="evenodd"
                       clipRule="evenodd"
@@ -67,14 +21,10 @@ export default function WeProvideSection() {
                     />
                   </svg>
                 </div>
-                <Link to={item.link} style={{ textDecoration: 'none' }}>
-                  <h5 style={{ fontSize: '22px', fontWeight: 700, color: '#222', marginBottom: '12px', textAlign: 'center' }}>
-                    {item.title}
-                  </h5>
+                <Link to={item.link}>
+                  <h5>{item.title}</h5>
                 </Link>
-                <p style={{ fontSize: '15px', color: '#666', lineHeight: 1.6, textAlign: 'center', margin: 0, flexGrow: 1 }}>
-                  {item.desc}
-                </p>
+                <p>{item.desc}</p>
               </div>
             </div>
           ))}
