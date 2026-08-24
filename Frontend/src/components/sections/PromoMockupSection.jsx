@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from '../../router/Router';
 
 export default function PromoMockupSection({
-  title = 'Register your pet with us and Get 5% off their next order',
-  description = 'Join the FurShield family today for health tracking, certified clinics, and shelter adoptions.',
-  buttonText = 'Register Now',
+  title = "Create your pet's digital health profile with FurShield today",
+  description = 'Join proactive pet owners, certified veterinary clinics, and rescue shelters collaborating on one connected platform.',
+  buttonText = 'Create Pet Profile',
   buttonLink = '/register/owner',
   image = '/assets/img/mockup.png',
 }) {
@@ -13,7 +13,7 @@ export default function PromoMockupSection({
       <div className="container">
         <div className="mockup">
           <h3>
-            Register your pet with us and <span>Get 5% off</span> their next order
+            Create your pet's digital profile with <span>FurShield</span> today
           </h3>
           <div className="mockup-img">
             <img src={image} alt="Pet Care Promo" />

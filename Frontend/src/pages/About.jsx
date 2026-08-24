@@ -74,9 +74,9 @@ export default function About() {
 
       {/* 10. Discount / CTA Promo Banner */}
       <PromoMockupSection
-        title="Register your pet with us and Get 5% off their next order"
-        description="Join the FurShield family today for health tracking, certified clinics, and shelter adoptions."
-        buttonText="Register Now"
+        title="Create your pet's digital health profile with FurShield today"
+        description="Join proactive pet owners, certified veterinary clinics, and rescue shelters collaborating on one connected platform."
+        buttonText="Create Pet Profile"
         buttonLink="/register/owner"
       />
 

@@ -33,19 +33,19 @@ export default function ContactFormSection() {
           {/* Left Column: Branch Finder & Head Offices */}
           <div className="col-lg-6">
             <div className="find-a-dog contact">
-              <h2>Find a dog walker or pet care</h2>
-              <p>Place your trust in We Love Pets, an award-winning dog walking and pet care</p>
+              <h2>Find a Clinic or Support Center</h2>
+              <p>Locate partner veterinary clinics, care specialists, and rescue shelter centers in your network.</p>
               <form onSubmit={handleBranchSearch}>
                 <input
                   type="text"
                   name="branchSearch"
-                  placeholder="Enter address or postcode..."
+                  placeholder="Enter city, state, or postcode..."
                   value={branchSearch}
                   onChange={(e) => setBranchSearch(e.target.value)}
                   required
                 />
                 <button type="submit" className="button">
-                  Find Branch
+                  Find Center
                 </button>
               </form>
 
@@ -53,7 +53,7 @@ export default function ContactFormSection() {
               <div className="head-office mt-4">
                 <div className="d-flex align-items-center">
                   <i className="fa-solid fa-location-dot"></i>
-                  <h6>Head Office United States:</h6>
+                  <h6>Global Operations Office:</h6>
                 </div>
                 <p>#201 1218 9th Avenue SE, Calgary, AB T2G 0T1</p>
               </div>
@@ -62,7 +62,7 @@ export default function ContactFormSection() {
               <div className="head-office mb-lg-0">
                 <div className="d-flex align-items-center">
                   <i className="fa-solid fa-location-dot"></i>
-                  <h6>New York Regional Branch:</h6>
+                  <h6>Customer Support &amp; Regional Hub:</h6>
                 </div>
                 <p>Eighth Avenue 487, Manhattan, New York, NY 10018</p>
               </div>
@@ -73,7 +73,7 @@ export default function ContactFormSection() {
           <div className="col-lg-6">
             <div className="looking position-relative contact">
               <form className="looking-form" onSubmit={handleBookingSubmit}>
-                <h3>Book Your Place or Find out More</h3>
+                <h3>Schedule Care or Contact FurShield</h3>
 
                 {/* Pet Selector Radio Pills */}
                 <ul style={{ display: 'flex', gap: '20px', listStyle: 'none', padding: 0, margin: '20px 0' }}>
@@ -114,9 +114,9 @@ export default function ContactFormSection() {
                     }}
                   >
                     <i className="fa-solid fa-circle-check" style={{ fontSize: '46px', color: '#fa441d' }}></i>
-                    <h4 style={{ fontWeight: 'bold', marginTop: '16px', color: '#222' }}>Booking Request Received!</h4>
+                    <h4 style={{ fontWeight: 'bold', marginTop: '16px', color: '#222' }}>Inquiry Received!</h4>
                     <p style={{ color: '#666', fontSize: '15px' }}>
-                      Thank you, <strong>{formData.name || 'Pet Parent'}</strong>. Our {petType} care specialist will contact you shortly at <strong>{formData.email}</strong>.
+                      Thank you, <strong>{formData.name || 'Pet Owner'}</strong>. Our {petType} care specialist will contact you shortly at <strong>{formData.email}</strong>.
                     </p>
                     <button
                       type="button"
@@ -128,7 +128,7 @@ export default function ContactFormSection() {
                           email: '',
                           phone: '',
                           postalCode: '',
-                          service: 'Pet Grooming',
+                          service: 'Digital Pet Profiles',
                           petBreed: '',
                           notes: '',
                         });
@@ -195,12 +195,12 @@ export default function ContactFormSection() {
                         value={formData.service}
                         onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                       >
-                        <option value="Pet Grooming">Pet Grooming & Spa</option>
-                        <option value="Dog Walking">Dog Walking Services</option>
-                        <option value="Dog Boarding">Dog Boarding Suites</option>
-                        <option value="Cat Boarding">Cat Boarding Luxury Condos</option>
-                        <option value="Veterinary Service">Veterinary Checkup & Clinic</option>
-                        <option value="Resort Spa">Service at a Resort</option>
+                        <option value="Digital Pet Profiles">Digital Pet Profiles & Health Records</option>
+                        <option value="Veterinary Consultation">Veterinary Consultation & Checkup</option>
+                        <option value="Vaccination Tracking">Vaccination & Immunization Updates</option>
+                        <option value="Shelter Adoption">Shelter Adoption & Foster Inquiry</option>
+                        <option value="Preventive Care">Preventive Diagnostics & Nutrition</option>
+                        <option value="General Support">General Platform Support</option>
                       </select>
                     </div>
                     <div className="col-lg-12">
@@ -214,7 +214,7 @@ export default function ContactFormSection() {
                     </div>
                     <div className="col-lg-12">
                       <textarea
-                        placeholder="Please let us know which day package you're interested in..."
+                        placeholder="Please let us know your inquiry details or preferred appointment time..."
                         value={formData.notes}
                         onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                       ></textarea>

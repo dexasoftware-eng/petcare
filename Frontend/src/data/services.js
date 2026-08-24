@@ -1,119 +1,119 @@
 export const services = [
   {
-    id: "pet-grooming",
-    title: "Pet Grooming",
+    id: "digital-pet-profile",
+    title: "Digital Pet Profiles",
     icon: "/assets/img/welcome-to-1.png",
     accentColor: "#940c69",
-    shortDesc: "Lorem ipsum dolor sit amet ur adipiscing elit, sed do eiu incididunt ut labore et.",
-    fullDesc: "Complete hygienic care and styling for your furry friends, including soothing organic baths, deshedding, nail trimming, ear cleaning, and customized haircut.",
+    shortDesc: "Centralize medical history, vaccination timeline, dietary notes, and microchip identification.",
+    fullDesc: "Complete digital profile management for your companion pets. Securely store breed details, age, weight history, past surgeries, allergy alerts, and emergency contacts in one accessible cloud record.",
     features: [
-      "Full body organic shampoo and blow dry",
-      "Sanitary trim and customized breed styling",
-      "Paw massage and nail clipping",
-      "Ear cleaning and breath freshening"
+      "Structured health and allergy tracking",
+      "Digital vaccination certificate storage",
+      "Dietary schedules and medication logging",
+      "Emergency veterinary contact integration"
     ],
-    price: "$45.00 / session"
+    price: "Included with Account"
   },
   {
-    id: "dog-walking",
-    title: "Dog Walking",
-    icon: "/assets/img/welcome-to-2.png",
-    accentColor: "#940c69",
-    shortDesc: "Lorem ipsum dolor sit amet ur adipiscing elit, sed do eiu incididunt ut labore et.",
-    fullDesc: "Daily energetic walks tailored to your dog's fitness level with GPS tracking, real-time photo updates, and fun social interaction.",
-    features: [
-      "30, 45, or 60 minute energetic neighborhood walks",
-      "GPS tracking report and potty updates",
-      "Hydration and post-walk paw cleaning",
-      "One-on-one or small matched group walks"
-    ],
-    price: "$25.00 / walk"
-  },
-  {
-    id: "dog-boarding",
-    title: "Dog Boarding Services",
-    icon: "/assets/img/welcome-to-3.png",
-    accentColor: "#fa441d",
-    shortDesc: "Safe, cozy home-away-from-home boarding with climate-controlled suites.",
-    fullDesc: "Overnight luxury boarding with 24/7 attentive supervision, comfortable bedding, fun playtime schedules, and constant care.",
-    features: [
-      "Private climate controlled luxury suites",
-      "Multiple outdoor exercise and play sessions daily",
-      "Custom feeding schedules & medication administration",
-      "Nightly tuck-in treats and webcams"
-    ],
-    price: "$55.00 / night"
-  },
-  {
-    id: "cat-boarding",
-    title: "Cat Boarding Services",
-    icon: "/assets/img/welcome-to-4.png",
-    accentColor: "#fedc4f",
-    shortDesc: "Peaceful, stress-free multi-level cat condos with scratch posts and playtime.",
-    fullDesc: "Specially separated feline facilities with multi-tier climbing trees, relaxing music, and individualized TLC.",
-    features: [
-      "Quiet dog-free feline sanctuary zone",
-      "Multi-story play condos with climbing towers",
-      "Daily brush & gentle cuddle sessions",
-      "Daily photo updates to parents"
-    ],
-    price: "$40.00 / night"
-  },
-  {
-    id: "veterinary-service",
-    title: "Veterinary Service",
+    id: "veterinary-consult",
+    title: "Veterinary Consultations",
     icon: "/assets/img/welcome-to-5.png",
     accentColor: "#fb5e3c",
-    shortDesc: "Comprehensive clinical examinations, vaccinations, and preventive healthcare.",
-    fullDesc: "Certified veterinarian care encompassing comprehensive wellness evaluations, digital diagnostics, core vaccinations, and dental care.",
+    shortDesc: "Connect with licensed veterinarians for clinical checkups, diagnostics, and wellness care.",
+    fullDesc: "Certified veterinary care coordination. Schedule routine wellness visits, dental checks, annual physical examinations, and post-surgery follow-up reviews directly through the platform.",
     features: [
-      "Comprehensive head-to-tail physical exam",
-      "Vaccination updates & parasite prevention",
-      "Nutritional guidance and wellness testing",
-      "In-house diagnostic laboratory"
+      "Direct clinic appointment coordination",
+      "Annual wellness exams and preventive screenings",
+      "Diagnostic review and health treatment plans",
+      "Clinical notes synchronized to pet profile"
     ],
-    price: "$60.00 / visit"
+    price: "Varies by Clinic"
   },
   {
-    id: "spa-resort",
-    title: "Service at a Resort",
+    id: "vaccination-tracking",
+    title: "Vaccination & Medication Logs",
+    icon: "/assets/img/welcome-to-2.png",
+    accentColor: "#940c69",
+    shortDesc: "Track immunization records, core booster deadlines, and daily prescription schedules.",
+    fullDesc: "Never miss a critical immunization. FurShield provides automated timeline reminders for rabies, DHPP, FVRCP, and parasite control alongside ongoing prescription management.",
+    features: [
+      "Automated core vaccine renewal timelines",
+      "Prescription dosage and frequency tracking",
+      "Parasite prevention reminder logs",
+      "Downloadable medical summary for travel or boarding"
+    ],
+    price: "Included with Account"
+  },
+  {
+    id: "shelter-adoption",
+    title: "Shelter Adoption Network",
+    icon: "/assets/img/welcome-to-4.png",
+    accentColor: "#fedc4f",
+    shortDesc: "Browse verified shelter listings, review rescue pet profiles, and coordinate adoptions.",
+    fullDesc: "Connecting compassionate rescue shelters with loving pet parents. Explore transparent animal profiles including temperament, medical history, and adoption eligibility details.",
+    features: [
+      "Verified animal rescue organization listings",
+      "Comprehensive behavioral and medical profile summaries",
+      "Direct shelter contact and inquiry coordination",
+      "Seamless profile transfer to owner upon adoption"
+    ],
+    price: "Non-Profit Partnership"
+  },
+  {
+    id: "preventive-care",
+    title: "Preventive Health Diagnostics",
+    icon: "/assets/img/welcome-to-3.png",
+    accentColor: "#fa441d",
+    shortDesc: "Routine wellness evaluations, weight and nutritional tracking, and dental care planning.",
+    fullDesc: "Proactive care designed to catch underlying health issues early. Monitor biometric markers, body condition scores, and age-specific preventive care guidelines.",
+    features: [
+      "Age-specific wellness screening guidelines",
+      "Weight trend tracking and nutritional guidance",
+      "Dental health checkup schedules",
+      "Senior pet mobility and wellness monitoring"
+    ],
+    price: "Customized Plans"
+  },
+  {
+    id: "wellness-hygiene",
+    title: "Wellness & Hygiene Care",
     icon: "/assets/img/welcome-to-6.png",
     accentColor: "#940c69",
-    shortDesc: "Indulgent hydrotherapy, mud baths, and luxury relaxation for active pets.",
-    fullDesc: "Premium wellness treatments designed to soothe joint tension, rejuvenate dry coats, and provide the ultimate pampering.",
+    shortDesc: "Gentle therapeutic grooming, coat maintenance, and stress-free hygiene care.",
+    fullDesc: "Essential physical hygiene services that keep pets comfortable, healthy, and clean, supporting skin health, coat condition, and early parasite detection.",
     features: [
-      "Aromatherapy hydrobath & bubble massage",
-      "Dead sea mineral mud coat treatment",
-      "Blueberry facial scrub & paw balm",
-      "Relaxing lounge session with treats"
+      "Gentle skin and coat therapeutic care",
+      "Sanitary trimming and nail maintenance",
+      "Ear inspection and hygiene cleaning",
+      "Coat condition assessment and recommendations"
     ],
-    price: "$75.00 / session"
+    price: "Service-Based"
   }
 ];
 
 export const highlightServices = [
   {
     id: 1,
-    title: "Find a Dog Sitter",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.",
+    title: "Digital Pet Profiles",
+    desc: "Maintain structured records of your pet's breed, age, medical history, allergies, and daily dietary care in one place.",
     img: "/assets/img/we-provide-1.jpg",
     accentColor: "#fedc4f",
-    link: "/services"
+    link: "/register/owner"
   },
   {
     id: 2,
-    title: "Become a Dog Sitter",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.",
+    title: "Veterinary Coordination",
+    desc: "Connect with certified veterinarians, coordinate clinic appointments, and maintain clinical health records securely.",
     img: "/assets/img/we-provide-2.jpg",
     accentColor: "#fb5e3c",
-    link: "/contact"
+    link: "/register/veterinarian"
   },
   {
     id: 3,
-    title: "Start a franchise",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.",
+    title: "Shelter & Adoption Hub",
+    desc: "Empower rescue shelters with digital profiles to showcase adoptable animals and connect with responsible pet parents.",
     img: "/assets/img/we-provide-3.jpg",
     accentColor: "#fedc4f",
-    link: "/about"
+    link: "/register/shelter"
   }
 ];

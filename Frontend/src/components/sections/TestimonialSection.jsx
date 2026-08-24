@@ -22,7 +22,7 @@ export default function TestimonialSection() {
     <section className="section-client gap" style={{ backgroundImage: 'url(/assets/img/client-b.jpg)' }}>
       <div className="container">
         <div className="heading two">
-          <h2>What Our Client’s Say</h2>
+          <h2>Ecosystem Feedback & Community Impact</h2>
         </div>
 
         <div className="client-slider owl-carousel owl-theme owl-loaded owl-drag" style={{ display: 'block', position: 'relative' }}>
@@ -71,7 +71,7 @@ export default function TestimonialSection() {
             <li><i className="fa-solid fa-star"></i></li>
             <li><i className="fa-solid fa-star"></i></li>
           </ul>
-          <h4>Rated 4.5 Out of 5.0</h4>
+          <h4>Unified Experience for Owners, Clinics & Rescues</h4>
         </div>
       </div>
     </section>

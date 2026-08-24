@@ -52,9 +52,9 @@ const Checkout = () => {
 
     try {
       const response = await createOrderAPI(orderPayload);
-      setAssignedOrderNumber(response.orderNumber || response.data?.orderNumber || `PATTE-${Math.floor(100000 + Math.random() * 900000)}`);
+      setAssignedOrderNumber(response.orderNumber || response.data?.orderNumber || `FURSHIELD-${Math.floor(100000 + Math.random() * 900000)}`);
     } catch {
-      setAssignedOrderNumber(`PATTE-${Math.floor(100000 + Math.random() * 900000)}`);
+      setAssignedOrderNumber(`FURSHIELD-${Math.floor(100000 + Math.random() * 900000)}`);
     } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);

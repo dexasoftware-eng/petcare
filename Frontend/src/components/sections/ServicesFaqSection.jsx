@@ -3,27 +3,27 @@ import React, { useState } from 'react';
 const faqs = [
   {
     id: 1,
-    title: '1. What is the FurShield Pet Membership program?',
+    title: '1. What is FurShield and who is it designed for?',
     content:
-      'Our membership offers priority scheduling, discounted grooming packages, complimentary annual checkups, and 24/7 tele-vet assistance.',
+      'FurShield is a digital ecosystem built for Pet Owners, licensed Veterinarians, and registered Animal Shelters to manage pet health profiles, clinical care, and adoption workflows in one place.',
   },
   {
     id: 2,
-    title: '2. How do I book a dog walking or boarding session?',
+    title: '2. How do digital pet health profiles work?',
     content:
-      'You can book directly through your owner dashboard or contact our customer support. Select your preferred date, time slot, and walker preferences.',
+      'Pet owners can securely store medical history, vaccinations, dietary notes, and microchip numbers. When visiting a vet or shelter, this history is readily accessible to ensure continuous care.',
   },
   {
     id: 3,
-    title: '3. What qualifications do your veterinarians and sitters hold?',
+    title: '3. How do veterinarians and animal shelters register?',
     content:
-      'All our veterinarians are certified professionals and our pet sitters undergo comprehensive background verification and pet first-aid certifications.',
+      'Veterinarians and animal rescue shelters can register their specialized profiles through our dedicated role-specific portals to coordinate clinical appointments or list adoptable rescue animals.',
   },
   {
     id: 4,
-    title: '4. Can I reschedule or cancel a booked service?',
+    title: "4. How is my pet's data and health information protected?",
     content:
-      'Yes, bookings can be modified or cancelled free of charge up to 12 hours before the scheduled appointment via your owner portal.',
+      'FurShield implements secure role-based access control and protected authentication so that only authorized pet owners and linked veterinary clinics can access pet health records.',
   },
 ];
 
@@ -40,8 +40,8 @@ export default function ServicesFaqSection() {
         <div className="row align-items-center">
           <div className="col-lg-6">
             <div className="heading two w-100 mb-4">
-              <h6>laundry faq's</h6>
-              <h2>Pet Benefits of Membership</h2>
+              <h6>Frequently Asked Questions</h6>
+              <h2>How FurShield Works For You</h2>
             </div>
             <div className="accordion">
               {faqs.map((faq) => {

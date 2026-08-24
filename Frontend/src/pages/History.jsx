@@ -50,13 +50,13 @@ export default function History({ onOpenLightbox }) {
             </div>
             <div className="col-lg-6 ps-lg-5 mt-4 mt-lg-0">
               <h2 style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '20px' }}>
-                Over a Decade of Loving Pet Care
+                The Vision Behind FurShield
               </h2>
               <p style={{ lineHeight: '1.8', marginBottom: '20px' }}>
-                Founded in 2012, Patte Pet Care began with a simple mission: to provide pet owners with the highest quality, most trustworthy pet sitting, grooming, and boarding services available.
+                FurShield was created to solve one of modern pet ownership's biggest pain points: fragmented pet records and uncoordinated care. Between changing vet clinics, tracking immunization boosters, managing medications, and navigating rescue adoptions, pet information is too often lost in scattered paperwork.
               </p>
               <p style={{ lineHeight: '1.8', marginBottom: '20px' }}>
-                Today, our nationwide network of certified veterinary assistants and passionate caregivers serves thousands of happy pets and their families every day.
+                Our platform unites Pet Owners, licensed Veterinarians, and Animal Rescue Shelters into one secure, connected ecosystem. Today, FurShield provides a unified digital space where pet wellness, clinical consultations, and responsible adoptions thrive together.
               </p>
             </div>
           </div>

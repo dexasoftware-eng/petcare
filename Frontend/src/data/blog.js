@@ -1,74 +1,74 @@
 export const blogPosts = [
   {
     id: 1,
-    title: "The Best High Fiber Dog Food",
-    slug: "the-best-high-fiber-dog-food",
-    category: "Animal Care",
-    date: { day: "23", monthYear: "May,2023" },
-    author: "Willimes Domson",
+    title: "Essential Guide to Pet Vaccination Schedules & Records",
+    slug: "pet-vaccination-schedules-records",
+    category: "Pet Health",
+    date: { day: "14", monthYear: "Aug,2024" },
+    author: "Dr. Marcus Vance",
     authorImg: "/assets/img/man.jpg",
     img: "/assets/img/blog-1.jpg",
-    excerpt: "Lorem ipsum dolor sit amet ur adipiscing elit, sed do eiuincididunut labore et.",
-    content: "Dietary fiber plays a pivotal role in maintaining your dog's gastrointestinal health, supporting regular bowel movements, and regulating body weight. Discover the top veterinarian-approved high-fiber dog foods and how to safely introduce dietary adjustments for optimal canine vitality."
+    excerpt: "Understand core vaccines, booster timing guidelines, and how digital health profiles keep your pet protected year-round.",
+    content: "Core immunizations protect canine and feline companions against severe viral diseases. Maintaining an organized, digital vaccination timeline ensures your pet never misses a crucial booster window. With FurShield, pet owners can upload clinic certificates and receive timely reminders before renewals are due."
   },
   {
     id: 2,
-    title: "The Basic Necessities of Proper Pet Care",
-    slug: "the-basic-necessities-of-proper-pet-care",
-    category: "Animal Care",
-    date: { day: "23", monthYear: "May,2023" },
-    author: "Willimes Domson",
+    title: "Preparing Your Pet for a Stress-Free Veterinary Checkup",
+    slug: "preparing-pet-stress-free-vet-checkup",
+    category: "Veterinary Care",
+    date: { day: "10", monthYear: "Aug,2024" },
+    author: "Dr. Marcus Vance",
     authorImg: "/assets/img/man.jpg",
     img: "/assets/img/blog-2.jpg",
-    excerpt: "Lorem ipsum dolor sit amet ur adipiscing elit, sed do eiuincididunut labore et.",
-    content: "Caring for a pet goes far beyond just providing food and water. This foundational guide covers essential preventative healthcare, mental stimulation, grooming habits, and safety essentials for happier and healthier companions."
+    excerpt: "Practical steps to prepare health records, reduce clinical anxiety, and make annual wellness exams seamless.",
+    content: "Routine veterinary checkups are essential for catching health issues early. Bringing an up-to-date digital health summary with dietary history, past medications, and behavioral changes enables your veterinarian to conduct a faster, more comprehensive examination."
   },
   {
     id: 3,
-    title: "Pets need care and attention",
-    slug: "pets-need-care-and-attention",
-    category: "Animal Care",
-    date: { day: "23", monthYear: "May,2023" },
-    author: "Willimes Domson",
+    title: "Welcoming a Rescue Pet: The 3-3-3 Adjustment Rule",
+    slug: "welcoming-rescue-pet-adjustment-rule",
+    category: "Shelter & Adoption",
+    date: { day: "02", monthYear: "Aug,2024" },
+    author: "Elena Rostova",
     authorImg: "/assets/img/man.jpg",
     img: "/assets/img/blog-3.jpg",
-    excerpt: "Lorem ipsum dolor sit amet ur adipiscing elit, sed do eiuincididunut labore et.",
-    content: "Understanding your pet's subtle body language, stress indicators, and affection cues is essential to building an unbreakable bond. Explore effective strategies to make your pets feel cherished, secure, and mentally stimulated."
+    excerpt: "A compassionate step-by-step roadmap for helping newly adopted shelter pets transition comfortably to their new home.",
+    content: "The 3-3-3 rule represents the phases a rescue pet experiences: 3 days of decompression, 3 weeks of learning routines, and 3 months of true trust. FurShield connects shelters and adopters with digital pet profiles so medical and behavioral records transfer seamlessly."
   },
   {
     id: 4,
-    title: "Puppy Socialization: Step-by-Step Guide",
+    title: "Puppy Socialization: Step-by-Step Behavioral Guide",
     slug: "puppy-socialization-guide",
-    category: "Training",
-    date: { day: "15", monthYear: "Jun,2023" },
+    category: "Pet Care",
+    date: { day: "15", monthYear: "Jul,2024" },
     author: "Gorjona Hiller",
     authorImg: "/assets/img/man.jpg",
     img: "/assets/img/our-blog-1.jpg",
-    excerpt: "Crucial developmental window insights for raising a confident, friendly adult dog.",
-    content: "Early socialization helps puppies develop into well-adjusted adults. Learn how to introduce new sounds, environments, and people safely."
+    excerpt: "Crucial developmental window insights for raising a confident, friendly companion dog.",
+    content: "Early socialization between 8 and 16 weeks helps puppies develop into well-adjusted adults. Learn how to introduce new sensory stimuli, environments, and people safely while adhering to initial vaccination protocols."
   },
   {
     id: 5,
-    title: "Seasonal Allergies in Cats and Dogs",
+    title: "Managing Seasonal Allergies & Skin Care in Pets",
     slug: "seasonal-allergies-in-pets",
-    category: "Health",
-    date: { day: "08", monthYear: "Jun,2023" },
+    category: "Health & Wellness",
+    date: { day: "08", monthYear: "Jul,2024" },
     author: "Thomas Walkar",
     authorImg: "/assets/img/man.jpg",
     img: "/assets/img/our-blog-2.jpg",
-    excerpt: "Spotting signs of environmental allergies and natural relief methods for itching.",
-    content: "From pollen to grass allergies, learn how to identify common pet allergens and soothe irritated skin through specialized diets and soothing shampoos."
+    excerpt: "Spotting environmental allergy symptoms and supporting coat health through diet and hygiene.",
+    content: "From environmental pollen to dietary triggers, identify common pet allergy indicators and soothe irritated skin through specialized veterinary diets, fatty acid supplements, and gentle grooming care."
   },
   {
     id: 6,
-    title: "Hydrotherapy Benefits for Senior Pets",
-    slug: "hydrotherapy-benefits-for-senior-pets",
-    category: "Therapy",
-    date: { day: "02", monthYear: "Jun,2023" },
-    author: "Willimes Domson",
+    title: "Senior Pet Wellness: Proactive Care for Aging Companions",
+    slug: "senior-pet-wellness-proactive-care",
+    category: "Preventive Care",
+    date: { day: "02", monthYear: "Jul,2024" },
+    author: "Dr. Marcus Vance",
     authorImg: "/assets/img/man.jpg",
     img: "/assets/img/our-blog-3.jpg",
-    excerpt: "How low-impact water exercise revitalizes mobility and eases arthritis pain in elderly pets.",
-    content: "Hydrotherapy allows older pets to exercise with minimal joint strain, restoring muscle tone and cardiovascular health in a warm, supportive pool environment."
+    excerpt: "How biannual exams, joint support, and weight management keep senior pets active and comfortable.",
+    content: "Senior pets require more frequent wellness assessments to monitor kidney function, arthritis, and dental health. Regular health logging in your digital profile helps veterinarians detect subtle changes early."
   }
 ];

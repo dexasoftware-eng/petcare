@@ -5,30 +5,30 @@ export default function CareServicesVideoSection({ onPlayVideo }) {
   const services = [
     {
       id: 1,
-      title: 'Online Order',
-      desc: 'Fast doorstep delivery for nutrient-dense pet formulas and healthcare supplies.',
-      icon: '/assets/img/welcome-to-3.png',
-      link: '/our-products',
-    },
-    {
-      id: 2,
-      title: 'Pet Grooming',
-      desc: 'Gentle therapeutic baths, coat trims, and dermatological skin care treatments.',
+      title: 'Digital Pet Profiles',
+      desc: 'Centralized health records, allergy logs, microchip ID, and dietary care notes.',
       icon: '/assets/img/welcome-to-1.png',
       link: '/services',
     },
     {
+      id: 2,
+      title: 'Veterinary Care',
+      desc: 'Direct clinic appointment scheduling, diagnostic reviews, and wellness exams.',
+      icon: '/assets/img/welcome-to-5.png',
+      link: '/services',
+    },
+    {
       id: 3,
-      title: 'Pet Boarding',
-      desc: 'Comfortable climate-controlled suites with 24/7 attentive supervision and care.',
-      icon: '/assets/img/welcome-to-4.png',
+      title: 'Vaccine Tracking',
+      desc: 'Automated booster timeline reminders and downloadable immunization records.',
+      icon: '/assets/img/welcome-to-2.png',
       link: '/services',
     },
     {
       id: 4,
-      title: 'Dog Walking',
-      desc: 'Scheduled daily adventures and energetic fitness runs customized for your pup.',
-      icon: '/assets/img/welcome-to-2.png',
+      title: 'Shelter Adoptions',
+      desc: 'Browse rescue pet profiles, submit adoption inquiries, and connect with shelters.',
+      icon: '/assets/img/welcome-to-4.png',
       link: '/services',
     },
   ];
@@ -41,8 +41,8 @@ export default function CareServicesVideoSection({ onPlayVideo }) {
       <div className="container">
         <div className="heading text-center mb-5">
           <img src="/assets/img/heading-img.png" alt="heading ornament" />
-          <h6>What We Provide</h6>
-          <h2>Pet Care Services</h2>
+          <h6>Connected Platform Capabilities</h6>
+          <h2>Digital Pet Care Ecosystem</h2>
         </div>
 
         {/* 4 Equal Sized Service Cards */}

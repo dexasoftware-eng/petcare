@@ -52,15 +52,15 @@ export default function BlogDetails({ onOpenLightbox }) {
                   style={{ width: '100%', borderRadius: '16px', marginBottom: '25px' }}
                 />
                 <div className="d-flex align-items-center gap-4 mb-3">
-                  <span style={{ color: '#fa441d', fontWeight: 'bold' }}>Animal Care</span>
-                  <span><i className="fa-regular fa-calendar me-2"></i>23 May, 2023</span>
-                  <span><i className="fa-regular fa-user me-2"></i>Willimes Domson</span>
+                  <span style={{ color: '#fa441d', fontWeight: 'bold' }}>Pet Health</span>
+                  <span><i className="fa-regular fa-calendar me-2"></i>14 Aug, 2024</span>
+                  <span><i className="fa-regular fa-user me-2"></i>Dr. Marcus Vance</span>
                 </div>
                 <h2 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '20px' }}>
-                  The Best High Fiber Dog Food for Optimum Canine Health
+                  Essential Guide to Pet Vaccination Schedules &amp; Digital Records
                 </h2>
                 <p style={{ lineHeight: '1.8', marginBottom: '20px' }}>
-                  Dietary fiber plays an indispensable role in maintaining your canine companion's digestive equilibrium and overall vitality. Adequate fiber supports gut microbiome health, normal stool consistency, weight management, and steady blood glucose levels.
+                  Immunization is one of the most critical components of preventive pet care. Core vaccines protect canine and feline companions against severe, life-threatening viral infections like rabies, distemper, parvovirus, and panleukopenia. Maintaining an organized, digital vaccination timeline ensures your pet never misses a crucial booster window.
                 </p>
                 <blockquote
                   style={{
@@ -72,30 +72,33 @@ export default function BlogDetails({ onOpenLightbox }) {
                     margin: '30px 0',
                   }}
                 >
-                  "A balanced diet enriched with natural dietary fibers and vital nutrients is the cornerstone of proactive pet healthcare."
+                  "Timely vaccination and accessible medical history are the most effective preventive steps against preventable companion animal diseases."
                 </blockquote>
                 <p style={{ lineHeight: '1.8', marginBottom: '20px' }}>
-                  When selecting high-fiber nutrition for your dog, look for whole food ingredients like pumpkin, beet pulp, brown rice, sweet potatoes, and carrots. Always consult with your veterinarian before introducing significant dietary transitions.
+                  With FurShield digital health records, pet parents can log vaccine dates, upload clinic certificates, and receive automated notifications before boosters are due. When visiting a new veterinarian or animal shelter, all immunization documentation is instantly accessible.
+                </p>
+                <p style={{ lineHeight: '1.8', marginBottom: '20px', fontSize: '14px', color: '#777', fontStyle: 'italic' }}>
+                  *Disclaimer: Always consult your licensed veterinarian for immunization protocols and healthcare advice tailored specifically to your pet's age, medical history, and lifestyle.
                 </p>
               </div>
             </div>
 
             <div className="col-lg-4">
               <div className="widget-title p-4" style={{ backgroundColor: '#fff8e5', borderRadius: '16px' }}>
-                <h3 style={{ fontSize: '22px', fontWeight: 'bold', marginBottom: '15px' }}>Recent Posts</h3>
+                <h3 style={{ fontSize: '22px', fontWeight: 'bold', marginBottom: '15px' }}>Educational Articles</h3>
                 <div className="boder mb-3"></div>
                 <ul style={{ listStyle: 'none', padding: 0 }}>
                   <li className="mb-3">
-                    <Link to="/blog-details" style={{ fontWeight: '600' }}>The Best High Fiber Dog Food</Link>
-                    <p style={{ fontSize: '13px', color: '#777', margin: 0 }}>May 23, 2023</p>
+                    <Link to="/blog-details" style={{ fontWeight: '600' }}>Pet Vaccination Schedules &amp; Records</Link>
+                    <p style={{ fontSize: '13px', color: '#777', margin: 0 }}>Aug 14, 2024</p>
                   </li>
                   <li className="mb-3">
-                    <Link to="/blog-details" style={{ fontWeight: '600' }}>The Basic Necessities of Proper Pet Care</Link>
-                    <p style={{ fontSize: '13px', color: '#777', margin: 0 }}>May 23, 2023</p>
+                    <Link to="/blog-details" style={{ fontWeight: '600' }}>Preparing for Stress-Free Vet Checkups</Link>
+                    <p style={{ fontSize: '13px', color: '#777', margin: 0 }}>Aug 10, 2024</p>
                   </li>
                   <li className="mb-3">
-                    <Link to="/blog-details" style={{ fontWeight: '600' }}>Pets need care and attention</Link>
-                    <p style={{ fontSize: '13px', color: '#777', margin: 0 }}>May 23, 2023</p>
+                    <Link to="/blog-details" style={{ fontWeight: '600' }}>The 3-3-3 Rescue Pet Adjustment Rule</Link>
+                    <p style={{ fontSize: '13px', color: '#777', margin: 0 }}>Aug 02, 2024</p>
                   </li>
                 </ul>
               </div>

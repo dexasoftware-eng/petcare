@@ -8,8 +8,8 @@ export default function BlogSection() {
       <div className="container">
         <div className="heading">
           <img src="/assets/img/heading-img.png" alt="heading-img" />
-          <h6>Blog and News</h6>
-          <h2>Recent Articles</h2>
+          <h6>Pet Health & Care Insights</h6>
+          <h2>Educational Articles & Guides</h2>
         </div>
         <div className="row">
           {blogArticles.map((article, idx) => (
@@ -43,7 +43,7 @@ export default function BlogSection() {
         </div>
         <div className="btn-center">
           <Link to="/our-blog" className="button">
-            View All News
+            View All Articles
           </Link>
         </div>
       </div>

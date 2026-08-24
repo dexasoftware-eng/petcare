@@ -11,7 +11,7 @@ export default function Footer() {
               <Link to="/">
                 <img src="/assets/img/logo.svg" alt="Petguard" style={{ height: '48px', width: 'auto' }} />
               </Link>
-              <p>At vero eos et accusam justo duo dolo res et ea rebum. Stet clita kasd guber gren. Aenean sollici tudin lorem qsben elit clita.</p>
+              <p>FurShield is a multi-role digital platform connecting pet owners, veterinary clinics, and animal rescue shelters for smarter health management and streamlined care coordination.</p>
               <div className="phone">
                 <i>
                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style={{ enableBackground: 'new 0 0 512 512' }}>
@@ -45,15 +45,15 @@ export default function Footer() {
 
           <div className="col-xl-4 col-lg-6">
             <div className="widget-title">
-              <h3>Quick Links</h3>
+              <h3>Platform Navigation</h3>
               <div className="boder"></div>
               <ul>
-                <li><i className="fa-solid fa-angle-right"></i><Link to="/services">Dog Boarding Services</Link></li>
-                <li><i className="fa-solid fa-angle-right"></i><Link to="/services">Cat Boarding Services</Link></li>
-                <li><i className="fa-solid fa-angle-right"></i><Link to="/services">Spa and Grooming Services</Link></li>
-                <li><i className="fa-solid fa-angle-right"></i><Link to="/services">Care for Puppy</Link></li>
-                <li><i className="fa-solid fa-angle-right"></i><Link to="/services">Service at a Resort</Link></li>
-                <li><i className="fa-solid fa-angle-right"></i><Link to="/services">Veterinary Service</Link></li>
+                <li><i className="fa-solid fa-angle-right"></i><Link to="/services">Digital Pet Profiles</Link></li>
+                <li><i className="fa-solid fa-angle-right"></i><Link to="/services">Veterinary Consultations</Link></li>
+                <li><i className="fa-solid fa-angle-right"></i><Link to="/services">Vaccination Tracking</Link></li>
+                <li><i className="fa-solid fa-angle-right"></i><Link to="/services">Shelter Adoption Hub</Link></li>
+                <li><i className="fa-solid fa-angle-right"></i><Link to="/register/owner">Pet Owner Portal</Link></li>
+                <li><i className="fa-solid fa-angle-right"></i><Link to="/register/veterinarian">Veterinarian Portal</Link></li>
               </ul>
             </div>
           </div>

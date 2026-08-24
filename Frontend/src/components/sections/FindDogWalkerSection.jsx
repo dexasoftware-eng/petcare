@@ -20,11 +20,11 @@ export default function FindDogWalkerSection() {
           <img src="/assets/img/line.png" className="line" alt="line" />
           <img src="/assets/img/dabal-foot.png" className="dabal-foot" alt="dabal-foot" />
           <div className="dog-walker-text">
-            <h2>Find a dog walker or pet care</h2>
-            <p>Place your trust in We Love Pets, an award-winning dog walking and pet care</p>
+            <h2>Find Trusted Veterinary & Pet Care</h2>
+            <p>Connect with licensed veterinarians, certified clinics, and shelter adoption centers in your area.</p>
             <form onSubmit={handleSubmit}>
               <input
-                placeholder="Enter address or postcode..."
+                placeholder="Enter city, address, or postal code..."
                 name="Enter address"
                 type="text"
                 value={address}
@@ -32,7 +32,7 @@ export default function FindDogWalkerSection() {
                 required
               />
               <button type="submit" className="button">
-                Find Branch
+                Find Care
               </button>
             </form>
           </div>

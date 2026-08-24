@@ -8,9 +8,9 @@ export default function WelcomeSection() {
         <div className="row">
           <div className="col-lg-6">
             <div className="welcome-to">
-              <h2>Welcome to The Pet Care Company</h2>
+              <h2>Welcome to FurShield Connected Pet Care</h2>
               <p>
-                Lorem ipsum dolor sit amet,consectetur adipiscing elit do eiusmod tempor incididunt ut labore et.Lorem ipsumsit amet, consectetur adipiscing elit, sed do eiusmod teincididunt ut laamet,consectetur adipiscing elibore et.
+                FurShield is a modern, unified platform designed to bridge the gap between pet owners, veterinary professionals, and animal rescue shelters. From digital health records and vaccination tracking to clinical consultations and adoption workflows, we bring every facet of pet wellbeing into one secure, accessible ecosystem.
               </p>
               <div className="row mt-lg-5">
                 <div className="col-md-6">
@@ -27,9 +27,9 @@ export default function WelcomeSection() {
                       />
                     </svg>
                     <Link to="/services">
-                      <h4>Pet Grooming</h4>
+                      <h4>Digital Health Hub</h4>
                     </Link>
-                    <p>Lorem ipsum dolor sit amet ur adipiscing elit, sed do eiu incididunt ut labore et.</p>
+                    <p>Store medical history, vaccinations, dietary needs, and microchip IDs in one central profile.</p>
                   </div>
                 </div>
                 <div className="col-md-6">
@@ -46,9 +46,9 @@ export default function WelcomeSection() {
                       />
                     </svg>
                     <Link to="/services">
-                      <h4>Dog Walking</h4>
+                      <h4>Veterinary Care</h4>
                     </Link>
-                    <p>Lorem ipsum dolor sit amet ur adipiscing elit, sed do eiu incididunt ut labore et.</p>
+                    <p>Coordinate appointments, review clinical summaries, and collaborate with certified vets.</p>
                   </div>
                 </div>
               </div>

@@ -37,7 +37,7 @@ export default function ServiceDetails({ onOpenLightbox }) {
               <Link to="/services">Services</Link>
             </li>
             <li>/</li>
-            <li className="active" style={{ color: '#fa441d' }}>Pet Grooming</li>
+            <li className="active" style={{ color: '#fa441d' }}>Digital Pet Profiles</li>
           </ul>
         </div>
       </section>
@@ -49,53 +49,53 @@ export default function ServiceDetails({ onOpenLightbox }) {
               <div className="service-details-content">
                 <img
                   src="/assets/img/we-provide-1.jpg"
-                  alt="Pet Grooming"
+                  alt="Digital Pet Profiles"
                   style={{ width: '100%', borderRadius: '16px', marginBottom: '30px' }}
                 />
                 <h3 style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '15px' }}>
-                  Professional Pet Grooming & Spa Services
+                  Centralized Digital Pet Profiles &amp; Health Tracking
                 </h3>
                 <p style={{ lineHeight: '1.8', marginBottom: '20px' }}>
-                  Our professional pet grooming service ensures your beloved pets stay clean, healthy, and happy. We use organic, hypoallergenic products and modern grooming techniques tailored to your pet's breed and unique coat requirements.
+                  FurShield empowers pet owners and veterinary professionals with structured, accessible health profiles. Keep comprehensive track of vaccinations, medical diagnoses, allergies, dietary schedules, and emergency contacts in one secure, accessible cloud environment.
                 </p>
                 <div className="row my-4">
                   <div className="col-md-6">
                     <div className="d-flex align-items-center mb-3">
                       <i className="fa-solid fa-circle-check me-3" style={{ color: '#fa441d', fontSize: '20px' }}></i>
-                      <span>Full Bath & Blow Dry</span>
+                      <span>Digital Vaccination Logs</span>
                     </div>
                     <div className="d-flex align-items-center mb-3">
                       <i className="fa-solid fa-circle-check me-3" style={{ color: '#fa441d', fontSize: '20px' }}></i>
-                      <span>Hair Trimming & Styling</span>
+                      <span>Allergy &amp; Medical Alerts</span>
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="d-flex align-items-center mb-3">
                       <i className="fa-solid fa-circle-check me-3" style={{ color: '#fa441d', fontSize: '20px' }}></i>
-                      <span>Nail Clipping & Ear Cleaning</span>
+                      <span>Direct Veterinary Record Access</span>
                     </div>
                     <div className="d-flex align-items-center mb-3">
                       <i className="fa-solid fa-circle-check me-3" style={{ color: '#fa441d', fontSize: '20px' }}></i>
-                      <span>Teeth Brushing & Breath Freshening</span>
+                      <span>Medication &amp; Dietary Reminders</span>
                     </div>
                   </div>
                 </div>
-                <Link to="/contact" className="button mt-3">
-                  Book Grooming Appointment
+                <Link to="/register/owner" className="button mt-3">
+                  Create Pet Profile
                 </Link>
               </div>
             </div>
 
             <div className="col-lg-4">
               <div className="widget-title p-4" style={{ backgroundColor: '#fff8e5', borderRadius: '16px' }}>
-                <h3 style={{ fontSize: '22px', fontWeight: 'bold', marginBottom: '15px' }}>All Services</h3>
+                <h3 style={{ fontSize: '22px', fontWeight: 'bold', marginBottom: '15px' }}>Platform Services</h3>
                 <div className="boder mb-3"></div>
                 <ul style={{ listStyle: 'none', padding: 0 }}>
-                  <li className="mb-2"><i className="fa-solid fa-angle-right me-2"></i><Link to="/service-details">Dog Boarding Services</Link></li>
-                  <li className="mb-2"><i className="fa-solid fa-angle-right me-2"></i><Link to="/service-details">Cat Boarding Services</Link></li>
-                  <li className="mb-2"><i className="fa-solid fa-angle-right me-2"></i><Link to="/service-details">Spa and Grooming</Link></li>
-                  <li className="mb-2"><i className="fa-solid fa-angle-right me-2"></i><Link to="/service-details">Puppy Care</Link></li>
-                  <li className="mb-2"><i className="fa-solid fa-angle-right me-2"></i><Link to="/service-details">Veterinary Services</Link></li>
+                  <li className="mb-2"><i className="fa-solid fa-angle-right me-2"></i><Link to="/services">Digital Pet Profiles</Link></li>
+                  <li className="mb-2"><i className="fa-solid fa-angle-right me-2"></i><Link to="/services">Veterinary Consultations</Link></li>
+                  <li className="mb-2"><i className="fa-solid fa-angle-right me-2"></i><Link to="/services">Vaccination Tracking</Link></li>
+                  <li className="mb-2"><i className="fa-solid fa-angle-right me-2"></i><Link to="/services">Shelter Adoption Hub</Link></li>
+                  <li className="mb-2"><i className="fa-solid fa-angle-right me-2"></i><Link to="/services">Preventive Diagnostics</Link></li>
                 </ul>
               </div>
             </div>
