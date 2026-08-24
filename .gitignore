@@ -2,16 +2,31 @@
 node_modules/
 **/node_modules/
 
-# Build & Dist
+# Environment Variables
+.env
+.env.*
+*/.env
+*/.env.*
+!.env.example
+!*/.env.example
+
+# Build & Dist outputs
 dist/
+dist-ssr/
 build/
 **/dist/
 **/build/
 
 # Logs
+logs/
 *.log
 **/*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# OS Cache
+# IDE & OS Cache
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/
