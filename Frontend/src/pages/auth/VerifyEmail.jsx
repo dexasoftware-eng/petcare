@@ -123,20 +123,35 @@ export default function VerifyEmail() {
                 Verifying your email ensures that your pet&apos;s medical records, appointments, and notifications are securely synchronized.
               </p>
 
-              <div style={{ position: 'relative', marginTop: '10px' }}>
-                <img
-                  src="/assets/img/pets-cutout.png"
-                  alt="Pets"
+              {/* Cozy Home Pets Photo */}
+              <div
+                style={{
+                  position: 'relative',
+                  marginTop: '12px',
+                }}
+              >
+                <div
                   style={{
-                    width: '100%',
-                    maxWidth: '520px',
-                    height: 'auto',
-                    display: 'block',
                     position: 'relative',
-                    zIndex: 3,
-                    filter: 'drop-shadow(0 15px 30px rgba(0, 0, 0, 0.08))',
+                    borderRadius: '24px',
+                    overflow: 'hidden',
+                    boxShadow: '0 16px 36px -10px rgba(0, 0, 0, 0.1)',
+                    backgroundColor: '#ffffff',
+                    border: '3px solid #ffffff',
                   }}
-                />
+                >
+                  <img
+                    src="/assets/img/login-pets-home.jpg"
+                    alt="Pets in cozy living room"
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      maxHeight: '340px',
+                      objectFit: 'cover',
+                      display: 'block',
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>

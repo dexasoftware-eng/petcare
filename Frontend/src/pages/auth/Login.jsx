@@ -37,24 +37,24 @@ export default function Login() {
   return (
     <div
       style={{
-        backgroundColor: '#fbf8f3',
+        backgroundColor: '#faf7f2',
         minHeight: '100vh',
         position: 'relative',
-        overflow: 'hidden',
+        overflowX: 'hidden',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        fontFamily: "'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif",
+        fontFamily: "'Plus Jakarta Sans', 'Outfit', system-ui, -apple-system, sans-serif",
       }}
     >
-      {/* Decorative Scattered Watermark Paw Prints in Background */}
+      {/* Decorative Scattered Watermark Paw Prints */}
       <div
         style={{
           position: 'absolute',
-          top: '40px',
-          left: '320px',
+          top: '30px',
+          left: '310px',
           color: 'rgba(235, 195, 155, 0.35)',
-          fontSize: '46px',
+          fontSize: '44px',
           transform: 'rotate(-15deg)',
           pointerEvents: 'none',
           zIndex: 0,
@@ -65,10 +65,10 @@ export default function Login() {
       <div
         style={{
           position: 'absolute',
-          top: '160px',
-          left: '400px',
+          top: '150px',
+          left: '410px',
           color: 'rgba(235, 195, 155, 0.28)',
-          fontSize: '38px',
+          fontSize: '36px',
           transform: 'rotate(25deg)',
           pointerEvents: 'none',
           zIndex: 0,
@@ -79,10 +79,10 @@ export default function Login() {
       <div
         style={{
           position: 'absolute',
-          top: '460px',
-          left: '130px',
-          color: 'rgba(235, 195, 155, 0.3)',
-          fontSize: '42px',
+          top: '480px',
+          left: '110px',
+          color: 'rgba(235, 195, 155, 0.32)',
+          fontSize: '40px',
           transform: 'rotate(10deg)',
           pointerEvents: 'none',
           zIndex: 0,
@@ -93,10 +93,10 @@ export default function Login() {
       <div
         style={{
           position: 'absolute',
-          top: '120px',
-          right: '40px',
-          color: 'rgba(235, 195, 155, 0.25)',
-          fontSize: '44px',
+          top: '100px',
+          right: '50px',
+          color: 'rgba(235, 195, 155, 0.22)',
+          fontSize: '42px',
           transform: 'rotate(-20deg)',
           pointerEvents: 'none',
           zIndex: 0,
@@ -109,8 +109,8 @@ export default function Login() {
       <svg
         style={{
           position: 'absolute',
-          top: '180px',
-          left: '270px',
+          top: '160px',
+          left: '260px',
           width: '240px',
           height: '180px',
           pointerEvents: 'none',
@@ -121,7 +121,7 @@ export default function Login() {
       >
         <path
           d="M 10 160 C 80 40, 160 30, 220 10"
-          stroke="rgba(249, 115, 22, 0.22)"
+          stroke="rgba(249, 115, 22, 0.2)"
           strokeWidth="1.5"
           strokeDasharray="4 4"
         />
@@ -137,10 +137,10 @@ export default function Login() {
       <div
         style={{
           position: 'absolute',
-          bottom: '-70px',
-          left: '-70px',
-          width: '520px',
-          height: '420px',
+          bottom: '-60px',
+          left: '-60px',
+          width: '480px',
+          height: '380px',
           background: 'linear-gradient(135deg, #ff8a34 0%, #f95c19 100%)',
           borderRadius: '45% 55% 65% 35% / 40% 45% 55% 60%',
           zIndex: 1,
@@ -153,17 +153,17 @@ export default function Login() {
       <div
         style={{
           position: 'absolute',
-          bottom: '260px',
-          left: '46px',
-          width: '38px',
-          height: '38px',
+          bottom: '240px',
+          left: '42px',
+          width: '36px',
+          height: '36px',
           borderRadius: '50%',
           backgroundColor: 'rgba(255, 255, 255, 0.28)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           color: '#ffffff',
-          fontSize: '18px',
+          fontSize: '16px',
           zIndex: 2,
         }}
       >
@@ -172,17 +172,18 @@ export default function Login() {
 
       {/* ================= MAIN CONTAINER ================= */}
       <div
-        className="container-fluid"
         style={{
-          maxWidth: '1440px',
-          padding: '24px 36px 0 36px',
+          maxWidth: '1360px',
+          margin: '0 auto',
+          width: '100%',
+          padding: '24px 32px 0 32px',
           position: 'relative',
           zIndex: 2,
           flex: 1,
         }}
       >
         {/* Top-Left PetGuard Logo */}
-        <div style={{ marginBottom: '20px' }}>
+        <div style={{ marginBottom: '18px' }}>
           <Link
             to="/"
             style={{
@@ -192,18 +193,17 @@ export default function Login() {
               textDecoration: 'none',
             }}
           >
-            {/* Logo Shield Icon */}
             <div
               style={{
-                width: '42px',
-                height: '42px',
+                width: '40px',
+                height: '40px',
                 borderRadius: '12px',
                 background: 'linear-gradient(135deg, #ff7a29 0%, #f24e07 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#ffffff',
-                fontSize: '20px',
+                fontSize: '19px',
                 boxShadow: '0 6px 16px rgba(242, 78, 7, 0.28)',
               }}
             >
@@ -215,6 +215,7 @@ export default function Login() {
                   fontSize: '22px',
                   fontWeight: 900,
                   color: '#18212f',
+                  fontFamily: "'Outfit', sans-serif",
                   lineHeight: '1.1',
                   letterSpacing: '-0.02em',
                 }}
@@ -235,26 +236,35 @@ export default function Login() {
           </Link>
         </div>
 
-        {/* Content Row: Left Column (Text & Pets) + Right Column (Card) */}
-        <div className="row align-items-center justify-content-between g-4">
+        {/* 2-Column Grid */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1.2fr) minmax(360px, 480px)',
+            alignItems: 'center',
+            gap: '36px',
+          }}
+          className="auth-grid-responsive"
+        >
           {/* ================= LEFT COLUMN ================= */}
-          <div className="col-xl-6 col-lg-6 col-md-12">
-            <div style={{ maxWidth: '580px', position: 'relative' }}>
+          <div style={{ position: 'relative' }}>
+            <div style={{ maxWidth: '560px' }}>
               {/* Heading */}
               <h1
                 style={{
-                  fontSize: 'clamp(38px, 4.2vw, 54px)',
+                  fontFamily: "'Outfit', sans-serif",
+                  fontSize: 'clamp(34px, 3.8vw, 48px)',
                   fontWeight: 900,
                   color: '#18212f',
                   lineHeight: '1.14',
                   letterSpacing: '-0.03em',
-                  marginBottom: '16px',
+                  marginBottom: '14px',
                 }}
               >
                 Because Their <br />
                 Health Means <br />
                 <span style={{ color: '#f95c19' }}>Everything</span>{' '}
-                <span style={{ color: '#f95c19', fontSize: '0.85em' }}>
+                <span style={{ color: '#f95c19', fontSize: '0.82em', verticalAlign: 'middle' }}>
                   <i className="fa-regular fa-heart"></i>
                 </span>
               </h1>
@@ -262,52 +272,51 @@ export default function Login() {
               {/* Subtitle */}
               <p
                 style={{
-                  fontSize: '15.5px',
+                  fontSize: '15px',
                   color: '#556579',
-                  lineHeight: '1.6',
-                  marginBottom: '10px',
+                  lineHeight: '1.55',
+                  marginBottom: '18px',
                   maxWidth: '460px',
                 }}
               >
                 PetGuard helps you manage your pet&apos;s health, appointments, and daily care —all in one secure place.
               </p>
 
-              {/* Overlapping Pet Cutout Image & Trusted Floating Badge */}
+              {/* Cozy Home Pets Photo & Floating Trusted Card */}
               <div
                 style={{
                   position: 'relative',
-                  marginTop: '10px',
-                  minHeight: '380px',
+                  marginTop: '12px',
                 }}
               >
                 {/* Floating "Trusted by 10K+ Pet Parents" Card */}
                 <div
                   style={{
                     position: 'absolute',
-                    bottom: '40px',
-                    left: '10px',
+                    top: '28px',
+                    left: '-10px',
                     backgroundColor: '#ffffff',
                     borderRadius: '16px',
                     padding: '12px 18px',
-                    boxShadow: '0 12px 30px rgba(0, 0, 0, 0.08)',
+                    boxShadow: '0 12px 30px rgba(0, 0, 0, 0.09)',
                     zIndex: 4,
-                    border: '1px solid rgba(241, 245, 249, 0.9)',
+                    border: '1px solid rgba(241, 245, 249, 0.95)',
                   }}
                 >
                   <div style={{ fontSize: '11px', color: '#64748b', fontWeight: 600, marginBottom: '2px' }}>
                     Trusted by
                   </div>
-                  <div style={{ fontSize: '14px', fontWeight: 800, color: '#18212f', marginBottom: '8px' }}>
+                  <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#18212f', marginBottom: '8px' }}>
                     10K+ Pet Parents
                   </div>
                   {/* Avatar Stack */}
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     <img
                       src="/assets/img/team-1.jpg"
-                      alt="User 1"
+                      alt="Parent 1"
                       style={{
-                        width: '28px',
-                        height: '28px',
+                        width: '26px',
+                        height: '26px',
                         borderRadius: '50%',
                         border: '2px solid #ffffff',
                         objectFit: 'cover',
@@ -315,42 +324,42 @@ export default function Login() {
                     />
                     <img
                       src="/assets/img/team-2.jpg"
-                      alt="User 2"
+                      alt="Parent 2"
                       style={{
-                        width: '28px',
-                        height: '28px',
+                        width: '26px',
+                        height: '26px',
                         borderRadius: '50%',
                         border: '2px solid #ffffff',
-                        marginLeft: '-8px',
+                        marginLeft: '-7px',
                         objectFit: 'cover',
                       }}
                     />
                     <img
                       src="/assets/img/team-3.jpg"
-                      alt="User 3"
+                      alt="Parent 3"
                       style={{
-                        width: '28px',
-                        height: '28px',
+                        width: '26px',
+                        height: '26px',
                         borderRadius: '50%',
                         border: '2px solid #ffffff',
-                        marginLeft: '-8px',
+                        marginLeft: '-7px',
                         objectFit: 'cover',
                       }}
                     />
                     <div
                       style={{
-                        width: '28px',
-                        height: '28px',
+                        width: '26px',
+                        height: '26px',
                         borderRadius: '50%',
                         backgroundColor: '#ffedd5',
                         color: '#f95c19',
-                        fontSize: '9.5px',
+                        fontSize: '9px',
                         fontWeight: 800,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         border: '2px solid #ffffff',
-                        marginLeft: '-8px',
+                        marginLeft: '-7px',
                       }}
                     >
                       10K+
@@ -358,52 +367,61 @@ export default function Login() {
                   </div>
                 </div>
 
-                {/* Big Transparent Cutout Dog & Cat Image */}
-                <img
-                  src="/assets/img/pets-cutout.png"
-                  alt="PetGuard Golden Retriever Dog and British Shorthair Cat"
+                {/* Cozy Home Dog and Cat Image */}
+                <div
                   style={{
-                    width: '100%',
-                    maxWidth: '540px',
-                    height: 'auto',
-                    display: 'block',
                     position: 'relative',
-                    zIndex: 3,
-                    filter: 'drop-shadow(0 15px 30px rgba(0, 0, 0, 0.08))',
+                    borderRadius: '24px',
+                    overflow: 'hidden',
+                    boxShadow: '0 16px 36px -10px rgba(0, 0, 0, 0.1)',
+                    backgroundColor: '#ffffff',
+                    border: '3px solid #ffffff',
                   }}
-                />
+                >
+                  <img
+                    src="/assets/img/login-pets-home.jpg"
+                    alt="Golden Retriever Dog and Cat in cozy living room"
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      maxHeight: '340px',
+                      objectFit: 'cover',
+                      display: 'block',
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
 
-          {/* ================= RIGHT COLUMN (LOGIN CARD) ================= */}
-          <div className="col-xl-6 col-lg-6 col-md-12">
+          {/* ================= RIGHT COLUMN (LOGIN FORM CARD) ================= */}
+          <div>
             <div
               style={{
                 backgroundColor: '#ffffff',
-                borderRadius: '32px',
-                padding: 'clamp(28px, 3.5vw, 40px) clamp(24px, 3.5vw, 38px)',
-                boxShadow: '0 25px 60px -10px rgba(0, 0, 0, 0.06), 0 0 1px 1px rgba(0, 0, 0, 0.02)',
+                borderRadius: '28px',
+                padding: '30px 32px',
+                boxShadow: '0 20px 50px -10px rgba(0, 0, 0, 0.05), 0 0 1px 1px rgba(0, 0, 0, 0.02)',
                 border: '1px solid #f1f5f9',
-                maxWidth: '510px',
-                margin: '0 auto 0 auto',
+                maxWidth: '460px',
+                margin: '0 auto',
                 position: 'relative',
                 zIndex: 3,
               }}
             >
               {/* Top Badge Icon */}
-              <div style={{ textAlign: 'center', marginBottom: '14px' }}>
+              <div style={{ textAlign: 'center', marginBottom: '12px' }}>
                 <div
                   style={{
-                    width: '52px',
-                    height: '52px',
+                    width: '48px',
+                    height: '48px',
                     borderRadius: '50%',
                     backgroundColor: '#fff4eb',
                     color: '#f95c19',
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '22px',
+                    fontSize: '20px',
                     boxShadow: '0 4px 12px rgba(249, 92, 25, 0.12)',
                   }}
                 >
@@ -412,10 +430,11 @@ export default function Login() {
               </div>
 
               {/* Title & Subtitle */}
-              <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+              <div style={{ textAlign: 'center', marginBottom: '20px' }}>
                 <h2
                   style={{
-                    fontSize: '27px',
+                    fontFamily: "'Outfit', sans-serif",
+                    fontSize: '25px',
                     fontWeight: 800,
                     color: '#18212f',
                     letterSpacing: '-0.02em',
@@ -424,7 +443,7 @@ export default function Login() {
                 >
                   Welcome Back!
                 </h2>
-                <p style={{ fontSize: '13.5px', color: '#64748b', margin: 0 }}>
+                <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>
                   Sign in to continue to your account
                 </p>
               </div>
@@ -435,17 +454,17 @@ export default function Login() {
                   style={{
                     backgroundColor: '#fef2f2',
                     border: '1px solid #fee2e2',
-                    borderRadius: '12px',
+                    borderRadius: '11px',
                     padding: '10px 14px',
                     color: '#dc2626',
                     fontSize: '13px',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '8px',
-                    marginBottom: '18px',
+                    marginBottom: '16px',
                   }}
                 >
-                  <i className="fa-solid fa-circle-exclamation" style={{ fontSize: '15px' }}></i>
+                  <i className="fa-solid fa-circle-exclamation" style={{ fontSize: '14px' }}></i>
                   <span>{errorMsg}</span>
                 </div>
               )}
@@ -453,14 +472,14 @@ export default function Login() {
               {/* Form */}
               <form onSubmit={handleSubmit}>
                 {/* Email Address */}
-                <div style={{ marginBottom: '16px' }}>
+                <div style={{ marginBottom: '14px' }}>
                   <label
                     style={{
                       display: 'block',
-                      fontSize: '13px',
+                      fontSize: '12.5px',
                       fontWeight: 600,
                       color: '#334155',
-                      marginBottom: '6px',
+                      marginBottom: '5px',
                     }}
                   >
                     Email Address
@@ -473,7 +492,7 @@ export default function Login() {
                         top: '50%',
                         transform: 'translateY(-50%)',
                         color: '#94a3b8',
-                        fontSize: '15px',
+                        fontSize: '14px',
                         pointerEvents: 'none',
                       }}
                     >
@@ -487,9 +506,9 @@ export default function Login() {
                       onChange={(e) => setEmail(e.target.value)}
                       style={{
                         width: '100%',
-                        padding: '11px 14px 11px 40px',
-                        fontSize: '14px',
-                        borderRadius: '11px',
+                        padding: '10.5px 14px 10.5px 38px',
+                        fontSize: '13.5px',
+                        borderRadius: '10px',
                         border: '1.5px solid #e2e8f0',
                         backgroundColor: '#ffffff',
                         color: '#1e293b',
@@ -509,18 +528,18 @@ export default function Login() {
                 </div>
 
                 {/* Password */}
-                <div style={{ marginBottom: '16px' }}>
+                <div style={{ marginBottom: '14px' }}>
                   <div
                     style={{
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                      marginBottom: '6px',
+                      marginBottom: '5px',
                     }}
                   >
                     <label
                       style={{
-                        fontSize: '13px',
+                        fontSize: '12.5px',
                         fontWeight: 600,
                         color: '#334155',
                         margin: 0,
@@ -531,7 +550,7 @@ export default function Login() {
                     <Link
                       to="/forgot-password"
                       style={{
-                        fontSize: '12px',
+                        fontSize: '11.5px',
                         fontWeight: 600,
                         color: '#f95c19',
                         textDecoration: 'none',
@@ -549,7 +568,7 @@ export default function Login() {
                         top: '50%',
                         transform: 'translateY(-50%)',
                         color: '#94a3b8',
-                        fontSize: '15px',
+                        fontSize: '14px',
                         pointerEvents: 'none',
                       }}
                     >
@@ -563,9 +582,9 @@ export default function Login() {
                       onChange={(e) => setPassword(e.target.value)}
                       style={{
                         width: '100%',
-                        padding: '11px 40px 11px 40px',
-                        fontSize: '14px',
-                        borderRadius: '11px',
+                        padding: '10.5px 38px 10.5px 38px',
+                        fontSize: '13.5px',
+                        borderRadius: '10px',
                         border: '1.5px solid #e2e8f0',
                         backgroundColor: '#ffffff',
                         color: '#1e293b',
@@ -605,7 +624,7 @@ export default function Login() {
                 </div>
 
                 {/* Remember Me */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '18px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
                   <input
                     type="checkbox"
                     id="rememberMe"
@@ -622,7 +641,7 @@ export default function Login() {
                   <label
                     htmlFor="rememberMe"
                     style={{
-                      fontSize: '13px',
+                      fontSize: '12.5px',
                       color: '#475569',
                       cursor: 'pointer',
                       userSelect: 'none',
@@ -633,36 +652,36 @@ export default function Login() {
                   </label>
                 </div>
 
-                {/* Sign In CTA */}
+                {/* Sign In CTA Button */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
                   style={{
                     width: '100%',
-                    padding: '12.5px',
-                    borderRadius: '11px',
+                    padding: '12px',
+                    borderRadius: '10px',
                     background: 'linear-gradient(90deg, #ff6622 0%, #ff4500 100%)',
                     border: 'none',
                     color: '#ffffff',
-                    fontSize: '15px',
+                    fontSize: '14.5px',
                     fontWeight: 700,
                     cursor: isSubmitting ? 'not-allowed' : 'pointer',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '8px',
-                    boxShadow: '0 8px 20px rgba(255, 69, 0, 0.3)',
+                    boxShadow: '0 6px 18px rgba(255, 69, 0, 0.28)',
                     transition: 'transform 0.15s, box-shadow 0.2s',
                   }}
                   onMouseEnter={(e) => {
                     if (!isSubmitting) {
                       e.currentTarget.style.transform = 'translateY(-1px)';
-                      e.currentTarget.style.boxShadow = '0 10px 24px rgba(255, 69, 0, 0.38)';
+                      e.currentTarget.style.boxShadow = '0 8px 22px rgba(255, 69, 0, 0.35)';
                     }
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'none';
-                    e.currentTarget.style.boxShadow = '0 8px 20px rgba(255, 69, 0, 0.3)';
+                    e.currentTarget.style.boxShadow = '0 6px 18px rgba(255, 69, 0, 0.28)';
                   }}
                 >
                   {isSubmitting ? (
@@ -683,7 +702,7 @@ export default function Login() {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  margin: '20px 0 16px 0',
+                  margin: '18px 0 14px 0',
                   color: '#94a3b8',
                   fontSize: '12px',
                 }}
@@ -696,21 +715,21 @@ export default function Login() {
               </div>
 
               {/* Social Buttons */}
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginBottom: '22px' }}>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '18px' }}>
                 {/* Google */}
                 <button
                   type="button"
                   style={{
                     flex: 1,
-                    height: '40px',
+                    height: '38px',
                     borderRadius: '10px',
                     border: '1.5px solid #e2e8f0',
                     backgroundColor: '#ffffff',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '8px',
-                    fontSize: '13px',
+                    gap: '6px',
+                    fontSize: '12.5px',
                     fontWeight: 600,
                     color: '#334155',
                     cursor: 'pointer',
@@ -719,7 +738,7 @@ export default function Login() {
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f8fafc')}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#ffffff')}
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24">
+                  <svg width="16" height="16" viewBox="0 0 24 24">
                     <path
                       fill="#4285F4"
                       d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -745,15 +764,15 @@ export default function Login() {
                   type="button"
                   style={{
                     flex: 1,
-                    height: '40px',
+                    height: '38px',
                     borderRadius: '10px',
                     border: '1.5px solid #e2e8f0',
                     backgroundColor: '#ffffff',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '8px',
-                    fontSize: '13px',
+                    gap: '6px',
+                    fontSize: '12.5px',
                     fontWeight: 600,
                     color: '#334155',
                     cursor: 'pointer',
@@ -762,7 +781,7 @@ export default function Login() {
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f8fafc')}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#ffffff')}
                 >
-                  <i className="fa-brands fa-facebook" style={{ color: '#1877f2', fontSize: '17px' }}></i>
+                  <i className="fa-brands fa-facebook" style={{ color: '#1877f2', fontSize: '16px' }}></i>
                   Facebook
                 </button>
 
@@ -771,15 +790,15 @@ export default function Login() {
                   type="button"
                   style={{
                     flex: 1,
-                    height: '40px',
+                    height: '38px',
                     borderRadius: '10px',
                     border: '1.5px solid #e2e8f0',
                     backgroundColor: '#ffffff',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '8px',
-                    fontSize: '13px',
+                    gap: '6px',
+                    fontSize: '12.5px',
                     fontWeight: 600,
                     color: '#334155',
                     cursor: 'pointer',
@@ -788,20 +807,20 @@ export default function Login() {
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f8fafc')}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#ffffff')}
                 >
-                  <i className="fa-brands fa-apple" style={{ color: '#000000', fontSize: '18px' }}></i>
+                  <i className="fa-brands fa-apple" style={{ color: '#000000', fontSize: '17px' }}></i>
                   Apple
                 </button>
               </div>
 
               {/* Account Type Selector ("New to PetGuard? Choose your account type") */}
-              <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '18px' }}>
+              <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '16px' }}>
                 <p
                   style={{
-                    fontSize: '12.5px',
+                    fontSize: '12px',
                     fontWeight: 700,
                     color: '#475569',
                     textAlign: 'center',
-                    marginBottom: '12px',
+                    marginBottom: '10px',
                   }}
                 >
                   New to PetGuard? Choose your account type
@@ -811,7 +830,7 @@ export default function Login() {
                   style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(3, 1fr)',
-                    gap: '8px',
+                    gap: '6px',
                   }}
                 >
                   {/* Pet Owner */}
@@ -820,9 +839,9 @@ export default function Login() {
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '8px',
-                      padding: '8px 10px',
-                      borderRadius: '12px',
+                      gap: '6px',
+                      padding: '8px 8px',
+                      borderRadius: '10px',
                       backgroundColor: '#ffffff',
                       border: '1.5px solid #e2e8f0',
                       textDecoration: 'none',
@@ -839,29 +858,29 @@ export default function Login() {
                   >
                     <div
                       style={{
-                        width: '28px',
-                        height: '28px',
-                        borderRadius: '8px',
+                        width: '26px',
+                        height: '26px',
+                        borderRadius: '7px',
                         backgroundColor: '#ffedd5',
                         color: '#f95c19',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: '13px',
+                        fontSize: '12px',
                         flexShrink: 0,
                       }}
                     >
                       <i className="fa-solid fa-paw"></i>
                     </div>
                     <div style={{ minWidth: 0, flex: 1 }}>
-                      <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#1e293b', lineHeight: '1.2' }}>
+                      <div style={{ fontSize: '11px', fontWeight: 700, color: '#1e293b', lineHeight: '1.2' }}>
                         Pet Owner
                       </div>
-                      <div style={{ fontSize: '9.5px', color: '#64748b', whiteSpace: 'nowrap' }}>
-                        For pet parents
+                      <div style={{ fontSize: '9px', color: '#64748b', whiteSpace: 'nowrap' }}>
+                        For parents
                       </div>
                     </div>
-                    <i className="fa-solid fa-chevron-right" style={{ fontSize: '10px', color: '#94a3b8' }}></i>
+                    <i className="fa-solid fa-chevron-right" style={{ fontSize: '9px', color: '#94a3b8' }}></i>
                   </Link>
 
                   {/* Veterinarian */}
@@ -870,9 +889,9 @@ export default function Login() {
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '8px',
-                      padding: '8px 10px',
-                      borderRadius: '12px',
+                      gap: '6px',
+                      padding: '8px 8px',
+                      borderRadius: '10px',
                       backgroundColor: '#ffffff',
                       border: '1.5px solid #e2e8f0',
                       textDecoration: 'none',
@@ -889,29 +908,29 @@ export default function Login() {
                   >
                     <div
                       style={{
-                        width: '28px',
-                        height: '28px',
-                        borderRadius: '8px',
+                        width: '26px',
+                        height: '26px',
+                        borderRadius: '7px',
                         backgroundColor: '#dbeafe',
                         color: '#2563eb',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: '13px',
+                        fontSize: '12px',
                         flexShrink: 0,
                       }}
                     >
                       <i className="fa-solid fa-stethoscope"></i>
                     </div>
                     <div style={{ minWidth: 0, flex: 1 }}>
-                      <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#1e293b', lineHeight: '1.2' }}>
-                        Veterinarian
+                      <div style={{ fontSize: '11px', fontWeight: 700, color: '#1e293b', lineHeight: '1.2' }}>
+                        Vet
                       </div>
-                      <div style={{ fontSize: '9.5px', color: '#64748b', whiteSpace: 'nowrap' }}>
-                        For vet pros
+                      <div style={{ fontSize: '9px', color: '#64748b', whiteSpace: 'nowrap' }}>
+                        For doctors
                       </div>
                     </div>
-                    <i className="fa-solid fa-chevron-right" style={{ fontSize: '10px', color: '#94a3b8' }}></i>
+                    <i className="fa-solid fa-chevron-right" style={{ fontSize: '9px', color: '#94a3b8' }}></i>
                   </Link>
 
                   {/* Animal Shelter */}
@@ -920,9 +939,9 @@ export default function Login() {
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '8px',
-                      padding: '8px 10px',
-                      borderRadius: '12px',
+                      gap: '6px',
+                      padding: '8px 8px',
+                      borderRadius: '10px',
                       backgroundColor: '#ffffff',
                       border: '1.5px solid #e2e8f0',
                       textDecoration: 'none',
@@ -939,29 +958,29 @@ export default function Login() {
                   >
                     <div
                       style={{
-                        width: '28px',
-                        height: '28px',
-                        borderRadius: '8px',
+                        width: '26px',
+                        height: '26px',
+                        borderRadius: '7px',
                         backgroundColor: '#f3e8ff',
                         color: '#9333ea',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: '13px',
+                        fontSize: '12px',
                         flexShrink: 0,
                       }}
                     >
                       <i className="fa-solid fa-house-chimney-medical"></i>
                     </div>
                     <div style={{ minWidth: 0, flex: 1 }}>
-                      <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#1e293b', lineHeight: '1.2' }}>
+                      <div style={{ fontSize: '11px', fontWeight: 700, color: '#1e293b', lineHeight: '1.2' }}>
                         Shelter
                       </div>
-                      <div style={{ fontSize: '9.5px', color: '#64748b', whiteSpace: 'nowrap' }}>
+                      <div style={{ fontSize: '9px', color: '#64748b', whiteSpace: 'nowrap' }}>
                         Rescues
                       </div>
                     </div>
-                    <i className="fa-solid fa-chevron-right" style={{ fontSize: '10px', color: '#94a3b8' }}></i>
+                    <i className="fa-solid fa-chevron-right" style={{ fontSize: '9px', color: '#94a3b8' }}></i>
                   </Link>
                 </div>
               </div>
@@ -975,8 +994,8 @@ export default function Login() {
         style={{
           position: 'relative',
           zIndex: 3,
-          padding: '16px 24px',
-          margin: '20px auto 14px auto',
+          padding: '14px 20px',
+          margin: '18px auto 14px auto',
           maxWidth: '920px',
           width: 'calc(100% - 48px)',
           backgroundColor: '#ffffff',
@@ -990,8 +1009,8 @@ export default function Login() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
               <i className="fa-solid fa-shield-halved" style={{ color: '#64748b', fontSize: '15px' }}></i>
               <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#1e293b' }}>Secure &amp; Private</div>
-                <div style={{ fontSize: '11px', color: '#8b96a5' }}>Your pet&apos;s data is safe</div>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b' }}>Secure &amp; Private</div>
+                <div style={{ fontSize: '10.5px', color: '#8b96a5' }}>Your pet&apos;s data is safe</div>
               </div>
             </div>
           </div>
@@ -1000,8 +1019,8 @@ export default function Login() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
               <i className="fa-regular fa-calendar-check" style={{ color: '#64748b', fontSize: '15px' }}></i>
               <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#1e293b' }}>Easy Appointments</div>
-                <div style={{ fontSize: '11px', color: '#8b96a5' }}>Book vet visits in seconds</div>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b' }}>Easy Appointments</div>
+                <div style={{ fontSize: '10.5px', color: '#8b96a5' }}>Book vet visits in seconds</div>
               </div>
             </div>
           </div>
@@ -1010,8 +1029,8 @@ export default function Login() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
               <i className="fa-regular fa-bell" style={{ color: '#64748b', fontSize: '15px' }}></i>
               <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#1e293b' }}>Smart Reminders</div>
-                <div style={{ fontSize: '11px', color: '#8b96a5' }}>Never miss important care</div>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b' }}>Smart Reminders</div>
+                <div style={{ fontSize: '10.5px', color: '#8b96a5' }}>Never miss important care</div>
               </div>
             </div>
           </div>
@@ -1020,8 +1039,8 @@ export default function Login() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
               <i className="fa-solid fa-headset" style={{ color: '#64748b', fontSize: '15px' }}></i>
               <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#1e293b' }}>24/7 Support</div>
-                <div style={{ fontSize: '11px', color: '#8b96a5' }}>We&apos;re always here</div>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b' }}>24/7 Support</div>
+                <div style={{ fontSize: '10.5px', color: '#8b96a5' }}>We&apos;re always here</div>
               </div>
             </div>
           </div>
