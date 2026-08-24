@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="col-xl-4 col-lg-6">
             <div className="logo">
               <Link to="/">
-                <img src="/assets/img/logo.png" alt="logo" />
+                <img src="/assets/img/logo.svg" alt="Petguard" style={{ height: '48px', width: 'auto' }} />
               </Link>
               <p>At vero eos et accusam justo duo dolo res et ea rebum. Stet clita kasd guber gren. Aenean sollici tudin lorem qsben elit clita.</p>
               <div className="phone">
@@ -85,7 +85,7 @@ export default function Footer() {
         </div>
 
         <div className="copyright">
-          <p>Patte Pet Care - Copyright 2023. Design by Winsfolio</p>
+          <p>Petguard Pet Care - Copyright 2024. All rights reserved.</p>
           <a href="#"><img src="/assets/img/visa.jpg" alt="cad" /></a>
         </div>
       </div>

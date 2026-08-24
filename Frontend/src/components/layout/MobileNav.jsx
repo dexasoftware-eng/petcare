@@ -24,7 +24,7 @@ export default function MobileNav({ isOpen, onClose }) {
       >
         <div className="res-log">
           <Link to="/" onClick={handleLinkClick}>
-            <img src="/assets/img/logo-w.png" alt="Responsive Logo" />
+            <img src="/assets/img/logo-w.svg" alt="Petguard" style={{ height: '44px', width: 'auto' }} />
           </Link>
         </div>
         <ul>

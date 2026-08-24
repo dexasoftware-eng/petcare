@@ -96,7 +96,7 @@ export default function Header({ onOpenCart, onOpenSearch, onOpenMobileNav }) {
       <div className="container">
         <div className="bottom-bar">
           <Link to="/">
-            <img src="/assets/img/logo.png" alt="logo" />
+            <img src="/assets/img/logo.svg" alt="Petguard" style={{ height: '48px', width: 'auto' }} />
           </Link>
           <nav className="navbar">
             <ul className="navbar-links">
