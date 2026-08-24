@@ -41,7 +41,7 @@ export default function Login() {
         minHeight: '100vh',
         width: '100%',
         background: `
-          linear-gradient(to right, rgba(250, 247, 242, 0.12) 0%, rgba(250, 247, 242, 0.28) 35%, rgba(250, 247, 242, 0.88) 65%, rgba(250, 247, 242, 0.98) 100%),
+          linear-gradient(to right, rgba(250, 247, 242, 0.65) 0%, rgba(250, 247, 242, 0.55) 35%, rgba(250, 247, 242, 0.88) 65%, rgba(250, 247, 242, 0.98) 100%),
           url(/assets/img/login-bg-original.jpg) center center / cover no-repeat
         `,
         display: 'flex',
@@ -134,7 +134,18 @@ export default function Login() {
         >
           {/* ================= LEFT COLUMN: HERO HEADINGS & BULLET FEATURES ================= */}
           <div style={{ position: 'relative', zIndex: 10 }}>
-            <div style={{ maxWidth: '560px' }}>
+            <div
+              style={{
+                maxWidth: '560px',
+                backgroundColor: 'rgba(255, 252, 247, 0.45)',
+                backdropFilter: 'blur(6px)',
+                WebkitBackdropFilter: 'blur(6px)',
+                borderRadius: '24px',
+                padding: '20px 24px',
+                border: '1px solid rgba(255, 255, 255, 0.7)',
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.03)',
+              }}
+            >
               {/* Main Headline */}
               <h1
                 style={{
@@ -145,7 +156,6 @@ export default function Login() {
                   lineHeight: '1.12',
                   letterSpacing: '-0.03em',
                   marginBottom: '14px',
-                  textShadow: '0 1px 2px rgba(255,255,255,0.6)',
                 }}
               >
                 Your Pet&apos;s Health, <br />
@@ -169,99 +179,131 @@ export default function Login() {
                   fontSize: '15.5px',
                   color: '#334155',
                   lineHeight: '1.55',
-                  marginBottom: '28px',
+                  marginBottom: '24px',
                   maxWidth: '460px',
                   fontWeight: 600,
-                  textShadow: '0 1px 2px rgba(255,255,255,0.6)',
                 }}
               >
                 Manage your pet&apos;s health, appointments, and care all in one secure place.
               </p>
 
               {/* 3 Feature Bullets */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', marginBottom: '36px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '10px' }}>
                 {/* Bullet 1: Secure & Private */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '14px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.75)',
+                    padding: '8px 14px',
+                    borderRadius: '14px',
+                    border: '1px solid rgba(255, 255, 255, 0.9)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
+                    maxWidth: '420px',
+                  }}
+                >
                   <div
                     style={{
-                      width: '42px',
-                      height: '42px',
+                      width: '38px',
+                      height: '38px',
                       borderRadius: '50%',
-                      backgroundColor: 'rgba(255, 237, 213, 0.95)',
+                      backgroundColor: '#ffedd5',
                       color: '#ea580c',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '18px',
+                      fontSize: '17px',
                       flexShrink: 0,
-                      boxShadow: '0 4px 12px rgba(234, 88, 12, 0.15)',
                     }}
                   >
                     <i className="fa-solid fa-shield-halved"></i>
                   </div>
                   <div>
-                    <div style={{ fontSize: '15.5px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
+                    <div style={{ fontSize: '15px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
                       Secure &amp; Private
                     </div>
-                    <div style={{ fontSize: '13px', color: '#475569', fontWeight: 600 }}>
+                    <div style={{ fontSize: '12.5px', color: '#475569', fontWeight: 600 }}>
                       Your pet&apos;s data is always protected
                     </div>
                   </div>
                 </div>
 
                 {/* Bullet 2: Easy Appointments */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '14px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.75)',
+                    padding: '8px 14px',
+                    borderRadius: '14px',
+                    border: '1px solid rgba(255, 255, 255, 0.9)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
+                    maxWidth: '420px',
+                  }}
+                >
                   <div
                     style={{
-                      width: '42px',
-                      height: '42px',
+                      width: '38px',
+                      height: '38px',
                       borderRadius: '50%',
-                      backgroundColor: 'rgba(255, 237, 213, 0.95)',
+                      backgroundColor: '#ffedd5',
                       color: '#ea580c',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '18px',
+                      fontSize: '17px',
                       flexShrink: 0,
-                      boxShadow: '0 4px 12px rgba(234, 88, 12, 0.15)',
                     }}
                   >
                     <i className="fa-regular fa-calendar-check"></i>
                   </div>
                   <div>
-                    <div style={{ fontSize: '15.5px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
+                    <div style={{ fontSize: '15px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
                       Easy Appointments
                     </div>
-                    <div style={{ fontSize: '13px', color: '#475569', fontWeight: 600 }}>
+                    <div style={{ fontSize: '12.5px', color: '#475569', fontWeight: 600 }}>
                       Book vet visits with ease
                     </div>
                   </div>
                 </div>
 
                 {/* Bullet 3: Smart Reminders */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '14px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.75)',
+                    padding: '8px 14px',
+                    borderRadius: '14px',
+                    border: '1px solid rgba(255, 255, 255, 0.9)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
+                    maxWidth: '420px',
+                  }}
+                >
                   <div
                     style={{
-                      width: '42px',
-                      height: '42px',
+                      width: '38px',
+                      height: '38px',
                       borderRadius: '50%',
-                      backgroundColor: 'rgba(255, 237, 213, 0.95)',
+                      backgroundColor: '#ffedd5',
                       color: '#ea580c',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '18px',
+                      fontSize: '17px',
                       flexShrink: 0,
-                      boxShadow: '0 4px 12px rgba(234, 88, 12, 0.15)',
                     }}
                   >
                     <i className="fa-regular fa-bell"></i>
                   </div>
                   <div>
-                    <div style={{ fontSize: '15.5px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
+                    <div style={{ fontSize: '15px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
                       Smart Reminders
                     </div>
-                    <div style={{ fontSize: '13px', color: '#475569', fontWeight: 600 }}>
+                    <div style={{ fontSize: '12.5px', color: '#475569', fontWeight: 600 }}>
                       Never miss important care
                     </div>
                   </div>

@@ -108,7 +108,18 @@ export default function VerifyEmail() {
           }}
         >
           <div style={{ position: 'relative', zIndex: 10 }}>
-            <div style={{ maxWidth: '540px' }}>
+            <div
+              style={{
+                maxWidth: '540px',
+                backgroundColor: 'rgba(255, 252, 247, 0.45)',
+                backdropFilter: 'blur(6px)',
+                WebkitBackdropFilter: 'blur(6px)',
+                borderRadius: '24px',
+                padding: '20px 24px',
+                border: '1px solid rgba(255, 255, 255, 0.7)',
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.03)',
+              }}
+            >
               <h1
                 style={{
                   fontFamily: "'Outfit', sans-serif",
@@ -124,7 +135,7 @@ export default function VerifyEmail() {
                 <span style={{ color: '#f95c19' }}>Account Verification</span> ✉️
               </h1>
 
-              <p style={{ fontSize: '15.5px', color: '#475569', lineHeight: '1.55', marginBottom: '24px', maxWidth: '460px' }}>
+              <p style={{ fontSize: '15.5px', color: '#334155', lineHeight: '1.55', marginBottom: '8px', maxWidth: '460px', fontWeight: 600 }}>
                 Verifying your email ensures that your pet&apos;s medical records, appointments, and notifications are securely synchronized.
               </p>
             </div>
