@@ -1,23 +1,29 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from '../../router/Router';
 import { useAuth } from '../../context/AuthContext';
+import { getRoleDashboardPath } from '../../components/auth/RoleRoute';
 
 export default function ShelterRegister() {
   const [formData, setFormData] = useState({
-    shelterName: '',
-    contactPerson: '',
+    name: '',
     email: '',
-    phone: '',
-    address: '',
     password: '',
     confirmPassword: '',
+    phone: '',
+    shelterName: '',
+    registrationNumber: '',
+    location: '',
+    capacity: '',
+    website: '',
+    description: '',
   });
-  const [showPassword, setShowPassword] = useState(false);
+
   const [agreeTerms, setAgreeTerms] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { registerShelter } = useAuth();
+  const { register } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -34,26 +40,35 @@ export default function ShelterRegister() {
     }
 
     if (!agreeTerms) {
-      setErrorMsg('Please agree to the Shelter & Rescue Organization Guidelines');
+      setErrorMsg('Please agree to the Shelter & Rescue Partner Terms');
       return;
     }
 
     setIsSubmitting(true);
+
     try {
-      await registerShelter({
-        shelterName: formData.shelterName,
-        contactPerson: formData.contactPerson,
+      const payload = {
+        name: formData.name,
         email: formData.email,
-        phone: formData.phone,
-        address: formData.address,
         password: formData.password,
-      });
-      navigate('/dashboard/shelter');
+        role: 'shelter',
+        phone: formData.phone,
+        shelterName: formData.shelterName,
+        registrationNumber: formData.registrationNumber,
+        location: formData.location,
+        capacity: formData.capacity ? Number(formData.capacity) : 0,
+        website: formData.website,
+        description: formData.description,
+      };
+
+      const user = await register(payload);
+      const targetPath = getRoleDashboardPath(user?.role || 'shelter');
+      navigate(targetPath);
     } catch (err) {
       const msg =
         err.response?.data?.message ||
         err.message ||
-        'Registration failed. Please check your information.';
+        'Registration failed. Please try again.';
       setErrorMsg(msg);
     } finally {
       setIsSubmitting(false);
@@ -77,7 +92,7 @@ export default function ShelterRegister() {
         fontFamily: "'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
-      {/* Decorative Wave */}
+      {/* Decorative Bottom-Left Fluid Orange Wave */}
       <div
         style={{
           position: 'absolute',
@@ -85,12 +100,25 @@ export default function ShelterRegister() {
           left: '-40px',
           width: '360px',
           height: '300px',
-          background: 'radial-gradient(circle, #a855f7 0%, #7e22ce 100%)',
+          background: 'radial-gradient(circle, #ff8a34 0%, #f95c19 100%)',
           borderRadius: '40% 60% 70% 30% / 45% 50% 50% 55%',
           zIndex: 2,
           pointerEvents: 'none',
-          opacity: 0.8,
-          boxShadow: '0 20px 40px rgba(126, 34, 206, 0.25)',
+          opacity: 0.85,
+          boxShadow: '0 20px 40px rgba(249, 92, 25, 0.25)',
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '10px',
+          left: '10px',
+          width: '160px',
+          height: '160px',
+          backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.4) 1.5px, transparent 1.5px)',
+          backgroundSize: '12px 12px',
+          zIndex: 3,
+          pointerEvents: 'none',
         }}
       />
 
@@ -152,7 +180,7 @@ export default function ShelterRegister() {
                 }}
               >
                 Connect Your Shelter <br />
-                <span style={{ color: '#9333ea' }}>With Caring Families</span> 🏠
+                <span style={{ color: '#f95c19' }}>With Caring Families</span> 🏠
               </h1>
 
               <p style={{ fontSize: '15px', color: '#475569', lineHeight: '1.55', marginBottom: '22px' }}>
@@ -202,7 +230,7 @@ export default function ShelterRegister() {
                   style={{
                     padding: '8px 16px',
                     borderRadius: '20px',
-                    backgroundColor: '#9333ea',
+                    backgroundColor: '#f95c19',
                     color: '#ffffff',
                     fontSize: '13px',
                     fontWeight: 700,
@@ -210,7 +238,7 @@ export default function ShelterRegister() {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '6px',
-                    boxShadow: '0 4px 12px rgba(147, 51, 234, 0.3)',
+                    boxShadow: '0 4px 12px rgba(249, 92, 25, 0.3)',
                   }}
                 >
                   <i className="fa-solid fa-house-chimney-medical"></i> Shelter
@@ -238,24 +266,24 @@ export default function ShelterRegister() {
                     width: '46px',
                     height: '46px',
                     borderRadius: '50%',
-                    backgroundColor: '#faf5ff',
-                    color: '#9333ea',
+                    backgroundColor: '#fff4eb',
+                    color: '#f95c19',
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontSize: '19px',
-                    boxShadow: '0 4px 12px rgba(147, 51, 234, 0.12)',
+                    boxShadow: '0 4px 12px rgba(249, 92, 25, 0.12)',
                     marginBottom: '8px',
                   }}
                 >
                   <i className="fa-solid fa-house-chimney-medical"></i>
                 </div>
                 <h2 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '24px', fontWeight: 800, color: '#18212f', margin: '0 0 4px 0' }}>
-                  Register Animal Shelter
+                  Register Shelter &amp; Rescue
                 </h2>
                 <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>
                   Already registered?{' '}
-                  <Link to="/login" style={{ color: '#9333ea', fontWeight: 700, textDecoration: 'none' }}>
+                  <Link to="/login" style={{ color: '#f95c19', fontWeight: 700, textDecoration: 'none' }}>
                     Sign In
                   </Link>
                 </p>
@@ -267,7 +295,7 @@ export default function ShelterRegister() {
                     backgroundColor: '#fef2f2',
                     border: '1px solid #fee2e2',
                     borderRadius: '10px',
-                    padding: '9px 12px',
+                    padding: '8px 12px',
                     color: '#dc2626',
                     fontSize: '12.5px',
                     display: 'flex',
@@ -283,7 +311,36 @@ export default function ShelterRegister() {
 
               <form onSubmit={handleSubmit}>
                 <div className="row g-2 mb-2">
-                  <div className="col-12 col-md-6">
+                  <div className="col-6">
+                    <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
+                      Primary Representative *
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      placeholder="e.g. John Doe"
+                      value={formData.name}
+                      onChange={handleChange}
+                      style={{
+                        width: '100%',
+                        padding: '9px 12px',
+                        fontSize: '13px',
+                        borderRadius: '9px',
+                        border: '1.5px solid #e2e8f0',
+                        outline: 'none',
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#f95c19';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(249, 92, 25, 0.12)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                    />
+                  </div>
+                  <div className="col-6">
                     <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
                       Shelter / Org Name *
                     </label>
@@ -291,7 +348,7 @@ export default function ShelterRegister() {
                       type="text"
                       name="shelterName"
                       required
-                      placeholder="Hope Animal Sanctuary"
+                      placeholder="e.g. Haven Pet Rescue"
                       value={formData.shelterName}
                       onChange={handleChange}
                       style={{
@@ -302,41 +359,28 @@ export default function ShelterRegister() {
                         border: '1.5px solid #e2e8f0',
                         outline: 'none',
                       }}
-                    />
-                  </div>
-                  <div className="col-12 col-md-6">
-                    <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
-                      Contact Person *
-                    </label>
-                    <input
-                      type="text"
-                      name="contactPerson"
-                      required
-                      placeholder="Alex Morgan"
-                      value={formData.contactPerson}
-                      onChange={handleChange}
-                      style={{
-                        width: '100%',
-                        padding: '9px 12px',
-                        fontSize: '13px',
-                        borderRadius: '9px',
-                        border: '1.5px solid #e2e8f0',
-                        outline: 'none',
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#f95c19';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(249, 92, 25, 0.12)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
                       }}
                     />
                   </div>
                 </div>
 
                 <div className="row g-2 mb-2">
-                  <div className="col-12 col-md-6">
+                  <div className="col-6">
                     <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
-                      Official Email *
+                      Contact Email *
                     </label>
                     <input
                       type="email"
                       name="email"
                       required
-                      placeholder="info@hopepaws.org"
+                      placeholder="contact@havenrescue.org"
                       value={formData.email}
                       onChange={handleChange}
                       style={{
@@ -347,11 +391,19 @@ export default function ShelterRegister() {
                         border: '1.5px solid #e2e8f0',
                         outline: 'none',
                       }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#f95c19';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(249, 92, 25, 0.12)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
+                      }}
                     />
                   </div>
-                  <div className="col-12 col-md-6">
+                  <div className="col-6">
                     <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
-                      Helpline Phone *
+                      Phone Number *
                     </label>
                     <input
                       type="tel"
@@ -368,34 +420,82 @@ export default function ShelterRegister() {
                         border: '1.5px solid #e2e8f0',
                         outline: 'none',
                       }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#f95c19';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(249, 92, 25, 0.12)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
+                      }}
                     />
                   </div>
                 </div>
 
-                <div className="mb-2">
-                  <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
-                    Facility Physical Address *
-                  </label>
-                  <input
-                    type="text"
-                    name="address"
-                    required
-                    placeholder="789 Rescue Blvd, Austin, TX"
-                    value={formData.address}
-                    onChange={handleChange}
-                    style={{
-                      width: '100%',
-                      padding: '9px 12px',
-                      fontSize: '13px',
-                      borderRadius: '9px',
-                      border: '1.5px solid #e2e8f0',
-                      outline: 'none',
-                    }}
-                  />
+                <div className="row g-2 mb-2">
+                  <div className="col-6">
+                    <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
+                      Shelter Location *
+                    </label>
+                    <input
+                      type="text"
+                      name="location"
+                      required
+                      placeholder="City, State / Full Address"
+                      value={formData.location}
+                      onChange={handleChange}
+                      style={{
+                        width: '100%',
+                        padding: '9px 12px',
+                        fontSize: '13px',
+                        borderRadius: '9px',
+                        border: '1.5px solid #e2e8f0',
+                        outline: 'none',
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#f95c19';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(249, 92, 25, 0.12)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                    />
+                  </div>
+                  <div className="col-6">
+                    <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
+                      Animal Capacity *
+                    </label>
+                    <input
+                      type="number"
+                      name="capacity"
+                      min="1"
+                      required
+                      placeholder="e.g. 50"
+                      value={formData.capacity}
+                      onChange={handleChange}
+                      style={{
+                        width: '100%',
+                        padding: '9px 12px',
+                        fontSize: '13px',
+                        borderRadius: '9px',
+                        border: '1.5px solid #e2e8f0',
+                        outline: 'none',
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#f95c19';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(249, 92, 25, 0.12)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                    />
+                  </div>
                 </div>
 
                 <div className="row g-2 mb-2">
-                  <div className="col-12 col-md-6">
+                  <div className="col-6">
                     <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
                       Password *
                     </label>
@@ -415,6 +515,14 @@ export default function ShelterRegister() {
                           border: '1.5px solid #e2e8f0',
                           outline: 'none',
                         }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = '#f95c19';
+                          e.target.style.boxShadow = '0 0 0 3px rgba(249, 92, 25, 0.12)';
+                        }}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = '#e2e8f0';
+                          e.target.style.boxShadow = 'none';
+                        }}
                       />
                       <button
                         type="button"
@@ -428,14 +536,14 @@ export default function ShelterRegister() {
                           border: 'none',
                           color: '#94a3b8',
                           cursor: 'pointer',
+                          padding: '2px',
                         }}
                       >
-                        <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                        <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`} style={{ fontSize: '12px' }}></i>
                       </button>
                     </div>
                   </div>
-
-                  <div className="col-12 col-md-6">
+                  <div className="col-6">
                     <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
                       Confirm Password *
                     </label>
@@ -454,20 +562,28 @@ export default function ShelterRegister() {
                         border: '1.5px solid #e2e8f0',
                         outline: 'none',
                       }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#f95c19';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(249, 92, 25, 0.12)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
+                      }}
                     />
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', margin: '12px 0 16px 0' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', margin: '14px 0' }}>
                   <input
                     type="checkbox"
-                    id="agreeTerms"
+                    id="agreeShelterTerms"
                     checked={agreeTerms}
                     onChange={(e) => setAgreeTerms(e.target.checked)}
-                    style={{ width: '15px', height: '15px', accentColor: '#9333ea', cursor: 'pointer' }}
+                    style={{ accentColor: '#f95c19', width: '15px', height: '15px' }}
                   />
-                  <label htmlFor="agreeTerms" style={{ fontSize: '12px', color: '#475569', cursor: 'pointer', margin: 0 }}>
-                    I agree to the Shelter &amp; Rescue Organization Guidelines
+                  <label htmlFor="agreeShelterTerms" style={{ fontSize: '12px', color: '#64748b', cursor: 'pointer', margin: 0 }}>
+                    I agree to the Shelter &amp; Rescue Partner Terms
                   </label>
                 </div>
 
@@ -478,16 +594,16 @@ export default function ShelterRegister() {
                     width: '100%',
                     padding: '11.5px',
                     borderRadius: '10px',
-                    background: 'linear-gradient(90deg, #a855f7 0%, #7e22ce 100%)',
+                    background: 'linear-gradient(90deg, #ff6622 0%, #ff4500 100%)',
                     border: 'none',
                     color: '#ffffff',
                     fontSize: '14.5px',
                     fontWeight: 700,
                     cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                    boxShadow: '0 6px 18px rgba(147, 51, 234, 0.28)',
+                    boxShadow: '0 6px 18px rgba(255, 69, 0, 0.28)',
                   }}
                 >
-                  {isSubmitting ? 'Registering...' : 'Register Shelter Organization ➔'}
+                  {isSubmitting ? 'Registering...' : 'Register as Shelter ➔'}
                 </button>
               </form>
             </div>
@@ -524,12 +640,12 @@ export default function ShelterRegister() {
           </div>
           <div className="col-lg-3 col-6">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-              <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}>
-                <i className="fa-solid fa-heart"></i>
+              <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#fff4eb', color: '#f95c19', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}>
+                <i className="fa-solid fa-stethoscope"></i>
               </div>
               <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b' }}>Adoption Engine</div>
-                <div style={{ fontSize: '10.5px', color: '#8b96a5' }}>Verified adopters</div>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b' }}>Expert Vets</div>
+                <div style={{ fontSize: '10.5px', color: '#8b96a5' }}>Verified professionals</div>
               </div>
             </div>
           </div>

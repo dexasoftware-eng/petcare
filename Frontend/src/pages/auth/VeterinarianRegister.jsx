@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from '../../router/Router';
 import { useAuth } from '../../context/AuthContext';
+import { getRoleDashboardPath } from '../../components/auth/RoleRoute';
 
 export default function VeterinarianRegister() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
-    address: '',
-    specialization: '',
-    experience: '',
     password: '',
     confirmPassword: '',
+    phone: '',
+    specialization: '',
+    licenseNumber: '',
+    clinicName: '',
+    clinicAddress: '',
+    experienceYears: '',
+    bio: '',
   });
-  const [showPassword, setShowPassword] = useState(false);
+
   const [agreeTerms, setAgreeTerms] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { registerVet } = useAuth();
+  const { register } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -35,27 +40,35 @@ export default function VeterinarianRegister() {
     }
 
     if (!agreeTerms) {
-      setErrorMsg('Please agree to the Veterinary Practice Terms & Privacy Policy');
+      setErrorMsg('Please agree to the Veterinary Practice Guidelines & Terms');
       return;
     }
 
     setIsSubmitting(true);
+
     try {
-      await registerVet({
+      const payload = {
         name: formData.name,
         email: formData.email,
-        phone: formData.phone,
-        address: formData.address,
-        specialization: formData.specialization,
-        experience: Number(formData.experience) || 1,
         password: formData.password,
-      });
-      navigate('/dashboard/vet');
+        role: 'veterinarian',
+        phone: formData.phone,
+        specialization: formData.specialization,
+        licenseNumber: formData.licenseNumber,
+        clinicName: formData.clinicName,
+        clinicAddress: formData.clinicAddress,
+        experienceYears: formData.experienceYears ? Number(formData.experienceYears) : 0,
+        bio: formData.bio,
+      };
+
+      const user = await register(payload);
+      const targetPath = getRoleDashboardPath(user?.role || 'veterinarian');
+      navigate(targetPath);
     } catch (err) {
       const msg =
         err.response?.data?.message ||
         err.message ||
-        'Registration failed. Please check your credentials.';
+        'Registration failed. Please try again.';
       setErrorMsg(msg);
     } finally {
       setIsSubmitting(false);
@@ -79,7 +92,7 @@ export default function VeterinarianRegister() {
         fontFamily: "'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
-      {/* Decorative Wave */}
+      {/* Decorative Bottom-Left Fluid Orange Wave */}
       <div
         style={{
           position: 'absolute',
@@ -87,12 +100,25 @@ export default function VeterinarianRegister() {
           left: '-40px',
           width: '360px',
           height: '300px',
-          background: 'radial-gradient(circle, #3b82f6 0%, #1d4ed8 100%)',
+          background: 'radial-gradient(circle, #ff8a34 0%, #f95c19 100%)',
           borderRadius: '40% 60% 70% 30% / 45% 50% 50% 55%',
           zIndex: 2,
           pointerEvents: 'none',
-          opacity: 0.8,
-          boxShadow: '0 20px 40px rgba(29, 78, 216, 0.25)',
+          opacity: 0.85,
+          boxShadow: '0 20px 40px rgba(249, 92, 25, 0.25)',
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '10px',
+          left: '10px',
+          width: '160px',
+          height: '160px',
+          backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.4) 1.5px, transparent 1.5px)',
+          backgroundSize: '12px 12px',
+          zIndex: 3,
+          pointerEvents: 'none',
         }}
       />
 
@@ -154,7 +180,7 @@ export default function VeterinarianRegister() {
                 }}
               >
                 Join the Network of <br />
-                <span style={{ color: '#2563eb' }}>Top Veterinarians</span> 🩺
+                <span style={{ color: '#f95c19' }}>Top Veterinarians</span> 🩺
               </h1>
 
               <p style={{ fontSize: '15px', color: '#475569', lineHeight: '1.55', marginBottom: '22px' }}>
@@ -186,7 +212,7 @@ export default function VeterinarianRegister() {
                   style={{
                     padding: '8px 16px',
                     borderRadius: '20px',
-                    backgroundColor: '#2563eb',
+                    backgroundColor: '#f95c19',
                     color: '#ffffff',
                     fontSize: '13px',
                     fontWeight: 700,
@@ -194,7 +220,7 @@ export default function VeterinarianRegister() {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '6px',
-                    boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)',
+                    boxShadow: '0 4px 12px rgba(249, 92, 25, 0.3)',
                   }}
                 >
                   <i className="fa-solid fa-stethoscope"></i> Veterinarian
@@ -240,13 +266,13 @@ export default function VeterinarianRegister() {
                     width: '46px',
                     height: '46px',
                     borderRadius: '50%',
-                    backgroundColor: '#eff6ff',
-                    color: '#2563eb',
+                    backgroundColor: '#fff4eb',
+                    color: '#f95c19',
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontSize: '19px',
-                    boxShadow: '0 4px 12px rgba(37, 99, 235, 0.12)',
+                    boxShadow: '0 4px 12px rgba(249, 92, 25, 0.12)',
                     marginBottom: '8px',
                   }}
                 >
@@ -257,7 +283,7 @@ export default function VeterinarianRegister() {
                 </h2>
                 <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>
                   Already registered?{' '}
-                  <Link to="/login" style={{ color: '#2563eb', fontWeight: 700, textDecoration: 'none' }}>
+                  <Link to="/login" style={{ color: '#f95c19', fontWeight: 700, textDecoration: 'none' }}>
                     Sign In
                   </Link>
                 </p>
@@ -269,7 +295,7 @@ export default function VeterinarianRegister() {
                     backgroundColor: '#fef2f2',
                     border: '1px solid #fee2e2',
                     borderRadius: '10px',
-                    padding: '9px 12px',
+                    padding: '8px 12px',
                     color: '#dc2626',
                     fontSize: '12.5px',
                     display: 'flex',
@@ -285,7 +311,7 @@ export default function VeterinarianRegister() {
 
               <form onSubmit={handleSubmit}>
                 <div className="row g-2 mb-2">
-                  <div className="col-12 col-md-6">
+                  <div className="col-6">
                     <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
                       Dr. Full Name *
                     </label>
@@ -304,9 +330,17 @@ export default function VeterinarianRegister() {
                         border: '1.5px solid #e2e8f0',
                         outline: 'none',
                       }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#f95c19';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(249, 92, 25, 0.12)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
+                      }}
                     />
                   </div>
-                  <div className="col-12 col-md-6">
+                  <div className="col-6">
                     <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
                       Phone / Clinic Contact *
                     </label>
@@ -325,12 +359,20 @@ export default function VeterinarianRegister() {
                         border: '1.5px solid #e2e8f0',
                         outline: 'none',
                       }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#f95c19';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(249, 92, 25, 0.12)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
+                      }}
                     />
                   </div>
                 </div>
 
                 <div className="row g-2 mb-2">
-                  <div className="col-12 col-md-6">
+                  <div className="col-6">
                     <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
                       Professional Email *
                     </label>
@@ -349,9 +391,17 @@ export default function VeterinarianRegister() {
                         border: '1.5px solid #e2e8f0',
                         outline: 'none',
                       }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#f95c19';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(249, 92, 25, 0.12)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
+                      }}
                     />
                   </div>
-                  <div className="col-12 col-md-6">
+                  <div className="col-6">
                     <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
                       Specialization *
                     </label>
@@ -370,21 +420,29 @@ export default function VeterinarianRegister() {
                         border: '1.5px solid #e2e8f0',
                         outline: 'none',
                       }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#f95c19';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(249, 92, 25, 0.12)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
+                      }}
                     />
                   </div>
                 </div>
 
                 <div className="row g-2 mb-2">
-                  <div className="col-12 col-md-6">
+                  <div className="col-6">
                     <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
                       Clinic Address *
                     </label>
                     <input
                       type="text"
-                      name="address"
+                      name="clinicAddress"
                       required
                       placeholder="456 Health Ave, New York"
-                      value={formData.address}
+                      value={formData.clinicAddress}
                       onChange={handleChange}
                       style={{
                         width: '100%',
@@ -394,19 +452,27 @@ export default function VeterinarianRegister() {
                         border: '1.5px solid #e2e8f0',
                         outline: 'none',
                       }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#f95c19';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(249, 92, 25, 0.12)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
+                      }}
                     />
                   </div>
-                  <div className="col-12 col-md-6">
+                  <div className="col-6">
                     <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
                       Years Experience *
                     </label>
                     <input
                       type="number"
-                      name="experience"
+                      name="experienceYears"
+                      min="0"
                       required
-                      min="1"
                       placeholder="5"
-                      value={formData.experience}
+                      value={formData.experienceYears}
                       onChange={handleChange}
                       style={{
                         width: '100%',
@@ -415,13 +481,21 @@ export default function VeterinarianRegister() {
                         borderRadius: '9px',
                         border: '1.5px solid #e2e8f0',
                         outline: 'none',
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#f95c19';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(249, 92, 25, 0.12)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
                       }}
                     />
                   </div>
                 </div>
 
                 <div className="row g-2 mb-2">
-                  <div className="col-12 col-md-6">
+                  <div className="col-6">
                     <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
                       Password *
                     </label>
@@ -441,6 +515,14 @@ export default function VeterinarianRegister() {
                           border: '1.5px solid #e2e8f0',
                           outline: 'none',
                         }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = '#f95c19';
+                          e.target.style.boxShadow = '0 0 0 3px rgba(249, 92, 25, 0.12)';
+                        }}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = '#e2e8f0';
+                          e.target.style.boxShadow = 'none';
+                        }}
                       />
                       <button
                         type="button"
@@ -454,14 +536,14 @@ export default function VeterinarianRegister() {
                           border: 'none',
                           color: '#94a3b8',
                           cursor: 'pointer',
+                          padding: '2px',
                         }}
                       >
-                        <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                        <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`} style={{ fontSize: '12px' }}></i>
                       </button>
                     </div>
                   </div>
-
-                  <div className="col-12 col-md-6">
+                  <div className="col-6">
                     <label style={{ fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px', display: 'block' }}>
                       Confirm Password *
                     </label>
@@ -480,19 +562,27 @@ export default function VeterinarianRegister() {
                         border: '1.5px solid #e2e8f0',
                         outline: 'none',
                       }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#f95c19';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(249, 92, 25, 0.12)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
+                      }}
                     />
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', margin: '12px 0 16px 0' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', margin: '14px 0' }}>
                   <input
                     type="checkbox"
-                    id="agreeTerms"
+                    id="agreeVetTerms"
                     checked={agreeTerms}
                     onChange={(e) => setAgreeTerms(e.target.checked)}
-                    style={{ width: '15px', height: '15px', accentColor: '#2563eb', cursor: 'pointer' }}
+                    style={{ accentColor: '#f95c19', width: '15px', height: '15px' }}
                   />
-                  <label htmlFor="agreeTerms" style={{ fontSize: '12px', color: '#475569', cursor: 'pointer', margin: 0 }}>
+                  <label htmlFor="agreeVetTerms" style={{ fontSize: '12px', color: '#64748b', cursor: 'pointer', margin: 0 }}>
                     I agree to the Veterinary Practice Guidelines &amp; Terms
                   </label>
                 </div>
@@ -504,13 +594,13 @@ export default function VeterinarianRegister() {
                     width: '100%',
                     padding: '11.5px',
                     borderRadius: '10px',
-                    background: 'linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%)',
+                    background: 'linear-gradient(90deg, #ff6622 0%, #ff4500 100%)',
                     border: 'none',
                     color: '#ffffff',
                     fontSize: '14.5px',
                     fontWeight: 700,
                     cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                    boxShadow: '0 6px 18px rgba(37, 99, 235, 0.28)',
+                    boxShadow: '0 6px 18px rgba(255, 69, 0, 0.28)',
                   }}
                 >
                   {isSubmitting ? 'Registering...' : 'Register as Veterinarian ➔'}
@@ -550,7 +640,7 @@ export default function VeterinarianRegister() {
           </div>
           <div className="col-lg-3 col-6">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-              <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}>
+              <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#fff4eb', color: '#f95c19', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}>
                 <i className="fa-solid fa-stethoscope"></i>
               </div>
               <div style={{ textAlign: 'left' }}>

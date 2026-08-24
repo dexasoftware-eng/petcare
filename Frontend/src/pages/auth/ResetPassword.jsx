@@ -80,6 +80,19 @@ export default function ResetPassword() {
           boxShadow: '0 20px 40px rgba(249, 92, 25, 0.25)',
         }}
       />
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '10px',
+          left: '10px',
+          width: '160px',
+          height: '160px',
+          backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.4) 1.5px, transparent 1.5px)',
+          backgroundSize: '12px 12px',
+          zIndex: 3,
+          pointerEvents: 'none',
+        }}
+      />
 
       {/* Top Logo */}
       <div
