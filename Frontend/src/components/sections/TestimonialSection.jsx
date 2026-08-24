@@ -53,11 +53,93 @@ export default function TestimonialSection() {
             </div>
           </div>
 
-          <div className="owl-nav">
-            <button type="button" role="presentation" className="owl-prev" onClick={prevReview} aria-label="Previous review">
+          <div
+            className="owl-nav"
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '20px',
+              marginTop: '35px',
+              marginBottom: '20px',
+              width: '100%',
+              textAlign: 'center',
+            }}
+          >
+            <button
+              type="button"
+              role="presentation"
+              className="owl-prev"
+              onClick={prevReview}
+              aria-label="Previous review"
+              style={{
+                width: '56px',
+                height: '56px',
+                borderRadius: '50%',
+                backgroundColor: '#ffffff',
+                border: '2px solid #ede7db',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 6px 18px rgba(0,0,0,0.06)',
+                transition: 'all 0.3s ease',
+                color: '#222',
+                fontSize: '18px',
+                margin: 0,
+                outline: 'none',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#fa441d';
+                e.currentTarget.style.borderColor = '#fa441d';
+                e.currentTarget.style.color = '#ffffff';
+                e.currentTarget.style.transform = 'scale(1.08)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#ffffff';
+                e.currentTarget.style.borderColor = '#ede7db';
+                e.currentTarget.style.color = '#222';
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
+            >
               <i className="fa-solid fa-arrow-left"></i>
             </button>
-            <button type="button" role="presentation" className="owl-next" onClick={nextReview} aria-label="Next review">
+            <button
+              type="button"
+              role="presentation"
+              className="owl-next"
+              onClick={nextReview}
+              aria-label="Next review"
+              style={{
+                width: '56px',
+                height: '56px',
+                borderRadius: '50%',
+                backgroundColor: '#ffffff',
+                border: '2px solid #ede7db',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 6px 18px rgba(0,0,0,0.06)',
+                transition: 'all 0.3s ease',
+                color: '#222',
+                fontSize: '18px',
+                margin: 0,
+                outline: 'none',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#fa441d';
+                e.currentTarget.style.borderColor = '#fa441d';
+                e.currentTarget.style.color = '#ffffff';
+                e.currentTarget.style.transform = 'scale(1.08)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#ffffff';
+                e.currentTarget.style.borderColor = '#ede7db';
+                e.currentTarget.style.color = '#222';
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
+            >
               <i className="fa-solid fa-arrow-right"></i>
             </button>
           </div>
