@@ -1905,10 +1905,17 @@ i.quote {
 }
 
 .client-slider .owl-nav {
-    position: absolute;
-    width: fit-content;
-    top: -25%;
-    right: 0;
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 30px;
+    margin-bottom: 25px;
+    top: auto;
+    right: auto;
+    left: auto;
 }
 
 /* 21. rated */
