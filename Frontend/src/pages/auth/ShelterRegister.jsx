@@ -66,10 +66,10 @@ export default function ShelterRegister() {
         position: 'relative',
         minHeight: '100vh',
         width: '100%',
-        backgroundImage: 'url(/assets/img/login-bg-original.jpg)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat',
+        background: `
+          linear-gradient(to right, rgba(250, 247, 242, 0.12) 0%, rgba(250, 247, 242, 0.28) 35%, rgba(250, 247, 242, 0.88) 65%, rgba(250, 247, 242, 0.98) 100%),
+          url(/assets/img/login-bg-original.jpg) center center / cover no-repeat
+        `,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -77,25 +77,6 @@ export default function ShelterRegister() {
         fontFamily: "'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
-      {/* Soft Ambient Light Gradient Overlay */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          background: `linear-gradient(
-            to right,
-            rgba(255, 252, 247, 0.72) 0%,
-            rgba(255, 252, 247, 0.45) 45%,
-            rgba(255, 252, 247, 0.65) 100%
-          )`,
-          pointerEvents: 'none',
-          zIndex: 1,
-        }}
-      />
-
       {/* Decorative Wave */}
       <div
         style={{
@@ -119,34 +100,17 @@ export default function ShelterRegister() {
           maxWidth: '1440px',
           width: '100%',
           margin: '0 auto',
-          padding: '22px 40px 0 40px',
+          padding: '24px 40px 0 40px',
           position: 'relative',
           zIndex: 10,
         }}
       >
         <Link to="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
-          <div
-            style={{
-              width: '42px',
-              height: '42px',
-              borderRadius: '12px',
-              background: 'linear-gradient(135deg, #ff7a29 0%, #f24e07 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff',
-              fontSize: '20px',
-              boxShadow: '0 6px 16px rgba(242, 78, 7, 0.28)',
-            }}
-          >
-            <i className="fa-solid fa-shield-cat"></i>
-          </div>
-          <div>
-            <div style={{ fontSize: '23px', fontWeight: 900, color: '#18212f', fontFamily: "'Outfit', sans-serif", lineHeight: '1.1' }}>
-              PetGuard
-            </div>
-            <div style={{ fontSize: '11px', fontWeight: 600, color: '#8b96a5' }}>Care. Protect. Love.</div>
-          </div>
+          <img
+            src="/assets/img/logo.svg"
+            alt="Petguard"
+            style={{ height: '44px', width: 'auto', display: 'block' }}
+          />
         </Link>
       </div>
 
