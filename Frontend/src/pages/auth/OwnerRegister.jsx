@@ -65,7 +65,7 @@ export default function OwnerRegister() {
         minHeight: '100vh',
         width: '100%',
         background: `
-          linear-gradient(to right, rgba(250, 247, 242, 0.12) 0%, rgba(250, 247, 242, 0.28) 35%, rgba(250, 247, 242, 0.88) 65%, rgba(250, 247, 242, 0.98) 100%),
+          linear-gradient(to right, rgba(250, 247, 242, 0.65) 0%, rgba(250, 247, 242, 0.55) 35%, rgba(250, 247, 242, 0.88) 65%, rgba(250, 247, 242, 0.98) 100%),
           url(/assets/img/login-bg-original.jpg) center center / cover no-repeat
         `,
         display: 'flex',
