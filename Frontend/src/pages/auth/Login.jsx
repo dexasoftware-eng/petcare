@@ -37,79 +37,50 @@ export default function Login() {
   return (
     <div
       style={{
-        backgroundColor: '#faf7f2',
-        minHeight: '100vh',
         position: 'relative',
-        overflowX: 'hidden',
+        minHeight: '100vh',
+        width: '100%',
+        backgroundImage: 'url(/assets/img/login-bg-original.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
+        overflowX: 'hidden',
         fontFamily: "'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
-      {/* ================= BACKGROUND ROOM & FLUID ACCENTS ================= */}
-      {/* Cozy Living Room Background for Left Side with Smooth Edge Fading */}
+      {/* Soft Ambient Light Gradient Overlay for Maximum Text Contrast & Card Clarity */}
       <div
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
-          width: '65%',
+          width: '100%',
           height: '100%',
-          backgroundImage: `
-            linear-gradient(to right, rgba(250, 247, 242, 0.4) 0%, rgba(250, 247, 242, 0.75) 60%, rgba(250, 247, 242, 1) 100%),
-            linear-gradient(to bottom, rgba(250, 247, 242, 0.85) 0%, rgba(250, 247, 242, 0.2) 40%, rgba(250, 247, 242, 0.9) 100%),
-            url(/assets/img/login-pets-home.jpg)
-          `,
-          backgroundSize: 'cover',
-          backgroundPosition: 'left bottom',
-          backgroundRepeat: 'no-repeat',
-          zIndex: 0,
+          background: `linear-gradient(
+            to right,
+            rgba(255, 252, 247, 0.72) 0%,
+            rgba(255, 252, 247, 0.45) 45%,
+            rgba(255, 252, 247, 0.65) 100%
+          )`,
           pointerEvents: 'none',
-          opacity: 0.95,
+          zIndex: 1,
         }}
       />
 
-      {/* Decorative Subtle Background Waves (Right Side) */}
-      <svg
-        style={{
-          position: 'absolute',
-          top: '10%',
-          right: '-5%',
-          width: '500px',
-          height: '600px',
-          pointerEvents: 'none',
-          zIndex: 0,
-          opacity: 0.45,
-        }}
-        viewBox="0 0 500 600"
-        fill="none"
-      >
-        <path
-          d="M 100 0 C 350 150, 450 400, 200 600"
-          stroke="rgba(249, 115, 22, 0.15)"
-          strokeWidth="35"
-          fill="none"
-        />
-        <path
-          d="M 220 0 C 450 180, 520 420, 300 600"
-          stroke="rgba(249, 115, 22, 0.08)"
-          strokeWidth="20"
-          fill="none"
-        />
-      </svg>
-
-      {/* Subtle Dotted Matrix & Orange Wave at Bottom Left */}
+      {/* Decorative Bottom-Left Fluid Orange Wave */}
       <div
         style={{
           position: 'absolute',
           bottom: '-30px',
           left: '-40px',
-          width: '380px',
-          height: '320px',
+          width: '360px',
+          height: '300px',
           background: 'radial-gradient(circle, #ff8a34 0%, #f95c19 100%)',
           borderRadius: '40% 60% 70% 30% / 45% 50% 50% 55%',
-          zIndex: 1,
+          zIndex: 2,
           pointerEvents: 'none',
           opacity: 0.85,
           boxShadow: '0 20px 40px rgba(249, 92, 25, 0.25)',
@@ -120,11 +91,11 @@ export default function Login() {
           position: 'absolute',
           bottom: '10px',
           left: '10px',
-          width: '180px',
-          height: '180px',
+          width: '160px',
+          height: '160px',
           backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.4) 1.5px, transparent 1.5px)',
           backgroundSize: '12px 12px',
-          zIndex: 2,
+          zIndex: 3,
           pointerEvents: 'none',
         }}
       />
@@ -132,10 +103,10 @@ export default function Login() {
       {/* ================= TOP NAVIGATION / LOGO ================= */}
       <div
         style={{
-          maxWidth: '1400px',
+          maxWidth: '1440px',
           width: '100%',
           margin: '0 auto',
-          padding: '20px 36px 0 36px',
+          padding: '22px 40px 0 40px',
           position: 'relative',
           zIndex: 10,
         }}
@@ -195,12 +166,12 @@ export default function Login() {
       {/* ================= MAIN 2-COLUMN SECTION ================= */}
       <div
         style={{
-          maxWidth: '1400px',
+          maxWidth: '1440px',
           width: '100%',
           margin: '0 auto',
-          padding: '10px 36px 10px 36px',
+          padding: '16px 40px 16px 40px',
           position: 'relative',
-          zIndex: 5,
+          zIndex: 10,
           flex: 1,
           display: 'flex',
           alignItems: 'center',
@@ -209,14 +180,14 @@ export default function Login() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1.25fr) minmax(360px, 490px)',
+            gridTemplateColumns: 'minmax(0, 1.25fr) minmax(360px, 480px)',
             alignItems: 'center',
             gap: '40px',
             width: '100%',
           }}
         >
-          {/* ================= LEFT COLUMN: HERO HEADINGS & FEATURE LIST ================= */}
-          <div style={{ position: 'relative', zIndex: 5 }}>
+          {/* ================= LEFT COLUMN: HERO HEADINGS & BULLET FEATURES ================= */}
+          <div style={{ position: 'relative', zIndex: 10 }}>
             <div style={{ maxWidth: '560px' }}>
               {/* Main Headline */}
               <h1
@@ -251,7 +222,7 @@ export default function Login() {
                   fontSize: '15.5px',
                   color: '#475569',
                   lineHeight: '1.55',
-                  marginBottom: '26px',
+                  marginBottom: '28px',
                   maxWidth: '460px',
                   fontWeight: 500,
                 }}
@@ -260,28 +231,28 @@ export default function Login() {
               </p>
 
               {/* 3 Feature Bullets */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', marginBottom: '32px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', marginBottom: '36px' }}>
                 {/* Bullet 1: Secure & Private */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                   <div
                     style={{
-                      width: '40px',
-                      height: '40px',
+                      width: '42px',
+                      height: '42px',
                       borderRadius: '50%',
-                      backgroundColor: '#ffedd5',
+                      backgroundColor: 'rgba(255, 237, 213, 0.95)',
                       color: '#ea580c',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '17px',
+                      fontSize: '18px',
                       flexShrink: 0,
-                      boxShadow: '0 4px 10px rgba(234, 88, 12, 0.15)',
+                      boxShadow: '0 4px 12px rgba(234, 88, 12, 0.15)',
                     }}
                   >
                     <i className="fa-solid fa-shield-halved"></i>
                   </div>
                   <div>
-                    <div style={{ fontSize: '15px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
+                    <div style={{ fontSize: '15.5px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
                       Secure &amp; Private
                     </div>
                     <div style={{ fontSize: '13px', color: '#64748b', fontWeight: 500 }}>
@@ -294,23 +265,23 @@ export default function Login() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                   <div
                     style={{
-                      width: '40px',
-                      height: '40px',
+                      width: '42px',
+                      height: '42px',
                       borderRadius: '50%',
-                      backgroundColor: '#ffedd5',
+                      backgroundColor: 'rgba(255, 237, 213, 0.95)',
                       color: '#ea580c',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '17px',
+                      fontSize: '18px',
                       flexShrink: 0,
-                      boxShadow: '0 4px 10px rgba(234, 88, 12, 0.15)',
+                      boxShadow: '0 4px 12px rgba(234, 88, 12, 0.15)',
                     }}
                   >
                     <i className="fa-regular fa-calendar-check"></i>
                   </div>
                   <div>
-                    <div style={{ fontSize: '15px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
+                    <div style={{ fontSize: '15.5px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
                       Easy Appointments
                     </div>
                     <div style={{ fontSize: '13px', color: '#64748b', fontWeight: 500 }}>
@@ -323,23 +294,23 @@ export default function Login() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                   <div
                     style={{
-                      width: '40px',
-                      height: '40px',
+                      width: '42px',
+                      height: '42px',
                       borderRadius: '50%',
-                      backgroundColor: '#ffedd5',
+                      backgroundColor: 'rgba(255, 237, 213, 0.95)',
                       color: '#ea580c',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '17px',
+                      fontSize: '18px',
                       flexShrink: 0,
-                      boxShadow: '0 4px 10px rgba(234, 88, 12, 0.15)',
+                      boxShadow: '0 4px 12px rgba(234, 88, 12, 0.15)',
                     }}
                   >
                     <i className="fa-regular fa-bell"></i>
                   </div>
                   <div>
-                    <div style={{ fontSize: '15px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
+                    <div style={{ fontSize: '15.5px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
                       Smart Reminders
                     </div>
                     <div style={{ fontSize: '13px', color: '#64748b', fontWeight: 500 }}>
@@ -347,26 +318,6 @@ export default function Login() {
                     </div>
                   </div>
                 </div>
-              </div>
-
-              {/* High-Resolution Foreground Pet Cutout */}
-              <div
-                style={{
-                  position: 'relative',
-                  marginTop: '10px',
-                  maxWidth: '520px',
-                }}
-              >
-                <img
-                  src="/assets/img/pets-cutout.png"
-                  alt="Golden Retriever dog and British Shorthair cat"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                    display: 'block',
-                    filter: 'drop-shadow(0 18px 30px rgba(0, 0, 0, 0.12))',
-                  }}
-                />
               </div>
             </div>
           </div>
@@ -378,13 +329,13 @@ export default function Login() {
                 backgroundColor: '#ffffff',
                 borderRadius: '28px',
                 padding: '32px 34px',
-                boxShadow: '0 24px 60px -12px rgba(0, 0, 0, 0.08), 0 0 1px 1px rgba(0, 0, 0, 0.02)',
+                boxShadow: '0 24px 60px -10px rgba(0, 0, 0, 0.1), 0 0 1px 1px rgba(0, 0, 0, 0.03)',
                 border: '1px solid #f1f5f9',
-                maxWidth: '480px',
+                maxWidth: '470px',
                 margin: '0 auto',
               }}
             >
-              {/* Paw Icon Badge */}
+              {/* Top Paw Icon Badge */}
               <div style={{ textAlign: 'center', marginBottom: '10px' }}>
                 <div
                   style={{

@@ -50,165 +50,173 @@ export default function ResetPassword() {
   return (
     <div
       style={{
-        backgroundColor: '#fbf8f3',
-        minHeight: '100vh',
         position: 'relative',
-        overflow: 'hidden',
+        minHeight: '100vh',
+        width: '100%',
+        backgroundImage: 'url(/assets/img/login-bg-original.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        fontFamily: "'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif",
+        overflowX: 'hidden',
+        fontFamily: "'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
-      {/* Decorative Background */}
+      {/* Soft Light Overlay */}
       <div
         style={{
           position: 'absolute',
-          bottom: '-70px',
-          left: '-70px',
-          width: '520px',
-          height: '420px',
-          background: 'linear-gradient(135deg, #ff8a34 0%, #f95c19 100%)',
-          borderRadius: '45% 55% 65% 35% / 40% 45% 55% 60%',
-          zIndex: 1,
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          background: `linear-gradient(
+            to right,
+            rgba(255, 252, 247, 0.72) 0%,
+            rgba(255, 252, 247, 0.45) 45%,
+            rgba(255, 252, 247, 0.65) 100%
+          )`,
           pointerEvents: 'none',
-          boxShadow: '0 20px 45px rgba(249, 92, 25, 0.22)',
+          zIndex: 1,
         }}
       />
 
-      {/* Main Container */}
+      {/* Decorative Wave */}
       <div
-        className="container-fluid"
+        style={{
+          position: 'absolute',
+          bottom: '-30px',
+          left: '-40px',
+          width: '360px',
+          height: '300px',
+          background: 'radial-gradient(circle, #ff8a34 0%, #f95c19 100%)',
+          borderRadius: '40% 60% 70% 30% / 45% 50% 50% 55%',
+          zIndex: 2,
+          pointerEvents: 'none',
+          opacity: 0.85,
+          boxShadow: '0 20px 40px rgba(249, 92, 25, 0.25)',
+        }}
+      />
+
+      {/* Top Logo */}
+      <div
         style={{
           maxWidth: '1440px',
-          padding: '24px 36px 0 36px',
+          width: '100%',
+          margin: '0 auto',
+          padding: '22px 40px 0 40px',
           position: 'relative',
-          zIndex: 2,
-          flex: 1,
+          zIndex: 10,
         }}
       >
-        {/* Top-Left Logo */}
-        <div style={{ marginBottom: '20px' }}>
-          <Link to="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
-            <div
-              style={{
-                width: '42px',
-                height: '42px',
-                borderRadius: '12px',
-                background: 'linear-gradient(135deg, #ff7a29 0%, #f24e07 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#ffffff',
-                fontSize: '20px',
-                boxShadow: '0 6px 16px rgba(242, 78, 7, 0.28)',
-              }}
-            >
-              <i className="fa-solid fa-shield-cat"></i>
+        <Link to="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
+          <div
+            style={{
+              width: '42px',
+              height: '42px',
+              borderRadius: '12px',
+              background: 'linear-gradient(135deg, #ff7a29 0%, #f24e07 100%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#ffffff',
+              fontSize: '20px',
+              boxShadow: '0 6px 16px rgba(242, 78, 7, 0.28)',
+            }}
+          >
+            <i className="fa-solid fa-shield-cat"></i>
+          </div>
+          <div>
+            <div style={{ fontSize: '23px', fontWeight: 900, color: '#18212f', fontFamily: "'Outfit', sans-serif", lineHeight: '1.1' }}>
+              PetGuard
             </div>
-            <div>
-              <div style={{ fontSize: '22px', fontWeight: 900, color: '#18212f', lineHeight: '1.1', letterSpacing: '-0.02em' }}>
-                PetGuard
-              </div>
-              <div style={{ fontSize: '10.5px', fontWeight: 600, color: '#8b96a5', letterSpacing: '0.04em' }}>
-                Care. Protect. Love.
-              </div>
-            </div>
-          </Link>
-        </div>
+            <div style={{ fontSize: '11px', fontWeight: 600, color: '#8b96a5' }}>Care. Protect. Love.</div>
+          </div>
+        </Link>
+      </div>
 
-        {/* Content Row */}
-        <div className="row align-items-center justify-content-between g-4">
-          <div className="col-xl-6 col-lg-6 col-md-12">
-            <div style={{ maxWidth: '580px', position: 'relative' }}>
+      {/* Main Section */}
+      <div
+        style={{
+          maxWidth: '1440px',
+          width: '100%',
+          margin: '0 auto',
+          padding: '16px 40px 16px 40px',
+          position: 'relative',
+          zIndex: 10,
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1.25fr) minmax(360px, 470px)',
+            alignItems: 'center',
+            gap: '40px',
+            width: '100%',
+          }}
+        >
+          <div style={{ position: 'relative', zIndex: 10 }}>
+            <div style={{ maxWidth: '540px' }}>
               <h1
                 style={{
-                  fontSize: 'clamp(36px, 4.2vw, 50px)',
+                  fontFamily: "'Outfit', sans-serif",
+                  fontSize: 'clamp(36px, 4.2vw, 52px)',
                   fontWeight: 900,
                   color: '#18212f',
-                  lineHeight: '1.15',
+                  lineHeight: '1.12',
                   letterSpacing: '-0.03em',
-                  marginBottom: '16px',
+                  marginBottom: '14px',
                 }}
               >
                 Set a Strong New <br />
-                <span style={{ color: '#f95c19' }}>Account Password</span> <br />
-                For PetGuard 🔐
+                <span style={{ color: '#f95c19' }}>Account Password</span> 🔐
               </h1>
 
-              <p style={{ fontSize: '15.5px', color: '#556579', lineHeight: '1.6', marginBottom: '24px', maxWidth: '460px' }}>
+              <p style={{ fontSize: '15.5px', color: '#475569', lineHeight: '1.55', marginBottom: '24px', maxWidth: '460px' }}>
                 Choose a secure password with at least 8 characters including uppercase, lowercase, and numbers.
               </p>
-
-              {/* Cozy Home Pets Photo */}
-              <div
-                style={{
-                  position: 'relative',
-                  marginTop: '12px',
-                }}
-              >
-                <div
-                  style={{
-                    position: 'relative',
-                    borderRadius: '24px',
-                    overflow: 'hidden',
-                    boxShadow: '0 16px 36px -10px rgba(0, 0, 0, 0.1)',
-                    backgroundColor: '#ffffff',
-                    border: '3px solid #ffffff',
-                  }}
-                >
-                  <img
-                    src="/assets/img/login-pets-home.jpg"
-                    alt="Pets in cozy living room"
-                    style={{
-                      width: '100%',
-                      height: 'auto',
-                      maxHeight: '340px',
-                      objectFit: 'cover',
-                      display: 'block',
-                    }}
-                  />
-                </div>
-              </div>
             </div>
           </div>
 
-          <div className="col-xl-6 col-lg-6 col-md-12">
+          <div style={{ position: 'relative', zIndex: 10 }}>
             <div
               style={{
                 backgroundColor: '#ffffff',
-                borderRadius: '32px',
-                padding: 'clamp(28px, 3.5vw, 40px) clamp(24px, 3.5vw, 38px)',
-                boxShadow: '0 25px 60px -10px rgba(0, 0, 0, 0.06), 0 0 1px 1px rgba(0, 0, 0, 0.02)',
+                borderRadius: '28px',
+                padding: '34px 34px',
+                boxShadow: '0 24px 60px -10px rgba(0, 0, 0, 0.1), 0 0 1px 1px rgba(0, 0, 0, 0.03)',
                 border: '1px solid #f1f5f9',
-                maxWidth: '480px',
+                maxWidth: '460px',
                 margin: '0 auto',
-                position: 'relative',
-                zIndex: 3,
               }}
             >
-              <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+              <div style={{ textAlign: 'center', marginBottom: '20px' }}>
                 <div
                   style={{
-                    width: '52px',
-                    height: '52px',
+                    width: '46px',
+                    height: '46px',
                     borderRadius: '50%',
                     backgroundColor: '#fff4eb',
                     color: '#f95c19',
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '22px',
+                    fontSize: '20px',
                     boxShadow: '0 4px 12px rgba(249, 92, 25, 0.12)',
-                    marginBottom: '10px',
+                    marginBottom: '8px',
                   }}
                 >
                   <i className="fa-solid fa-lock-open"></i>
                 </div>
-                <h2 style={{ fontSize: '26px', fontWeight: 800, color: '#18212f', margin: '0 0 4px 0' }}>
+                <h2 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '24px', fontWeight: 800, color: '#18212f', margin: '0 0 4px 0' }}>
                   Create New Password
                 </h2>
-                <p style={{ fontSize: '13.5px', color: '#64748b', margin: 0 }}>
+                <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>
                   Enter and confirm your new account password
                 </p>
               </div>
@@ -218,17 +226,17 @@ export default function ResetPassword() {
                   style={{
                     backgroundColor: '#ecfdf5',
                     border: '1px solid #d1fae5',
-                    borderRadius: '12px',
-                    padding: '12px 16px',
+                    borderRadius: '10px',
+                    padding: '10px 14px',
                     color: '#065f46',
-                    fontSize: '13.5px',
+                    fontSize: '13px',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '10px',
-                    marginBottom: '20px',
+                    gap: '8px',
+                    marginBottom: '16px',
                   }}
                 >
-                  <i className="fa-solid fa-circle-check" style={{ fontSize: '16px' }}></i>
+                  <i className="fa-solid fa-circle-check"></i>
                   <span>{statusMsg}</span>
                 </div>
               )}
@@ -238,45 +246,45 @@ export default function ResetPassword() {
                   style={{
                     backgroundColor: '#fef2f2',
                     border: '1px solid #fee2e2',
-                    borderRadius: '12px',
-                    padding: '12px 16px',
+                    borderRadius: '10px',
+                    padding: '10px 14px',
                     color: '#dc2626',
-                    fontSize: '13.5px',
+                    fontSize: '13px',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '10px',
-                    marginBottom: '20px',
+                    gap: '8px',
+                    marginBottom: '16px',
                   }}
                 >
-                  <i className="fa-solid fa-circle-exclamation" style={{ fontSize: '16px' }}></i>
+                  <i className="fa-solid fa-circle-exclamation"></i>
                   <span>{errorMsg}</span>
                 </div>
               )}
 
               <form onSubmit={handleSubmit}>
-                <div style={{ marginBottom: '16px' }}>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
+                <div style={{ marginBottom: '14px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '5px' }}>
                     Reset Token
                   </label>
                   <input
                     type="text"
                     required
-                    placeholder="Paste your reset token"
+                    placeholder="Paste reset token"
                     value={token}
                     onChange={(e) => setToken(e.target.value)}
                     style={{
                       width: '100%',
-                      padding: '11px 14px',
-                      fontSize: '14px',
-                      borderRadius: '11px',
+                      padding: '10px 12px',
+                      fontSize: '13.5px',
+                      borderRadius: '10px',
                       border: '1.5px solid #e2e8f0',
                       outline: 'none',
                     }}
                   />
                 </div>
 
-                <div style={{ marginBottom: '16px' }}>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
+                <div style={{ marginBottom: '14px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '5px' }}>
                     New Password
                   </label>
                   <div style={{ position: 'relative' }}>
@@ -288,9 +296,9 @@ export default function ResetPassword() {
                       onChange={(e) => setPassword(e.target.value)}
                       style={{
                         width: '100%',
-                        padding: '11px 40px 11px 14px',
-                        fontSize: '14px',
-                        borderRadius: '11px',
+                        padding: '10px 36px 10px 12px',
+                        fontSize: '13.5px',
+                        borderRadius: '10px',
                         border: '1.5px solid #e2e8f0',
                         outline: 'none',
                       }}
@@ -300,7 +308,7 @@ export default function ResetPassword() {
                       onClick={() => setShowPassword(!showPassword)}
                       style={{
                         position: 'absolute',
-                        right: '12px',
+                        right: '8px',
                         top: '50%',
                         transform: 'translateY(-50%)',
                         background: 'none',
@@ -314,8 +322,8 @@ export default function ResetPassword() {
                   </div>
                 </div>
 
-                <div style={{ marginBottom: '22px' }}>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
+                <div style={{ marginBottom: '20px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '5px' }}>
                     Confirm New Password
                   </label>
                   <input
@@ -326,9 +334,9 @@ export default function ResetPassword() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     style={{
                       width: '100%',
-                      padding: '11px 14px',
-                      fontSize: '14px',
-                      borderRadius: '11px',
+                      padding: '10px 12px',
+                      fontSize: '13.5px',
+                      borderRadius: '10px',
                       border: '1.5px solid #e2e8f0',
                       outline: 'none',
                     }}
@@ -340,27 +348,23 @@ export default function ResetPassword() {
                   disabled={isSubmitting}
                   style={{
                     width: '100%',
-                    padding: '13px',
-                    borderRadius: '12px',
+                    padding: '12px',
+                    borderRadius: '11px',
                     background: 'linear-gradient(90deg, #ff6622 0%, #ff4500 100%)',
                     border: 'none',
                     color: '#ffffff',
-                    fontSize: '15px',
+                    fontSize: '14.5px',
                     fontWeight: 700,
                     cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px',
-                    boxShadow: '0 8px 20px rgba(255, 69, 0, 0.3)',
+                    boxShadow: '0 6px 18px rgba(255, 69, 0, 0.28)',
                     marginBottom: '16px',
                   }}
                 >
-                  {isSubmitting ? 'Resetting Password...' : 'Update Password ➔'}
+                  {isSubmitting ? 'Resetting...' : 'Update Password ➔'}
                 </button>
 
                 <div style={{ textAlign: 'center' }}>
-                  <Link to="/login" style={{ fontSize: '13.5px', color: '#f95c19', fontWeight: 700, textDecoration: 'none' }}>
+                  <Link to="/login" style={{ fontSize: '13px', color: '#f95c19', fontWeight: 700, textDecoration: 'none' }}>
                     <i className="fa-solid fa-arrow-left me-1"></i> Back to Sign In
                   </Link>
                 </div>
@@ -374,51 +378,59 @@ export default function ResetPassword() {
       <div
         style={{
           position: 'relative',
-          zIndex: 3,
+          zIndex: 10,
           padding: '14px 24px',
-          margin: '18px auto 14px auto',
-          maxWidth: '920px',
+          margin: '12px auto 14px auto',
+          maxWidth: '980px',
           width: 'calc(100% - 48px)',
           backgroundColor: '#ffffff',
-          borderRadius: '20px',
-          boxShadow: '0 8px 28px rgba(0, 0, 0, 0.04)',
+          borderRadius: '24px',
+          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.05)',
           border: '1px solid #f1f5f9',
         }}
       >
         <div className="row g-3 text-center align-items-center">
           <div className="col-lg-3 col-6">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-              <i className="fa-solid fa-shield-halved" style={{ color: '#64748b', fontSize: '15px' }}></i>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+              <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#ecfdf5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}>
+                <i className="fa-solid fa-shield-halved"></i>
+              </div>
               <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#1e293b' }}>Secure &amp; Private</div>
-                <div style={{ fontSize: '11px', color: '#8b96a5' }}>Your data is safe</div>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b' }}>Secure &amp; Private</div>
+                <div style={{ fontSize: '10.5px', color: '#8b96a5' }}>Your data is safe</div>
               </div>
             </div>
           </div>
           <div className="col-lg-3 col-6">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-              <i className="fa-solid fa-key" style={{ color: '#64748b', fontSize: '15px' }}></i>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+              <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}>
+                <i className="fa-solid fa-key"></i>
+              </div>
               <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#1e293b' }}>Bcrypt Hashed</div>
-                <div style={{ fontSize: '11px', color: '#8b96a5' }}>12 Salt Rounds</div>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b' }}>Bcrypt Hashed</div>
+                <div style={{ fontSize: '10.5px', color: '#8b96a5' }}>12 Salt Rounds</div>
               </div>
             </div>
           </div>
           <div className="col-lg-3 col-6">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-              <i className="fa-solid fa-lock" style={{ color: '#64748b', fontSize: '15px' }}></i>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+              <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}>
+                <i className="fa-solid fa-lock"></i>
+              </div>
               <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#1e293b' }}>Encrypted Token</div>
-                <div style={{ fontSize: '11px', color: '#8b96a5' }}>Single-use token</div>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b' }}>Encrypted Token</div>
+                <div style={{ fontSize: '10.5px', color: '#8b96a5' }}>Single-use token</div>
               </div>
             </div>
           </div>
           <div className="col-lg-3 col-6">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-              <i className="fa-solid fa-headset" style={{ color: '#64748b', fontSize: '15px' }}></i>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+              <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#ecfdf5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}>
+                <i className="fa-solid fa-headset"></i>
+              </div>
               <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#1e293b' }}>24/7 Support</div>
-                <div style={{ fontSize: '11px', color: '#8b96a5' }}>We&apos;re always here</div>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b' }}>24/7 Support</div>
+                <div style={{ fontSize: '10.5px', color: '#8b96a5' }}>We&apos;re always here</div>
               </div>
             </div>
           </div>

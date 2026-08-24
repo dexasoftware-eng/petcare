@@ -61,49 +61,50 @@ export default function OwnerRegister() {
   return (
     <div
       style={{
-        backgroundColor: '#faf7f2',
-        minHeight: '100vh',
         position: 'relative',
-        overflowX: 'hidden',
+        minHeight: '100vh',
+        width: '100%',
+        backgroundImage: 'url(/assets/img/login-bg-original.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
+        overflowX: 'hidden',
         fontFamily: "'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
-      {/* Background Room Layer */}
+      {/* Soft Ambient Light Gradient Overlay */}
       <div
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
-          width: '65%',
+          width: '100%',
           height: '100%',
-          backgroundImage: `
-            linear-gradient(to right, rgba(250, 247, 242, 0.4) 0%, rgba(250, 247, 242, 0.75) 60%, rgba(250, 247, 242, 1) 100%),
-            linear-gradient(to bottom, rgba(250, 247, 242, 0.85) 0%, rgba(250, 247, 242, 0.2) 40%, rgba(250, 247, 242, 0.9) 100%),
-            url(/assets/img/login-pets-home.jpg)
-          `,
-          backgroundSize: 'cover',
-          backgroundPosition: 'left bottom',
-          backgroundRepeat: 'no-repeat',
-          zIndex: 0,
+          background: `linear-gradient(
+            to right,
+            rgba(255, 252, 247, 0.72) 0%,
+            rgba(255, 252, 247, 0.45) 45%,
+            rgba(255, 252, 247, 0.65) 100%
+          )`,
           pointerEvents: 'none',
-          opacity: 0.95,
+          zIndex: 1,
         }}
       />
 
-      {/* Fluid Orange Wave Bottom-Left */}
+      {/* Decorative Bottom-Left Fluid Orange Wave */}
       <div
         style={{
           position: 'absolute',
           bottom: '-30px',
           left: '-40px',
-          width: '380px',
-          height: '320px',
+          width: '360px',
+          height: '300px',
           background: 'radial-gradient(circle, #ff8a34 0%, #f95c19 100%)',
           borderRadius: '40% 60% 70% 30% / 45% 50% 50% 55%',
-          zIndex: 1,
+          zIndex: 2,
           pointerEvents: 'none',
           opacity: 0.85,
           boxShadow: '0 20px 40px rgba(249, 92, 25, 0.25)',
@@ -113,10 +114,10 @@ export default function OwnerRegister() {
       {/* Top Logo */}
       <div
         style={{
-          maxWidth: '1400px',
+          maxWidth: '1440px',
           width: '100%',
           margin: '0 auto',
-          padding: '20px 36px 0 36px',
+          padding: '22px 40px 0 40px',
           position: 'relative',
           zIndex: 10,
         }}
@@ -147,15 +148,15 @@ export default function OwnerRegister() {
         </Link>
       </div>
 
-      {/* Main Section */}
+      {/* Main 2-Column Section */}
       <div
         style={{
-          maxWidth: '1400px',
+          maxWidth: '1440px',
           width: '100%',
           margin: '0 auto',
-          padding: '10px 36px 10px 36px',
+          padding: '16px 40px 16px 40px',
           position: 'relative',
-          zIndex: 5,
+          zIndex: 10,
           flex: 1,
           display: 'flex',
           alignItems: 'center',
@@ -164,14 +165,14 @@ export default function OwnerRegister() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1.15fr) minmax(380px, 510px)',
+            gridTemplateColumns: 'minmax(0, 1.15fr) minmax(380px, 500px)',
             alignItems: 'center',
             gap: '40px',
             width: '100%',
           }}
         >
           {/* Left Hero */}
-          <div style={{ position: 'relative', zIndex: 5 }}>
+          <div style={{ position: 'relative', zIndex: 10 }}>
             <div style={{ maxWidth: '540px' }}>
               <h1
                 style={{
@@ -252,20 +253,6 @@ export default function OwnerRegister() {
                   <i className="fa-solid fa-house-chimney-medical"></i> Shelter
                 </Link>
               </div>
-
-              {/* Pets Cutout */}
-              <div style={{ position: 'relative', maxWidth: '480px' }}>
-                <img
-                  src="/assets/img/pets-cutout.png"
-                  alt="Dog and Cat"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                    display: 'block',
-                    filter: 'drop-shadow(0 18px 30px rgba(0, 0, 0, 0.12))',
-                  }}
-                />
-              </div>
             </div>
           </div>
 
@@ -276,9 +263,9 @@ export default function OwnerRegister() {
                 backgroundColor: '#ffffff',
                 borderRadius: '28px',
                 padding: '30px 32px',
-                boxShadow: '0 24px 60px -12px rgba(0, 0, 0, 0.08), 0 0 1px 1px rgba(0, 0, 0, 0.02)',
+                boxShadow: '0 24px 60px -10px rgba(0, 0, 0, 0.1), 0 0 1px 1px rgba(0, 0, 0, 0.03)',
                 border: '1px solid #f1f5f9',
-                maxWidth: '500px',
+                maxWidth: '490px',
                 margin: '0 auto',
               }}
             >
