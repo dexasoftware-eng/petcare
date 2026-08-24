@@ -2,15 +2,6 @@ import React, { useState } from 'react';
 import { Link } from '../../router/Router';
 
 export default function MobileNav({ isOpen, onClose }) {
-  const [openSubMenus, setOpenSubMenus] = useState({});
-
-  const toggleSubMenu = (menuName) => {
-    setOpenSubMenus((prev) => ({
-      ...prev,
-      [menuName]: !prev[menuName],
-    }));
-  };
-
   const handleLinkClick = () => {
     onClose();
   };
@@ -28,99 +19,23 @@ export default function MobileNav({ isOpen, onClose }) {
           </Link>
         </div>
         <ul>
-          <li className={`menu-item-has-children ${openSubMenus['home'] ? 'active' : ''}`}>
-            <a
-              href="javascript:void(0)"
-              onClick={(e) => {
-                e.preventDefault();
-                toggleSubMenu('home');
-              }}
-            >
-              Home
-            </a>
-            <ul className="sub-menu" style={{ display: openSubMenus['home'] ? 'block' : 'none' }}>
-              <li><Link to="/" onClick={handleLinkClick}>home 1</Link></li>
-              <li><Link to="/" onClick={handleLinkClick}>home 2</Link></li>
-              <li><Link to="/" onClick={handleLinkClick}>home 3</Link></li>
-            </ul>
-          </li>
-
           <li>
-            <Link to="/about" onClick={handleLinkClick}>about</Link>
+            <Link to="/" onClick={handleLinkClick}>Home</Link>
           </li>
-
-          <li className={`menu-item-has-children ${openSubMenus['services'] ? 'active' : ''}`}>
-            <a
-              href="javascript:void(0)"
-              onClick={(e) => {
-                e.preventDefault();
-                toggleSubMenu('services');
-              }}
-            >
-              Services
-            </a>
-            <ul className="sub-menu" style={{ display: openSubMenus['services'] ? 'block' : 'none' }}>
-              <li><Link to="/services" onClick={handleLinkClick}>services</Link></li>
-              <li><Link to="/service-details" onClick={handleLinkClick}>service details</Link></li>
-            </ul>
-          </li>
-
-          <li className={`menu-item-has-children ${openSubMenus['pages'] ? 'active' : ''}`}>
-            <a
-              href="javascript:void(0)"
-              onClick={(e) => {
-                e.preventDefault();
-                toggleSubMenu('pages');
-              }}
-            >
-              pages
-            </a>
-            <ul className="sub-menu" style={{ display: openSubMenus['pages'] ? 'block' : 'none' }}>
-              <li><Link to="/team-details" onClick={handleLinkClick}>team details</Link></li>
-              <li><Link to="/how-we-works" onClick={handleLinkClick}>how we works</Link></li>
-              <li><Link to="/history" onClick={handleLinkClick}>history</Link></li>
-              <li><Link to="/pricing-packages" onClick={handleLinkClick}>pricing packages</Link></li>
-              <li><Link to="/photo-gallery" onClick={handleLinkClick}>photo gallery</Link></li>
-              <li><Link to="/login" onClick={handleLinkClick}>login</Link></li>
-            </ul>
-          </li>
-
-          <li className={`menu-item-has-children ${openSubMenus['shop'] ? 'active' : ''}`}>
-            <a
-              href="javascript:void(0)"
-              onClick={(e) => {
-                e.preventDefault();
-                toggleSubMenu('shop');
-              }}
-            >
-              shop
-            </a>
-            <ul className="sub-menu" style={{ display: openSubMenus['shop'] ? 'block' : 'none' }}>
-              <li><Link to="/our-products" onClick={handleLinkClick}>our products</Link></li>
-              <li><Link to="/product-details" onClick={handleLinkClick}>product details</Link></li>
-              <li><Link to="/shop-cart" onClick={handleLinkClick}>shop cart</Link></li>
-              <li><Link to="/cart-checkout" onClick={handleLinkClick}>cart checkout</Link></li>
-            </ul>
-          </li>
-
-          <li className={`menu-item-has-children ${openSubMenus['news'] ? 'active' : ''}`}>
-            <a
-              href="javascript:void(0)"
-              onClick={(e) => {
-                e.preventDefault();
-                toggleSubMenu('news');
-              }}
-            >
-              News
-            </a>
-            <ul className="sub-menu" style={{ display: openSubMenus['news'] ? 'block' : 'none' }}>
-              <li><Link to="/our-blog" onClick={handleLinkClick}>our blog</Link></li>
-              <li><Link to="/blog-details" onClick={handleLinkClick}>blog details</Link></li>
-            </ul>
-          </li>
-
           <li>
-            <Link to="/contact" onClick={handleLinkClick}>contacts</Link>
+            <Link to="/about" onClick={handleLinkClick}>About</Link>
+          </li>
+          <li>
+            <Link to="/services" onClick={handleLinkClick}>Services</Link>
+          </li>
+          <li>
+            <Link to="/our-products" onClick={handleLinkClick}>Shop</Link>
+          </li>
+          <li>
+            <Link to="/our-blog" onClick={handleLinkClick}>News</Link>
+          </li>
+          <li>
+            <Link to="/contact" onClick={handleLinkClick}>Contact</Link>
           </li>
         </ul>
 

@@ -100,48 +100,26 @@ export default function Header({ onOpenCart, onOpenSearch, onOpenMobileNav }) {
           </Link>
           <nav className="navbar">
             <ul className="navbar-links">
-              <li className="navbar-dropdown">
+              <li>
                 <Link to="/">Home</Link>
               </li>
-              <li className="navbar-dropdown">
+              <li>
                 <Link to="/about">About</Link>
               </li>
-              <li className="navbar-dropdown menu-item-children">
+              <li>
                 <Link to="/services">Services</Link>
-                <div className="dropdown">
-                  <Link to="/services">All Services</Link>
-                  <Link to="/service-details">Service Details</Link>
-                </div>
               </li>
-              <li className="navbar-dropdown menu-item-children">
-                <Link to="/register/owner">Register</Link>
-                <div className="dropdown">
-                  <Link to="/register/owner">Pet Owner</Link>
-                  <Link to="/register/veterinarian">Veterinarian</Link>
-                  <Link to="/register/shelter">Animal Shelter</Link>
-                </div>
-              </li>
-              <li className="navbar-dropdown menu-item-children">
+              <li>
                 <Link to="/our-products">Shop</Link>
-                <div className="dropdown">
-                  <Link to="/our-products">Our Products</Link>
-                  <Link to="/product-details">Product Details</Link>
-                  <Link to="/shop-cart">Shop Cart</Link>
-                  <Link to="/cart-checkout">Cart Checkout</Link>
-                </div>
               </li>
-              <li className="navbar-dropdown menu-item-children">
+              <li>
                 <Link to="/our-blog">News</Link>
-                <div className="dropdown">
-                  <Link to="/our-blog">Our Blog</Link>
-                  <Link to="/blog-details">Blog Details</Link>
-                </div>
               </li>
-              <li className="navbar-dropdown">
+              <li>
                 <Link to="/contact">Contact</Link>
               </li>
               {isAuthenticated && (
-                <li className="navbar-dropdown">
+                <li>
                   <Link to={getDashboardLink()} style={{ color: '#fe5716', fontWeight: 'bold' }}>
                     Dashboard
                   </Link>
