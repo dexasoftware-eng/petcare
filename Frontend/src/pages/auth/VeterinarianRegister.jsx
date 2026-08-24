@@ -141,18 +141,7 @@ export default function VeterinarianRegister() {
         >
           {/* Left Hero */}
           <div style={{ position: 'relative', zIndex: 10 }}>
-            <div
-              style={{
-                maxWidth: '540px',
-                backgroundColor: 'rgba(255, 252, 247, 0.45)',
-                backdropFilter: 'blur(6px)',
-                WebkitBackdropFilter: 'blur(6px)',
-                borderRadius: '24px',
-                padding: '20px 24px',
-                border: '1px solid rgba(255, 255, 255, 0.7)',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.03)',
-              }}
-            >
+            <div style={{ maxWidth: '540px' }}>
               <h1
                 style={{
                   fontFamily: "'Outfit', sans-serif",
@@ -168,12 +157,12 @@ export default function VeterinarianRegister() {
                 <span style={{ color: '#2563eb' }}>Top Veterinarians</span> 🩺
               </h1>
 
-              <p style={{ fontSize: '15px', color: '#334155', lineHeight: '1.55', marginBottom: '22px', fontWeight: 600 }}>
+              <p style={{ fontSize: '15px', color: '#475569', lineHeight: '1.55', marginBottom: '22px' }}>
                 Empower your practice with digital patient charts, appointment booking, and instant record access.
               </p>
 
               {/* Role Switcher Pills */}
-              <div style={{ display: 'flex', gap: '8px', marginBottom: '8px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
                 <Link
                   to="/register/owner"
                   style={{

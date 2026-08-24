@@ -102,18 +102,7 @@ export default function ForgotPassword() {
           }}
         >
           <div style={{ position: 'relative', zIndex: 10 }}>
-            <div
-              style={{
-                maxWidth: '540px',
-                backgroundColor: 'rgba(255, 252, 247, 0.45)',
-                backdropFilter: 'blur(6px)',
-                WebkitBackdropFilter: 'blur(6px)',
-                borderRadius: '24px',
-                padding: '20px 24px',
-                border: '1px solid rgba(255, 255, 255, 0.7)',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.03)',
-              }}
-            >
+            <div style={{ maxWidth: '540px' }}>
               <h1
                 style={{
                   fontFamily: "'Outfit', sans-serif",
@@ -129,7 +118,7 @@ export default function ForgotPassword() {
                 <span style={{ color: '#f95c19' }}>Your Account Access</span> 🔒
               </h1>
 
-              <p style={{ fontSize: '15.5px', color: '#334155', lineHeight: '1.55', marginBottom: '8px', maxWidth: '460px', fontWeight: 600 }}>
+              <p style={{ fontSize: '15.5px', color: '#475569', lineHeight: '1.55', marginBottom: '24px', maxWidth: '460px' }}>
                 Enter your registered email address and we&apos;ll send you secure instructions to reset your password.
               </p>
             </div>

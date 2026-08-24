@@ -139,18 +139,7 @@ export default function ShelterRegister() {
         >
           {/* Left Hero */}
           <div style={{ position: 'relative', zIndex: 10 }}>
-            <div
-              style={{
-                maxWidth: '540px',
-                backgroundColor: 'rgba(255, 252, 247, 0.45)',
-                backdropFilter: 'blur(6px)',
-                WebkitBackdropFilter: 'blur(6px)',
-                borderRadius: '24px',
-                padding: '20px 24px',
-                border: '1px solid rgba(255, 255, 255, 0.7)',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.03)',
-              }}
-            >
+            <div style={{ maxWidth: '540px' }}>
               <h1
                 style={{
                   fontFamily: "'Outfit', sans-serif",
@@ -166,12 +155,12 @@ export default function ShelterRegister() {
                 <span style={{ color: '#9333ea' }}>With Caring Families</span> 🏠
               </h1>
 
-              <p style={{ fontSize: '15px', color: '#334155', lineHeight: '1.55', marginBottom: '22px', fontWeight: 600 }}>
+              <p style={{ fontSize: '15px', color: '#475569', lineHeight: '1.55', marginBottom: '22px' }}>
                 Streamline pet intake, manage adoption listings, and evaluate applicant applications with an end-to-end digital rescue portal.
               </p>
 
               {/* Role Switcher Pills */}
-              <div style={{ display: 'flex', gap: '8px', marginBottom: '8px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
                 <Link
                   to="/register/owner"
                   style={{

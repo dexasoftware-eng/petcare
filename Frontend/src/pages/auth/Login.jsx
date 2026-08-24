@@ -134,18 +134,7 @@ export default function Login() {
         >
           {/* ================= LEFT COLUMN: HERO HEADINGS & BULLET FEATURES ================= */}
           <div style={{ position: 'relative', zIndex: 10 }}>
-            <div
-              style={{
-                maxWidth: '560px',
-                backgroundColor: 'rgba(255, 252, 247, 0.45)',
-                backdropFilter: 'blur(6px)',
-                WebkitBackdropFilter: 'blur(6px)',
-                borderRadius: '24px',
-                padding: '20px 24px',
-                border: '1px solid rgba(255, 255, 255, 0.7)',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.03)',
-              }}
-            >
+            <div style={{ maxWidth: '560px' }}>
               {/* Main Headline */}
               <h1
                 style={{
@@ -179,7 +168,7 @@ export default function Login() {
                   fontSize: '15.5px',
                   color: '#334155',
                   lineHeight: '1.55',
-                  marginBottom: '24px',
+                  marginBottom: '28px',
                   maxWidth: '460px',
                   fontWeight: 600,
                 }}
@@ -188,122 +177,89 @@ export default function Login() {
               </p>
 
               {/* 3 Feature Bullets */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '10px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', marginBottom: '36px' }}>
                 {/* Bullet 1: Secure & Private */}
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '14px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.75)',
-                    padding: '8px 14px',
-                    borderRadius: '14px',
-                    border: '1px solid rgba(255, 255, 255, 0.9)',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
-                    maxWidth: '420px',
-                  }}
-                >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                   <div
                     style={{
-                      width: '38px',
-                      height: '38px',
+                      width: '42px',
+                      height: '42px',
                       borderRadius: '50%',
-                      backgroundColor: '#ffedd5',
+                      backgroundColor: 'rgba(255, 237, 213, 0.95)',
                       color: '#ea580c',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '17px',
+                      fontSize: '18px',
                       flexShrink: 0,
+                      boxShadow: '0 4px 12px rgba(234, 88, 12, 0.15)',
                     }}
                   >
                     <i className="fa-solid fa-shield-halved"></i>
                   </div>
                   <div>
-                    <div style={{ fontSize: '15px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
+                    <div style={{ fontSize: '15.5px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
                       Secure &amp; Private
                     </div>
-                    <div style={{ fontSize: '12.5px', color: '#475569', fontWeight: 600 }}>
+                    <div style={{ fontSize: '13px', color: '#475569', fontWeight: 600 }}>
                       Your pet&apos;s data is always protected
                     </div>
                   </div>
                 </div>
 
                 {/* Bullet 2: Easy Appointments */}
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '14px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.75)',
-                    padding: '8px 14px',
-                    borderRadius: '14px',
-                    border: '1px solid rgba(255, 255, 255, 0.9)',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
-                    maxWidth: '420px',
-                  }}
-                >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                   <div
                     style={{
-                      width: '38px',
-                      height: '38px',
+                      width: '42px',
+                      height: '42px',
                       borderRadius: '50%',
-                      backgroundColor: '#ffedd5',
+                      backgroundColor: 'rgba(255, 237, 213, 0.95)',
                       color: '#ea580c',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '17px',
+                      fontSize: '18px',
                       flexShrink: 0,
+                      boxShadow: '0 4px 12px rgba(234, 88, 12, 0.15)',
                     }}
                   >
                     <i className="fa-regular fa-calendar-check"></i>
                   </div>
                   <div>
-                    <div style={{ fontSize: '15px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
+                    <div style={{ fontSize: '15.5px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
                       Easy Appointments
                     </div>
-                    <div style={{ fontSize: '12.5px', color: '#475569', fontWeight: 600 }}>
+                    <div style={{ fontSize: '13px', color: '#475569', fontWeight: 600 }}>
                       Book vet visits with ease
                     </div>
                   </div>
                 </div>
 
                 {/* Bullet 3: Smart Reminders */}
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '14px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.75)',
-                    padding: '8px 14px',
-                    borderRadius: '14px',
-                    border: '1px solid rgba(255, 255, 255, 0.9)',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
-                    maxWidth: '420px',
-                  }}
-                >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                   <div
                     style={{
-                      width: '38px',
-                      height: '38px',
+                      width: '42px',
+                      height: '42px',
                       borderRadius: '50%',
-                      backgroundColor: '#ffedd5',
+                      backgroundColor: 'rgba(255, 237, 213, 0.95)',
                       color: '#ea580c',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '17px',
+                      fontSize: '18px',
                       flexShrink: 0,
+                      boxShadow: '0 4px 12px rgba(234, 88, 12, 0.15)',
                     }}
                   >
                     <i className="fa-regular fa-bell"></i>
                   </div>
                   <div>
-                    <div style={{ fontSize: '15px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
+                    <div style={{ fontSize: '15.5px', fontWeight: 800, color: '#1e293b', lineHeight: '1.2' }}>
                       Smart Reminders
                     </div>
-                    <div style={{ fontSize: '12.5px', color: '#475569', fontWeight: 600 }}>
+                    <div style={{ fontSize: '13px', color: '#475569', fontWeight: 600 }}>
                       Never miss important care
                     </div>
                   </div>
