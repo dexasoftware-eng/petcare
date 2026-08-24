@@ -8,7 +8,7 @@ export default function InstagramGallery({ onOpenLightbox }) {
         <div className="insta-img">
           <h3>
             <i className="fa-brands fa-instagram"></i>
-            Follow @domain.com
+            Follow @Petguard
           </h3>
           <a href="https://instagram.com" target="_blank" rel="noreferrer" className="button">
             Follow Us

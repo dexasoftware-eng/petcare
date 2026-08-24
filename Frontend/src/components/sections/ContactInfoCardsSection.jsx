@@ -34,7 +34,7 @@ export default function ContactInfoCardsSection() {
                 </svg>
               </i>
               <span>Email Address.</span>
-              <a href="mailto:Username@domain.com">Username@domain.com</a>
+              <a href="mailto:info@Petguard.com">info@Petguard.com</a>
             </div>
           </div>
 
@@ -58,8 +58,8 @@ export default function ContactInfoCardsSection() {
                   </g>
                 </svg>
               </i>
-              <span>Email Address.</span>
-              <a href="tel:+091213596224">+09 121 359 6224</a>
+              <span>Phone Number.</span>
+              <a href="tel:+923243284192">+92 324 3284 192</a>
               <h6>24/7 Support team</h6>
             </div>
           </div>

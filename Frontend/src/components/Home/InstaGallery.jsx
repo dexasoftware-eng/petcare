@@ -19,7 +19,7 @@ const InstaGallery = () => {
         <div className="insta-img d-flex flex-column flex-sm-row justify-content-between align-items-center mb-4">
           <h3 className="mb-3 mb-sm-0">
             <i className="fa-brands fa-instagram me-2 text-danger"></i>
-            Follow @domain.com
+            Follow @Petguard
           </h3>
           <a
             href="https://instagram.com"

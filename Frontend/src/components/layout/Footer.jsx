@@ -18,7 +18,7 @@ export default function Footer() {
                     <path d="M0,81v350h512V81H0z M456.952,111L256,286.104L55.047,111H456.952z M30,128.967l134.031,116.789L30,379.787V128.967z M51.213,401l135.489-135.489L256,325.896l69.298-60.384L460.787,401H51.213z M482,379.788L347.969,245.756L482,128.967V379.788z" />
                   </svg>
                 </i>
-                <a href="mailto:username@domain.com">username@domain.com</a>
+                <a href="mailto:info@Petguard.com">info@Petguard.com</a>
               </div>
               <div className="phone d-flax align-items-center">
                 <i>
@@ -69,7 +69,7 @@ export default function Footer() {
                   <div className="call-us">
                     <img src="/assets/img/hadphon.png" alt="hadphon" />
                     <div>
-                      <a href="tel:+02101283492">+021 01283492</a>
+                      <a href="tel:+923243284192">+92 324 3284 192</a>
                       <span>Got Questions? Call us 24/7</span>
                     </div>
                   </div>
