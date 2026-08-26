@@ -1,78 +1,42 @@
-# PetGuard (`petcaretw`) - Vibe Coding Rules & Architecture Guidelines
+# PetGuard (`petcaretw`) — PHP MVC Architecture & Vibe Coding Rules
 
-This file ensures that all developers (and their Antigravity AI agents) generate consistent, clean, and conflict-free code.
-
----
-
-## 🏗️ Tech Stack
-
-- **Backend:** Node.js, Express.js (ES Modules `import/export`)
-- **Database:** MongoDB Atlas (Cloud) with Mongoose ODM
-- **Frontend:** React (Vite), Tailwind CSS, Lucide React (Icons), Axios, React Router DOM
-- **Authentication:** JWT (JSON Web Tokens) with bcryptjs password hashing
+This project has been converted from MERN to a **Modern Flat PHP 8.2+ MVC Architecture** tailored for XAMPP (Apache + MariaDB/MySQL).
 
 ---
 
-## 📁 Project Folder Structure
+## 🏗️ Technology Stack
+
+- **Server & Backend:** PHP 8.2+, Custom High-Performance MVC Engine, Apache (`mod_rewrite` via `.htaccess`)
+- **Database:** MariaDB / MySQL with PDO (Object-Relational Mapping & Migration Engine)
+- **Frontend & Styling:** Vanilla HTML5, Bootstrap, FontAwesome 6, Custom Responsive Theme CSS & JS
+- **Security:** Bcrypt password hashing, Role-Based Access Control (RBAC), CSRF Token Protection, Input Sanitization & Validation
+
+---
+
+## 📁 Root Project Structure
 
 ```
 petcaretw/
-├── backend/                 # Backend Node.js / Express API
-│   ├── src/
-│   │   ├── config/          # Database & third-party configs (db.js)
-│   │   ├── controllers/     # Request handlers & business logic
-│   │   ├── middlewares/     # Auth & RBAC validation middlewares
-│   │   ├── models/          # Mongoose schemas (User, Pet, HealthRecord, etc.)
-│   │   ├── routes/          # Express API route endpoints (/api/v1/...)
-│   │   ├── services/        # Business logic & helper services
-│   │   ├── utils/           # Helper functions & constants
-│   │   └── index.js         # Main server entrypoint
-│   ├── .env                 # Secret environment variables (NOT committed to Git)
-│   ├── .env.example         # Template for environment variables
-│   ├── test-db.js           # DB connection tester
-│   └── package.json
-├── frontend/                # Frontend Vite React App
-│   ├── src/
-│   │   ├── assets/          # Static assets & images
-│   │   ├── components/      # Reusable UI components (Navbar, Footer, Modals)
-│   │   ├── context/         # React Context (Auth, Cart, Pet, Notification)
-│   │   ├── hooks/           # Custom React hooks
-│   │   ├── pages/           # Route views (Owner, Vet, Shelter, Admin)
-│   │   ├── routes/          # App routing & Protected routes
-│   │   ├── services/        # Axios API service instances
-│   │   ├── utils/           # Frontend helpers
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── index.html
-│   ├── tailwind.config.js
-│   └── package.json
-├── FurShield_Master_Requirements_Specification.md
-├── PROJECT_RULES.md
-└── .gitignore
+├── config/              # Configuration (config.php, database.php)
+├── core/                # MVC Core Engine (App, Router, Controller, Model, Database, Session, View, Migration, Request, Response)
+├── controllers/         # Web & API Request Handlers
+├── models/              # Active Record PDO Models
+├── middleware/          # Security Guards (Auth, Guest, Role, Csrf)
+├── helpers/             # Utility helpers (Auth, Flash, Validator, ViewHelper)
+├── views/               # PHP Templates, Layouts (main, dashboard, auth) & Partials
+├── migrations/          # 🚀 All Database Schema Migrations (m0001_..., m0002_..., etc.)
+├── assets/              # CSS, JS, Images, Icons
+├── index.php            # Root Front Controller & Router Entry Point
+├── migrate.php          # CLI & Web Database Migration Runner
+├── .htaccess            # URL rewrite rules for clean routing
+├── .env.example         # Environment template
+└── README.md            # Comprehensive project & migrations guide
 ```
 
 ---
 
-## 🤝 Collaboration & Git Rules for Two Vibe Coders
+## ⚡ Mandatory Database Migrations Rule
 
-1. **Branching Strategy:**
-   - Always create a separate branch for any new feature:
-     ```bash
-     git checkout -b feature/your-feature-name
-     ```
-   - Never push directly to `main` without checking.
-
-2. **Environment Variables:**
-   - Both developers MUST use the shared MongoDB Atlas connection string in their `backend/.env`.
-   - Never commit `.env` to Git.
-
-3. **API Conventions:**
-   - All backend routes must start with `/api/` (e.g. `/api/auth`, `/api/pets`, `/api/bookings`).
-   - Standard JSON responses:
-     ```json
-     {
-       "success": true,
-       "message": "Operation successful",
-       "data": { ... }
-     }
-     ```
+1. **Never edit database tables directly in phpMyAdmin or raw SQL.**
+2. Whenever any new table or column is required, always create a migration file in `migrations/` named `mXXXX_your_change.php` extending `Core\Migration`.
+3. Apply migrations using `php migrate.php` or `http://localhost/petcaretw/migrate.php`.

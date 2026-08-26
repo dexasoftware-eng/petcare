@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /petcaretw/
+
+    # Direct requests to real files or directories should pass through
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Rewrite all other URLs to index.php
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
