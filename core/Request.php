@@ -43,12 +43,17 @@ class Request
             $uri = substr($uri, 0, $pos);
         }
 
-        // Normalize base script path (e.g. /petcaretw)
-        $scriptName = str_replace('\\', '/', dirname($this->serverParams['SCRIPT_NAME'] ?? ''));
-        if ($scriptName !== '/' && !empty($scriptName)) {
-            if (str_starts_with($uri, $scriptName)) {
-                $uri = substr($uri, strlen($scriptName));
+        // Normalize base script path (e.g. /PetGaurd)
+        $scriptDir = str_replace('\\', '/', dirname($this->serverParams['SCRIPT_NAME'] ?? ''));
+        if ($scriptDir !== '/' && $scriptDir !== '.' && !empty($scriptDir)) {
+            if (str_starts_with($uri, $scriptDir)) {
+                $uri = substr($uri, strlen($scriptDir));
             }
+        }
+
+        // Also strip /index.php if present in URI
+        if (str_starts_with($uri, '/index.php')) {
+            $uri = substr($uri, strlen('/index.php'));
         }
 
         $uri = '/' . trim($uri, '/');

@@ -3,22 +3,32 @@
  * Application Configuration
  */
 
+// Load .env if getenv or parse_ini_file exists
+if (file_exists(dirname(__DIR__) . '/.env')) {
+    $env = @parse_ini_file(dirname(__DIR__) . '/.env');
+} else {
+    $env = [];
+}
+
 // Detect base URL dynamically or allow override
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || ($_SERVER['SERVER_PORT'] ?? 80) == 443) ? "https://" : "http://";
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-$scriptName = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
-$baseUrl = rtrim($protocol . $host . $scriptName, '/');
+$scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
+$scriptDir = ($scriptDir === '/' || $scriptDir === '\\' || $scriptDir === '.') ? '' : '/' . trim($scriptDir, '/');
 
-// If running in CLI, fallback
-if (php_sapi_name() === 'cli' || empty($baseUrl) || $baseUrl === 'http://') {
-    $baseUrl = 'http://localhost/petcaretw';
+$dynamicUrl = rtrim($protocol . $host . $scriptDir, '/');
+$envUrl = $env['APP_URL'] ?? getenv('APP_URL') ?: '';
+
+$baseUrl = !empty($envUrl) ? rtrim($envUrl, '/') : $dynamicUrl;
+if (empty($baseUrl) || $baseUrl === 'http://' || $baseUrl === 'https://') {
+    $baseUrl = 'http://localhost/PetGaurd';
 }
 
 return [
-    'app_name' => 'PetGuard — Pet Care & Clinic',
+    'app_name' => $env['APP_NAME'] ?? 'PetGuard — Pet Care & Clinic',
     'app_url' => $baseUrl,
-    'app_env' => 'development', // 'development' or 'production'
-    'debug' => true,
+    'app_env' => $env['APP_ENV'] ?? 'development',
+    'debug' => (bool) ($env['APP_DEBUG'] ?? true),
     'timezone' => 'UTC',
     'session' => [
         'name' => 'petguard_session',
