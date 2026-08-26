@@ -97,8 +97,11 @@ $router->post('/register/veterinarian', [AuthController::class, 'registerVet'], 
 $router->get('/register/shelter', [AuthController::class, 'showShelterRegister'], [GuestMiddleware::class]);
 $router->post('/register/shelter', [AuthController::class, 'registerShelter'], [GuestMiddleware::class, CsrfMiddleware::class]);
 
+$router->get('/verify-email', [AuthController::class, 'showVerifyEmail']);
+$router->post('/verify-email', [AuthController::class, 'verifyEmail'], [CsrfMiddleware::class]);
+
 $router->get('/forgot-password', [AuthController::class, 'showForgotPassword'], [GuestMiddleware::class]);
-$router->post('/forgot-password', [AuthController::class, 'forgotPassword'], [GuestMiddleware::class, CsrfMiddleware::class]);
+$router->post('/forgot-password', [AuthController::class, 'sendResetLink'], [GuestMiddleware::class, CsrfMiddleware::class]);
 
 $router->get('/reset-password', [AuthController::class, 'showResetPassword'], [GuestMiddleware::class]);
 $router->post('/reset-password', [AuthController::class, 'resetPassword'], [GuestMiddleware::class, CsrfMiddleware::class]);

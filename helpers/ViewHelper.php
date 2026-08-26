@@ -49,6 +49,11 @@ class ViewHelper
         return '<input type="hidden" name="_csrf" value="' . htmlspecialchars($token, ENT_QUOTES, 'UTF-8') . '">';
     }
 
+    public static function csrf(): string
+    {
+        return self::csrfField();
+    }
+
     public static function csrfToken(): string
     {
         return Session::csrfToken();
