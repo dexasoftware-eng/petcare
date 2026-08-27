@@ -1,7 +1,12 @@
 <?php
 use Helpers\ViewHelper;
 
-$initial = strtoupper(substr($vet['name'], 0, 1));
+function getDoctorInitials(string $name): string {
+    $clean = trim(preg_replace('/^dr\.?\s+/i', '', trim($name)));
+    return strtoupper(substr($clean, 0, 1) ?: 'D');
+}
+
+$initial = getDoctorInitials($vet['name']);
 ?>
 
 <!-- Top Navigation -->
@@ -24,7 +29,7 @@ $initial = strtoupper(substr($vet['name'], 0, 1));
 <div class="admin-card p-4 p-md-5 mb-4 border shadow-sm" style="border-radius: 24px; background: #ffffff;">
     <div class="row g-4 align-items-center">
         <div class="col-12 col-sm-auto text-center">
-            <div class="rounded-4 text-white border d-flex align-items-center justify-content-center fw-bold shadow mx-auto" style="width: 110px; height: 110px; font-size: 42px; background: linear-gradient(135deg, #ff7a18, #ff9f43);">
+            <div class="rounded-4 text-white border d-flex align-items-center justify-content-center fw-bold shadow mx-auto" style="width: 100px; height: 100px; font-size: 40px; background: linear-gradient(135deg, #ff7a18, #ff9f43);">
                 <?= $initial ?>
             </div>
             <div class="mt-2">
@@ -183,7 +188,7 @@ $initial = strtoupper(substr($vet['name'], 0, 1));
                 <div class="stat-card-icon icon-green" style="width: 34px; height: 34px; font-size: 14px; border-radius: 10px;">
                     <i class="fa-solid fa-calendar-check"></i>
                 </div>
-                <h5 class="fw-bold text-dark m-0">Book with Dr. <?= ViewHelper::e($vet['name']) ?></h5>
+                <h5 class="fw-bold text-dark m-0">Book with <?= ViewHelper::e($vet['name']) ?></h5>
             </div>
 
             <form action="<?= ViewHelper::url('portal/appointments/book') ?>" method="POST">

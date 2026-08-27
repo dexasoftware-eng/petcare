@@ -2,6 +2,20 @@
 use Helpers\ViewHelper;
 
 $totalVets = count($vets);
+
+function getDoctorInitials(string $name): string {
+    $clean = trim(preg_replace('/^dr\.?\s+/i', '', trim($name)));
+    return strtoupper(substr($clean, 0, 1) ?: 'D');
+}
+
+$avatarGradients = [
+    'linear-gradient(135deg, #ff7a18 0%, #ff9f43 100%)', // Orange Amber
+    'linear-gradient(135deg, #0284c7 0%, #38bdf8 100%)', // Medical Blue
+    'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)', // Royal Violet
+    'linear-gradient(135deg, #059669 0%, #34d399 100%)', // Emerald Clinical
+    'linear-gradient(135deg, #d97706 0%, #fbbf24 100%)', // Warm Gold
+    'linear-gradient(135deg, #e11d48 0%, #fb7185 100%)', // Rose Crimson
+];
 ?>
 
 <style>
@@ -43,8 +57,8 @@ $totalVets = count($vets);
     height: 100%;
 }
 .vet-card-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 16px 32px -6px rgba(15, 23, 42, 0.1), 0 0 0 1px rgba(255, 122, 24, 0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 36px -8px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(255, 122, 24, 0.3);
     border-color: #cbd5e1;
 }
 
@@ -60,8 +74,7 @@ $totalVets = count($vets);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #ff7a18 0%, #ff9f43 100%);
-    box-shadow: 0 8px 18px rgba(255, 122, 24, 0.25);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
     position: relative;
     border: 2px solid #ffffff;
 }
@@ -256,23 +269,24 @@ $totalVets = count($vets);
                 </div>
             </div>
         <?php else: ?>
-            <?php foreach ($vets as $v): ?>
+            <?php foreach ($vets as $index => $v): ?>
                 <?php
                     $isFav = in_array((int)$v['id'], $favIds ?? []);
-                    $initial = strtoupper(substr($v['name'], 0, 1));
+                    $initial = getDoctorInitials($v['name']);
+                    $gradient = $avatarGradients[$index % count($avatarGradients)];
                 ?>
                 <div class="col-12 col-sm-6 col-lg-4 col-xxl-4 vet-card-col" 
                      data-name="<?= strtolower(htmlspecialchars($v['name'])) ?>" 
                      data-spec="<?= strtolower(htmlspecialchars($v['specialization'])) ?>" 
                      data-clinic="<?= strtolower(htmlspecialchars($v['clinic_name'])) ?>">
                     
-                    <div class="vet-card-item p-4 shadow-sm">
+                    <div class="vet-card-item p-3 p-sm-4 shadow-sm">
                         
                         <div>
                             <!-- Header: Avatar, Name, Specialization & Favorite Heart -->
                             <div class="d-flex justify-content-between align-items-start gap-2 mb-3">
                                 <div class="d-flex align-items-center gap-3 min-w-0">
-                                    <div class="vet-avatar-squircle">
+                                    <div class="vet-avatar-squircle" style="background: <?= $gradient ?>;">
                                         <?= $initial ?>
                                         <span class="vet-status-dot" title="Online for Consultations"></span>
                                     </div>
