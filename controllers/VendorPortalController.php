@@ -15,6 +15,7 @@ use Models\Category;
 use Models\Order;
 use Models\OrderItem;
 use Models\AuditLog;
+use Services\AiService;
 
 class VendorPortalController extends Controller
 {
@@ -213,6 +214,88 @@ class VendorPortalController extends Controller
         } else {
             Flash::success('Product published to store catalog.');
             $this->redirect('vendor/products');
+        }
+    }
+
+    /**
+     * AI Product Metadata Generator Endpoint
+     */
+    public function aiGenerateProduct(): void
+    {
+        $this->getVendorUserId();
+        $title = trim((string)$this->request->input('title', ''));
+        if (empty($title)) {
+            $this->jsonError('Please provide a product title or prompt.');
+            return;
+        }
+
+        $categories = array_column(Category::all() ?? [], 'title');
+        $aiService = new AiService();
+
+        try {
+            $data = $aiService->generateProductDetails($title, $categories);
+            $this->jsonSuccess('Product details generated successfully by AI.', $data);
+        } catch (\Exception $e) {
+            $this->jsonError('AI generation failed: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * AI Instant Product Creator Endpoint (1-Click Auto Add)
+     */
+    public function aiCreateProductInstant(): void
+    {
+        $vendorId = $this->getVendorUserId();
+        $this->validateCsrf();
+
+        $title = trim((string)$this->request->input('title', ''));
+        if (empty($title)) {
+            Flash::error('Please provide a product title.');
+            $this->redirect('vendor/products');
+            return;
+        }
+
+        $categories = array_column(Category::all() ?? [], 'title');
+        $aiService = new AiService();
+
+        try {
+            $data = $aiService->generateProductDetails($title, $categories);
+            $slug = ViewHelper::slug($data['name']) . '-' . rand(100, 999);
+
+            $productId = Product::create([
+                'vendor_id' => $vendorId,
+                'name' => $data['name'],
+                'slug' => $slug,
+                'sku' => $data['sku'],
+                'category' => $data['category'],
+                'price' => (float)$data['price'],
+                'old_price' => !empty($data['old_price']) ? (float)$data['old_price'] : null,
+                'stock' => (int)$data['stock'],
+                'in_stock' => 1,
+                'img' => 'img/product-1.jpg',
+                'description' => $data['description'],
+                'weight' => $data['weight'],
+                'target_species' => $data['target_species'],
+                'is_deal_of_week' => 0,
+                'rating' => 5.0,
+                'is_archived' => 0
+            ]);
+
+            AuditLog::log('AI_PRODUCT_CREATED', 'products', $productId, ['name' => $data['name'], 'sku' => $data['sku']]);
+
+            if ($this->request->isAjax()) {
+                $this->jsonSuccess("Product '{$data['name']}' automatically generated and added to catalog!", ['product_id' => $productId]);
+            } else {
+                Flash::success("AI generated product '{$data['name']}' published to catalog!");
+                $this->redirect('vendor/products');
+            }
+        } catch (\Exception $e) {
+            if ($this->request->isAjax()) {
+                $this->jsonError('Failed to generate product: ' . $e->getMessage());
+            } else {
+                Flash::error('Failed to generate product: ' . $e->getMessage());
+                $this->redirect('vendor/products');
+            }
         }
     }
 

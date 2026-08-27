@@ -127,22 +127,25 @@ foreach ($products as $p) {
     <!-- Hero Header Banner -->
     <div class="vendor-hero-banner mb-4">
         <div class="row align-items-center g-3">
-            <div class="col-12 col-md-7 col-lg-8">
+            <div class="col-12 col-lg-7">
                 <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small fw-bold mb-2 border border-white border-opacity-10">
-                    <i class="fa-solid fa-tags text-brand"></i> Merchant Inventory Management
+                    <i class="fa-solid fa-wand-magic-sparkles text-warning"></i> AI-Powered Merchant Catalog
                 </div>
                 <h2 class="fw-bold text-white mb-2" style="letter-spacing: -0.5px;">Store Product Catalog</h2>
                 <p class="text-white-50 small mb-0" style="max-width: 620px; line-height: 1.6;">
-                    Manage your merchant inventory, real-time prices, SKU codes, stock thresholds, and public marketplace listings.
+                    Manage your merchant inventory, real-time prices, SKU codes, stock thresholds, and auto-add products instantly using AI title analysis.
                 </p>
             </div>
-            <div class="col-12 col-md-5 col-lg-4 text-md-end">
-                <div class="d-flex flex-column flex-sm-row gap-2 justify-content-md-end">
-                    <a href="<?= ViewHelper::url('shop') ?>" target="_blank" class="btn btn-outline-light rounded-pill px-3 py-2 fw-semibold d-inline-flex align-items-center justify-content-center gap-1 shadow-sm" style="font-size: 13px;">
-                        <i class="fa-solid fa-store"></i> Live Shop
-                    </a>
-                    <a href="<?= ViewHelper::url('vendor/products/create') ?>" class="btn btn-admin-primary rounded-pill px-4 py-2 fw-bold shadow-sm d-inline-flex align-items-center justify-content-center gap-2" style="font-size: 13px;">
+            <div class="col-12 col-lg-5 text-lg-end">
+                <div class="d-flex flex-column flex-sm-row gap-2 justify-content-lg-end flex-wrap">
+                    <button type="button" class="btn btn-success rounded-pill px-3 py-2 fw-bold shadow-sm d-inline-flex align-items-center justify-content-center gap-2" style="font-size: 13px;" data-bs-toggle="modal" data-bs-target="#aiProductModal">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> AI Instant Add
+                    </button>
+                    <a href="<?= ViewHelper::url('vendor/products/create') ?>" class="btn btn-admin-primary rounded-pill px-3 py-2 fw-bold shadow-sm d-inline-flex align-items-center justify-content-center gap-2" style="font-size: 13px;">
                         <i class="fa-solid fa-plus"></i> Add Product
+                    </a>
+                    <a href="<?= ViewHelper::url('shop') ?>" target="_blank" class="btn btn-outline-light rounded-pill px-3 py-2 fw-semibold d-inline-flex align-items-center justify-content-center gap-1 shadow-sm" style="font-size: 13px;">
+                        <i class="fa-solid fa-store"></i> Shop
                     </a>
                 </div>
             </div>
@@ -242,9 +245,14 @@ foreach ($products as $p) {
             <i class="fa-solid fa-box-open fs-1 text-muted mb-3 d-block"></i>
             <h5 class="fw-bold text-dark">No Products Found</h5>
             <p class="small text-muted mb-3">No inventory items matched your search filters or catalog is empty.</p>
-            <a href="<?= ViewHelper::url('vendor/products/create') ?>" class="btn btn-admin-primary rounded-pill px-4 fw-bold shadow-sm">
-                <i class="fa-solid fa-plus me-1"></i> Add First Product
-            </a>
+            <div class="d-flex justify-content-center gap-2">
+                <button type="button" class="btn btn-success rounded-pill px-4 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#aiProductModal">
+                    <i class="fa-solid fa-wand-magic-sparkles me-1"></i> AI Auto-Add Product
+                </button>
+                <a href="<?= ViewHelper::url('vendor/products/create') ?>" class="btn btn-admin-primary rounded-pill px-4 fw-bold shadow-sm">
+                    <i class="fa-solid fa-plus me-1"></i> Add Manually
+                </a>
+            </div>
         </div>
     <?php else: ?>
 
@@ -414,7 +422,63 @@ foreach ($products as $p) {
 
 </div>
 
+<!-- AI Instant Product Generator Modal -->
+<div class="modal fade" id="aiProductModal" tabindex="-1" aria-labelledby="aiProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 24px;">
+            <div class="modal-header p-4 border-bottom bg-light" style="border-radius: 24px 24px 0 0;">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="stat-card-icon icon-green" style="width: 38px; height: 38px; font-size: 16px; border-radius: 12px;">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold text-dark m-0" id="aiProductModalLabel">AI Product Auto-Creator</h5>
+                        <p class="text-muted small m-0">Enter any product title or brand name to automatically add to catalog</p>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form id="aiInstantProductForm" action="<?= ViewHelper::url('vendor/products/ai-create-instant') ?>" method="POST">
+                <?= ViewHelper::csrfField() ?>
+
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-dark">Product Title or Brand Prompt *</label>
+                        <textarea name="title" id="aiPromptTitle" class="form-control rounded-3 p-3" rows="3" placeholder="e.g. Royal Canin Hydrolyzed Protein Adult Dog Food 12kg or KONG Classic Dog Toy Large or Hill's Science Diet Indoor Cat Food 7kg" required></textarea>
+                        <div class="form-text small text-muted mt-2">
+                            The AI will automatically generate the <strong>category, SKU, pricing, weight, stock count, target species, and full product description</strong>.
+                        </div>
+                    </div>
+
+                    <!-- Example Prompt Pills -->
+                    <div class="d-flex flex-wrap gap-1 mt-2">
+                        <span class="badge bg-light text-secondary border cursor-pointer p-2 rounded-pill" role="button" onclick="document.getElementById('aiPromptTitle').value = 'Royal Canin Mini Adult Dog Food 8kg'">+ Royal Canin 8kg</span>
+                        <span class="badge bg-light text-secondary border cursor-pointer p-2 rounded-pill" role="button" onclick="document.getElementById('aiPromptTitle').value = 'KONG Extreme Dog Toy Large Black'">+ KONG Toy Large</span>
+                        <span class="badge bg-light text-secondary border cursor-pointer p-2 rounded-pill" role="button" onclick="document.getElementById('aiPromptTitle').value = 'Feliway Classic Cat Calming Diffuser 48ml'">+ Feliway Diffuser</span>
+                        <span class="badge bg-light text-secondary border cursor-pointer p-2 rounded-pill" role="button" onclick="document.getElementById('aiPromptTitle').value = 'Nutramax Cosequin Maximum Strength Joint Health 120 Tablets'">+ Cosequin Joint</span>
+                    </div>
+                </div>
+
+                <div class="modal-footer p-3 bg-light border-top d-flex justify-content-between" style="border-radius: 0 0 24px 24px;">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" id="btnSubmitAiModal" class="btn btn-success rounded-pill px-4 fw-bold shadow-sm d-inline-flex align-items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> <span>Auto-Generate &amp; Add</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
+document.addEventListener('DOMContentLoaded', () => {
+    PetGuardAjax.bindForm('#aiInstantProductForm', {
+        loadingText: 'AI Generating Product & Adding...',
+        redirect: 'vendor/products'
+    });
+});
+
 async function deleteProduct(id) {
     const confirmed = await PetGuardModal.danger({
         title: 'Archive Product?',

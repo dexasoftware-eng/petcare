@@ -362,4 +362,151 @@ CRITICAL MEDICAL RULES:
                "- **Clinical Scheduling**: For persistent symptoms, behavioral shifts, or wellness questions, we recommend booking a routine consultation with a verified veterinarian on PetGuard.\n\n" .
                "*Note: This informational overview is provided for general guidance. Consult your licensed veterinary practitioner for personalized diagnostic care.*";
     }
+
+    /**
+     * AI Product Auto-Generation Engine from Title
+     */
+    public function generateProductDetails(string $title, array $availableCategories = []): array
+    {
+        $cleanTitle = trim($title);
+        if (empty($cleanTitle)) {
+            throw new Exception("Product title cannot be empty.");
+        }
+
+        // Try OpenRouter AI first if API Key is configured
+        if (!empty($this->apiKey) && $this->apiKey !== 'your_openrouter_api_key_here') {
+            try {
+                $categoriesList = !empty($availableCategories) ? implode(', ', $availableCategories) : 'Food, Treats, Toys, Health & Supplements, Grooming, Accessories, Pharmacy';
+                $prompt = "Analyze this product title: \"{$cleanTitle}\".\n" .
+                          "Available Categories: {$categoriesList}.\n\n" .
+                          "Generate a complete merchant product profile in strict JSON format with these exact keys:\n" .
+                          "{\n" .
+                          "  \"name\": \"Optimized clean title\",\n" .
+                          "  \"category\": \"Exact matching category from available categories\",\n" .
+                          "  \"sku\": \"PG-CODE-XXX\",\n" .
+                          "  \"price\": 29.99,\n" .
+                          "  \"old_price\": 39.99,\n" .
+                          "  \"stock\": 30,\n" .
+                          "  \"weight\": \"1.0 kg\",\n" .
+                          "  \"target_species\": \"Dog\" or \"Cat\" or \"Bird\" or \"Small Animals\" or \"All Pets\",\n" .
+                          "  \"description\": \"Comprehensive 2-paragraph marketing description including benefits, ingredients/materials, usage instructions, and safety notes.\"\n" .
+                          "}\n" .
+                          "Return ONLY the raw JSON object.";
+
+                $res = $this->callOpenRouter([
+                    ['role' => 'system', 'content' => 'You are an e-commerce catalog assistant. Output valid JSON only.'],
+                    ['role' => 'user', 'content' => $prompt]
+                ]);
+
+                $content = preg_replace('/^```json\s*/i', '', $res['content']);
+                $content = preg_replace('/\s*```$/', '', $content);
+                $decoded = json_decode(trim($content), true);
+
+                if ($decoded && !empty($decoded['name']) && !empty($decoded['price'])) {
+                    return $decoded;
+                }
+            } catch (Exception $e) {
+                // Fall back to rule-based analysis below
+            }
+        }
+
+        // Intelligent deterministic analysis fallback
+        return $this->generateProductRuleFallback($cleanTitle, $availableCategories);
+    }
+
+    private function generateProductRuleFallback(string $title, array $availableCategories = []): array
+    {
+        $lower = strtolower($title);
+
+        // Species detection
+        $species = 'All Pets';
+        if (preg_match('/\b(dog|puppy|canine|hound|retriever|poodle|shepherd|k9)\b/', $lower)) {
+            $species = 'Dog';
+        } elseif (preg_match('/\b(cat|kitten|feline|kitty)\b/', $lower)) {
+            $species = 'Cat';
+        } elseif (preg_match('/\b(bird|parrot|canary|avian|finch|cockatiel)\b/', $lower)) {
+            $species = 'Bird';
+        } elseif (preg_match('/\b(rabbit|hamster|guinea\s*pig|ferret|chinchilla)\b/', $lower)) {
+            $species = 'Small Animals';
+        }
+
+        // Category detection
+        $category = 'Accessories';
+        if (preg_match('/\b(kibble|food|salmon|chicken|beef|lamb|diet|nutrition|raw|canned|gravy|formula|meal)\b/', $lower)) {
+            $category = 'Food';
+        } elseif (preg_match('/\b(treat|treats|chews|chew|bites|jerky|sticks|bone|biscuits)\b/', $lower)) {
+            $category = 'Treats';
+        } elseif (preg_match('/\b(toy|toys|ball|rope|plush|kong|squeak|tunnel|feather|frisbee)\b/', $lower)) {
+            $category = 'Toys';
+        } elseif (preg_match('/\b(vitamin|supplement|probiotic|omega|calm|joint|oil|powder|drops|immune)\b/', $lower)) {
+            $category = 'Health & Supplements';
+        } elseif (preg_match('/\b(shampoo|brush|comb|wipes|conditioner|nail|trimmer|spray|groom|deodorizer)\b/', $lower)) {
+            $category = 'Grooming';
+        }
+
+        // Map to available categories
+        if (!empty($availableCategories)) {
+            foreach ($availableCategories as $catName) {
+                if (stripos($catName, $category) !== false || stripos($category, $catName) !== false) {
+                    $category = $catName;
+                    break;
+                }
+            }
+        }
+
+        // Weight detection
+        $weight = '1.0 kg';
+        if (preg_match('/\b(\d+(\.\d+)?\s*(kg|g|lb|lbs|ml|oz|liters?|ltr))\b/i', $title, $wm)) {
+            $weight = $wm[0];
+        } elseif ($category === 'Food') {
+            $weight = '4.0 kg';
+        } elseif ($category === 'Treats') {
+            $weight = '200 g';
+        } elseif ($category === 'Grooming') {
+            $weight = '500 ml';
+        }
+
+        // Pricing logic
+        $price = 24.99;
+        if ($category === 'Food') {
+            $price = preg_match('/\b(10|12|14|15)\s*kg/i', $title) ? 68.99 : 34.99;
+        } elseif ($category === 'Health & Supplements') {
+            $price = 38.50;
+        } elseif ($category === 'Treats') {
+            $price = 14.99;
+        } elseif ($category === 'Toys') {
+            $price = 16.99;
+        } elseif ($category === 'Grooming') {
+            $price = 19.99;
+        }
+        $oldPrice = round($price * 1.22, 2);
+
+        // SKU Code Generation
+        $prefix = strtoupper(substr(preg_replace('/[^a-zA-Z]/', '', $title), 0, 3));
+        if (strlen($prefix) < 3) $prefix = 'PET';
+        $speciesCode = strtoupper(substr($species, 0, 3));
+        $randNum = rand(100, 999);
+        $sku = "PG-{$prefix}-{$speciesCode}-{$randNum}";
+
+        // Detailed Description
+        $nameCapitalized = ucwords($title);
+        $description = "{$nameCapitalized} is a premium veterinarian-approved pet care essential engineered specifically for {$species} companions. Formulated with top-tier materials and rigorous quality standards to support daily wellness, comfort, and vitality.\n\n" .
+            "Key Features & Benefits:\n" .
+            "• Premium Quality: 100% human-grade, ethically sourced ingredients and hypoallergenic formulation.\n" .
+            "• Optimized for {$species}: Tailored nutrition and ergonomic design to enhance daily lifestyle.\n" .
+            "• Clinical Safety: Free from artificial preservatives, toxic binders, or harsh chemicals.\n" .
+            "• Storage & Usage: Store in a cool, dry place. Seal tightly after each use to maintain maximum freshness.";
+
+        return [
+            'name' => $nameCapitalized,
+            'category' => $category,
+            'sku' => $sku,
+            'price' => $price,
+            'old_price' => $oldPrice,
+            'stock' => 30,
+            'weight' => $weight,
+            'target_species' => $species,
+            'description' => $description
+        ];
+    }
 }

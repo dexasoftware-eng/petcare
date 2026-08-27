@@ -218,6 +218,8 @@ $router->post('/vendor/store/edit', [VendorPortalController::class, 'updateStore
 $router->get('/vendor/products', [VendorPortalController::class, 'products'], $vendorGuards);
 $router->get('/vendor/products/create', [VendorPortalController::class, 'createProductView'], $vendorGuards);
 $router->post('/vendor/products/create', [VendorPortalController::class, 'createProduct'], $vendorActionGuards);
+$router->post('/vendor/products/ai-generate', [VendorPortalController::class, 'aiGenerateProduct'], $vendorActionGuards);
+$router->post('/vendor/products/ai-create-instant', [VendorPortalController::class, 'aiCreateProductInstant'], $vendorActionGuards);
 $router->get('/vendor/products/:id', [VendorPortalController::class, 'productDetails'], $vendorGuards);
 $router->get('/vendor/products/:id/edit', [VendorPortalController::class, 'editProductView'], $vendorGuards);
 $router->post('/vendor/products/:id/edit', [VendorPortalController::class, 'updateProduct'], $vendorActionGuards);
