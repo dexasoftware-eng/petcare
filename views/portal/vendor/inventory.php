@@ -1,68 +1,205 @@
 <?php
 use Helpers\ViewHelper;
+
+$products = $products ?? [];
+$totalItems = count($products);
+$inStockCount = 0;
+$lowStockCount = 0;
+$outOfStockCount = 0;
+$totalInventoryValuation = 0.0;
+
+foreach ($products as $p) {
+    $stock = (int)($p['stock'] ?? 0);
+    $price = (float)($p['price'] ?? 0);
+    $totalInventoryValuation += ($stock * $price);
+    if ($stock > 10) {
+        $inStockCount++;
+    } elseif ($stock > 0) {
+        $lowStockCount++;
+    } else {
+        $outOfStockCount++;
+    }
+}
 ?>
 
-<div class="admin-page-header">
-    <div>
-        <h2 class="admin-page-title"><i class="fa-solid fa-boxes-stacked text-brand me-2"></i> Inventory & Stock Level Control</h2>
-        <p class="admin-page-subtitle">Real-time stock monitoring, threshold warnings, and fast inline inventory adjustments.</p>
-    </div>
-</div>
+<style>
+/* 5-Screen Breakpoints for Inventory */
+@media (max-width: 767.98px) {
+    .inventory-desktop-table { display: none !important; }
+    .inventory-mobile-grid { display: flex !important; }
+}
+@media (min-width: 768px) {
+    .inventory-desktop-table { display: block !important; }
+    .inventory-mobile-grid { display: none !important; }
+}
+</style>
 
-<div class="admin-card">
-    <div class="admin-card-header d-flex justify-content-between align-items-center">
-        <h3 class="admin-card-title m-0"><i class="fa-solid fa-warehouse text-brand me-2"></i> Product Stock Levels</h3>
-        <span class="badge bg-light text-dark border"><?= count($products ?? []) ?> Tracked Items</span>
+<div class="vendor-inventory-container py-2">
+
+    <!-- 1. Hero Header Banner -->
+    <div class="rounded-4 p-4 p-md-5 mb-4 text-white position-relative overflow-hidden shadow-lg" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);">
+        <div class="position-absolute top-0 end-0 w-50 h-100 opacity-20 pointer-events-none d-none d-lg-block" style="background: radial-gradient(circle at right, #818cf8 0%, transparent 70%);"></div>
+        <div class="row align-items-center position-relative z-1 g-3">
+            <div class="col-12 col-lg-8">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small fw-bold mb-2 border border-white border-opacity-10">
+                    <i class="fa-solid fa-boxes-stacked text-warning"></i> Real-Time Stock Management
+                </div>
+                <h1 class="display-6 fw-bold text-white mb-2" style="font-family: 'Anybody', sans-serif;">
+                    Inventory &amp; Stock Control
+                </h1>
+                <p class="text-white text-opacity-80 small mb-0" style="max-width: 620px; line-height: 1.6;">
+                    Monitor warehouse stock levels, adjust SKU inventory counts in real time, and prevent stockouts on high-demand clinical nutrition.
+                </p>
+            </div>
+            <div class="col-12 col-lg-4 text-lg-end">
+                <a href="<?= ViewHelper::url('vendor/products/create') ?>" class="btn btn-admin-primary rounded-pill px-4 py-2 fw-bold shadow-sm d-inline-flex align-items-center gap-2" style="font-size: 13.5px;">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Add New SKU</span>
+                </a>
+            </div>
+        </div>
     </div>
 
-    <div class="admin-card-body p-0">
-        <?php if (empty($products)): ?>
-            <div class="p-5 text-center text-muted">No products tracked in inventory.</div>
-        <?php else: ?>
+    <!-- 2. 4 Top Inventory Metric Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="admin-card p-3 p-md-4 shadow-sm border h-100 rounded-4 bg-white">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 10.5px;">Tracked SKUs</span>
+                    <div class="stat-card-icon icon-blue rounded-3 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; font-size: 14px;">
+                        <i class="fa-solid fa-barcode"></i>
+                    </div>
+                </div>
+                <div class="fs-4 fw-bold text-dark mb-0"><?= $totalItems ?></div>
+                <small class="text-muted" style="font-size: 11px;">Active Inventory Items</small>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="admin-card p-3 p-md-4 shadow-sm border h-100 rounded-4 bg-white">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 10.5px;">Healthy Stock</span>
+                    <div class="stat-card-icon icon-green rounded-3 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; font-size: 14px;">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                </div>
+                <div class="fs-4 fw-bold text-success mb-0"><?= $inStockCount ?></div>
+                <small class="text-success fw-semibold" style="font-size: 11px;">&gt; 10 Units Ready</small>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="admin-card p-3 p-md-4 shadow-sm border h-100 rounded-4 bg-white">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 10.5px;">Low Stock Alert</span>
+                    <div class="stat-card-icon icon-orange rounded-3 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; font-size: 14px;">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                </div>
+                <div class="fs-4 fw-bold <?= $lowStockCount > 0 ? 'text-warning' : 'text-dark' ?> mb-0"><?= $lowStockCount ?></div>
+                <small class="text-muted" style="font-size: 11px;">1 to 10 Units Remaining</small>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="admin-card p-3 p-md-4 shadow-sm border h-100 rounded-4 bg-white">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 10.5px;">Total Valuation</span>
+                    <div class="stat-card-icon icon-purple rounded-3 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; font-size: 14px;">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                    </div>
+                </div>
+                <div class="fs-4 fw-bold text-dark mb-0">$<?= number_format($totalInventoryValuation, 2) ?></div>
+                <small class="text-muted" style="font-size: 11px;">Warehouse Stock Asset</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Main Inventory Content -->
+    <?php if (empty($products)): ?>
+        <div class="admin-card p-5 text-center text-muted shadow-sm rounded-4 bg-white">
+            <i class="fa-solid fa-warehouse fs-1 text-muted mb-3 d-block"></i>
+            <h5 class="fw-bold text-dark">No Products Tracked</h5>
+            <p class="small text-muted mb-3">Add items to your merchant catalog to begin tracking real-time stock levels.</p>
+            <a href="<?= ViewHelper::url('vendor/products/create') ?>" class="btn btn-admin-primary rounded-pill px-4 fw-bold shadow-sm">
+                <i class="fa-solid fa-plus me-1"></i> Add Product SKU
+            </a>
+        </div>
+    <?php else: ?>
+
+        <!-- A. Desktop High-Density Table (>=768px) -->
+        <div class="admin-card shadow-sm border overflow-hidden inventory-desktop-table mb-4 rounded-4 bg-white">
+            <div class="admin-card-header d-flex justify-content-between align-items-center p-3 px-4 border-bottom bg-light">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="stat-card-icon icon-orange rounded-3 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 13px;">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                    </div>
+                    <h6 class="fw-bold text-dark m-0">Live Stock Inventory (<?= $totalItems ?> Items)</h6>
+                </div>
+                <span class="badge bg-white text-dark border px-3 py-1 rounded-pill small">Auto-Sync Enabled</span>
+            </div>
+
             <div class="table-responsive m-0">
-                <table class="table table-hover align-middle m-0">
-                    <thead class="table-light small">
+                <table class="table vendor-table align-middle m-0" style="font-size: 13px;">
+                    <thead class="table-light text-muted text-uppercase" style="font-size: 11px; letter-spacing: 0.5px;">
                         <tr>
-                            <th class="ps-4">Product Name</th>
-                            <th>SKU</th>
-                            <th>Category</th>
-                            <th>Current Stock</th>
-                            <th>Threshold Status</th>
-                            <th class="text-end pe-4">Quick Adjust Stock</th>
+                            <th class="ps-4 py-3" style="min-width: 280px;">Product Name &amp; SKU</th>
+                            <th class="py-3" style="min-width: 150px;">Category</th>
+                            <th class="py-3" style="min-width: 120px;">Unit Price</th>
+                            <th class="py-3" style="min-width: 130px;">Stock Units</th>
+                            <th class="py-3" style="min-width: 130px;">Threshold Status</th>
+                            <th class="text-end pe-4 py-3" style="min-width: 200px;">Quick Stock Adjust</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($products as $prod): ?>
+                        <?php foreach ($products as $prod): 
+                            $stock = (int)$prod['stock'];
+                        ?>
                             <tr>
-                                <td class="ps-4">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="<?= ViewHelper::asset($prod['img'] ?? 'img/product-1.jpg') ?>" alt="Product" class="rounded-3 border" style="width: 40px; height: 40px; object-fit: cover;">
-                                        <div class="fw-bold text-dark"><?= ViewHelper::e($prod['name']) ?></div>
+                                <td class="ps-4 py-3">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <img src="<?= ViewHelper::asset($prod['img'] ?? 'img/food-1.png') ?>" alt="Product" class="rounded-3 border flex-shrink-0" style="width: 48px; height: 48px; object-fit: contain; background: #f8fafc; padding: 2px;">
+                                        <div class="min-w-0">
+                                            <a href="<?= ViewHelper::url('vendor/products/' . $prod['id']) ?>" class="fw-bold text-dark text-decoration-none text-truncate d-block" style="font-size: 14px; max-width: 300px;">
+                                                <?= ViewHelper::e($prod['name']) ?>
+                                            </a>
+                                            <span class="text-muted small font-monospace" style="font-size: 11px;">SKU: <?= ViewHelper::e($prod['sku'] ?: 'PG-SKU-NONE') ?></span>
+                                        </div>
                                     </div>
                                 </td>
-                                <td class="font-monospace small text-muted">
-                                    <?= ViewHelper::e($prod['sku']) ?>
+                                <td>
+                                    <span class="badge bg-light text-dark border px-2 py-1 rounded-pill"><?= ViewHelper::e($prod['category']) ?></span>
+                                </td>
+                                <td class="fw-bold text-dark fs-6">
+                                    $<?= number_format((float)$prod['price'], 2) ?>
                                 </td>
                                 <td>
-                                    <span class="badge bg-light text-secondary border"><?= ViewHelper::e($prod['category']) ?></span>
+                                    <span class="fw-bold fs-6 text-dark" id="stock-val-<?= $prod['id'] ?>"><?= $stock ?></span>
+                                    <span class="text-muted small">Units</span>
                                 </td>
                                 <td>
-                                    <span class="fw-bold fs-6 text-dark" id="stock-val-<?= $prod['id'] ?>"><?= (int)$prod['stock'] ?></span> Units
-                                </td>
-                                <td>
-                                    <?php if ((int)$prod['stock'] > 10): ?>
-                                        <span class="admin-badge badge-success">In Stock</span>
-                                    <?php elseif ((int)$prod['stock'] > 0): ?>
-                                        <span class="admin-badge badge-amber">Low Stock</span>
+                                    <?php if ($stock > 10): ?>
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-1 fw-bold">
+                                            <i class="fa-solid fa-circle-check me-1"></i> In Stock
+                                        </span>
+                                    <?php elseif ($stock > 0): ?>
+                                        <span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill px-2 py-1 fw-bold">
+                                            <i class="fa-solid fa-triangle-exclamation me-1"></i> Low Stock
+                                        </span>
                                     <?php else: ?>
-                                        <span class="admin-badge badge-danger">Out of Stock</span>
+                                        <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill px-2 py-1 fw-bold">
+                                            <i class="fa-solid fa-circle-xmark me-1"></i> Out of Stock
+                                        </span>
                                     <?php endif; ?>
                                 </td>
-                                <td class="text-end pe-4">
-                                    <div class="d-inline-flex align-items-center gap-2" style="max-width: 220px;">
-                                        <input type="number" id="input-stock-<?= $prod['id'] ?>" class="form-control form-control-sm text-center font-monospace" value="<?= (int)$prod['stock'] ?>" min="0" style="width: 80px;">
-                                        <button type="button" class="btn btn-sm btn-outline-brand rounded-pill px-3" onclick="saveStock(<?= $prod['id'] ?>)">
-                                            Update
+                                <td class="text-end pe-4 py-3">
+                                    <div class="d-inline-flex align-items-center gap-1 justify-content-end">
+                                        <button type="button" class="btn btn-sm btn-light border rounded-circle" style="width: 32px; height: 32px; padding: 0;" onclick="stepStock(<?= $prod['id'] ?>, -1)">
+                                            <i class="fa-solid fa-minus" style="font-size: 11px;"></i>
+                                        </button>
+                                        <input type="number" id="input-stock-<?= $prod['id'] ?>" class="form-control form-control-sm text-center font-monospace fw-bold rounded-3" value="<?= $stock ?>" min="0" style="width: 70px;">
+                                        <button type="button" class="btn btn-sm btn-light border rounded-circle" style="width: 32px; height: 32px; padding: 0;" onclick="stepStock(<?= $prod['id'] ?>, 1)">
+                                            <i class="fa-solid fa-plus" style="font-size: 11px;"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-admin-primary rounded-pill px-3 ms-1 fw-bold" onclick="saveStock(<?= $prod['id'] ?>)">
+                                            Save
                                         </button>
                                     </div>
                                 </td>
@@ -71,25 +208,118 @@ use Helpers\ViewHelper;
                     </tbody>
                 </table>
             </div>
-        <?php endif; ?>
-    </div>
+        </div>
+
+        <!-- B. Mobile & Tablet Card Grid (<768px) -->
+        <div class="row g-3 inventory-mobile-grid mb-4">
+            <?php foreach ($products as $prod): 
+                $stock = (int)$prod['stock'];
+            ?>
+                <div class="col-12 col-sm-6">
+                    <div class="admin-card p-3 rounded-4 border shadow-sm bg-white h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex gap-3 align-items-center mb-2">
+                                <img src="<?= ViewHelper::asset($prod['img'] ?? 'img/food-1.png') ?>" alt="Product" class="rounded-3 border flex-shrink-0" style="width: 52px; height: 52px; object-fit: contain; background: #f8fafc; padding: 2px;">
+                                <div class="min-w-0 flex-grow-1">
+                                    <span class="badge bg-light text-secondary border mb-1" style="font-size: 10px;"><?= ViewHelper::e($prod['category']) ?></span>
+                                    <div class="fw-bold text-dark text-truncate" style="font-size: 14px;"><?= ViewHelper::e($prod['name']) ?></div>
+                                    <small class="text-muted font-monospace" style="font-size: 11px;">SKU: <?= ViewHelper::e($prod['sku'] ?: 'N/A') ?></small>
+                                </div>
+                            </div>
+
+                            <div class="p-2 px-3 bg-light rounded-3 border mb-3 d-flex justify-content-between align-items-center">
+                                <span class="fw-bold text-dark fs-6">$<?= number_format((float)$prod['price'], 2) ?></span>
+                                <div>
+                                    <?php if ($stock > 10): ?>
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-1 fw-bold" style="font-size: 10px;">In Stock</span>
+                                    <?php elseif ($stock > 0): ?>
+                                        <span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill px-2 py-1 fw-bold" style="font-size: 10px;">Low Stock</span>
+                                    <?php else: ?>
+                                        <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill px-2 py-1 fw-bold" style="font-size: 10px;">Out of Stock</span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stepper on Mobile -->
+                        <div class="pt-2 border-top">
+                            <label class="form-label text-muted small mb-1" style="font-size: 11px;">Update Stock Level:</label>
+                            <div class="d-flex align-items-center gap-1">
+                                <button type="button" class="btn btn-light border rounded-circle flex-shrink-0" style="width: 36px; height: 36px; padding: 0;" onclick="stepStock(<?= $prod['id'] ?>, -1)">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                                <input type="number" id="input-stock-mob-<?= $prod['id'] ?>" class="form-control text-center font-monospace fw-bold rounded-3" value="<?= $stock ?>" min="0">
+                                <button type="button" class="btn btn-light border rounded-circle flex-shrink-0" style="width: 36px; height: 36px; padding: 0;" onclick="stepStock(<?= $prod['id'] ?>, 1)">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                                <button type="button" class="btn btn-admin-primary rounded-pill px-3 fw-bold flex-shrink-0" onclick="saveStockMobile(<?= $prod['id'] ?>)">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+    <?php endif; ?>
+
 </div>
 
 <script>
+function stepStock(id, delta) {
+    const desktopInput = document.getElementById('input-stock-' + id);
+    const mobileInput = document.getElementById('input-stock-mob-' + id);
+    
+    let currentVal = parseInt((desktopInput ? desktopInput.value : mobileInput ? mobileInput.value : 0), 10) || 0;
+    let newVal = Math.max(0, currentVal + delta);
+    
+    if (desktopInput) desktopInput.value = newVal;
+    if (mobileInput) mobileInput.value = newVal;
+}
+
 async function saveStock(id) {
     const input = document.getElementById('input-stock-' + id);
-    const newStock = parseInt(input.value, 10);
+    const newStock = parseInt(input ? input.value : 0, 10);
     if (isNaN(newStock) || newStock < 0) {
         PetGuardToast.error('Please enter a valid non-negative number.');
         return;
     }
 
-    const res = await PetGuardAjax.post(`vendor/inventory/${id}/stock`, { stock: newStock });
-    if (res.ok) {
-        PetGuardToast.success(res.message);
-        document.getElementById('stock-val-' + id).textContent = newStock;
-    } else {
-        PetGuardToast.error(res.message);
+    try {
+        const res = await PetGuardAjax.post(`vendor/inventory/${id}/stock`, { stock: newStock });
+        if (res.ok) {
+            PetGuardToast.success(res.message || 'Stock level updated.');
+            const valEl = document.getElementById('stock-val-' + id);
+            if (valEl) valEl.textContent = newStock;
+        } else {
+            PetGuardToast.error(res.message || 'Failed to update stock.');
+        }
+    } catch (e) {
+        PetGuardToast.error('Network error updating stock.');
+    }
+}
+
+async function saveStockMobile(id) {
+    const input = document.getElementById('input-stock-mob-' + id);
+    const newStock = parseInt(input ? input.value : 0, 10);
+    if (isNaN(newStock) || newStock < 0) {
+        PetGuardToast.error('Please enter a valid non-negative number.');
+        return;
+    }
+
+    try {
+        const res = await PetGuardAjax.post(`vendor/inventory/${id}/stock`, { stock: newStock });
+        if (res.ok) {
+            PetGuardToast.success(res.message || 'Stock level updated.');
+            const valEl = document.getElementById('stock-val-' + id);
+            if (valEl) valEl.textContent = newStock;
+        } else {
+            PetGuardToast.error(res.message || 'Failed to update stock.');
+        }
+    } catch (e) {
+        PetGuardToast.error('Network error updating stock.');
     }
 }
 </script>
