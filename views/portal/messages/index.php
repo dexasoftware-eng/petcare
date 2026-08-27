@@ -7,36 +7,61 @@ $conversations = $conversations ?? [];
 $activeConvId = $activeConvId ?? null;
 $activeRecipient = $activeRecipient ?? null;
 $activeMessages = $activeMessages ?? [];
+$availableContacts = $availableContacts ?? [];
 ?>
 
 <style>
-/* Chat Container 5-Screen Layout */
+/* Chat Container Responsive Layout */
 .pg-chat-wrapper {
     display: flex;
-    height: calc(100vh - 200px);
-    min-height: 580px;
+    height: calc(100vh - 220px);
+    min-height: 560px;
     background: #ffffff;
     border: 1px solid #e2e8f0;
-    border-radius: 24px;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.06);
 }
 
 .chat-sidebar {
-    width: 340px;
-    min-width: 340px;
+    width: 320px;
+    min-width: 320px;
     border-right: 1px solid #e2e8f0;
     display: flex;
     flex-direction: column;
     background: #f8fafc;
+    height: 100%;
+    overflow: hidden;
 }
 
 .chat-main {
-    flex: 1;
+    flex: 1 1 0%;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     background: #ffffff;
-    min-width: 0;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.chat-messages-container {
+    flex: 1 1 0%;
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+    background: #f8fafc;
+}
+
+.chat-input-bar {
+    flex-shrink: 0;
+    background: #ffffff;
+    border-top: 1px solid #e2e8f0;
+    padding: 14px 20px;
+    z-index: 10;
 }
 
 .chat-bubble-mine {
@@ -46,19 +71,22 @@ $activeMessages = $activeMessages ?? [];
     padding: 12px 16px;
     max-width: 75%;
     box-shadow: 0 4px 12px rgba(250, 68, 29, 0.2);
+    word-break: break-word;
 }
 
 .chat-bubble-theirs {
-    background: #f1f5f9;
+    background: #ffffff;
     color: #0f172a;
     border-radius: 18px 18px 18px 4px;
     padding: 12px 16px;
     max-width: 75%;
     border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    word-break: break-word;
 }
 
 .chat-conv-item {
-    padding: 14px 16px;
+    padding: 12px 16px;
     border-bottom: 1px solid #f1f5f9;
     transition: all 0.15s ease;
     text-decoration: none;
@@ -75,7 +103,8 @@ $activeMessages = $activeMessages ?? [];
 @media (max-width: 767.98px) {
     .pg-chat-wrapper {
         height: calc(100vh - 160px);
-        border-radius: 18px;
+        min-height: 480px;
+        border-radius: 16px;
     }
     .chat-sidebar {
         width: 100%;
@@ -104,6 +133,10 @@ $activeMessages = $activeMessages ?? [];
             </p>
         </div>
         <div class="d-flex flex-wrap gap-2">
+            <button type="button" class="btn btn-admin-primary" data-bs-toggle="modal" data-bs-target="#newChatModal">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span>New Message</span>
+            </button>
             <button type="button" class="btn btn-admin-secondary" onclick="window.location.reload()">
                 <i class="fa-solid fa-arrows-rotate"></i>
                 <span>Refresh Inbox</span>
@@ -116,20 +149,26 @@ $activeMessages = $activeMessages ?? [];
         
         <!-- Left: Conversations Directory -->
         <div class="chat-sidebar <?= $activeConvId ? 'd-none d-md-flex' : '' ?>" id="chatSidebar">
-            <div class="p-3 border-bottom bg-white">
-                <div class="input-group">
+            <div class="p-3 border-bottom bg-white d-flex gap-2 align-items-center">
+                <div class="input-group flex-grow-1">
                     <span class="input-group-text bg-light border-end-0 rounded-start-pill ps-3 text-muted">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </span>
-                    <input type="text" id="chatSearchInput" class="form-control bg-light border-start-0 rounded-end-pill py-2 text-dark" placeholder="Search conversations..." onkeyup="filterConversations()">
+                    <input type="text" id="chatSearchInput" class="form-control bg-light border-start-0 rounded-end-pill py-2 text-dark" placeholder="Search chats..." onkeyup="filterConversations()">
                 </div>
+                <button type="button" class="btn btn-sm btn-outline-brand rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center shadow-sm" style="width: 38px; height: 38px;" data-bs-toggle="modal" data-bs-target="#newChatModal" title="Start New Conversation">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
             </div>
 
             <div class="overflow-y-auto flex-grow-1" id="conversationsList">
                 <?php if (empty($conversations)): ?>
-                    <div class="p-5 text-center text-muted">
+                    <div class="p-4 text-center text-muted">
                         <i class="fa-regular fa-comment-dots fa-2x mb-2 text-muted"></i>
-                        <p class="small m-0">No active conversations yet.</p>
+                        <p class="small mb-3">No active conversations yet.</p>
+                        <button type="button" class="btn btn-sm btn-admin-primary px-3" data-bs-toggle="modal" data-bs-target="#newChatModal">
+                            <i class="fa-solid fa-pen me-1"></i> Start a Chat
+                        </button>
                     </div>
                 <?php else: ?>
                     <?php foreach ($conversations as $conv): 
@@ -138,7 +177,7 @@ $activeMessages = $activeMessages ?? [];
                         $isActive = (int)$conv['id'] === (int)$activeConvId;
                     ?>
                         <a href="<?= ViewHelper::url('portal/messages?conv=' . $conv['id']) ?>" class="chat-conv-item <?= $isActive ? 'active' : '' ?>">
-                            <div class="rounded-circle border d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width: 44px; height: 44px; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); color: #1e40af; font-size: 16px;">
+                            <div class="rounded-circle border d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width: 42px; height: 42px; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); color: #1e40af; font-size: 15px;">
                                 <?= strtoupper(substr($otherName ?? 'U', 0, 1)) ?>
                             </div>
                             <div class="flex-grow-1 overflow-hidden min-w-0">
@@ -165,12 +204,12 @@ $activeMessages = $activeMessages ?? [];
         <div class="chat-main <?= !$activeConvId ? 'd-none d-md-flex' : '' ?>" id="chatMainArea">
             <?php if ($activeRecipient && $activeConvId): ?>
                 <!-- Active Header -->
-                <div class="p-3 px-4 border-bottom bg-white d-flex align-items-center justify-content-between flex-wrap gap-2">
+                <div class="p-3 px-4 border-bottom bg-white d-flex align-items-center justify-content-between flex-wrap gap-2 flex-shrink-0" style="z-index: 5;">
                     <div class="d-flex align-items-center gap-3">
                         <a href="<?= ViewHelper::url('portal/messages') ?>" class="btn btn-sm btn-light d-md-none rounded-circle border shadow-sm" style="width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;">
                             <i class="fa-solid fa-arrow-left"></i>
                         </a>
-                        <div class="rounded-circle border d-flex align-items-center justify-content-center fw-bold text-white shadow-sm flex-shrink-0" style="width: 44px; height: 44px; background: #fa441d; font-size: 16px;">
+                        <div class="rounded-circle border d-flex align-items-center justify-content-center fw-bold text-white shadow-sm flex-shrink-0" style="width: 42px; height: 42px; background: #fa441d; font-size: 15px;">
                             <?= strtoupper(substr($activeRecipient['name'] ?? 'U', 0, 1)) ?>
                         </div>
                         <div>
@@ -197,7 +236,7 @@ $activeMessages = $activeMessages ?? [];
                 </div>
 
                 <!-- Messages Scroll Stream -->
-                <div class="flex-grow-1 p-4 overflow-y-auto d-flex flex-column gap-3 bg-light" id="messagesBox" style="max-height: 520px;">
+                <div class="chat-messages-container" id="messagesBox">
                     <?php if (empty($activeMessages)): ?>
                         <div class="m-auto text-center text-muted p-4">
                             <i class="fa-regular fa-comment-dots fa-3x mb-2 text-muted"></i>
@@ -219,16 +258,16 @@ $activeMessages = $activeMessages ?? [];
                     <?php endif; ?>
                 </div>
 
-                <!-- Message Input Box -->
-                <div class="p-3 bg-white border-top">
-                    <form id="sendMessageForm" action="<?= ViewHelper::url('portal/messages/send') ?>" method="POST" class="d-flex gap-2 align-items-center">
+                <!-- Message Input Box (Permanently Visible & Docked at Bottom) -->
+                <div class="chat-input-bar">
+                    <form id="sendMessageForm" action="<?= ViewHelper::url('portal/messages/send') ?>" method="POST" class="d-flex gap-2 align-items-center m-0">
                         <?= ViewHelper::csrfField() ?>
                         <input type="hidden" name="conversation_id" value="<?= (int)$activeConvId ?>">
                         <input type="hidden" name="receiver_id" value="<?= (int)$activeRecipient['id'] ?>">
 
-                        <input type="text" name="message" id="messageInput" class="form-control rounded-pill px-4 py-2 bg-light border-0 shadow-none text-dark" placeholder="Type clinical note or message..." required autocomplete="off">
-                        <button type="submit" class="btn btn-admin-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm" style="width: 42px; height: 42px;">
-                            <i class="fa-solid fa-paper-plane" style="font-size: 14px;"></i>
+                        <input type="text" name="message" id="messageInput" class="form-control rounded-pill px-4 py-2 bg-light border-0 shadow-none text-dark" placeholder="Type a message or consultation note..." required autocomplete="off" style="font-size: 14px; min-height: 44px;">
+                        <button type="submit" class="btn btn-admin-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm" style="width: 44px; height: 44px;" title="Send Message">
+                            <i class="fa-solid fa-paper-plane" style="font-size: 15px;"></i>
                         </button>
                     </form>
                 </div>
@@ -239,14 +278,61 @@ $activeMessages = $activeMessages ?? [];
                     <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; background: #f8fafc; color: #94a3b8; font-size: 36px;">
                         <i class="fa-regular fa-comments"></i>
                     </div>
-                    <h5 class="fw-bold text-dark mb-1">Select a Conversation</h5>
-                    <p class="small text-muted" style="max-width: 380px; margin: 0 auto;">Choose a contact from the left list to review messages or start a new clinical audio/video consultation.</p>
+                    <h5 class="fw-bold text-dark mb-1">Select or Start a Conversation</h5>
+                    <p class="small text-muted mb-4" style="max-width: 400px; margin: 0 auto;">Choose an existing contact from the left list, or start a new encrypted consultation chat.</p>
+                    <button type="button" class="btn btn-admin-primary px-4 py-2" data-bs-toggle="modal" data-bs-target="#newChatModal">
+                        <i class="fa-solid fa-plus me-1"></i> Start New Message
+                    </button>
                 </div>
             <?php endif; ?>
         </div>
 
     </div>
 
+</div>
+
+<!-- 3. Start New Conversation Modal -->
+<div class="modal fade" id="newChatModal" tabindex="-1" aria-labelledby="newChatModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header border-bottom px-4 py-3 bg-light rounded-top-4">
+                <h5 class="modal-title fw-bold text-dark" id="newChatModalLabel">
+                    <i class="fa-solid fa-pen-to-square text-brand me-2"></i> Start New Conversation
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="<?= ViewHelper::url('portal/messages/start') ?>" method="POST">
+                <?= ViewHelper::csrfField() ?>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-dark">Select Contact / Practitioner *</label>
+                        <select name="target_user_id" class="form-select rounded-3 py-2" required>
+                            <option value="">-- Choose a recipient --</option>
+                            <?php foreach ($availableContacts as $contact): ?>
+                                <option value="<?= (int)$contact['id'] ?>">
+                                    <?= ViewHelper::e($contact['name']) ?> (<?= ucfirst(ViewHelper::e($contact['role'])) ?>)
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-dark">Subject / Topic</label>
+                        <input type="text" name="subject" class="form-control rounded-3 py-2" placeholder="e.g. Clinical Consultation, Adoption Inquiry, Product Question">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label small fw-bold text-dark">Initial Message *</label>
+                        <textarea name="initial_message" class="form-control rounded-3" rows="3" placeholder="Type your initial greeting or clinical inquiry..." required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light px-4 py-3 rounded-bottom-4">
+                    <button type="button" class="btn btn-admin-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-admin-primary px-4">
+                        <i class="fa-solid fa-paper-plane me-1"></i> Send &amp; Open Chat
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -271,6 +357,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     scrollToBottom();
+    if (msgInput) {
+        msgInput.focus();
+    }
 
     if (form) {
         form.addEventListener('submit', async (e) => {

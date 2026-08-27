@@ -40,6 +40,8 @@ class MessageController extends Controller
             }
         }
 
+        $availableContacts = User::where("status = 'active' AND id != :uid", ['uid' => $userId], 'name ASC', 50);
+
         $userRole = Auth::user()['role'] ?? 'petowner';
         $layout = $userRole === 'admin' ? 'admin' : 'portal';
         $this->render('portal.messages.index', [
@@ -47,7 +49,8 @@ class MessageController extends Controller
             'conversations' => $conversations,
             'activeConvId' => $activeConvId,
             'activeMessages' => $activeMessages,
-            'activeRecipient' => $activeRecipient
+            'activeRecipient' => $activeRecipient,
+            'availableContacts' => $availableContacts
         ], $layout);
     }
 
