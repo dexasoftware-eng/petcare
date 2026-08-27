@@ -379,7 +379,7 @@
                     if (options.onSuccess) {
                         options.onSuccess(res.data, form);
                     } else if (options.redirect) {
-                        setTimeout(() => window.location.href = options.redirect, 800);
+                        setTimeout(() => window.location.href = PetGuardAjax.resolveUrl(options.redirect), 800);
                     } else if (options.reload) {
                         setTimeout(() => window.location.reload(), 800);
                     } else if (options.resetForm) {

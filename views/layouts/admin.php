@@ -23,7 +23,10 @@ $activeEmergenciesCount = \Models\EmergencyEvent::count("status = 'active' OR st
     <meta name="csrf-token" content="<?= ViewHelper::csrfToken() ?>">
     <title><?= ViewHelper::e($pageTitle ?? 'Admin Command Center — PetGuard') ?></title>
     <link rel="icon" href="<?= ViewHelper::asset('img/heading-img.png') ?>">
-    <script>window.PetGuardCsrf = '<?= ViewHelper::csrfToken() ?>';</script>
+    <script>
+        window.PetGuardAppBase = '<?= ViewHelper::url() ?>';
+        window.PetGuardCsrf = '<?= ViewHelper::csrfToken() ?>';
+    </script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

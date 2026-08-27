@@ -117,7 +117,7 @@ use Helpers\ViewHelper;
 document.addEventListener('DOMContentLoaded', () => {
     PetGuardAjax.bindForm('#editProductForm', {
         loadingText: 'Updating Product...',
-        redirect: 'vendor/products/<?= $product['id'] ?>'
+        redirect: '<?= ViewHelper::url("vendor/products/" . $product['id']) ?>'
     });
 });
 

@@ -21,7 +21,10 @@ $unreadNotifications = \Models\Notification::getUnreadCountForUser($role);
     <meta name="csrf-token" content="<?= ViewHelper::csrfToken() ?>">
     <title><?= ViewHelper::e($pageTitle ?? 'PetCare Portal — PetGuard') ?></title>
     <link rel="icon" href="<?= ViewHelper::asset('img/heading-img.png') ?>">
-    <script>window.PetGuardCsrf = '<?= ViewHelper::csrfToken() ?>';</script>
+    <script>
+        window.PetGuardAppBase = '<?= ViewHelper::url() ?>';
+        window.PetGuardCsrf = '<?= ViewHelper::csrfToken() ?>';
+    </script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

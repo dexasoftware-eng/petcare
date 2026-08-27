@@ -10,7 +10,10 @@ use Core\View;
     <meta name="csrf-token" content="<?= ViewHelper::csrfToken() ?>">
     <title><?= ViewHelper::e($pageTitle ?? 'PetGuard — Pet Care & Clinic') ?></title>
     <link rel="icon" href="<?= ViewHelper::asset('img/heading-img.png') ?>">
-    <script>window.PetGuardCsrf = '<?= ViewHelper::csrfToken() ?>';</script>
+    <script>
+        window.PetGuardAppBase = '<?= ViewHelper::url() ?>';
+        window.PetGuardCsrf = '<?= ViewHelper::csrfToken() ?>';
+    </script>
 
     <!-- Core Styles -->
     <link rel="stylesheet" type="text/css" href="<?= ViewHelper::asset('css/bootstrap.min.css') ?>">

@@ -474,8 +474,8 @@ foreach ($products as $p) {
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     PetGuardAjax.bindForm('#aiInstantProductForm', {
-        loadingText: 'AI Generating Product & Adding...',
-        redirect: 'vendor/products'
+        loadingText: 'Generating with AI & Publishing...',
+        redirect: '<?= ViewHelper::url("vendor/products") ?>'
     });
 });
 
