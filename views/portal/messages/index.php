@@ -209,7 +209,7 @@ $activeMessages = $activeMessages ?? [];
                         ?>
                             <div class="d-flex flex-column <?= $isMine ? 'align-items-end' : 'align-items-start' ?>">
                                 <div class="<?= $isMine ? 'chat-bubble-mine' : 'chat-bubble-theirs' ?>">
-                                    <?= nl2br(ViewHelper::e($msg['message'])) ?>
+                                    <?= nl2br(ViewHelper::e($msg['message_text'] ?? $msg['message'] ?? '')) ?>
                                 </div>
                                 <span class="text-muted mt-1" style="font-size: 10.5px;">
                                     <?= date('h:i A', strtotime($msg['created_at'])) ?>

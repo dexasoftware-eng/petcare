@@ -4,35 +4,98 @@ use Helpers\ViewHelper;
 
 <div class="admin-page-header">
     <div>
-        <h2 class="admin-page-title">Pet Registry & Digital Passports</h2>
-        <p class="admin-page-subtitle">Centralized health registry, cryptographic QR passports, and wellness metrics.</p>
+        <h2 class="admin-page-title"><i class="fa-solid fa-shield-cat text-primary me-2"></i> Pets & Digital Passport Registry</h2>
+        <p class="admin-page-subtitle">Centralized animal registry, dynamic NFC/QR passports, microchip identifiers, and lost alerts.</p>
+    </div>
+</div>
+
+<!-- 4 Top Metric KPI Stat Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-xl-3 col-sm-6">
+        <div class="admin-stat-card">
+            <div class="stat-card-header">
+                <span class="stat-card-label">Total Registered</span>
+                <div class="stat-card-icon icon-purple">
+                    <i class="fa-solid fa-paw"></i>
+                </div>
+            </div>
+            <div class="stat-card-value"><?= number_format($stats['total'] ?? count($pets)) ?></div>
+            <div class="stat-card-footer text-muted">
+                Pets in Database
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+        <div class="admin-stat-card">
+            <div class="stat-card-header">
+                <span class="stat-card-label">Active Passports</span>
+                <div class="stat-card-icon icon-green">
+                    <i class="fa-solid fa-qrcode"></i>
+                </div>
+            </div>
+            <div class="stat-card-value"><?= number_format($stats['activePassports'] ?? 0) ?></div>
+            <div class="stat-card-footer text-success fw-bold">
+                <i class="fa-solid fa-shield-check me-1"></i> QR Enabled
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+        <div class="admin-stat-card">
+            <div class="stat-card-header">
+                <span class="stat-card-label">For Adoption</span>
+                <div class="stat-card-icon icon-blue">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+            </div>
+            <div class="stat-card-value"><?= number_format($stats['forAdoption'] ?? 0) ?></div>
+            <div class="stat-card-footer text-muted">
+                Sanctuary Listings
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+        <div class="admin-stat-card">
+            <div class="stat-card-header">
+                <span class="stat-card-label">Lost Pet Broadcasts</span>
+                <div class="stat-card-icon icon-red">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+            </div>
+            <div class="stat-card-value"><?= number_format($stats['lostAlerts'] ?? 0) ?></div>
+            <div class="stat-card-footer text-danger fw-bold">
+                Active SOS Alerts
+            </div>
+        </div>
     </div>
 </div>
 
 <!-- Filter Bar -->
 <div class="admin-filter-bar">
     <form action="<?= ViewHelper::url('admin/pets') ?>" method="GET" class="d-flex flex-wrap gap-2 align-items-center w-100">
-        <div class="flex-grow-1" style="min-width: 200px;">
-            <input type="text" name="q" class="form-control form-control-sm rounded-pill px-3" placeholder="Search pet name, breed, microchip, owner..." value="<?= ViewHelper::e($filters['q']) ?>">
+        <div class="flex-grow-1" style="min-width: 240px;">
+            <input type="text" name="q" class="form-control rounded-pill px-3 ps-4" placeholder="Search pet name, breed, microchip, or owner..." value="<?= ViewHelper::e($filters['q'] ?? '') ?>">
         </div>
-        <div>
-            <select name="species" class="form-select form-select-sm rounded-pill px-3">
+        <div style="min-width: 150px;">
+            <select name="species" class="form-select rounded-pill px-3">
                 <option value="">All Species</option>
-                <option value="Dog" <?= $filters['species'] === 'Dog' ? 'selected' : '' ?>>Dogs</option>
-                <option value="Cat" <?= $filters['species'] === 'Cat' ? 'selected' : '' ?>>Cats</option>
-                <option value="Bird" <?= $filters['species'] === 'Bird' ? 'selected' : '' ?>>Birds</option>
-                <option value="Other" <?= $filters['species'] === 'Other' ? 'selected' : '' ?>>Other</option>
+                <option value="Dog" <?= ($filters['species'] ?? '') === 'Dog' ? 'selected' : '' ?>>Dogs</option>
+                <option value="Cat" <?= ($filters['species'] ?? '') === 'Cat' ? 'selected' : '' ?>>Cats</option>
+                <option value="Bird" <?= ($filters['species'] ?? '') === 'Bird' ? 'selected' : '' ?>>Birds</option>
+                <option value="Other" <?= ($filters['species'] ?? '') === 'Other' ? 'selected' : '' ?>>Others</option>
             </select>
         </div>
-        <div>
-            <select name="status" class="form-select form-select-sm rounded-pill px-3">
-                <option value="">All Passports</option>
-                <option value="active" <?= $filters['status'] === 'active' ? 'selected' : '' ?>>Active Passport</option>
-                <option value="revoked" <?= $filters['status'] === 'revoked' ? 'selected' : '' ?>>Revoked Passport</option>
+        <div style="min-width: 160px;">
+            <select name="status" class="form-select rounded-pill px-3">
+                <option value="">Passport Status</option>
+                <option value="active" <?= ($filters['status'] ?? '') === 'active' ? 'selected' : '' ?>>Active</option>
+                <option value="pending" <?= ($filters['status'] ?? '') === 'pending' ? 'selected' : '' ?>>Pending</option>
+                <option value="lost" <?= ($filters['status'] ?? '') === 'lost' ? 'selected' : '' ?>>Lost Alert</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-sm btn-dark rounded-pill px-4">Filter</button>
-        <a href="<?= ViewHelper::url('admin/pets') ?>" class="btn btn-sm btn-light rounded-pill px-3">Reset</a>
+        <button type="submit" class="btn btn-dark rounded-pill px-4 fw-semibold" style="font-size: 13.5px;">
+            <i class="fa-solid fa-filter me-1"></i> Filter
+        </button>
+        <a href="<?= ViewHelper::url('admin/pets') ?>" class="btn btn-light border rounded-pill px-3 fw-semibold text-muted" style="font-size: 13.5px;">Reset</a>
     </form>
 </div>
 
@@ -43,53 +106,55 @@ use Helpers\ViewHelper;
             <table class="admin-table">
                 <thead>
                     <tr>
-                        <th>Pet Name</th>
-                        <th>Species & Breed</th>
-                        <th>Parent / Caretaker</th>
-                        <th>Care Score</th>
+                        <th>Pet Profile</th>
+                        <th>Breed & Species</th>
+                        <th>Guardian / Owner</th>
+                        <th>Microchip Tag</th>
                         <th>Passport Status</th>
-                        <th>Immunization</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($pets)): ?>
-                        <tr><td colspan="7" class="text-center p-4 text-muted">No pet records found matching criteria.</td></tr>
+                        <tr><td colspan="6" class="text-center py-4 text-muted">No pets found matching search criteria.</td></tr>
                     <?php else: ?>
                         <?php foreach ($pets as $pet): ?>
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center gap-3">
-                                        <img src="<?= ViewHelper::asset($pet['avatar'] ?: ($pet['species'] === 'Cat' ? 'img/cat-1.png' : 'img/dog-1.png')) ?>" alt="" class="rounded-circle border" style="width: 40px; height: 40px; object-fit: cover;">
+                                        <?php if (!empty($pet['avatar'])): ?>
+                                            <img src="<?= ViewHelper::asset($pet['avatar']) ?>" class="rounded-circle border object-fit-cover" style="width: 40px; height: 40px; min-width: 40px;" onerror="this.onerror=null; this.src='<?= ViewHelper::asset('img/heading-img.png') ?>';">
+                                        <?php else: ?>
+                                            <div class="rounded-circle bg-light border d-flex align-items-center justify-content-center text-brand fw-bold" style="width: 40px; height: 40px; min-width: 40px;">
+                                                <i class="fa-solid fa-paw"></i>
+                                            </div>
+                                        <?php endif; ?>
                                         <div>
-                                            <a href="<?= ViewHelper::url("admin/pets/{$pet['id']}") ?>" class="fw-bold text-dark text-decoration-none hover-underline">
+                                            <a href="<?= ViewHelper::url("admin/pets/{$pet['id']}") ?>" class="fw-bold text-dark text-decoration-none">
                                                 <?= ViewHelper::e($pet['name']) ?>
                                             </a>
-                                            <small class="text-muted d-block"><?= ViewHelper::e($pet['gender']) ?> · <?= ViewHelper::e($pet['age']) ?></small>
+                                            <small class="text-muted d-block"><?= ViewHelper::e($pet['gender']) ?> · <?= ViewHelper::e($pet['age']) ?> Yrs</small>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <span class="fw-semibold text-dark"><?= ViewHelper::e($pet['species']) ?></span>
-                                    <small class="text-muted d-block"><?= ViewHelper::e($pet['breed']) ?></small>
+                                    <div class="fw-semibold text-dark"><?= ViewHelper::e($pet['breed'] ?: 'Mixed Breed') ?></div>
+                                    <small class="badge bg-light text-dark border px-2 py-0" style="font-size: 10.5px;"><?= ViewHelper::e($pet['species']) ?></small>
                                 </td>
                                 <td>
-                                    <a href="<?= ViewHelper::url("admin/users/{$pet['user_id']}") ?>" class="fw-semibold text-dark text-decoration-none">
-                                        <?= ViewHelper::e($pet['owner_name']) ?>
+                                    <div class="fw-semibold text-dark"><?= ViewHelper::e($pet['owner_name'] ?? 'N/A') ?></div>
+                                    <small class="text-muted"><?= ViewHelper::e($pet['owner_email'] ?? '') ?></small>
+                                </td>
+                                <td>
+                                    <code class="px-2 py-1 bg-light border rounded text-dark" style="font-size: 11px;"><?= ViewHelper::e($pet['microchip_id'] ?: 'UNTAGGED') ?></code>
+                                </td>
+                                <td>
+                                    <span class="badge-status status-<?= $pet['passport_status'] ?>"><?= ucfirst(ViewHelper::e($pet['passport_status'])) ?></span>
+                                </td>
+                                <td>
+                                    <a href="<?= ViewHelper::url("admin/pets/{$pet['id']}") ?>" class="btn-admin-action">
+                                        <i class="fa-solid fa-id-card text-primary"></i> Passport
                                     </a>
-                                    <small class="badge bg-light text-muted border text-uppercase" style="font-size: 10px;"><?= ViewHelper::e($pet['owner_role']) ?></small>
-                                </td>
-                                <td>
-                                    <span class="badge bg-success fw-bold px-2 py-1"><?= $pet['care_score'] ?>/100</span>
-                                </td>
-                                <td>
-                                    <span class="badge-status status-<?= $pet['passport_status'] ?? 'active' ?>"><?= ViewHelper::e($pet['passport_status'] ?? 'active') ?></span>
-                                </td>
-                                <td>
-                                    <span class="small text-muted"><i class="fa-solid fa-syringe text-brand me-1"></i> <?= ViewHelper::e($pet['vaccination_status'] ?: 'Scheduled') ?></span>
-                                </td>
-                                <td>
-                                    <a href="<?= ViewHelper::url("admin/pets/{$pet['id']}") ?>" class="btn btn-sm btn-outline-dark rounded-pill px-3">Passport</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

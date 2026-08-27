@@ -231,8 +231,8 @@ class AdminController extends Controller
         $sql = "SELECT vp.*, u.name, u.email, u.phone, u.status AS user_status, u.address AS user_address, u.created_at AS user_joined
                 FROM veterinarian_profiles vp
                 JOIN users u ON vp.user_id = u.id
-                WHERE vp.id = :id OR vp.user_id = :id LIMIT 1";
-        $vet = VeterinarianProfile::query($sql, ['id' => $id]);
+                WHERE (vp.id = :id OR vp.user_id = :user_id) LIMIT 1";
+        $vet = VeterinarianProfile::query($sql, ['id' => $id, 'user_id' => $id]);
         if (empty($vet)) {
             Flash::error('Veterinarian record not found.');
             $this->redirect('admin/veterinarians');
@@ -309,15 +309,15 @@ class AdminController extends Controller
         $sql = "SELECT sp.*, u.name AS contact_person, u.email, u.phone, u.address, u.status AS user_status
                 FROM shelter_profiles sp
                 JOIN users u ON sp.user_id = u.id
-                WHERE sp.id = :id OR sp.user_id = :id LIMIT 1";
-        $shelter = ShelterProfile::query($sql, ['id' => $id]);
+                WHERE sp.id = :id OR sp.user_id = :user_id LIMIT 1";
+        $shelter = ShelterProfile::query($sql, ['id' => $id, 'user_id' => $id]);
         if (empty($shelter)) {
             Flash::error('Shelter profile not found.');
             $this->redirect('admin/shelters');
         }
 
         $shelterData = $shelter[0];
-        $animals = Pet::where("user_id = :uid OR (is_for_adoption = 1 AND user_id = :uid)", ['uid' => $shelterData['user_id']]);
+        $animals = Pet::where("user_id = :puid", ['puid' => $shelterData['user_id']]);
         $applications = AdoptionApplication::getWithDetails("a.shelter_id = :uid", ['uid' => $shelterData['user_id']]);
 
         $this->render('admin.shelters.details', [
@@ -624,9 +624,33 @@ class AdminController extends Controller
     {
         $inventory = Product::query("SELECT p.*, c.title AS category_name FROM products p LEFT JOIN categories c ON p.category_id = c.id ORDER BY p.stock ASC");
 
+        $totalItems = count($inventory);
+        $lowStock = 0;
+        $outOfStock = 0;
+        $totalValuation = 0.0;
+
+        foreach ($inventory as $item) {
+            $st = (int)($item['stock'] ?? 0);
+            $pr = (float)($item['price'] ?? 0);
+            if ($st == 0) {
+                $outOfStock++;
+            } elseif ($st <= 5) {
+                $lowStock++;
+            }
+            $totalValuation += ($st * $pr);
+        }
+
+        $stats = [
+            'totalItems' => $totalItems,
+            'lowStock' => $lowStock,
+            'outOfStock' => $outOfStock,
+            'totalValuation' => $totalValuation
+        ];
+
         $this->render('admin.marketplace.inventory', [
             'pageTitle' => 'Stock & Inventory Management — Pet Guard Admin',
-            'inventory' => $inventory
+            'inventory' => $inventory,
+            'stats' => $stats
         ], 'admin');
     }
 
@@ -685,12 +709,22 @@ class AdminController extends Controller
         $articles = CareContent::where("type = 'article'", [], 'created_at DESC');
         $faqs = CareContent::where("type = 'faq'", [], 'created_at DESC');
         $tips = CareContent::where("type = 'health_tip'", [], 'created_at DESC');
+        $publishedCount = CareContent::count("status = 'published'");
+
+        $stats = [
+            'totalArticles' => count($articles),
+            'totalFaqs' => count($faqs),
+            'totalTips' => count($tips),
+            'totalPublished' => $publishedCount,
+            'totalItems' => count($articles) + count($faqs) + count($tips)
+        ];
 
         $this->render('admin.content.index', [
-            'pageTitle' => 'Care Content & Health Knowledge — Pet Guard Admin',
+            'pageTitle' => 'Care Content & Pet Health Knowledge — Pet Guard Admin',
             'articles' => $articles,
             'faqs' => $faqs,
-            'tips' => $tips
+            'tips' => $tips,
+            'stats' => $stats
         ], 'admin');
     }
 
@@ -743,10 +777,23 @@ class AdminController extends Controller
         $reports = ModerationReport::getWithReporter();
         $inquiries = Inquiry::all('created_at DESC');
 
+        $pendingReportsCount = ModerationReport::count("status = 'pending'");
+        $resolvedReportsCount = ModerationReport::count("status = 'resolved' OR status = 'dismissed'");
+        $pendingInquiriesCount = Inquiry::count("status = 'pending' OR status = 'open'");
+
+        $stats = [
+            'totalReports' => count($reports),
+            'pendingReports' => $pendingReportsCount,
+            'resolvedReports' => $resolvedReportsCount,
+            'totalInquiries' => count($inquiries),
+            'pendingInquiries' => $pendingInquiriesCount
+        ];
+
         $this->render('admin.moderation.index', [
             'pageTitle' => 'Content Moderation & Reports — Pet Guard Admin',
             'reports' => $reports,
-            'inquiries' => $inquiries
+            'inquiries' => $inquiries,
+            'stats' => $stats
         ], 'admin');
     }
 
@@ -893,11 +940,24 @@ class AdminController extends Controller
         $petSpecies = Pet::query("SELECT species, COUNT(*) as count FROM pets GROUP BY species");
         $orderSales = Order::query("SELECT DATE_FORMAT(created_at, '%Y-%m') as month, SUM(total) as revenue, COUNT(*) as orders FROM orders GROUP BY month ORDER BY month DESC LIMIT 6");
 
+        $totalSales = (float)(Order::query("SELECT SUM(total) AS total FROM orders WHERE payment_status = 'paid'")[0]['total'] ?? 0);
+        $totalUsers = User::count();
+        $totalPets = Pet::count();
+        $totalAppointments = Appointment::count();
+
+        $stats = [
+            'totalSales' => $totalSales,
+            'totalUsers' => $totalUsers,
+            'totalPets' => $totalPets,
+            'totalAppointments' => $totalAppointments
+        ];
+
         $this->render('admin.reports.index', [
             'pageTitle' => 'Reports & Platform Analytics — Pet Guard Admin',
             'userGrowth' => $userGrowth,
             'petSpecies' => $petSpecies,
-            'orderSales' => $orderSales
+            'orderSales' => $orderSales,
+            'stats' => $stats
         ], 'admin');
     }
 
@@ -906,11 +966,24 @@ class AdminController extends Controller
     // ==========================================
     public function security(): void
     {
-        $logs = AuditLog::query("SELECT a.*, u.name AS user_name, u.email AS user_email, u.role AS user_role FROM audit_logs a LEFT JOIN users u ON a.user_id = u.id ORDER BY a.created_at DESC LIMIT 50");
+        $logs = AuditLog::query("SELECT a.*, u.name AS user_name, u.email AS user_email, u.role AS user_role FROM audit_logs a LEFT JOIN users u ON a.user_id = u.id ORDER BY a.created_at DESC LIMIT 100");
+
+        $totalLogs = AuditLog::count();
+        $adminActions = AuditLog::count("action LIKE '%ADMIN%' OR action LIKE '%UPDATE%' OR action LIKE '%DELETE%' OR action LIKE '%STATUS%'");
+        $authEvents = AuditLog::count("action LIKE '%LOGIN%' OR action LIKE '%LOGOUT%' OR action LIKE '%AUTH%'");
+        $todayEvents = AuditLog::count("DATE(created_at) = CURDATE()");
+
+        $stats = [
+            'totalLogs' => $totalLogs,
+            'adminActions' => $adminActions,
+            'authEvents' => $authEvents,
+            'todayEvents' => $todayEvents
+        ];
 
         $this->render('admin.security.index', [
-            'pageTitle' => 'Security & Audit Trail — Pet Guard Admin',
-            'logs' => $logs
+            'pageTitle' => 'Security, Governance & Audit Trail — Pet Guard Admin',
+            'logs' => $logs,
+            'stats' => $stats
         ], 'admin');
     }
 

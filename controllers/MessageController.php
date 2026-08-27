@@ -40,13 +40,15 @@ class MessageController extends Controller
             }
         }
 
+        $userRole = Auth::user()['role'] ?? 'petowner';
+        $layout = $userRole === 'admin' ? 'admin' : 'portal';
         $this->render('portal.messages.index', [
             'pageTitle' => 'Relationship Messages — Pet Guard',
             'conversations' => $conversations,
             'activeConvId' => $activeConvId,
             'activeMessages' => $activeMessages,
             'activeRecipient' => $activeRecipient
-        ], 'portal');
+        ], $layout);
     }
 
     /**
@@ -89,7 +91,7 @@ class MessageController extends Controller
         }
 
         $convId = (int)$this->request->input('conversation_id');
-        $text = trim((string)$this->request->input('message_text', ''));
+        $text = trim((string)$this->request->input('message_text', $this->request->input('message', '')));
 
         if (empty($text)) {
             $this->jsonError('Message text cannot be empty.');

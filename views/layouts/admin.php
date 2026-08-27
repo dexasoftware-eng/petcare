@@ -14,6 +14,7 @@ $pendingSheltersCount = \Models\ShelterProfile::count("verification_status = 'pe
 $pendingAdoptionsCount = \Models\AdoptionApplication::count("status = 'submitted' OR status = 'under_review'");
 $openReportsCount = \Models\ModerationReport::count("status = 'pending'");
 $activeEmergenciesCount = \Models\EmergencyEvent::count("status = 'active' OR status = 'in_triage'");
+$totalAdminNotifications = $pendingVetsCount + $pendingSheltersCount + $pendingAdoptionsCount + $openReportsCount + $activeEmergenciesCount;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,26 +32,55 @@ $activeEmergenciesCount = \Models\EmergencyEvent::count("status = 'active' OR st
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anybody:wght@400;500;600;700;800;900&family=DynaPuff:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- CSS Dependencies -->
     <link rel="stylesheet" type="text/css" href="<?= ViewHelper::asset('css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="<?= ViewHelper::asset('css/admin.css') ?>?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= ViewHelper::asset('css/responsive-overhaul.css') ?>?v=<?= time() ?>">
+    <style>
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            left: auto;
+            z-index: 99999 !important;
+            background: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 16px !important;
+            box-shadow: 0 16px 36px rgba(15, 23, 42, 0.16), 0 4px 12px rgba(0, 0, 0, 0.06) !important;
+        }
+        .dropdown-menu.show {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+        .admin-brand-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .admin-brand-logo img {
+            max-height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+    </style>
 </head>
 <body class="admin-body">
 
-    <!-- Admin Mobile Backdrop Overlay -->
+    <!-- Mobile Backdrop Overlay -->
     <div class="admin-sidebar-overlay" id="adminBackdrop"></div>
 
-    <!-- Admin Sidebar Navigation -->
+    <!-- Sidebar Navigation -->
     <aside class="admin-sidebar" id="adminSidebar">
-        <!-- Brand Header -->
+        <!-- Brand Header with Official Website SVG Logo -->
         <div class="admin-brand-header">
             <a href="<?= ViewHelper::url('admin/dashboard') ?>" class="admin-brand-logo">
-                <img src="<?= ViewHelper::asset('img/heading-img.png') ?>" alt="PetGuard Logo">
-                <h1 class="admin-brand-title">Pet<span>Guard</span></h1>
+                <img src="<?= ViewHelper::asset('img/logo.svg') ?>" alt="PetGuard Logo">
             </a>
             <button class="btn btn-sm btn-light d-lg-none" onclick="toggleAdminSidebar()">
                 <i class="fa-solid fa-xmark"></i>
@@ -226,7 +256,7 @@ $activeEmergenciesCount = \Models\EmergencyEvent::count("status = 'active' OR st
     <!-- Main Admin Container -->
     <div class="admin-main-wrap">
         
-        <!-- Sticky Topbar (Perfect on all 5 screens, enhanced mobile header) -->
+        <!-- Sticky Topbar -->
         <header class="admin-topbar">
             <!-- Left: Mobile Menu Toggle + Mobile Brand Logo + Desktop Search -->
             <div class="d-flex align-items-center gap-2 flex-grow-1 min-w-0" style="max-width: 520px;">
@@ -234,10 +264,9 @@ $activeEmergenciesCount = \Models\EmergencyEvent::count("status = 'active' OR st
                     <i class="fa-solid fa-bars fs-6"></i>
                 </button>
 
-                <!-- Mobile Brand Badge (Visible on <992px) -->
-                <a href="<?= ViewHelper::url('admin/dashboard') ?>" class="d-flex d-lg-none align-items-center gap-2 text-decoration-none flex-shrink-0">
-                    <img src="<?= ViewHelper::asset('img/heading-img.png') ?>" style="width: 28px; height: 28px; object-fit: contain;" alt="PetGuard">
-                    <span class="fw-bold text-dark d-none d-sm-inline" style="font-family: 'DynaPuff', cursive; font-size: 16px; letter-spacing: -0.3px;">Pet<span class="text-brand">Guard</span></span>
+                <!-- Mobile Brand Badge with Official SVG Logo (Visible on <992px) -->
+                <a href="<?= ViewHelper::url('admin/dashboard') ?>" class="d-flex d-lg-none align-items-center text-decoration-none flex-shrink-0">
+                    <img src="<?= ViewHelper::asset('img/logo.svg') ?>" style="height: 32px; width: auto; object-fit: contain;" alt="PetGuard">
                 </a>
 
                 <!-- Desktop Search Input (Visible on >=768px) -->
@@ -249,19 +278,88 @@ $activeEmergenciesCount = \Models\EmergencyEvent::count("status = 'active' OR st
 
             <!-- Right: Notification Bell, User Menu -->
             <div class="d-flex align-items-center gap-2 ms-auto flex-shrink-0">
-                <!-- Notification Bell Icon -->
-                <a href="<?= ViewHelper::url('admin/notifications') ?>" class="btn btn-light rounded-circle position-relative d-flex align-items-center justify-content-center shadow-sm flex-shrink-0" style="width: 40px; height: 40px;" title="Broadcast & Notifications">
-                    <i class="fa-regular fa-bell text-secondary"></i>
-                    <?php if (($openReportsCount ?? 0) > 0): ?>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 9px; padding: 3px 6px;">
-                            <?= $openReportsCount ?>
-                        </span>
-                    <?php endif; ?>
-                </a>
+                
+                <!-- Notification Bell Dropdown -->
+                <div class="position-relative">
+                    <button class="btn btn-light rounded-circle position-relative d-flex align-items-center justify-content-center shadow-sm flex-shrink-0 border-0" style="width: 40px; height: 40px;" id="adminNotificationBtn" onclick="event.stopPropagation(); toggleCustomDropdown('adminNotificationMenu')" title="System Alerts & Notifications">
+                        <i class="fa-solid fa-bell text-secondary"></i>
+                        <?php if ($totalAdminNotifications > 0): ?>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px; padding: 3px 6px;">
+                                <?= $totalAdminNotifications ?>
+                            </span>
+                        <?php endif; ?>
+                    </button>
+                    
+                    <div class="dropdown-menu dropdown-menu-end shadow border rounded-4 p-0 mt-2" id="adminNotificationMenu" style="min-width: 320px; max-width: 360px;">
+                        <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-light rounded-top-4">
+                            <h6 class="mb-0 fw-bold text-dark"><i class="fa-solid fa-bell text-primary me-2"></i> Operational Alerts</h6>
+                            <span class="badge bg-danger rounded-pill"><?= $totalAdminNotifications ?> New</span>
+                        </div>
+                        <div class="p-2" style="max-height: 300px; overflow-y: auto;">
+                            <?php if ($pendingVetsCount > 0): ?>
+                                <a href="<?= ViewHelper::url('admin/veterinarians?status=pending') ?>" class="dropdown-item p-2 rounded-3 d-flex align-items-center gap-2 mb-1">
+                                    <div class="rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center flex-shrink-0" style="width: 32px; height: 32px;">
+                                        <i class="fa-solid fa-user-doctor"></i>
+                                    </div>
+                                    <div class="flex-grow-1 min-w-0">
+                                        <div class="fw-bold text-dark small text-truncate"><?= $pendingVetsCount ?> Vet Verifications</div>
+                                        <small class="text-muted" style="font-size: 11px;">Doctors awaiting credential checks</small>
+                                    </div>
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if ($pendingSheltersCount > 0): ?>
+                                <a href="<?= ViewHelper::url('admin/shelters?status=pending') ?>" class="dropdown-item p-2 rounded-3 d-flex align-items-center gap-2 mb-1">
+                                    <div class="rounded-circle bg-success-subtle text-success d-flex align-items-center justify-content-center flex-shrink-0" style="width: 32px; height: 32px;">
+                                        <i class="fa-solid fa-house-medical"></i>
+                                    </div>
+                                    <div class="flex-grow-1 min-w-0">
+                                        <div class="fw-bold text-dark small text-truncate"><?= $pendingSheltersCount ?> Shelter Reviews</div>
+                                        <small class="text-muted" style="font-size: 11px;">Sanctuaries awaiting approval</small>
+                                    </div>
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if ($pendingAdoptionsCount > 0): ?>
+                                <a href="<?= ViewHelper::url('admin/adoption') ?>" class="dropdown-item p-2 rounded-3 d-flex align-items-center gap-2 mb-1">
+                                    <div class="rounded-circle bg-warning-subtle text-warning d-flex align-items-center justify-content-center flex-shrink-0" style="width: 32px; height: 32px;">
+                                        <i class="fa-solid fa-paw"></i>
+                                    </div>
+                                    <div class="flex-grow-1 min-w-0">
+                                        <div class="fw-bold text-dark small text-truncate"><?= $pendingAdoptionsCount ?> Adoption Inquiries</div>
+                                        <small class="text-muted" style="font-size: 11px;">Applications in queue</small>
+                                    </div>
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if ($activeEmergenciesCount > 0): ?>
+                                <a href="<?= ViewHelper::url('admin/emergency') ?>" class="dropdown-item p-2 rounded-3 d-flex align-items-center gap-2 mb-1">
+                                    <div class="rounded-circle bg-danger-subtle text-danger d-flex align-items-center justify-content-center flex-shrink-0" style="width: 32px; height: 32px;">
+                                        <i class="fa-solid fa-truck-medical"></i>
+                                    </div>
+                                    <div class="flex-grow-1 min-w-0">
+                                        <div class="fw-bold text-danger small text-truncate"><?= $activeEmergenciesCount ?> Emergency Triage</div>
+                                        <small class="text-muted" style="font-size: 11px;">Urgent animal cases flagged</small>
+                                    </div>
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if ($totalAdminNotifications === 0): ?>
+                                <div class="text-center py-3 text-muted">
+                                    <i class="fa-solid fa-circle-check text-success fs-4 d-block mb-1"></i>
+                                    <small>All governance queues are up to date!</small>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="p-2 border-top bg-light text-center rounded-bottom-4">
+                            <a href="<?= ViewHelper::url('admin/notifications') ?>" class="text-decoration-none small fw-bold text-brand">Broadcast Hub & Alerts &rarr;</a>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Admin Profile Dropdown Menu -->
-                <div class="dropdown">
-                    <button class="btn admin-user-menu p-1 border-0 bg-transparent dropdown-toggle text-start d-flex align-items-center gap-2 shadow-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="position-relative">
+                    <button class="btn admin-user-menu p-1 border-0 bg-transparent text-start d-flex align-items-center gap-2 shadow-none" type="button" id="adminUserDropdownBtn" onclick="event.stopPropagation(); toggleCustomDropdown('adminUserMenu')">
                         <div class="admin-avatar-pill shadow-sm" style="width: 38px; height: 38px; font-size: 14px; background: linear-gradient(135deg, #fa441d 0%, #1e293b 100%);">
                             <?= strtoupper(substr($user['name'] ?? 'A', 0, 1)) ?>
                         </div>
@@ -269,11 +367,14 @@ $activeEmergenciesCount = \Models\EmergencyEvent::count("status = 'active' OR st
                             <div class="fw-bold fs-6 text-dark lh-1"><?= ViewHelper::e($user['name'] ?? 'Administrator') ?></div>
                             <small class="text-muted fw-semibold" style="font-size: 11px;">Super Admin</small>
                         </div>
+                        <i class="fa-solid fa-caret-down text-muted small ms-1"></i>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border rounded-4 p-2 mt-2" style="min-width: 220px;">
-                        <li class="px-3 py-2 border-bottom mb-1 d-lg-none">
+                    
+                    <ul class="dropdown-menu dropdown-menu-end shadow border rounded-4 p-2 mt-2" id="adminUserMenu" style="min-width: 230px;">
+                        <li class="px-3 py-2 border-bottom mb-1">
                             <div class="fw-bold text-dark"><?= ViewHelper::e($user['name'] ?? 'Administrator') ?></div>
-                            <small class="badge bg-danger-subtle text-danger border border-danger-subtle">Super Admin</small>
+                            <small class="text-muted d-block mb-1"><?= ViewHelper::e($user['email'] ?? 'admin@petguard.com') ?></small>
+                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle" style="font-size: 10px;">Super Admin</span>
                         </li>
                         <li>
                             <a class="dropdown-item rounded-3 py-2 d-flex align-items-center gap-2 small" href="<?= ViewHelper::url('admin/settings') ?>">
@@ -282,14 +383,24 @@ $activeEmergenciesCount = \Models\EmergencyEvent::count("status = 'active' OR st
                         </li>
                         <li>
                             <a class="dropdown-item rounded-3 py-2 d-flex align-items-center gap-2 small" href="<?= ViewHelper::url('admin/security') ?>">
-                                <i class="fa-solid fa-shield-halved text-muted"></i> Audit Logs & Security
+                                <i class="fa-solid fa-shield-halved text-muted"></i> Security & Audit Trail
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item rounded-3 py-2 d-flex align-items-center gap-2 small" href="<?= ViewHelper::url('admin/ai') ?>">
+                                <i class="fa-solid fa-brain text-purple"></i> AI Intelligence Hub
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item rounded-3 py-2 d-flex align-items-center gap-2 small" href="<?= ViewHelper::url('our-products') ?>">
+                                <i class="fa-solid fa-store text-muted"></i> Switch to Public Store
                             </a>
                         </li>
                         <li><hr class="dropdown-divider my-1"></li>
                         <li>
                             <form action="<?= ViewHelper::url('logout') ?>" method="POST" class="m-0">
                                 <?= ViewHelper::csrfField() ?>
-                                <button type="submit" class="dropdown-item rounded-3 py-2 text-danger d-flex align-items-center gap-2 small">
+                                <button type="submit" class="dropdown-item rounded-3 py-2 d-flex align-items-center gap-2 text-danger small">
                                     <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
                                 </button>
                             </form>
@@ -335,7 +446,6 @@ $activeEmergenciesCount = \Models\EmergencyEvent::count("status = 'active' OR st
     <!-- Scripts -->
     <script src="<?= ViewHelper::asset('js/jquery-3.6.0.min.js') ?>"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="<?= ViewHelper::asset('js/bootstrap.bundle.min.js') ?>"></script>
     <script>
         function toggleAdminSidebar() {
             var sidebar = document.getElementById('adminSidebar');
@@ -357,11 +467,35 @@ $activeEmergenciesCount = \Models\EmergencyEvent::count("status = 'active' OR st
             }
         }
 
+        function toggleCustomDropdown(menuId) {
+            var menu = document.getElementById(menuId);
+            if (!menu) return;
+            var isShown = menu.classList.contains('show');
+            
+            // Close all dropdowns
+            document.querySelectorAll('.dropdown-menu.show').forEach(function(el) {
+                el.classList.remove('show');
+            });
+
+            if (!isShown) {
+                menu.classList.add('show');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             var backdrop = document.getElementById('adminBackdrop');
             if (backdrop) {
                 backdrop.addEventListener('click', toggleAdminSidebar);
             }
+
+            // Close dropdowns on outside click
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown-menu') && !e.target.closest('#adminNotificationBtn') && !e.target.closest('#adminUserDropdownBtn')) {
+                    document.querySelectorAll('.dropdown-menu.show').forEach(function(m) {
+                        m.classList.remove('show');
+                    });
+                }
+            });
         });
 
         function triggerConfirmModal(actionUrl, title, message, btnText = 'Confirm', btnClass = 'btn-danger', paramValue = '') {
@@ -377,7 +511,6 @@ $activeEmergenciesCount = \Models\EmergencyEvent::count("status = 'active' OR st
         }
 
         function handleGlobalSearch(query) {
-            // Client side quick table search if data table exists
             var filter = query.toLowerCase();
             document.querySelectorAll('.admin-table tbody tr').forEach(function(row) {
                 var text = row.textContent.toLowerCase();
@@ -406,12 +539,10 @@ $activeEmergenciesCount = \Models\EmergencyEvent::count("status = 'active' OR st
                 <span>Messages</span>
             </a>
             <a href="<?= ViewHelper::url('admin/settings') ?>" class="mobile-bottom-nav-item <?= str_starts_with($currentRoute, 'admin/settings') ? 'active' : '' ?>">
-                <i class="fa-solid fa-gears"></i>
-                <span>Config</span>
+                <i class="fa-solid fa-sliders"></i>
+                <span>Settings</span>
             </a>
         </div>
     </nav>
-
-    <script src="<?= ViewHelper::asset('js/petguard.js') ?>?v=<?= time() ?>"></script>
 </body>
 </html>

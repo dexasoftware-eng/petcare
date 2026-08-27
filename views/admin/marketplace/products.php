@@ -2,69 +2,171 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
-    <div>
-        <h2 class="admin-page-title">Marketplace Products Catalog</h2>
-        <p class="admin-page-subtitle">Pet nutritional supplies, healthcare therapeutics, grooming equipment, and accessories.</p>
+<!-- Page Header -->
+<div class="admin-page-header mb-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 w-100">
+        <div class="page-title-group">
+            <h2 class="admin-page-title">
+                <i class="fa-solid fa-boxes-stacked text-brand me-2"></i>
+                Marketplace Products Catalog
+            </h2>
+            <p class="admin-page-subtitle">
+                Global product directory, catalog pricing, inventory telemetry, and product status oversight.
+            </p>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <a href="<?= ViewHelper::url('admin/marketplace/inventory') ?>" class="btn btn-outline-dark rounded-pill px-4 py-2 fw-semibold d-flex align-items-center gap-2 shadow-sm">
+                <i class="fa-solid fa-warehouse"></i>
+                <span>Stock Management</span>
+            </a>
+            <a href="<?= ViewHelper::url('our-products') ?>" class="btn btn-dark rounded-pill px-4 py-2 fw-semibold d-flex align-items-center gap-2 shadow-sm" style="background: #fa441d; border: none;" target="_blank">
+                <i class="fa-solid fa-store"></i>
+                <span>Live Pet Store</span>
+            </a>
+        </div>
     </div>
-    <div>
-        <button class="btn-admin-primary" data-bs-toggle="modal" data-bs-target="#productModal">
-            <i class="fa-solid fa-plus"></i> Add New Product
-        </button>
+</div>
+
+<!-- 4 Top Metric KPI Stat Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-xl-3 col-sm-6">
+        <div class="admin-stat-card">
+            <div class="stat-card-header">
+                <span class="stat-card-label">Catalog Items</span>
+                <div class="stat-card-icon icon-orange">
+                    <i class="fa-solid fa-box-open"></i>
+                </div>
+            </div>
+            <div class="stat-card-value"><?= number_format(count($products)) ?></div>
+            <div class="stat-card-footer text-muted">
+                Active Listed Products
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+        <div class="admin-stat-card">
+            <div class="stat-card-header">
+                <span class="stat-card-label">Low Stock Warnings</span>
+                <div class="stat-card-icon icon-red">
+                    <i class="fa-solid fa-triangle-exclamation text-danger"></i>
+                </div>
+            </div>
+            <div class="stat-card-value text-danger"><?= number_format(\Models\Product::count("stock <= 5 AND stock > 0")) ?></div>
+            <div class="stat-card-footer text-danger fw-bold">
+                Stock &le; 5 Units Remaining
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+        <div class="admin-stat-card">
+            <div class="stat-card-header">
+                <span class="stat-card-label">Total Categories</span>
+                <div class="stat-card-icon icon-blue">
+                    <i class="fa-solid fa-layer-group text-primary"></i>
+                </div>
+            </div>
+            <div class="stat-card-value"><?= number_format(\Models\Category::count()) ?></div>
+            <div class="stat-card-footer text-muted">
+                Product Classifications
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+        <div class="admin-stat-card">
+            <div class="stat-card-header">
+                <span class="stat-card-label">Out of Stock</span>
+                <div class="stat-card-icon icon-amber">
+                    <i class="fa-solid fa-circle-exclamation text-warning"></i>
+                </div>
+            </div>
+            <div class="stat-card-value"><?= number_format(\Models\Product::count("stock = 0")) ?></div>
+            <div class="stat-card-footer text-muted">
+                Sold Out Items
+            </div>
+        </div>
     </div>
 </div>
 
 <!-- Products Table Card -->
 <div class="admin-card">
+    <div class="admin-card-header d-flex justify-content-between align-items-center">
+        <h3 class="admin-card-title">
+            <i class="fa-solid fa-list-ul text-brand me-2"></i> Products Catalog Directory
+        </h3>
+        <span class="badge bg-light text-dark border px-3 py-1 rounded-pill fw-semibold">
+            <?= count($products) ?> Items
+        </span>
+    </div>
     <div class="admin-card-body p-0">
         <div class="admin-table-container">
             <table class="admin-table">
                 <thead>
                     <tr>
-                        <th>Product</th>
+                        <th>Product Details</th>
                         <th>Category</th>
-                        <th>Price</th>
-                        <th>SKU</th>
+                        <th>Price (USD)</th>
                         <th>Stock Level</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th>Catalog Status</th>
+                        <th style="text-align: right;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($products)): ?>
-                        <tr><td colspan="7" class="text-center p-4 text-muted">No products found in catalog.</td></tr>
+                        <tr><td colspan="6" class="text-center py-5 text-muted">No products found in marketplace catalog.</td></tr>
                     <?php else: ?>
                         <?php foreach ($products as $p): ?>
+                            <?php
+                            $productName = $p['name'] ?? $p['title'] ?? 'Unnamed Product';
+                            $categoryName = $p['category'] ?? $p['category_name'] ?? 'General';
+                            $stock = (int)($p['stock'] ?? 0);
+                            $price = (float)($p['price'] ?? 0);
+                            ?>
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center gap-3">
-                                        <img src="<?= ViewHelper::asset($p['img'] ?? ($p['image'] ?? 'img/food-1.png')) ?>" alt="" class="rounded-3 border" style="width: 44px; height: 44px; object-fit: contain; background: #fff;">
+                                        <?php if (!empty($p['image_url'])): ?>
+                                            <img src="<?= ViewHelper::asset($p['image_url']) ?>" class="rounded-3 border object-fit-cover" style="width: 44px; height: 44px; min-width: 44px;" onerror="this.onerror=null; this.src='<?= ViewHelper::asset('img/heading-img.png') ?>';">
+                                        <?php else: ?>
+                                            <div class="rounded-3 bg-light border d-flex align-items-center justify-content-center text-muted fw-bold" style="width: 44px; height: 44px; min-width: 44px;">
+                                                <i class="fa-solid fa-box"></i>
+                                            </div>
+                                        <?php endif; ?>
                                         <div>
-                                            <div class="fw-bold text-dark"><?= ViewHelper::e($p['name']) ?></div>
-                                            <small class="text-muted"><?= ViewHelper::e(substr($p['description'] ?? '', 0, 45)) ?>...</small>
+                                            <div class="fw-bold text-dark" style="font-size: 14px;"><?= ViewHelper::e($productName) ?></div>
+                                            <small class="text-muted font-monospace" style="font-size: 11.5px;">SKU: <?= ViewHelper::e($p['sku'] ?? 'N/A') ?></small>
                                         </div>
                                     </div>
                                 </td>
-                                <td><span class="badge bg-light text-dark border"><?= ViewHelper::e($p['category_name'] ?? ($p['category'] ?? 'General')) ?></span></td>
-                                <td class="fw-bold text-dark">$<?= number_format((float)$p['price'], 2) ?></td>
-                                <td><code><?= ViewHelper::e($p['sku']) ?></code></td>
                                 <td>
-                                    <?php if (($p['stock'] ?? 0) <= 5): ?>
-                                        <span class="badge bg-danger"><?= $p['stock'] ?? 0 ?> In Stock</span>
+                                    <span class="badge bg-light text-dark border px-2 py-1" style="font-size: 11.5px; border-radius: 6px;">
+                                        <i class="fa-solid fa-tag text-muted me-1"></i> <?= ViewHelper::e($categoryName) ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="fw-bold text-dark" style="font-size: 14px;">$<?= number_format($price, 2) ?></span>
+                                </td>
+                                <td>
+                                    <?php if ($stock <= 0): ?>
+                                        <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1" style="font-size: 11px; border-radius: 6px;">
+                                            <i class="fa-solid fa-circle-xmark me-1"></i> Out of Stock
+                                        </span>
+                                    <?php elseif ($stock <= 5): ?>
+                                        <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-2 py-1 fw-bold" style="font-size: 11px; border-radius: 6px;">
+                                            <i class="fa-solid fa-triangle-exclamation me-1"></i> <?= $stock ?> Low Stock
+                                        </span>
                                     <?php else: ?>
-                                        <span class="badge bg-success"><?= $p['stock'] ?? 25 ?> In Stock</span>
+                                        <span class="fw-semibold text-dark" style="font-size: 13.5px;"><?= $stock ?> Units</span>
                                     <?php endif; ?>
                                 </td>
-                                <td><span class="badge-status status-<?= ($p['status'] ?? (($p['in_stock'] ?? 1) ? 'active' : 'out_of_stock')) ?>"><?= ViewHelper::e($p['status'] ?? (($p['in_stock'] ?? 1) ? 'active' : 'out_of_stock')) ?></span></td>
                                 <td>
-                                    <div class="d-flex gap-2">
-                                        <button class="btn btn-sm btn-outline-dark rounded-pill px-2" title="Edit Product" onclick='openEditProductModal(<?= json_encode($p) ?>)'>
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-danger rounded-pill px-2" title="Delete Product" onclick="triggerConfirmModal('<?= ViewHelper::url("admin/marketplace/products/{$p['id']}/delete") ?>', 'Delete Product', 'Are you sure you want to remove <?= ViewHelper::e($p['name']) ?> from the catalog?', 'Delete Product', 'btn-danger')">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </div>
+                                    <span class="badge-status status-<?= ($p['is_active'] ?? $p['in_stock'] ?? 1) ? 'active' : 'disabled' ?>">
+                                        <?= ($p['is_active'] ?? $p['in_stock'] ?? 1) ? 'Active' : 'Disabled' ?>
+                                    </span>
+                                </td>
+                                <td style="text-align: right;">
+                                    <a href="<?= ViewHelper::url("shop/product/{$p['id']}") ?>" class="btn btn-sm btn-outline-dark rounded-pill px-3 py-1 fw-semibold" target="_blank">
+                                        <i class="fa-solid fa-arrow-up-right-from-square me-1 text-primary"></i> View in Store
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -74,75 +176,3 @@ use Helpers\ViewHelper;
         </div>
     </div>
 </div>
-
-<!-- Product Add/Edit Modal -->
-<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content rounded-4 border-0 shadow">
-            <div class="modal-header border-0">
-                <h5 class="modal-title fw-bold" id="productModalTitle">Add New Product</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <form action="<?= ViewHelper::url('admin/marketplace/products') ?>" method="POST">
-                <?= ViewHelper::csrfField() ?>
-                <input type="hidden" name="id" id="prodId" value="">
-                
-                <div class="modal-body py-0">
-                    <div class="row g-3">
-                        <div class="col-md-8">
-                            <label class="form-label small fw-bold">Product Name *</label>
-                            <input type="text" name="name" id="prodName" class="form-control rounded-3" required placeholder="Premium Grain-Free Dog Food">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label small fw-bold">Category *</label>
-                            <select name="category_id" id="prodCategory" class="form-select rounded-3" required>
-                                <?php foreach ($categories as $cat): ?>
-                                    <option value="<?= $cat['id'] ?>"><?= ViewHelper::e($cat['title'] ?? ($cat['name'] ?? 'General')) ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label small fw-bold">Price ($) *</label>
-                            <input type="number" step="0.01" name="price" id="prodPrice" class="form-control rounded-3" required placeholder="29.99">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label small fw-bold">Initial Stock *</label>
-                            <input type="number" name="stock" id="prodStock" class="form-control rounded-3" required placeholder="50">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label small fw-bold">Status *</label>
-                            <select name="status" id="prodStatus" class="form-select rounded-3">
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                                <option value="out_of_stock">Out of Stock</option>
-                            </select>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label small fw-bold">Description</label>
-                            <textarea name="description" id="prodDesc" class="form-control rounded-3" rows="3" placeholder="Nutritional formulation, organic ingredients, and feeding guide..."></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-brand rounded-pill px-4 fw-bold">Save Product</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<script>
-    function openEditProductModal(prod) {
-        document.getElementById('productModalTitle').textContent = 'Edit Product #' + prod.id;
-        document.getElementById('prodId').value = prod.id;
-        document.getElementById('prodName').value = prod.name;
-        document.getElementById('prodCategory').value = prod.category_id;
-        document.getElementById('prodPrice').value = prod.price;
-        document.getElementById('prodStock').value = prod.stock;
-        document.getElementById('prodStatus').value = prod.status;
-        document.getElementById('prodDesc').value = prod.description || '';
-        var modal = new bootstrap.Modal(document.getElementById('productModal'));
-        modal.show();
-    }
-</script>

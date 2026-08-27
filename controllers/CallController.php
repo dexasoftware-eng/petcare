@@ -323,10 +323,12 @@ class CallController extends Controller
             LIMIT 20
         ", ['uid' => $userId]);
 
+        $userRole = Auth::user()['role'] ?? 'petowner';
+        $layout = $userRole === 'admin' ? 'admin' : 'portal';
         $this->render('portal.calls.index', [
             'pageTitle' => 'Telemedicine & Audio Call Logs — PetGuard',
             'calls' => $calls,
             'availableVets' => $vets
-        ], 'portal');
+        ], $layout);
     }
 }
