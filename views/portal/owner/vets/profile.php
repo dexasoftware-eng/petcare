@@ -14,7 +14,7 @@ $license = ViewHelper::e($vet['license_number'] ?: 'VET-DVM-CERT-9821');
 <style>
 /* Modern Doctor Profile Layout */
 .doctor-profile-wrap {
-    max-width: 1360px;
+    max-width: 1320px;
     margin: 0 auto;
     width: 100%;
 }
@@ -24,8 +24,8 @@ $license = ViewHelper::e($vet['license_number'] ?: 'VET-DVM-CERT-9821');
     background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 24px;
-    padding: 32px;
-    box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05);
+    padding: 28px 32px;
+    box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.06);
     position: relative;
     overflow: hidden;
 }
@@ -35,49 +35,51 @@ $license = ViewHelper::e($vet['license_number'] ?: 'VET-DVM-CERT-9821');
     top: 0;
     left: 0;
     right: 0;
-    height: 6px;
+    height: 5px;
     background: linear-gradient(90deg, #ff7a18 0%, #ff9f43 50%, #10b981 100%);
 }
 
-.doctor-avatar-container {
-    width: 100px;
-    height: 100px;
-    min-width: 100px;
-    border-radius: 24px;
-    font-size: 40px;
+.doctor-avatar-box {
+    width: 84px;
+    height: 84px;
+    min-width: 84px;
+    border-radius: 20px;
+    font-size: 34px;
     font-weight: 800;
     color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #ff7a18 0%, #ff9f43 100%);
-    box-shadow: 0 10px 24px rgba(255, 122, 24, 0.25);
+    box-shadow: 0 8px 20px rgba(255, 122, 24, 0.25);
     position: relative;
     border: 3px solid #ffffff;
+    flex-shrink: 0;
 }
-.doctor-live-dot {
+.doctor-online-badge {
     position: absolute;
     bottom: -2px;
     right: -2px;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     background: #10b981;
-    border: 3px solid #ffffff;
+    border: 2.5px solid #ffffff;
     border-radius: 50%;
 }
 
 /* Stat Mini Box */
-.doctor-stat-badge {
+.doctor-stat-item {
     background: #f8fafc;
     border: 1px solid #e2e8f0;
     border-radius: 14px;
-    padding: 10px 16px;
+    padding: 10px 14px;
     text-align: center;
-    min-width: 110px;
+    flex: 1 1 calc(25% - 10px);
+    min-width: 105px;
 }
 
 /* Section Card */
-.profile-section-card {
+.profile-card {
     background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 20px;
@@ -88,7 +90,7 @@ $license = ViewHelper::e($vet['license_number'] ?: 'VET-DVM-CERT-9821');
 
 /* Sticky Booking Box on Desktop */
 @media (min-width: 992px) {
-    .sticky-booking-sidebar {
+    .sticky-sidebar-pane {
         position: sticky;
         top: 90px;
         z-index: 10;
@@ -101,33 +103,36 @@ $license = ViewHelper::e($vet['license_number'] ?: 'VET-DVM-CERT-9821');
         padding: 20px 16px;
         border-radius: 18px;
     }
-    .doctor-avatar-container {
-        width: 76px;
-        height: 76px;
-        min-width: 76px;
-        font-size: 30px;
-        border-radius: 18px;
+    .doctor-avatar-box {
+        width: 68px;
+        height: 68px;
+        min-width: 68px;
+        font-size: 26px;
+        border-radius: 16px;
     }
-    .profile-section-card {
+    .profile-card {
         padding: 18px 16px;
         border-radius: 16px;
     }
-    .doctor-stat-badge {
+    .doctor-stat-item {
         padding: 8px 10px;
-        min-width: 0;
         flex: 1 1 calc(50% - 6px);
+        min-width: 0;
     }
 }
 @media (min-width: 576px) and (max-width: 767.98px) {
     .doctor-hero-card {
         padding: 24px 20px;
     }
+    .doctor-stat-item {
+        flex: 1 1 calc(50% - 6px);
+    }
 }
 </style>
 
 <div class="doctor-profile-wrap py-2">
 
-    <!-- Top Navigation Header -->
+    <!-- Top Navigation & Favorite Action -->
     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <a href="<?= ViewHelper::url('portal/vets') ?>" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-2 fw-semibold d-inline-flex align-items-center gap-2 shadow-sm">
             <i class="fa-solid fa-arrow-left"></i> Back to Veterinarians Directory
@@ -145,82 +150,69 @@ $license = ViewHelper::e($vet['license_number'] ?: 'VET-DVM-CERT-9821');
 
     <!-- Doctor Header Profile Hero Card -->
     <div class="doctor-hero-card mb-4">
-        <div class="row g-4 align-items-center">
-            
-            <!-- Left: Avatar & Verification -->
-            <div class="col-12 col-sm-auto text-center">
-                <div class="doctor-avatar-container mx-auto">
+        
+        <!-- Header Info Row -->
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-3">
+            <div class="d-flex align-items-center gap-3 min-w-0">
+                <div class="doctor-avatar-box">
                     <?= $initial ?>
-                    <span class="doctor-live-dot" title="Verified Active Clinician"></span>
+                    <span class="doctor-online-badge" title="Online for Consultations"></span>
                 </div>
-                <div class="mt-2">
-                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1 fw-bold" style="font-size: 11px;">
-                        <i class="fa-solid fa-circle-check me-1"></i> Board Certified
-                    </span>
-                </div>
-            </div>
-
-            <!-- Middle: Name, Specialization & Meta Tags -->
-            <div class="col-12 col-sm min-w-0">
-                <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
-                    <div>
-                        <div class="d-flex align-items-center gap-2 flex-wrap">
-                            <h2 class="fw-bold text-dark m-0" style="letter-spacing: -0.5px;"><?= ViewHelper::e($vet['name']) ?></h2>
-                            <i class="fa-solid fa-circle-check text-primary fs-5" title="Authenticated License"></i>
-                        </div>
-                        <div class="text-brand fs-6 fw-bold mt-1"><?= ViewHelper::e($vet['specialization'] ?: 'General Small Animal Practice') ?></div>
-                    </div>
-                    <div>
-                        <span class="badge bg-light text-dark border font-monospace px-3 py-2 fw-bold" style="font-size: 11px;">
-                            <i class="fa-solid fa-id-card me-1 text-muted"></i> <?= $license ?>
+                <div class="min-w-0">
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <h2 class="fw-bold text-dark m-0" style="letter-spacing: -0.5px; font-size: 24px;"><?= ViewHelper::e($vet['name']) ?></h2>
+                        <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-1 fw-bold" style="font-size: 11px;">
+                            <i class="fa-solid fa-circle-check me-1"></i> Board Certified
                         </span>
                     </div>
-                </div>
-
-                <!-- 4 Quick Stats -->
-                <div class="d-flex gap-2 flex-wrap mt-3 pt-3 border-top">
-                    <div class="doctor-stat-badge">
-                        <div class="text-muted small fw-bold text-uppercase" style="font-size: 10px;">Experience</div>
-                        <div class="fw-bold text-dark fs-6"><?= $experience ?>+ Years</div>
-                    </div>
-                    <div class="doctor-stat-badge">
-                        <div class="text-muted small fw-bold text-uppercase" style="font-size: 10px;">Client Rating</div>
-                        <div class="fw-bold text-success fs-6"><i class="fa-solid fa-star text-warning me-1"></i> 4.9 <small class="text-muted fw-normal" style="font-size: 11px;">(128)</small></div>
-                    </div>
-                    <div class="doctor-stat-badge">
-                        <div class="text-muted small fw-bold text-uppercase" style="font-size: 10px;">Telemedicine</div>
-                        <div class="fw-bold text-primary fs-6"><i class="fa-solid fa-video me-1"></i> HD Live</div>
-                    </div>
-                    <div class="doctor-stat-badge">
-                        <div class="text-muted small fw-bold text-uppercase" style="font-size: 10px;">Consultations</div>
-                        <div class="fw-bold text-dark fs-6">140+ Pets</div>
+                    <div class="text-brand fs-6 fw-bold mt-1"><?= ViewHelper::e($vet['specialization'] ?: 'General Small Animal Practice') ?></div>
+                    <div class="text-muted small mt-1">
+                        <i class="fa-solid fa-id-card me-1 text-muted"></i> License: <code class="text-dark fw-bold"><?= $license ?></code>
                     </div>
                 </div>
             </div>
 
-            <!-- Right: Direct Quick Action Buttons -->
-            <div class="col-12 col-xl-auto">
-                <div class="d-flex flex-column gap-2" style="min-width: 200px;">
-                    <button type="button" class="btn btn-success rounded-pill px-4 py-2 fw-bold shadow-sm d-inline-flex align-items-center justify-content-center gap-2 w-100" style="font-size: 13px; height: 42px;" onclick="PetGuardCall.initiateCall(<?= (int)$vet['id'] ?>, 'video', 'direct')">
-                        <i class="fa-solid fa-video"></i> Start Video Call
-                    </button>
-                    <a href="#bookingSection" class="btn btn-admin-primary rounded-pill px-4 py-2 fw-bold shadow-sm d-inline-flex align-items-center justify-content-center gap-2 w-100" style="font-size: 13px; height: 42px;">
-                        <i class="fa-solid fa-calendar-plus"></i> Book Consultation
-                    </a>
-                </div>
+            <!-- Header Action Buttons -->
+            <div class="d-flex gap-2 flex-wrap ms-auto">
+                <button type="button" class="btn btn-success rounded-pill px-4 py-2 fw-bold shadow-sm d-inline-flex align-items-center gap-2" style="font-size: 13px; min-height: 40px;" onclick="PetGuardCall.initiateCall(<?= (int)$vet['id'] ?>, 'video', 'direct')">
+                    <i class="fa-solid fa-video"></i> Start Video Call
+                </button>
+                <a href="#bookingSection" class="btn btn-admin-primary rounded-pill px-4 py-2 fw-bold shadow-sm d-inline-flex align-items-center gap-2" style="font-size: 13px; min-height: 40px;">
+                    <i class="fa-solid fa-calendar-plus"></i> Book Visit
+                </a>
             </div>
-
         </div>
+
+        <!-- 4 Key Doctor Metrics Strip -->
+        <div class="d-flex gap-2 flex-wrap pt-3 border-top mt-3">
+            <div class="doctor-stat-item">
+                <div class="text-muted small fw-bold text-uppercase" style="font-size: 10px;">Experience</div>
+                <div class="fw-bold text-dark fs-6"><?= $experience ?>+ Years</div>
+            </div>
+            <div class="doctor-stat-item">
+                <div class="text-muted small fw-bold text-uppercase" style="font-size: 10px;">Client Rating</div>
+                <div class="fw-bold text-success fs-6"><i class="fa-solid fa-star text-warning me-1"></i> 4.9 <small class="text-muted fw-normal" style="font-size: 11px;">(128)</small></div>
+            </div>
+            <div class="doctor-stat-item">
+                <div class="text-muted small fw-bold text-uppercase" style="font-size: 10px;">Telemedicine</div>
+                <div class="fw-bold text-primary fs-6"><i class="fa-solid fa-video me-1"></i> HD Live</div>
+            </div>
+            <div class="doctor-stat-item">
+                <div class="text-muted small fw-bold text-uppercase" style="font-size: 10px;">Consultations</div>
+                <div class="fw-bold text-dark fs-6">140+ Treated</div>
+            </div>
+        </div>
+
     </div>
 
     <!-- 2-Column Responsive Body Layout -->
     <div class="row g-4">
         
-        <!-- Left Column: Biography, Clinical Scope, Verification & Reviews (8 Cols) -->
+        <!-- Left Column: Biography, Clinical Scope, Verification & Reviews (7/8 Cols) -->
         <div class="col-12 col-lg-7 col-xl-8">
             
             <!-- Biography Card -->
-            <div class="profile-section-card">
+            <div class="profile-card">
                 <div class="d-flex align-items-center gap-2 pb-3 border-bottom mb-3">
                     <div class="stat-card-icon icon-blue" style="width: 36px; height: 36px; font-size: 14px; border-radius: 11px;">
                         <i class="fa-solid fa-user-doctor"></i>
@@ -237,7 +229,7 @@ $license = ViewHelper::e($vet['license_number'] ?: 'VET-DVM-CERT-9821');
             </div>
 
             <!-- Specializations & Clinical Focus -->
-            <div class="profile-section-card">
+            <div class="profile-card">
                 <div class="d-flex align-items-center gap-2 pb-3 border-bottom mb-3">
                     <div class="stat-card-icon icon-purple" style="width: 36px; height: 36px; font-size: 14px; border-radius: 11px;">
                         <i class="fa-solid fa-stethoscope"></i>
@@ -282,7 +274,7 @@ $license = ViewHelper::e($vet['license_number'] ?: 'VET-DVM-CERT-9821');
             </div>
 
             <!-- Patient Reviews & Testimonials Preview -->
-            <div class="profile-section-card">
+            <div class="profile-card">
                 <div class="d-flex align-items-center justify-content-between pb-3 border-bottom mb-3 flex-wrap gap-2">
                     <div class="d-flex align-items-center gap-2">
                         <div class="stat-card-icon icon-orange" style="width: 36px; height: 36px; font-size: 14px; border-radius: 11px;">
@@ -325,13 +317,13 @@ $license = ViewHelper::e($vet['license_number'] ?: 'VET-DVM-CERT-9821');
 
         </div>
 
-        <!-- Right Column: Clinic Practice Details & Interactive Booking Form (4 Cols) -->
+        <!-- Right Column: Clinic Practice Details & Interactive Booking Form (4/5 Cols) -->
         <div class="col-12 col-lg-5 col-xl-4">
             
-            <div class="sticky-booking-sidebar">
+            <div class="sticky-sidebar-pane">
 
                 <!-- Primary Clinic Facility Card -->
-                <div class="profile-section-card mb-4">
+                <div class="profile-card mb-4">
                     <div class="d-flex align-items-center gap-2 pb-3 border-bottom mb-3">
                         <div class="stat-card-icon icon-orange" style="width: 36px; height: 36px; font-size: 14px; border-radius: 11px;">
                             <i class="fa-solid fa-hospital"></i>
@@ -340,7 +332,7 @@ $license = ViewHelper::e($vet['license_number'] ?: 'VET-DVM-CERT-9821');
                     </div>
 
                     <div class="mb-3">
-                        <div class="text-muted small fw-bold text-uppercase" style="font-size: 10.5px;">Hospital Name</div>
+                        <div class="text-muted small fw-bold text-uppercase" style="font-size: 10.5px;">Hospital Facility</div>
                         <div class="fw-bold text-dark fs-6"><?= ViewHelper::e($vet['clinic_name'] ?: 'PetGuard Central Hospital') ?></div>
                     </div>
 
@@ -378,7 +370,7 @@ $license = ViewHelper::e($vet['license_number'] ?: 'VET-DVM-CERT-9821');
                 </div>
 
                 <!-- Instant Consultation Booking Card -->
-                <div class="profile-section-card" id="bookingSection">
+                <div class="profile-card" id="bookingSection">
                     <div class="d-flex align-items-center gap-2 pb-3 border-bottom mb-3">
                         <div class="stat-card-icon icon-green" style="width: 36px; height: 36px; font-size: 14px; border-radius: 11px;">
                             <i class="fa-solid fa-calendar-check"></i>
