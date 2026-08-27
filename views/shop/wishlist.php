@@ -3,21 +3,21 @@ use Helpers\ViewHelper;
 ?>
 
 <!-- Banner Section -->
-<section class="banner" style="background-image:url(<?= ViewHelper::asset('img/banner.png') ?>);">
+<section class="banner" style="background-color: #fff8e5; background-image:url(<?= ViewHelper::asset('img/banner.png') ?>);">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-12 text-center">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-25 text-white small mb-3">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white shadow-sm text-dark small mb-3 border">
                     <i class="fa-solid fa-heart text-danger"></i>
-                    <span class="fw-semibold">Personal Saved Items</span>
+                    <span class="fw-semibold text-dark">Personal Saved Items</span>
                 </div>
-                <h2 class="text-white fw-bold mb-2" style="font-family: 'Anybody', sans-serif; font-size: 38px;">My Wishlist</h2>
-                <ul class="d-inline-flex list-unstyled gap-2 text-white small justify-content-center m-0">
-                    <li><a href="<?= ViewHelper::url() ?>" class="text-white text-decoration-none">Home</a></li>
-                    <li>/</li>
-                    <li><a href="<?= ViewHelper::url('our-products') ?>" class="text-white text-decoration-none">Shop</a></li>
-                    <li>/</li>
-                    <li class="text-white opacity-75">Wishlist</li>
+                <h1 class="text-dark fw-bold mb-2" style="font-family: 'Anybody', sans-serif; font-size: clamp(26px, 5vw, 40px);">My Wishlist</h1>
+                <ul class="d-inline-flex list-unstyled gap-2 text-muted small justify-content-center m-0 align-items-center">
+                    <li><a href="<?= ViewHelper::url() ?>" class="text-dark fw-semibold text-decoration-none hover-brand">Home</a></li>
+                    <li class="text-muted">/</li>
+                    <li><a href="<?= ViewHelper::url('our-products') ?>" class="text-dark fw-semibold text-decoration-none hover-brand">Shop</a></li>
+                    <li class="text-muted">/</li>
+                    <li class="text-brand fw-bold">Wishlist</li>
                 </ul>
             </div>
         </div>

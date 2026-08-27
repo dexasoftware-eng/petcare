@@ -10,23 +10,23 @@ $maxPrice = $maxPrice ?? '';
 ?>
 
 <!-- 1. Hero Marketplace Banner -->
-<section class="banner" style="background-image:url(<?= ViewHelper::asset('img/banner.png') ?>);">
+<section class="banner" style="background-color: #fff8e5; background-image:url(<?= ViewHelper::asset('img/banner.png') ?>);">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-12 col-lg-8 mx-auto text-center px-3">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-25 text-white small mb-3" style="max-width: 100%; word-break: break-word;">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white shadow-sm text-dark small mb-3 border" style="max-width: 100%; word-break: break-word;">
                     <i class="fa-solid fa-shield-cat text-warning"></i>
-                    <span class="fw-semibold">100% Certified Veterinary Diets &amp; Supplies</span>
+                    <span class="fw-semibold text-dark">100% Certified Veterinary Diets &amp; Supplies</span>
                 </div>
-                <h1 class="text-white fw-bold mb-2" style="font-family: 'Anybody', sans-serif; font-size: clamp(24px, 5vw, 38px); line-height: 1.25;">
+                <h1 class="text-dark fw-bold mb-2" style="font-family: 'Anybody', sans-serif; font-size: clamp(26px, 5vw, 42px); line-height: 1.25;">
                     Pet Care Shop &amp; Marketplace
                 </h1>
-                <p class="text-white text-opacity-90 mb-4 small" style="max-width: 580px; margin: 0 auto; line-height: 1.6;">
+                <p class="text-secondary mb-4 small" style="max-width: 580px; margin: 0 auto; line-height: 1.6;">
                     Discover clinical nutrition, mobility supplements, organic grooming, and smart safety gear for dogs, cats, and companion pets.
                 </p>
 
                 <!-- Search Input Bar in Hero -->
-                <form action="<?= ViewHelper::url('our-products') ?>" method="GET" class="d-flex bg-white rounded-pill p-1 shadow-lg" style="max-width: 520px; margin: 0 auto; width: 100%;">
+                <form action="<?= ViewHelper::url('our-products') ?>" method="GET" class="d-flex bg-white rounded-pill p-1 shadow border" style="max-width: 520px; margin: 0 auto; width: 100%;">
                     <?php if (!empty($selectedCategory)): ?>
                         <input type="hidden" name="category" value="<?= ViewHelper::e($selectedCategory) ?>">
                     <?php endif; ?>
