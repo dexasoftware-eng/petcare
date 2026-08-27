@@ -39,12 +39,40 @@ abstract class Controller
     {
         $validator = new Validator($data, $rules);
         if (!$validator->passes()) {
+            if ($this->request->isAjax()) {
+                $this->json([
+                    'success' => false,
+                    'message' => $validator->firstError() ?: 'Validation failed. Please check your inputs.',
+                    'errors' => $validator->errors()
+                ], 422);
+                exit;
+            }
             Session::set('_old_input', $data);
             Session::set('_validation_errors', $validator->errors());
             Session::setFlash('error', $validator->firstError() ?: 'Validation failed. Please correct the highlighted errors.');
             $this->back();
         }
         return $validator->validated();
+    }
+
+    protected function jsonSuccess(string $message = 'Operation successful.', array $data = []): void
+    {
+        $this->json([
+            'success' => true,
+            'message' => $message,
+            'data' => $data
+        ]);
+        exit;
+    }
+
+    protected function jsonError(string $message = 'An error occurred.', array $errors = [], int $status = 400): void
+    {
+        $this->json([
+            'success' => false,
+            'message' => $message,
+            'errors' => $errors
+        ], $status);
+        exit;
     }
 
     protected function setFlash(string $type, string $message): void

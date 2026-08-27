@@ -17,6 +17,12 @@ class ViewHelper
     public static function asset(string $path): string
     {
         $path = ltrim($path, '/');
+        if (empty($path)) {
+            return self::url('assets');
+        }
+        if (str_starts_with($path, 'assets/')) {
+            return self::url($path);
+        }
         return self::url("assets/{$path}");
     }
 

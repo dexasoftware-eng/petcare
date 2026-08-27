@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <radialGradient id="birdBg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ecfdf5"/>
+      <stop offset="100%" stop-color="#d1fae5"/>
+    </radialGradient>
+    <filter id="birdShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  <!-- Background Circle -->
+  <circle cx="60" cy="60" r="54" fill="url(#birdBg)" stroke="#10b981" stroke-width="2"/>
+  
+  <!-- Crest Feathers -->
+  <path d="M 52 24 Q 60 14 66 22 Q 60 26 52 24 Z" fill="#eab308" filter="url(#birdShadow)"/>
+  <path d="M 58 20 Q 68 12 72 20 Q 66 24 58 20 Z" fill="#f59e0b" filter="url(#birdShadow)"/>
+  
+  <!-- Head & Body -->
+  <ellipse cx="60" cy="62" rx="30" ry="28" fill="#10b981" filter="url(#birdShadow)"/>
+  
+  <!-- Chest Belly -->
+  <ellipse cx="60" cy="74" rx="20" ry="16" fill="#fef08a"/>
+  
+  <!-- Yellow Beak -->
+  <path d="M 52 56 Q 60 48 68 56 L 60 70 Z" fill="#f59e0b" filter="url(#birdShadow)"/>
+  
+  <!-- Big Friendly Eyes -->
+  <circle cx="42" cy="48" r="6" fill="#ffffff"/>
+  <circle cx="42" cy="48" r="4.5" fill="#0f172a"/>
+  <circle cx="40.5" cy="46.5" r="1.8" fill="#ffffff"/>
+  
+  <circle cx="78" cy="48" r="6" fill="#ffffff"/>
+  <circle cx="78" cy="48" r="4.5" fill="#0f172a"/>
+  <circle cx="76.5" cy="46.5" r="1.8" fill="#ffffff"/>
+  
+  <!-- Orange Cheeks -->
+  <circle cx="34" cy="58" r="5" fill="#f97316"/>
+  <circle cx="86" cy="58" r="5" fill="#f97316"/>
+</svg>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <radialGradient id="catBg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fdf2f8"/>
+      <stop offset="100%" stop-color="#fce7f3"/>
+    </radialGradient>
+    <filter id="catShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  <!-- Background Circle -->
+  <circle cx="60" cy="60" r="54" fill="url(#catBg)" stroke="#f472b6" stroke-width="2"/>
+  
+  <!-- Pointed Ears -->
+  <path d="M 28 46 L 24 18 L 48 32 Z" fill="#64748b" filter="url(#catShadow)"/>
+  <path d="M 30 42 L 28 24 L 44 34 Z" fill="#f472b6"/>
+  <path d="M 92 46 L 96 18 L 72 32 Z" fill="#64748b" filter="url(#catShadow)"/>
+  <path d="M 90 42 L 92 24 L 76 34 Z" fill="#f472b6"/>
+  
+  <!-- Head -->
+  <ellipse cx="60" cy="58" rx="34" ry="28" fill="#94a3b8"/>
+  
+  <!-- White Chest / Muzzle -->
+  <ellipse cx="60" cy="68" rx="16" ry="12" fill="#ffffff" filter="url(#catShadow)"/>
+  
+  <!-- Pink Nose -->
+  <polygon points="56,64 64,64 60,69" fill="#f43f5e"/>
+  
+  <!-- Mouth -->
+  <path d="M 60 69 L 60 72 M 55 72 Q 60 76 65 72" stroke="#1e293b" stroke-width="2" stroke-linecap="round" fill="none"/>
+  
+  <!-- Whiskers -->
+  <line x1="32" y1="65" x2="16" y2="62" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <line x1="32" y1="70" x2="18" y2="73" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <line x1="88" y1="65" x2="104" y2="62" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <line x1="88" y1="70" x2="102" y2="73" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Big Anime Eyes -->
+  <ellipse cx="44" cy="52" rx="6" ry="7" fill="#10b981"/>
+  <circle cx="44" cy="52" r="4.5" fill="#0f172a"/>
+  <circle cx="42" cy="50" r="2" fill="#ffffff"/>
+  
+  <ellipse cx="76" cy="52" rx="6" ry="7" fill="#10b981"/>
+  <circle cx="76" cy="52" r="4.5" fill="#0f172a"/>
+  <circle cx="74" cy="50" r="2" fill="#ffffff"/>
+  
+  <!-- Cheeks Blush -->
+  <circle cx="36" cy="64" r="5" fill="#fb7185" opacity="0.45"/>
+  <circle cx="84" cy="64" r="5" fill="#fb7185" opacity="0.45"/>
+  
+  <!-- Bell Collar -->
+  <path d="M 40 84 Q 60 92 80 84 Q 60 96 40 84 Z" fill="#6366f1"/>
+  <circle cx="60" cy="91" r="4" fill="#fbbf24"/>
+</svg>

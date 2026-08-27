@@ -16,7 +16,7 @@ class ApiController extends Controller
     {
         $this->json([
             'status' => 'healthy',
-            'framework' => 'FurShield PHP MVC Engine',
+            'framework' => 'PetGuard PHP MVC Engine',
             'php_version' => PHP_VERSION,
             'timestamp' => date('c')
         ]);

@@ -112,6 +112,42 @@
 
 @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Anybody:wght@400;500;600;700;800;900&display=swap');
+
+/* ==========================================================================
+   PetGuard Global Luxury Custom Scrollbar System
+   ========================================================================== */
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f8fafc;
+}
+
+/* WebKit & Chromium (Chrome, Safari, Edge, Opera) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 8px;
+    border: 2px solid #f8fafc;
+    transition: background 0.25s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #fa441d;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
 body {
     font-family: 'Anybody';
     overflow-x: hidden;
@@ -6957,4 +6993,85 @@ ul.image-gallery li figure:before,
 .pets h3 a,
 .tick:before {
     transition: .4s ease-in-out;
+}
+
+/* --------------------------------------------------------------------------
+   PetGuard Luxury Custom Dropdowns & Form Selects (Public Site)
+   -------------------------------------------------------------------------- */
+.dropdown-menu {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+    padding: 8px !important;
+    min-width: 210px;
+    z-index: 1060;
+    animation: siteDropdownSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform-origin: top center;
+}
+
+@keyframes siteDropdownSlide {
+    0% { opacity: 0; transform: translateY(-8px) scale(0.98); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.dropdown-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 9px 14px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #0f172a !important;
+    border-radius: 10px !important;
+    transition: all 0.15s ease !important;
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    width: 100%;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background: #fff2ee !important;
+    color: #fa441d !important;
+    transform: translateX(3px);
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    background: #fa441d !important;
+    color: #ffffff !important;
+}
+
+.form-select, select.form-control, select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 14px center !important;
+    background-size: 14px 10px !important;
+    padding-right: 40px !important;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    background-color: #ffffff;
+    color: #0f172a;
+    font-size: 14px;
+    font-weight: 500;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    cursor: pointer;
+}
+
+.form-select:hover, select.form-control:hover, select:hover {
+    border-color: #cbd5e1;
+    background-color: #f8fafc;
+}
+
+.form-select:focus, select.form-control:focus, select:focus {
+    border-color: #fa441d !important;
+    background-color: #ffffff !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23fa441d' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+    box-shadow: 0 0 0 3px rgba(250, 68, 29, 0.15) !important;
+    outline: 0;
 }

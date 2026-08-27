@@ -34,37 +34,24 @@ class PortalController extends Controller
 
         switch ($role) {
             case 'petowner':
-                $viewData['pets'] = Pet::getPetsByUser((int)$user['id']);
-                $viewData['appointments'] = Appointment::getWithDetailsForOwner((int)$user['id']);
-                $viewData['orders'] = Order::getOrdersByUser((int)$user['id']);
-                $viewData['vets'] = User::where("role = 'veterinarian' AND status = 'active'", []);
-                break;
+                (new OwnerPortalController($this->request, $this->response))->dashboard();
+                return;
 
             case 'veterinarian':
-                $viewData['profile'] = VeterinarianProfile::findBy('user_id', (int)$user['id']);
-                $viewData['appointments'] = Appointment::getWithDetailsForVet((int)$user['id']);
-                break;
+                (new VetPortalController($this->request, $this->response))->dashboard();
+                return;
 
             case 'shelter':
-                $viewData['profile'] = ShelterProfile::findBy('user_id', (int)$user['id']);
-                $viewData['pets'] = Pet::where("user_id = :uid OR is_for_adoption = 1", ['uid' => (int)$user['id']]);
-                break;
+                (new ShelterPortalController($this->request, $this->response))->dashboard();
+                return;
+
+            case 'vendor':
+                (new VendorPortalController($this->request, $this->response))->dashboard();
+                return;
 
             case 'admin':
-                $viewData['stats'] = [
-                    'totalUsers' => User::count(),
-                    'totalOwners' => User::count("role = 'petowner'"),
-                    'totalVets' => User::count("role = 'veterinarian'"),
-                    'totalShelters' => User::count("role = 'shelter'"),
-                    'totalPets' => Pet::count(),
-                    'totalOrders' => Order::count(),
-                    'recentLogsCount' => AuditLog::count()
-                ];
-                $viewData['users'] = User::all('created_at DESC');
-                $viewData['auditLogs'] = AuditLog::where("1=1", [], 'created_at DESC', 15);
-                $viewData['inquiries'] = Inquiry::all('created_at DESC');
-                $viewData['filters'] = ['role' => '', 'status' => '', 'search' => ''];
-                break;
+                $this->redirect('admin/dashboard');
+                return;
         }
 
         $this->render('portal.index', $viewData, 'portal');

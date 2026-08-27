@@ -20,6 +20,7 @@ use Core\View;
     <link rel="stylesheet" href="<?= ViewHelper::asset('css/fontawesome.min.css') ?>">
     <link rel="stylesheet" href="<?= ViewHelper::asset('css/style.css') ?>">
     <link rel="stylesheet" href="<?= ViewHelper::asset('css/responsive.css') ?>">
+    <link rel="stylesheet" href="<?= ViewHelper::asset('css/responsive-overhaul.css') ?>">
     <link rel="stylesheet" href="<?= ViewHelper::asset('css/color.css') ?>">
 
     <!-- FontAwesome 6 CDN for modern icons -->
@@ -84,6 +85,7 @@ use Core\View;
 
     <!-- Scripts -->
     <script src="<?= ViewHelper::asset('js/jquery-3.6.0.min.js') ?>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="<?= ViewHelper::asset('js/bootstrap.bundle.min.js') ?>"></script>
     <script src="<?= ViewHelper::asset('js/owl.carousel.min.js') ?>"></script>
     <script src="<?= ViewHelper::asset('js/slick.min.js') ?>"></script>
