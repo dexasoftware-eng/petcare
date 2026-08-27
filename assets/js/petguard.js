@@ -40,7 +40,7 @@
                     ${title ? `<div class="toast-title">${this.escapeHtml(title)}</div>` : ''}
                     <div class="toast-message">${this.escapeHtml(message)}</div>
                 </div>
-                <button type="button" class="toast-close" aria-label="Close">&times;</button>
+                <button type="button" class="toast-close" aria-label="Close" title="Close"><i class="fa-solid fa-xmark" style="font-size: 13px;"></i></button>
                 <div class="toast-progress"><div class="toast-progress-bar"></div></div>
             `;
 
