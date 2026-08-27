@@ -21,26 +21,27 @@ $avatarGradients = [
 <style>
 /* 5-Screen Responsive Veterinarians Layout */
 .vets-container {
-    max-width: 1400px;
+    max-width: 1360px;
     margin: 0 auto;
+    width: 100%;
 }
 
 .vet-hero {
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    border-radius: 22px;
-    padding: 26px 30px;
+    border-radius: 20px;
+    padding: 24px 28px;
     color: #ffffff;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 30px -8px rgba(15, 23, 42, 0.25);
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.2);
 }
 .vet-hero::after {
     content: '';
     position: absolute;
     top: -40%;
     right: -10%;
-    width: 320px;
-    height: 320px;
+    width: 300px;
+    height: 300px;
     background: radial-gradient(circle, rgba(255, 122, 24, 0.2) 0%, rgba(255, 122, 24, 0) 70%);
     pointer-events: none;
 }
@@ -55,35 +56,40 @@ $avatarGradients = [
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 .vet-card-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 36px -8px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(255, 122, 24, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 32px -6px rgba(15, 23, 42, 0.1), 0 0 0 1px rgba(255, 122, 24, 0.25);
     border-color: #cbd5e1;
 }
 
 /* Doctor Avatar Box */
 .vet-avatar-squircle {
-    width: 62px;
-    height: 62px;
-    min-width: 62px;
-    border-radius: 16px;
-    font-size: 24px;
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 14px;
+    font-size: 22px;
     font-weight: 800;
     color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
     position: relative;
     border: 2px solid #ffffff;
+    flex-shrink: 0;
 }
 .vet-status-dot {
     position: absolute;
     bottom: -2px;
     right: -2px;
-    width: 13px;
-    height: 13px;
+    width: 12px;
+    height: 12px;
     background: #10b981;
     border: 2px solid #ffffff;
     border-radius: 50%;
@@ -93,35 +99,33 @@ $avatarGradients = [
 .vet-clinic-box {
     background: #f8fafc;
     border: 1px solid #e2e8f0;
-    border-radius: 14px;
-    padding: 12px 14px;
-    font-size: 12px;
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 11.5px;
+    overflow: hidden;
+    word-break: break-word;
 }
 
 /* Card Action Group */
 .vet-card-actions {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-}
-.vet-action-row-split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    gap: 6px;
+    width: 100%;
 }
 
 /* 5-Screen Breakpoints */
 @media (max-width: 575.98px) {
     .vet-hero {
-        padding: 20px 18px;
+        padding: 18px 16px;
         border-radius: 16px;
     }
     .vet-avatar-squircle {
-        width: 52px;
-        height: 52px;
-        min-width: 52px;
-        font-size: 20px;
-        border-radius: 13px;
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+        font-size: 19px;
+        border-radius: 12px;
     }
     .vet-filter-scroll-wrapper {
         display: flex;
@@ -133,22 +137,18 @@ $avatarGradients = [
     }
     .vet-filter-pill-btn {
         white-space: nowrap;
-        font-size: 11.5px;
-        padding: 6px 12px;
-    }
-    .vet-action-row-split {
-        grid-template-columns: 1fr 1fr;
-        gap: 6px;
+        font-size: 11px;
+        padding: 5px 10px;
     }
 }
 @media (min-width: 576px) and (max-width: 767.98px) {
     .vet-hero {
-        padding: 22px 24px;
+        padding: 20px 22px;
     }
 }
 @media (min-width: 768px) and (max-width: 991.98px) {
     .vet-hero {
-        padding: 24px 28px;
+        padding: 22px 24px;
     }
 }
 </style>
@@ -178,10 +178,10 @@ $avatarGradients = [
     <!-- 4 Top Metric Cards -->
     <div class="row g-3 mb-4">
         <div class="col-6 col-md-3">
-            <div class="stat-card p-3 p-md-4 shadow-sm border h-100" style="border-radius: 20px; background: #ffffff;">
+            <div class="stat-card p-3 shadow-sm border h-100" style="border-radius: 18px; background: #ffffff;">
                 <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 11px;">Accredited Vets</span>
-                    <div class="stat-card-icon icon-blue" style="width: 38px; height: 38px; font-size: 15px; border-radius: 12px;">
+                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 10.5px;">Accredited Vets</span>
+                    <div class="stat-card-icon icon-blue" style="width: 36px; height: 36px; font-size: 14px; border-radius: 10px;">
                         <i class="fa-solid fa-user-doctor"></i>
                     </div>
                 </div>
@@ -190,10 +190,10 @@ $avatarGradients = [
             </div>
         </div>
         <div class="col-6 col-md-3">
-            <div class="stat-card p-3 p-md-4 shadow-sm border h-100" style="border-radius: 20px; background: #ffffff;">
+            <div class="stat-card p-3 shadow-sm border h-100" style="border-radius: 18px; background: #ffffff;">
                 <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 11px;">Telemedicine</span>
-                    <div class="stat-card-icon icon-green" style="width: 38px; height: 38px; font-size: 15px; border-radius: 12px;">
+                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 10.5px;">Telemedicine</span>
+                    <div class="stat-card-icon icon-green" style="width: 36px; height: 36px; font-size: 14px; border-radius: 10px;">
                         <i class="fa-solid fa-video"></i>
                     </div>
                 </div>
@@ -202,10 +202,10 @@ $avatarGradients = [
             </div>
         </div>
         <div class="col-6 col-md-3">
-            <div class="stat-card p-3 p-md-4 shadow-sm border h-100" style="border-radius: 20px; background: #ffffff;">
+            <div class="stat-card p-3 shadow-sm border h-100" style="border-radius: 18px; background: #ffffff;">
                 <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 11px;">Emergency</span>
-                    <div class="stat-card-icon icon-red" style="width: 38px; height: 38px; font-size: 15px; border-radius: 12px;">
+                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 10.5px;">Emergency</span>
+                    <div class="stat-card-icon icon-red" style="width: 36px; height: 36px; font-size: 14px; border-radius: 10px;">
                         <i class="fa-solid fa-truck-medical"></i>
                     </div>
                 </div>
@@ -214,10 +214,10 @@ $avatarGradients = [
             </div>
         </div>
         <div class="col-6 col-md-3">
-            <div class="stat-card p-3 p-md-4 shadow-sm border h-100" style="border-radius: 20px; background: #ffffff;">
+            <div class="stat-card p-3 shadow-sm border h-100" style="border-radius: 18px; background: #ffffff;">
                 <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 11px;">Scheduling</span>
-                    <div class="stat-card-icon icon-orange" style="width: 38px; height: 38px; font-size: 15px; border-radius: 12px;">
+                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 10.5px;">Scheduling</span>
+                    <div class="stat-card-icon icon-orange" style="width: 36px; height: 36px; font-size: 14px; border-radius: 10px;">
                         <i class="fa-solid fa-calendar-plus"></i>
                     </div>
                 </div>
@@ -228,7 +228,7 @@ $avatarGradients = [
     </div>
 
     <!-- Search & Specialization Filter Toolbar -->
-    <div class="admin-card p-3 p-md-4 shadow-sm mb-4" style="border-radius: 22px;">
+    <div class="admin-card p-3 p-md-4 shadow-sm mb-4" style="border-radius: 20px;">
         <div class="row g-3 align-items-center">
             <div class="col-12 col-lg-5">
                 <div class="input-group">
@@ -259,10 +259,10 @@ $avatarGradients = [
     </div>
 
     <!-- Veterinarians Directory Grid -->
-    <div class="row g-4" id="vetsGridContainer">
+    <div class="row g-3 g-md-4" id="vetsGridContainer">
         <?php if (empty($vets)): ?>
             <div class="col-12">
-                <div class="admin-card p-5 text-center text-muted" style="border-radius: 22px;">
+                <div class="admin-card p-5 text-center text-muted" style="border-radius: 20px;">
                     <i class="fa-solid fa-user-doctor-slash fs-1 text-muted mb-3 d-block"></i>
                     <h5 class="fw-bold text-dark">No Certified Veterinarians Registered</h5>
                     <p class="small text-muted mb-0">No licensed medical practitioners found in the registry.</p>
@@ -275,30 +275,34 @@ $avatarGradients = [
                     $initial = getDoctorInitials($v['name']);
                     $gradient = $avatarGradients[$index % count($avatarGradients)];
                 ?>
-                <div class="col-12 col-sm-6 col-lg-4 col-xxl-4 vet-card-col" 
+                <div class="col-12 col-md-6 col-xl-4 vet-card-col" 
                      data-name="<?= strtolower(htmlspecialchars($v['name'])) ?>" 
                      data-spec="<?= strtolower(htmlspecialchars($v['specialization'])) ?>" 
                      data-clinic="<?= strtolower(htmlspecialchars($v['clinic_name'])) ?>">
                     
                     <div class="vet-card-item p-3 p-sm-4 shadow-sm">
                         
-                        <div>
+                        <div class="w-100 min-w-0" style="overflow: hidden;">
                             <!-- Header: Avatar, Name, Specialization & Favorite Heart -->
                             <div class="d-flex justify-content-between align-items-start gap-2 mb-3">
-                                <div class="d-flex align-items-center gap-3 min-w-0">
+                                <div class="d-flex align-items-center gap-2 min-w-0 flex-grow-1" style="overflow: hidden;">
                                     <div class="vet-avatar-squircle" style="background: <?= $gradient ?>;">
                                         <?= $initial ?>
                                         <span class="vet-status-dot" title="Online for Consultations"></span>
                                     </div>
-                                    <div class="min-w-0">
+                                    <div class="min-w-0 flex-grow-1" style="overflow: hidden;">
                                         <div class="d-flex align-items-center gap-1">
-                                            <a href="<?= ViewHelper::url('portal/vets/' . $v['id']) ?>" class="fw-bold text-dark text-decoration-none text-truncate d-block" style="font-size: 16px;">
+                                            <a href="<?= ViewHelper::url('portal/vets/' . $v['id']) ?>" class="fw-bold text-dark text-decoration-none text-truncate d-block" style="font-size: 15.5px;" title="<?= ViewHelper::e($v['name']) ?>">
                                                 <?= ViewHelper::e($v['name']) ?>
                                             </a>
                                             <i class="fa-solid fa-circle-check text-primary small flex-shrink-0" title="Board-Certified Specialist"></i>
                                         </div>
-                                        <div class="text-brand small fw-semibold text-truncate"><?= ViewHelper::e($v['specialization'] ?: 'General Veterinary Practice') ?></div>
-                                        <div class="text-muted" style="font-size: 11px;"><i class="fa-solid fa-award me-1 text-warning"></i> <?= (int)($v['experience'] ?? 5) ?>+ Years Experience</div>
+                                        <div class="text-brand small fw-semibold text-truncate" style="font-size: 11px;" title="<?= ViewHelper::e($v['specialization']) ?>">
+                                            <?= ViewHelper::e($v['specialization'] ?: 'General Veterinary Practice') ?>
+                                        </div>
+                                        <div class="text-muted text-truncate" style="font-size: 10.5px;">
+                                            <i class="fa-solid fa-award me-1 text-warning"></i> <?= (int)($v['experience'] ?? 5) ?>+ Years Experience
+                                        </div>
                                     </div>
                                 </div>
 
@@ -306,35 +310,35 @@ $avatarGradients = [
                                 <form action="<?= ViewHelper::url('portal/vets/' . $v['id'] . '/favorite') ?>" method="POST" class="m-0 flex-shrink-0">
                                     <?= ViewHelper::csrfField() ?>
                                     <input type="hidden" name="redirect" value="portal/vets">
-                                    <button type="submit" class="btn btn-sm btn-light rounded-circle border shadow-sm d-inline-flex align-items-center justify-content-center <?= $isFav ? 'text-danger' : 'text-muted' ?>" style="width: 36px; height: 36px; min-width: 36px; padding: 0;" title="<?= $isFav ? 'Remove Favorite' : 'Save as Favorite' ?>">
-                                        <i class="fa-<?= $isFav ? 'solid' : 'regular' ?> fa-heart"></i>
+                                    <button type="submit" class="btn btn-sm btn-light rounded-circle border shadow-sm d-inline-flex align-items-center justify-content-center <?= $isFav ? 'text-danger' : 'text-muted' ?>" style="width: 32px; height: 32px; min-width: 32px; padding: 0;" title="<?= $isFav ? 'Remove Favorite' : 'Save as Favorite' ?>">
+                                        <i class="fa-<?= $isFav ? 'solid' : 'regular' ?> fa-heart" style="font-size: 13px;"></i>
                                     </button>
                                 </form>
                             </div>
 
                             <!-- License ID & Review Rating Pills -->
-                            <div class="d-flex gap-2 flex-wrap mb-3">
-                                <span class="badge bg-light text-dark border font-monospace px-2 py-1" style="font-size: 10.5px;">
+                            <div class="d-flex gap-1 flex-wrap mb-3 align-items-center">
+                                <span class="badge bg-light text-dark border font-monospace" style="font-size: 10px; padding: 4px 8px;">
                                     <i class="fa-solid fa-id-card me-1 text-muted"></i> <?= ViewHelper::e($v['license_number'] ?: 'VET-CERT-APPROVED') ?>
                                 </span>
-                                <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 fw-bold" style="font-size: 10.5px;">
-                                    <i class="fa-solid fa-star me-1 text-warning"></i> 4.9 (120+ Reviews)
+                                <span class="badge bg-success-subtle text-success border border-success-subtle fw-bold" style="font-size: 10px; padding: 4px 8px;">
+                                    <i class="fa-solid fa-star me-1 text-warning"></i> 4.9 (120+)
                                 </span>
-                                <span class="badge bg-info-subtle text-info border border-info-subtle px-2 py-1" style="font-size: 10.5px;">
-                                    <i class="fa-solid fa-video me-1"></i> HD Live Call
+                                <span class="badge bg-info-subtle text-info border border-info-subtle" style="font-size: 10px; padding: 4px 8px;">
+                                    <i class="fa-solid fa-video me-1"></i> HD Live
                                 </span>
                             </div>
 
                             <!-- Clinic & Practice Location Box -->
                             <div class="vet-clinic-box mb-3">
-                                <div class="fw-bold text-dark mb-1 text-truncate">
+                                <div class="fw-bold text-dark mb-1 text-truncate" title="<?= ViewHelper::e($v['clinic_name']) ?>">
                                     <i class="fa-solid fa-hospital me-1 text-brand"></i> <?= ViewHelper::e($v['clinic_name'] ?: 'PetGuard Central Hospital') ?>
                                 </div>
-                                <div class="text-muted text-truncate mb-1" style="font-size: 11.5px;">
+                                <div class="text-muted text-truncate mb-1" style="font-size: 11px;" title="<?= ViewHelper::e($v['clinic_address']) ?>">
                                     <i class="fa-solid fa-location-dot me-1 text-danger"></i> <?= ViewHelper::e($v['clinic_address'] ?: 'Metro Clinical District') ?>
                                 </div>
                                 <?php if (!empty($v['phone'])): ?>
-                                    <div class="text-muted text-truncate" style="font-size: 11px;">
+                                    <div class="text-muted text-truncate" style="font-size: 10.5px;">
                                         <i class="fa-solid fa-phone me-1 text-muted"></i> <?= ViewHelper::e($v['phone']) ?>
                                     </div>
                                 <?php endif; ?>
@@ -342,27 +346,29 @@ $avatarGradients = [
 
                             <!-- Short Bio Excerpt -->
                             <?php if (!empty($v['bio'])): ?>
-                                <p class="text-muted small mb-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 12px; line-height: 1.55;">
+                                <p class="text-muted small mb-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 11.5px; line-height: 1.5; height: 34px;">
                                     <?= ViewHelper::e($v['bio']) ?>
                                 </p>
+                            <?php else: ?>
+                                <div style="height: 34px;" class="mb-3"></div>
                             <?php endif; ?>
                         </div>
 
                         <!-- Card Action Buttons Hierarchy -->
                         <div class="pt-3 border-top vet-card-actions">
                             <!-- Full-Width View Profile Button -->
-                            <a href="<?= ViewHelper::url('portal/vets/' . $v['id']) ?>" class="btn btn-sm btn-outline-secondary rounded-pill fw-semibold d-inline-flex align-items-center justify-content-center gap-1 shadow-sm w-100" style="font-size: 12.5px; min-height: 38px;">
+                            <a href="<?= ViewHelper::url('portal/vets/' . $v['id']) ?>" class="btn btn-sm btn-outline-secondary rounded-pill fw-semibold d-inline-flex align-items-center justify-content-center gap-1 shadow-sm w-100" style="font-size: 12px; height: 36px;">
                                 <i class="fa-regular fa-eye"></i> View Profile &amp; Credentials
                             </a>
 
                             <!-- Two-Column Call & Book Action Row -->
-                            <div class="vet-action-row-split">
-                                <button type="button" class="btn btn-sm btn-success rounded-pill fw-bold d-inline-flex align-items-center justify-content-center gap-1 shadow-sm" style="font-size: 12px; min-height: 38px;" onclick="PetGuardCall.initiateCall(<?= (int)$v['id'] ?>, 'video', 'direct')" title="Start 1-Click Video Consultation">
-                                    <i class="fa-solid fa-video"></i> Call Vet
+                            <div class="d-flex gap-2 w-100">
+                                <button type="button" class="btn btn-sm btn-success rounded-pill fw-bold flex-fill d-inline-flex align-items-center justify-content-center gap-1 shadow-sm text-truncate px-2" style="font-size: 11.5px; height: 36px; min-width: 0;" onclick="PetGuardCall.initiateCall(<?= (int)$v['id'] ?>, 'video', 'direct')" title="Start 1-Click Video Consultation">
+                                    <i class="fa-solid fa-video flex-shrink-0"></i> <span class="text-truncate">Call Vet</span>
                                 </button>
 
-                                <button type="button" class="btn btn-sm btn-admin-primary rounded-pill fw-bold d-inline-flex align-items-center justify-content-center gap-1 shadow-sm" style="font-size: 12px; min-height: 38px;" onclick="openBookModalForVet(<?= (int)$v['id'] ?>, '<?= addslashes($v['name']) ?>')" title="Book Clinic Visit or Video Call">
-                                    <i class="fa-solid fa-calendar-plus"></i> Book Visit
+                                <button type="button" class="btn btn-sm btn-admin-primary rounded-pill fw-bold flex-fill d-inline-flex align-items-center justify-content-center gap-1 shadow-sm text-truncate px-2" style="font-size: 11.5px; height: 36px; min-width: 0;" onclick="openBookModalForVet(<?= (int)$v['id'] ?>, '<?= addslashes($v['name']) ?>')" title="Book Clinic Visit or Video Call">
+                                    <i class="fa-solid fa-calendar-plus flex-shrink-0"></i> <span class="text-truncate">Book Visit</span>
                                 </button>
                             </div>
                         </div>
