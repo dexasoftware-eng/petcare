@@ -39,6 +39,7 @@ class Database
                 // Connect directly to the database
                 $dsn = "{$driver}:host={$host};port={$port};dbname={$dbname};charset={$charset}";
                 self::$instance = new PDO($dsn, $username, $password, $options);
+                @self::$instance->exec("SET time_zone = '+00:00'");
             } catch (PDOException $e) {
                 // If database doesn't exist (error 1049), attempt to create it automatically
                 if ($e->getCode() == 1049 || str_contains($e->getMessage(), 'Unknown database')) {
@@ -49,6 +50,7 @@ class Database
                         
                         $dsn = "{$driver}:host={$host};port={$port};dbname={$dbname};charset={$charset}";
                         self::$instance = new PDO($dsn, $username, $password, $options);
+                        @self::$instance->exec("SET time_zone = '+00:00'");
                     } catch (PDOException $createEx) {
                         die("Database Connection Error: " . $createEx->getMessage());
                     }

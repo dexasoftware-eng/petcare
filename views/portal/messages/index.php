@@ -182,16 +182,18 @@ $activeMessages = $activeMessages ?? [];
                     </div>
 
                     <!-- Audio/Video Actions -->
+                    <?php if (!empty($activeRecipient) && (int)$activeRecipient['id'] !== (int)($currentUser['id'] ?? 0)): ?>
                     <div class="d-flex gap-2">
-                        <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 fw-bold d-inline-flex align-items-center gap-1 shadow-sm" onclick="PetGuardCall.initiateCall(<?= (int)$activeRecipient['id'] ?>, 'video', 'consultation', <?= $activeConvId ?>)">
+                        <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 fw-bold d-inline-flex align-items-center gap-1 shadow-sm" onclick="PetGuardCall.initiateCall(<?= (int)$activeRecipient['id'] ?>, 'video', 'consultation', <?= (int)$activeConvId ?>)">
                             <i class="fa-solid fa-video"></i>
                             <span class="d-none d-sm-inline">Video Call</span>
                         </button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-bold d-inline-flex align-items-center gap-1 shadow-sm" onclick="PetGuardCall.initiateCall(<?= (int)$activeRecipient['id'] ?>, 'audio', 'consultation', <?= $activeConvId ?>)">
+                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-bold d-inline-flex align-items-center gap-1 shadow-sm" onclick="PetGuardCall.initiateCall(<?= (int)$activeRecipient['id'] ?>, 'audio', 'consultation', <?= (int)$activeConvId ?>)">
                             <i class="fa-solid fa-phone"></i>
                             <span class="d-none d-sm-inline">Audio Call</span>
                         </button>
                     </div>
+                    <?php endif; ?>
                 </div>
 
                 <!-- Messages Scroll Stream -->

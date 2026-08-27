@@ -20,7 +20,7 @@ class CallSession extends Model
                 JOIN `users` u ON cs.caller_id = u.id
                 WHERE cs.receiver_id = :uid 
                   AND cs.status IN ('initiating', 'ringing')
-                  AND cs.created_at >= DATE_SUB(NOW(), INTERVAL 45 SECOND)
+                  AND (cs.created_at >= DATE_SUB(NOW(), INTERVAL 90 SECOND) OR cs.created_at >= DATE_SUB(UTC_TIMESTAMP(), INTERVAL 90 SECOND))
                 ORDER BY cs.id DESC
                 LIMIT 1";
         $results = self::query($sql, ['uid' => $userId]);

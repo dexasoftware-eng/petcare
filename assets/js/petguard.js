@@ -544,6 +544,12 @@
 
         // Request a new call session
         async initiateCall(receiverId, callType = 'video', relatedType = 'appointment', relatedId = null) {
+            receiverId = parseInt(receiverId, 10);
+            if (!receiverId || isNaN(receiverId) || receiverId <= 0) {
+                PetGuardToast.warning('Please select a valid consultation recipient to initiate a call.');
+                return;
+            }
+
             PetGuardToast.info('Initiating secure encrypted call...', 'Calling');
 
             const res = await PetGuardAjax.post('call/request', {
@@ -561,7 +567,7 @@
         },
 
         // Incoming call listener for all pages
-        startIncomingCallListener(intervalMs = 4000) {
+        startIncomingCallListener(intervalMs = 3000) {
             setInterval(async () => {
                 // Do not check if already in an active room
                 if (window.location.pathname.includes('/call/room')) return;
@@ -634,7 +640,7 @@
         },
 
         // WebRTC Active Call Initializer
-        async initCallRoom(sessionToken, isCaller) {
+        async initCallRoom(sessionToken, isCaller, callType = 'video') {
             this.sessionToken = sessionToken;
             this.isCaller = isCaller;
             this.isCallActive = true;
@@ -663,13 +669,25 @@
                 }, 40000);
             }
 
-            // 2. Get User Media Stream
+            // 2. Get User Media Stream with fallback handling
             try {
-                this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                if (localVideo) localVideo.srcObject = this.localStream;
+                const isVideo = callType !== 'audio';
+                const constraints = {
+                    audio: { echoCancellation: true, noiseSuppression: true },
+                    video: isVideo ? { width: { ideal: 1280 }, height: { ideal: 720 } } : false
+                };
+                this.localStream = await navigator.mediaDevices.getUserMedia(constraints);
+                if (localVideo && isVideo) localVideo.srcObject = this.localStream;
             } catch (err) {
-                console.warn('Camera/Mic permission warning:', err);
-                PetGuardToast.warning('Could not access camera/mic. Switched to view-only mode.');
+                console.warn('Primary camera/mic permission warning:', err);
+                try {
+                    // Resilient fallback to audio-only
+                    this.localStream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true });
+                    PetGuardToast.info('Connected via audio-only (camera unavailable).');
+                } catch (audioErr) {
+                    console.warn('Microphone permission warning:', audioErr);
+                    PetGuardToast.warning('Could not access microphone/camera. Switched to view-only mode.');
+                }
             }
 
             // 3. Setup PeerConnection

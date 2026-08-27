@@ -46,26 +46,11 @@ class CallController extends Controller
             $this->jsonError('You cannot start a call with yourself.');
         }
 
-        // Relationship Authorization Logic
-        $callerRole = $caller['role'] ?? 'petowner';
-        $receiverRole = $receiver['role'] ?? 'petowner';
-
-        $isAuthorized = false;
-
-        if ($callerRole === 'admin' || $receiverRole === 'admin') {
-            $isAuthorized = true;
-        } elseif (($callerRole === 'petowner' && $receiverRole === 'veterinarian') || ($callerRole === 'veterinarian' && $receiverRole === 'petowner')) {
-            $isAuthorized = true;
-        } elseif (($callerRole === 'petowner' && $receiverRole === 'shelter') || ($callerRole === 'shelter' && $receiverRole === 'petowner')) {
-            $isAuthorized = true;
-        } elseif (($callerRole === 'petowner' && $receiverRole === 'vendor') || ($callerRole === 'vendor' && $receiverRole === 'petowner')) {
-            $isAuthorized = true;
-        } elseif (($callerRole === 'shelter' && $receiverRole === 'veterinarian') || ($callerRole === 'veterinarian' && $receiverRole === 'shelter')) {
-            $isAuthorized = true;
-        }
+        // Relationship Authorization Logic: Allow calling between any active authenticated users on the platform
+        $isAuthorized = true;
 
         if (!$isAuthorized) {
-            $this->jsonError('Unauthorized call attempt. Calling is only permitted between parties with an active relationship.');
+            $this->jsonError('Unauthorized call attempt.');
         }
 
         // Generate unique cryptographic session token

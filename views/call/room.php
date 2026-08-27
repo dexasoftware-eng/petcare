@@ -335,8 +335,9 @@ $isAlreadyEnded = in_array($session['status'] ?? '', ['ended', 'rejected', 'miss
             // Initialize WebRTC with WhatsApp-style calling/ringing states and dial tones
             const sessionToken = <?= json_encode($session['session_token']) ?>;
             const isCaller = <?= $isCaller ? 'true' : 'false' ?>;
+            const callType = <?= json_encode($session['call_type'] ?? 'video') ?>;
             if (typeof PetGuardCall !== 'undefined') {
-                PetGuardCall.initCallRoom(sessionToken, isCaller);
+                PetGuardCall.initCallRoom(sessionToken, isCaller, callType);
             }
         });
         </script>
