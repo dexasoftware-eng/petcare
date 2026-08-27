@@ -470,21 +470,51 @@ footer .img-4,
    ========================================================================== */
 .shop-hero-banner {
     position: relative;
-    background-size: cover;
-    background-position: center;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #0f172a 100%) !important;
     padding-top: 175px !important;
     padding-bottom: 55px !important;
     overflow: hidden;
+    color: #ffffff !important;
+}
+
+.shop-hero-banner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(250, 68, 29, 0.15) 0%, transparent 60%);
+    pointer-events: none;
 }
 
 .shop-hero-banner .hero-badge {
     font-size: 12.5px;
     letter-spacing: 0.3px;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    color: #ffffff !important;
 }
 
 .shop-hero-banner .hero-title {
     font-size: 38px;
     line-height: 1.25;
+    color: #ffffff !important;
+}
+
+.shop-hero-banner .breadcrumb-item a {
+    color: rgba(255, 255, 255, 0.65) !important;
+    transition: color 0.2s ease;
+}
+.shop-hero-banner .breadcrumb-item a:hover {
+    color: #ffffff !important;
+}
+.shop-hero-banner .breadcrumb-item.active {
+    color: #ffffff !important;
+    font-weight: 700;
+}
+.shop-hero-banner .breadcrumb-item + .breadcrumb-item::before {
+    color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .shop-hero-banner .hero-search-box {
@@ -517,5 +547,6 @@ footer .img-4,
         font-size: 12.5px !important;
     }
 }
+
 
 

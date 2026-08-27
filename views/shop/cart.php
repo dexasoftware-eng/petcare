@@ -14,24 +14,24 @@ $progressPercent = min(100, round((($subtotal - $discount) / $freeShippingThresh
 ?>
 
 <!-- 1. Hero Banner -->
-<section class="banner shop-hero-banner" style="background-image: url('<?= ViewHelper::asset('img/banner.png') ?>');">
+<section class="banner shop-hero-banner">
     <div class="container position-relative z-1">
         <div class="row align-items-center">
             <div class="col-lg-12 text-center">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-25 text-white small mb-3 hero-badge">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill hero-badge mb-3 shadow-sm">
                     <i class="fa-solid fa-cart-shopping text-warning"></i>
                     <span class="fw-semibold">Review &amp; Update Order</span>
                 </div>
                 <h1 class="text-white fw-bold mb-2 hero-title" style="font-family: 'Anybody', sans-serif;">
                     Shopping Cart
                 </h1>
-                <ul class="d-inline-flex list-unstyled gap-2 text-white small justify-content-center m-0">
-                    <li><a href="<?= ViewHelper::url() ?>" class="text-white text-decoration-none">Home</a></li>
-                    <li>/</li>
-                    <li><a href="<?= ViewHelper::url('our-products') ?>" class="text-white text-decoration-none">Shop</a></li>
-                    <li>/</li>
-                    <li class="text-white opacity-75">Cart</li>
-                </ul>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center m-0" style="background: transparent;">
+                        <li class="breadcrumb-item"><a href="<?= ViewHelper::url() ?>" class="text-decoration-none">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?= ViewHelper::url('our-products') ?>" class="text-decoration-none">Shop</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                    </ol>
+                </nav>
             </div>
         </div>
     </div>
