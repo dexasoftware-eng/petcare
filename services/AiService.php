@@ -25,6 +25,11 @@ class AiService
      */
     public function askAssistant(string $prompt, ?array $petContext = null, ?int $userId = null): array
     {
+        return $this->chat($prompt, $petContext, $userId);
+    }
+
+    public function chat(string $prompt, ?array $petContext = null, ?int $userId = null): array
+    {
         $startTime = microtime(true);
         $safety = $this->classifySafety($prompt);
 

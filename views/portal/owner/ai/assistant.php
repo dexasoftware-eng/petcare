@@ -161,10 +161,14 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const res = await fetch('<?= ViewHelper::url("portal/ai-assistant/chat") ?>', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                headers: { 
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
                 body: new URLSearchParams({
                     prompt: query,
                     pet_id: petSelect.value,
+                    _csrf: '<?= ViewHelper::csrfToken() ?>',
                     csrf_token: '<?= ViewHelper::csrfToken() ?>'
                 })
             });
@@ -175,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
             aiDiv.className = 'd-flex align-items-start gap-2';
             aiDiv.style.maxWidth = '85%';
 
-            let responseHtml = data.response ? data.response.replace(/\n/g, '<br>') : 'I could not generate a response. Please try again.';
+            let responseHtml = data.response ? data.response.replace(/\n/g, '<br>') : (data.error || 'I could not generate a response. Please try again.');
             if (data.is_emergency) {
                 responseHtml = `<div class="alert alert-danger p-2 mb-2 fw-bold"><i class="fa-solid fa-triangle-exclamation me-1"></i> ${data.safety_alert || 'Potential Medical Emergency Detected'}</div>` + responseHtml;
             }
@@ -193,7 +197,9 @@ document.addEventListener('DOMContentLoaded', () => {
             box.scrollTop = box.scrollHeight;
         } catch (err) {
             typingDiv.remove();
-            showPetGuardModal('AI Assistant Service', 'Failed to reach AI service. Please verify your connection and try again.', 'error');
+            if (typeof PetGuardToast !== 'undefined') {
+                PetGuardToast.error('Could not connect to AI service. Please try again.');
+            }
         }
     });
 
