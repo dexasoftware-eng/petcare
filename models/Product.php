@@ -62,4 +62,9 @@ class Product extends Model
             'in_stock' => $inStock
         ]);
     }
+
+    public static function getImages(int $productId): array
+    {
+        return ProductImage::getForProduct($productId);
+    }
 }

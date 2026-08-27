@@ -20,7 +20,21 @@ use Helpers\ViewHelper;
 <div class="row g-4">
     <div class="col-lg-4">
         <div class="admin-card text-center p-4">
-            <img src="<?= ViewHelper::asset($product['img'] ?? 'img/product-1.jpg') ?>" alt="Product" class="rounded-4 border mb-3 img-fluid" style="max-height: 240px; object-fit: cover;">
+            <div class="mb-3 position-relative">
+                <img id="mainProductShowcaseImg" src="<?= ViewHelper::asset($product['img'] ?? 'img/product-1.jpg') ?>" alt="Product" class="rounded-4 border img-fluid w-100 shadow-sm" style="max-height: 260px; object-fit: contain; background: #fafafa;">
+            </div>
+
+            <!-- Multi-Image Thumbnails -->
+            <?php if (!empty($images) && count($images) > 1): ?>
+                <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
+                    <?php foreach ($images as $idx => $img): ?>
+                        <div class="rounded-3 border p-1 bg-white shadow-sm" style="width: 54px; height: 54px; cursor: pointer; transition: transform 0.2s;" onclick="document.getElementById('mainProductShowcaseImg').src = '<?= ViewHelper::asset($img['img_path']) ?>'" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+                            <img src="<?= ViewHelper::asset($img['img_path']) ?>" class="w-100 h-100 rounded-2" style="object-fit: cover;">
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
             <h4 class="fw-bold text-dark mb-1">$<?= number_format((float)$product['price'], 2) ?></h4>
             <?php if (!empty($product['old_price'])): ?>
                 <span class="text-muted text-decoration-line-through small me-2">$<?= number_format((float)$product['old_price'], 2) ?></span>

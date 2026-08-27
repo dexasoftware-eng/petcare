@@ -223,6 +223,7 @@ $router->post('/vendor/products/ai-create-instant', [VendorPortalController::cla
 $router->get('/vendor/products/:id', [VendorPortalController::class, 'productDetails'], $vendorGuards);
 $router->get('/vendor/products/:id/edit', [VendorPortalController::class, 'editProductView'], $vendorGuards);
 $router->post('/vendor/products/:id/edit', [VendorPortalController::class, 'updateProduct'], $vendorActionGuards);
+$router->post('/vendor/products/:id/images/:imageId/delete', [VendorPortalController::class, 'deleteProductImage'], $vendorActionGuards);
 $router->post('/vendor/products/:id/delete', [VendorPortalController::class, 'deleteProduct'], $vendorGuards);
 $router->get('/vendor/inventory', [VendorPortalController::class, 'inventory'], $vendorGuards);
 $router->post('/vendor/inventory/:id/stock', [VendorPortalController::class, 'updateStock'], $vendorGuards);

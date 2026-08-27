@@ -95,10 +95,16 @@ use Helpers\ViewHelper;
                 </div>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label small fw-bold text-dark">Product Packaging Image</label>
-                <input type="file" name="image" class="form-control" accept="image/*">
-                <div class="form-text small text-muted">Upload high-resolution packaging image (JPG, PNG, WebP). Default image applied if omitted.</div>
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <label class="form-label small fw-bold text-dark m-0">Product Packaging &amp; Gallery Photos (Upload Multiple)</label>
+                    <span class="badge bg-light text-muted border" id="imageCountBadge" style="font-size: 10px;">Select Multiple Photos</span>
+                </div>
+                <input type="file" name="images[]" id="productImagesInput" class="form-control rounded-3" accept="image/*" multiple onchange="previewMultipleImages(this)">
+                <div class="form-text small text-muted">You can select multiple photos at once (JPG, PNG, WebP). The first photo will be set as the main storefront image.</div>
+                
+                <!-- Live Preview Grid -->
+                <div id="imagePreviewContainer" class="d-flex flex-wrap gap-2 mt-3 d-none"></div>
             </div>
 
             <div class="mb-4">
@@ -128,6 +134,39 @@ document.addEventListener('DOMContentLoaded', () => {
         redirect: 'vendor/products'
     });
 });
+
+function previewMultipleImages(input) {
+    const container = document.getElementById('imagePreviewContainer');
+    const badge = document.getElementById('imageCountBadge');
+    container.innerHTML = '';
+
+    if (!input.files || input.files.length === 0) {
+        container.classList.add('d-none');
+        badge.textContent = 'Select Multiple Photos';
+        return;
+    }
+
+    container.classList.remove('d-none');
+    badge.textContent = `${input.files.length} Photo(s) Selected`;
+
+    Array.from(input.files).forEach((file, idx) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const card = document.createElement('div');
+            card.className = 'position-relative rounded-3 border p-1 bg-light shadow-sm';
+            card.style.width = '80px';
+            card.style.height = '80px';
+            card.innerHTML = `
+                <img src="${e.target.result}" class="w-100 h-100 rounded-2" style="object-fit: cover;">
+                <span class="badge ${idx === 0 ? 'bg-success' : 'bg-dark bg-opacity-75'} position-absolute top-0 start-0 m-1" style="font-size: 8px;">
+                    ${idx === 0 ? 'Primary' : `#${idx + 1}`}
+                </span>
+            `;
+            container.appendChild(card);
+        };
+        reader.readAsDataURL(file);
+    });
+}
 
 async function triggerAiFill() {
     const titleInput = document.getElementById('productTitleInput');

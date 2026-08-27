@@ -11,6 +11,7 @@ use Helpers\ViewHelper;
 use Models\User;
 use Models\VendorProfile;
 use Models\Product;
+use Models\ProductImage;
 use Models\Category;
 use Models\Order;
 use Models\OrderItem;
@@ -173,20 +174,41 @@ class VendorPortalController extends Controller
             $slug .= '-' . rand(100, 999);
         }
 
-        // Image Handling
-        $imgPath = 'assets/img/product-1.jpg';
-        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
-            if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp'])) {
-                $filename = 'prod_' . uniqid() . '.' . $ext;
-                $dest = dirname(__DIR__) . '/assets/img/' . $filename;
-                if (move_uploaded_file($_FILES['image']['tmp_name'], $dest)) {
-                    $imgPath = 'assets/img/' . $filename;
+        // Multi-Image Handling
+        $uploadedImages = [];
+
+        // Check multiple images array 'images'
+        if (isset($_FILES['images']) && is_array($_FILES['images']['name'])) {
+            $fileCount = count($_FILES['images']['name']);
+            for ($i = 0; $i < $fileCount; $i++) {
+                if (!empty($_FILES['images']['name'][$i]) && $_FILES['images']['error'][$i] === UPLOAD_ERR_OK) {
+                    $ext = strtolower(pathinfo($_FILES['images']['name'][$i], PATHINFO_EXTENSION));
+                    if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif'])) {
+                        $filename = 'prod_' . uniqid() . '_' . $i . '.' . $ext;
+                        $dest = dirname(__DIR__) . '/assets/img/' . $filename;
+                        if (move_uploaded_file($_FILES['images']['tmp_name'][$i], $dest)) {
+                            $uploadedImages[] = 'assets/img/' . $filename;
+                        }
+                    }
                 }
             }
         }
 
+        // Check single image fallback 'image'
+        if (isset($_FILES['image']) && !empty($_FILES['image']['name']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+            if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif'])) {
+                $filename = 'prod_' . uniqid() . '.' . $ext;
+                $dest = dirname(__DIR__) . '/assets/img/' . $filename;
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $dest)) {
+                    array_unshift($uploadedImages, 'assets/img/' . $filename);
+                }
+            }
+        }
+
+        $imgPath = !empty($uploadedImages) ? $uploadedImages[0] : 'assets/img/product-1.jpg';
         $stock = max(0, (int)$data['stock']);
+
         $productId = Product::create([
             'vendor_id' => $vendorId,
             'category' => $data['category'],
@@ -207,10 +229,22 @@ class VendorPortalController extends Controller
             'is_archived' => 0
         ]);
 
+        // Save all uploaded photos to product_images table
+        if (!empty($uploadedImages)) {
+            foreach ($uploadedImages as $idx => $path) {
+                ProductImage::create([
+                    'product_id' => (int)$productId,
+                    'img_path' => $path,
+                    'is_primary' => $idx === 0 ? 1 : 0,
+                    'sort_order' => $idx
+                ]);
+            }
+        }
+
         AuditLog::log('PRODUCT_CREATED', 'products', $productId, ['name' => $data['name'], 'sku' => $sku]);
 
         if ($this->request->isAjax()) {
-            $this->jsonSuccess('Product created successfully.', ['product_id' => $productId]);
+            $this->jsonSuccess('Product created successfully with ' . count($uploadedImages) . ' images.', ['product_id' => $productId]);
         } else {
             Flash::success('Product published to store catalog.');
             $this->redirect('vendor/products');
@@ -307,9 +341,12 @@ class VendorPortalController extends Controller
             $this->redirect('vendor/products');
         }
 
+        $images = ProductImage::getForProduct((int)$id);
+
         $this->render('portal.vendor.products.details', [
             'pageTitle' => "Product: {$product['name']} — Pet Guard",
-            'product' => $product
+            'product' => $product,
+            'images' => $images
         ], 'portal');
     }
 
@@ -322,10 +359,13 @@ class VendorPortalController extends Controller
         }
 
         $categories = Category::all();
+        $images = ProductImage::getForProduct((int)$id);
+
         $this->render('portal.vendor.products.edit', [
             'pageTitle' => "Edit Product: {$product['name']} — Pet Guard",
             'product' => $product,
-            'categories' => $categories
+            'categories' => $categories,
+            'images' => $images
         ], 'portal');
     }
 
@@ -343,6 +383,35 @@ class VendorPortalController extends Controller
             'stock' => 'required|numeric'
         ]);
 
+        // Multi-Image Uploads for updates
+        $uploadedImages = [];
+        if (isset($_FILES['images']) && is_array($_FILES['images']['name'])) {
+            $fileCount = count($_FILES['images']['name']);
+            for ($i = 0; $i < $fileCount; $i++) {
+                if (!empty($_FILES['images']['name'][$i]) && $_FILES['images']['error'][$i] === UPLOAD_ERR_OK) {
+                    $ext = strtolower(pathinfo($_FILES['images']['name'][$i], PATHINFO_EXTENSION));
+                    if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif'])) {
+                        $filename = 'prod_' . uniqid() . '_' . $i . '.' . $ext;
+                        $dest = dirname(__DIR__) . '/assets/img/' . $filename;
+                        if (move_uploaded_file($_FILES['images']['tmp_name'][$i], $dest)) {
+                            $uploadedImages[] = 'assets/img/' . $filename;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (isset($_FILES['image']) && !empty($_FILES['image']['name']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+            if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif'])) {
+                $filename = 'prod_' . uniqid() . '.' . $ext;
+                $dest = dirname(__DIR__) . '/assets/img/' . $filename;
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $dest)) {
+                    array_unshift($uploadedImages, 'assets/img/' . $filename);
+                }
+            }
+        }
+
         $stock = max(0, (int)$data['stock']);
         $payload = [
             'name' => $data['name'],
@@ -358,6 +427,18 @@ class VendorPortalController extends Controller
             'is_deal_of_week' => (int)$this->request->input('is_deal_of_week', $product['is_deal_of_week'])
         ];
 
+        if (!empty($uploadedImages)) {
+            $payload['img'] = $uploadedImages[0];
+            foreach ($uploadedImages as $idx => $path) {
+                ProductImage::create([
+                    'product_id' => (int)$id,
+                    'img_path' => $path,
+                    'is_primary' => $idx === 0 ? 1 : 0,
+                    'sort_order' => $idx
+                ]);
+            }
+        }
+
         Product::update((int)$id, $payload);
         AuditLog::log('PRODUCT_UPDATED', 'products', (int)$id);
 
@@ -366,6 +447,20 @@ class VendorPortalController extends Controller
         } else {
             Flash::success('Product updated successfully.');
             $this->redirect('vendor/products/' . $id);
+        }
+    }
+
+    public function deleteProductImage(int|string $productId, int|string $imageId): void
+    {
+        $this->getVendorUserId();
+        $this->validateCsrf();
+
+        $image = ProductImage::find((int)$imageId);
+        if ($image && (int)$image['product_id'] === (int)$productId) {
+            ProductImage::delete((int)$imageId);
+            $this->jsonSuccess('Image removed from gallery.');
+        } else {
+            $this->jsonError('Image not found or unauthorized.');
         }
     }
 
