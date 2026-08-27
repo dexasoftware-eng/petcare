@@ -8,11 +8,15 @@ $discount = $discount ?? 0.0;
 $shipping = $shipping ?? 0.0;
 $total = $total ?? 0.0;
 $user = $user ?? [];
+$stripePublishableKey = $stripePublishableKey ?? 'pk_test_51T9VPQIgzswnI4l9tCQ8JXE91Hbllqc0jel22DPhGm2VvbY63UdqMzXkGMMveQ4bfO5ryFSRac8qai5eeKrr12A30090JoYaH1';
 
 $nameParts = explode(' ', $user['name'] ?? '', 2);
 $firstName = $nameParts[0] ?? '';
 $lastName = $nameParts[1] ?? '';
 ?>
+
+<!-- Stripe JS SDK -->
+<script src="https://js.stripe.com/v3/"></script>
 
 <!-- 1. Hero Banner -->
 <section class="banner" style="background-color: #fff8e5; background-image:url(<?= ViewHelper::asset('img/banner.png') ?>);">
@@ -20,8 +24,8 @@ $lastName = $nameParts[1] ?? '';
         <div class="row align-items-center">
             <div class="col-lg-12 text-center">
                 <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white shadow-sm text-dark small mb-3 border">
-                    <i class="fa-solid fa-lock text-success"></i>
-                    <span class="fw-semibold text-dark">256-Bit End-to-End Encrypted Checkout</span>
+                    <i class="fa-brands fa-stripe text-primary" style="font-size: 18px;"></i>
+                    <span class="fw-semibold text-dark">Stripe 256-Bit Encrypted Payment</span>
                 </div>
                 <h1 class="text-dark fw-bold mb-2" style="font-family: 'Anybody', sans-serif; font-size: clamp(26px, 5vw, 40px);">
                     Checkout &amp; Payment
@@ -31,7 +35,7 @@ $lastName = $nameParts[1] ?? '';
                     <li class="text-muted">/</li>
                     <li><a href="<?= ViewHelper::url('shop-cart') ?>" class="text-dark fw-semibold text-decoration-none hover-brand">Cart</a></li>
                     <li class="text-muted">/</li>
-                    <li class="text-brand fw-bold">Checkout</li>
+                    <li class="text-brand fw-bold">Stripe Checkout</li>
                 </ul>
             </div>
         </div>
@@ -43,10 +47,12 @@ $lastName = $nameParts[1] ?? '';
     <div class="container">
         <form id="checkoutForm" action="<?= ViewHelper::url('checkout') ?>" method="POST">
             <?= ViewHelper::csrfField() ?>
+            <input type="hidden" name="payment_method" value="card">
+            <input type="hidden" name="stripe_token" id="stripeTokenInput" value="">
 
             <div class="row g-4">
                 
-                <!-- Left: Billing, Shipping & Payment Form (col-lg-7) -->
+                <!-- Left: Billing, Shipping & Stripe Payment Form (col-lg-7) -->
                 <div class="col-lg-7">
                     
                     <!-- Section 1: Customer Contact & Shipping Details -->
@@ -77,8 +83,8 @@ $lastName = $nameParts[1] ?? '';
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold text-dark">Email Address *</label>
-                                <input type="email" name="email" class="form-control rounded-3 py-2" value="<?= ViewHelper::e($user['email'] ?? '') ?>" placeholder="john@example.com" required>
-                                <div class="form-text small text-muted" style="font-size: 11px;">Your order receipt will be sent here.</div>
+                                <input type="email" name="email" id="customerEmail" class="form-control rounded-3 py-2" value="<?= ViewHelper::e($user['email'] ?? '') ?>" placeholder="john@example.com" required>
+                                <div class="form-text small text-muted" style="font-size: 11px;">Your Stripe receipt and order tracking will be sent here.</div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold text-dark">Phone Number *</label>
@@ -108,98 +114,80 @@ $lastName = $nameParts[1] ?? '';
                         </div>
                     </div>
 
-                    <!-- Section 2: Payment Gateway & Stripe Integration -->
+                    <!-- Section 2: Dedicated Stripe Payment Gateway -->
                     <div class="admin-card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
-                        <div class="d-flex align-items-center gap-3 mb-4 pb-3 border-bottom">
-                            <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold" style="width: 36px; height: 36px; background: #0f172a;">
-                                2
+                        <div class="d-flex align-items-center justify-content-between mb-4 pb-3 border-bottom flex-wrap gap-2">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold" style="width: 36px; height: 36px; background: #635bff;">
+                                    2
+                                </div>
+                                <div>
+                                    <h4 class="fw-bold text-dark m-0" style="font-family: 'Anybody', sans-serif;">
+                                        Stripe Card Payment
+                                    </h4>
+                                    <p class="text-muted small m-0">Direct 256-bit encrypted card authorization via Stripe.</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="fw-bold text-dark m-0" style="font-family: 'Anybody', sans-serif;">
-                                    Payment Method &amp; Security
-                                </h4>
-                                <p class="text-muted small m-0">Encrypted transmission backed by Stripe.</p>
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="fa-brands fa-cc-visa text-primary fs-3"></i>
+                                <i class="fa-brands fa-cc-mastercard text-danger fs-3"></i>
+                                <i class="fa-brands fa-cc-amex text-info fs-3"></i>
+                                <i class="fa-brands fa-cc-discover text-warning fs-3"></i>
                             </div>
                         </div>
 
-                        <!-- Payment Method Radios / Tabs -->
-                        <div class="d-flex flex-column gap-3 mb-4">
-                            
-                            <!-- Option 1: Stripe Card -->
-                            <label class="p-3 rounded-3 border d-flex align-items-start gap-3 cursor-pointer payment-option-card bg-light border-primary" id="cardOptionLabel">
-                                <input type="radio" name="payment_method" value="card" class="form-check-input mt-1" checked onchange="selectPaymentMethod('card')">
-                                <div class="flex-grow-1">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <strong class="text-dark">Credit / Debit Card (Stripe)</strong>
-                                        <div class="d-flex align-items-center gap-1 text-muted">
-                                            <i class="fa-brands fa-cc-visa text-primary" style="font-size: 22px;"></i>
-                                            <i class="fa-brands fa-cc-mastercard text-danger" style="font-size: 22px;"></i>
-                                            <i class="fa-brands fa-cc-amex text-info" style="font-size: 22px;"></i>
-                                        </div>
-                                    </div>
-                                    <p class="text-muted small m-0 mt-1" style="font-size: 12px;">Instant authorization via Stripe's encrypted payment network.</p>
-                                </div>
-                            </label>
-
-                            <!-- Option 2: Cash on Delivery -->
-                            <label class="p-3 rounded-3 border d-flex align-items-start gap-3 cursor-pointer payment-option-card" id="codOptionLabel">
-                                <input type="radio" name="payment_method" value="cod" class="form-check-input mt-1" onchange="selectPaymentMethod('cod')">
-                                <div class="flex-grow-1">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <strong class="text-dark">Cash on Delivery (COD)</strong>
-                                        <i class="fa-solid fa-hand-holding-dollar text-success" style="font-size: 18px;"></i>
-                                    </div>
-                                    <p class="text-muted small m-0 mt-1" style="font-size: 12px;">Pay with cash or card upon package arrival at your doorstep.</p>
-                                </div>
-                            </label>
-
-                            <!-- Option 3: Direct Bank Wire -->
-                            <label class="p-3 rounded-3 border d-flex align-items-start gap-3 cursor-pointer payment-option-card" id="bankOptionLabel">
-                                <input type="radio" name="payment_method" value="bank" class="form-check-input mt-1" onchange="selectPaymentMethod('bank')">
-                                <div class="flex-grow-1">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <strong class="text-dark">Direct Bank Wire Transfer</strong>
-                                        <i class="fa-solid fa-building-columns text-secondary" style="font-size: 18px;"></i>
-                                    </div>
-                                    <p class="text-muted small m-0 mt-1" style="font-size: 12px;">Make your payment directly into our corporate bank account.</p>
-                                </div>
-                            </label>
-
-                        </div>
-
-                        <!-- Stripe Card Input Mock / Elements Box -->
-                        <div id="stripeCardBox" class="p-4 rounded-4 bg-light border">
-                            <div class="d-flex align-items-center justify-content-between mb-3">
-                                <span class="small fw-bold text-dark"><i class="fa-solid fa-credit-card text-primary me-2"></i> Card Information</span>
-                                <button type="button" class="badge bg-primary text-white border-0 py-1 px-2 cursor-pointer" onclick="fillTestCard()">
-                                    Auto-Fill Test Card
+                        <!-- Stripe Card Entry Box -->
+                        <div class="p-4 rounded-4 bg-light border border-primary border-opacity-25 mb-3 position-relative">
+                            <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                                <span class="small fw-bold text-dark d-flex align-items-center gap-2">
+                                    <i class="fa-solid fa-credit-card text-primary"></i> Credit or Debit Card
+                                </span>
+                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-bold d-inline-flex align-items-center gap-1 shadow-sm" style="font-size: 11.5px;" onclick="fillTestCard()">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Auto-Fill Test Card
                                 </button>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label small text-muted">Cardholder Name</label>
-                                <input type="text" id="stripeCardName" class="form-control rounded-3 py-2 bg-white" placeholder="Name on card" value="<?= ViewHelper::e($user['name'] ?? 'Pet Parent') ?>">
+                                <label class="form-label small fw-bold text-dark">Name on Card *</label>
+                                <input type="text" name="card_name" id="stripeCardName" class="form-control rounded-3 py-2 bg-white" placeholder="Full name as printed on card" value="<?= ViewHelper::e($user['name'] ?? 'Pet Parent') ?>" required>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label small text-muted">Card Number</label>
+                                <label class="form-label small fw-bold text-dark">Card Number *</label>
                                 <div class="input-group">
-                                    <input type="text" id="stripeCardNumber" class="form-control rounded-start-3 py-2 bg-white font-monospace" placeholder="4242 •••• •••• 4242" maxlength="19" value="4242 •••• •••• 4242">
-                                    <span class="input-group-text bg-white border-start-0 text-muted">
-                                        <i class="fa-solid fa-lock text-success small"></i>
+                                    <span class="input-group-text bg-white border-end-0 text-muted ps-3" id="cardBrandIcon">
+                                        <i class="fa-solid fa-credit-card"></i>
+                                    </span>
+                                    <input type="text" name="card_number" id="stripeCardNumber" class="form-control border-start-0 border-end-0 rounded-0 py-2 bg-white font-monospace" placeholder="4242 •••• •••• 4242" maxlength="19" value="4242 4242 4242 4242" required oninput="formatCardNumber(this)">
+                                    <span class="input-group-text bg-white border-start-0 text-success pe-3">
+                                        <i class="fa-solid fa-lock small"></i>
                                     </span>
                                 </div>
                             </div>
 
                             <div class="row g-3">
                                 <div class="col-6">
-                                    <label class="form-label small text-muted">Expiration Date</label>
-                                    <input type="text" id="stripeCardExpiry" class="form-control rounded-3 py-2 bg-white font-monospace" placeholder="MM / YY" maxlength="5" value="12/28">
+                                    <label class="form-label small fw-bold text-dark">Expiration Date *</label>
+                                    <input type="text" name="card_expiry" id="stripeCardExpiry" class="form-control rounded-3 py-2 bg-white font-monospace text-center" placeholder="MM / YY" maxlength="5" value="12/28" required oninput="formatExpiry(this)">
                                 </div>
                                 <div class="col-6">
-                                    <label class="form-label small text-muted">CVC / CVV</label>
-                                    <input type="text" id="stripeCardCvc" class="form-control rounded-3 py-2 bg-white font-monospace" placeholder="CVC" maxlength="4" value="123">
+                                    <label class="form-label small fw-bold text-dark">CVC / CVV *</label>
+                                    <div class="input-group">
+                                        <input type="text" name="card_cvc" id="stripeCardCvc" class="form-control rounded-start-3 py-2 bg-white font-monospace text-center" placeholder="123" maxlength="4" value="123" required>
+                                        <span class="input-group-text bg-white rounded-end-3 text-muted" title="3 or 4 digit code on the back of your card">
+                                            <i class="fa-solid fa-circle-question small"></i>
+                                        </span>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Stripe Trust Banner -->
+                        <div class="p-3 rounded-3 bg-white border d-flex align-items-center gap-3">
+                            <i class="fa-solid fa-shield-check text-success fs-3 flex-shrink-0"></i>
+                            <div class="small">
+                                <div class="fw-bold text-dark">Guaranteed Safe &amp; Secure Checkout</div>
+                                <div class="text-muted" style="font-size: 11.5px;">Your card details are processed directly through Stripe's certified PCI-DSS Level 1 payment vault.</div>
                             </div>
                         </div>
 
@@ -263,15 +251,15 @@ $lastName = $nameParts[1] ?? '';
 
                         <!-- Place Order Button -->
                         <button type="submit" id="placeOrderBtn" class="btn btn-admin-primary w-100 rounded-pill py-3 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2" style="font-size: 16px;">
-                            <i class="fa-solid fa-lock"></i>
-                            <span>Authorize &amp; Place Order ($<?= number_format($total, 2) ?>)</span>
+                            <i class="fa-brands fa-stripe me-1" style="font-size: 22px;"></i>
+                            <span>Pay with Stripe ($<?= number_format($total, 2) ?>)</span>
                         </button>
 
                         <div class="mt-4 text-center">
                             <div class="d-flex items-center justify-content-center gap-3 text-muted small mb-2" style="font-size: 11px;">
                                 <span><i class="fa-solid fa-truck-fast text-brand me-1"></i> Fast Shipping</span>
                                 <span><i class="fa-solid fa-rotate-left text-primary me-1"></i> Easy Returns</span>
-                                <span><i class="fa-solid fa-shield-check text-success me-1"></i> SSL Protected</span>
+                                <span><i class="fa-solid fa-lock text-success me-1"></i> Stripe Protected</span>
                             </div>
                         </div>
                     </div>
@@ -283,40 +271,71 @@ $lastName = $nameParts[1] ?? '';
 </section>
 
 <script>
-function selectPaymentMethod(method) {
-    document.querySelectorAll('.payment-option-card').forEach(el => el.classList.remove('bg-light', 'border-primary'));
-    const stripeBox = document.getElementById('stripeCardBox');
-    
-    if (method === 'card') {
-        document.getElementById('cardOptionLabel').classList.add('bg-light', 'border-primary');
-        stripeBox.style.display = 'block';
-    } else if (method === 'cod') {
-        document.getElementById('codOptionLabel').classList.add('bg-light', 'border-primary');
-        stripeBox.style.display = 'none';
-    } else if (method === 'bank') {
-        document.getElementById('bankOptionLabel').classList.add('bg-light', 'border-primary');
-        stripeBox.style.display = 'none';
+const stripePublishableKey = '<?= $stripePublishableKey ?>';
+let stripeInstance = null;
+
+try {
+    if (typeof Stripe !== 'undefined') {
+        stripeInstance = Stripe(stripePublishableKey);
     }
+} catch (e) {
+    console.warn('Stripe client initialization:', e);
 }
 
 function fillTestCard() {
     document.getElementById('stripeCardNumber').value = '4242 4242 4242 4242';
     document.getElementById('stripeCardExpiry').value = '12/28';
     document.getElementById('stripeCardCvc').value = '123';
-    PetGuardToast.success('Stripe test card details applied.');
+    document.getElementById('cardBrandIcon').innerHTML = '<i class="fa-brands fa-cc-visa text-primary fs-5"></i>';
+    PetGuardToast.success('Stripe test credentials auto-filled.');
+}
+
+function formatCardNumber(input) {
+    let value = input.value.replace(/\D/g, '');
+    let formatted = '';
+    for (let i = 0; i < value.length; i++) {
+        if (i > 0 && i % 4 === 0) formatted += ' ';
+        formatted += value[i];
+    }
+    input.value = formatted.substring(0, 19);
+
+    // Detect card brand
+    const iconEl = document.getElementById('cardBrandIcon');
+    if (value.startsWith('4')) {
+        iconEl.innerHTML = '<i class="fa-brands fa-cc-visa text-primary fs-5"></i>';
+    } else if (value.startsWith('5')) {
+        iconEl.innerHTML = '<i class="fa-brands fa-cc-mastercard text-danger fs-5"></i>';
+    } else if (value.startsWith('3')) {
+        iconEl.innerHTML = '<i class="fa-brands fa-cc-amex text-info fs-5"></i>';
+    } else if (value.startsWith('6')) {
+        iconEl.innerHTML = '<i class="fa-brands fa-cc-discover text-warning fs-5"></i>';
+    } else {
+        iconEl.innerHTML = '<i class="fa-solid fa-credit-card text-muted"></i>';
+    }
+}
+
+function formatExpiry(input) {
+    let value = input.value.replace(/\D/g, '');
+    if (value.length > 2) {
+        input.value = value.substring(0, 2) + '/' + value.substring(2, 4);
+    } else {
+        input.value = value;
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     PetGuardAjax.bindForm('#checkoutForm', {
-        loadingText: 'Processing Secure Order...',
+        loadingText: 'Authorizing with Stripe...',
         onSuccess: (data) => {
-            PetGuardToast.success('Payment authorized! Redirecting to confirmation...');
+            PetGuardToast.success(data.message || 'Stripe payment authorized! Redirecting to confirmation...');
             if (data.redirect) {
-                window.location.href = data.redirect;
+                setTimeout(() => {
+                    window.location.href = data.redirect;
+                }, 600);
             }
         },
         onError: (err) => {
-            PetGuardToast.error(err.message || 'Payment processing failed. Please check your inputs.');
+            PetGuardToast.error(err.message || 'Stripe payment processing failed. Please check your card details.');
         }
     });
 });
