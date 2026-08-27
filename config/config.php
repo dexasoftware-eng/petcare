@@ -21,7 +21,7 @@ $envUrl = $env['APP_URL'] ?? getenv('APP_URL') ?: '';
 
 $baseUrl = !empty($envUrl) ? rtrim($envUrl, '/') : $dynamicUrl;
 if (empty($baseUrl) || $baseUrl === 'http://' || $baseUrl === 'https://') {
-    $baseUrl = 'http://localhost/PetGaurd';
+    $baseUrl = 'http://localhost/petcaretw';
 }
 
 return [

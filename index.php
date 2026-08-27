@@ -141,10 +141,23 @@ $router->post('/logout', [AuthController::class, 'logout'], [AuthMiddleware::cla
 // ==========================================
 $router->get('/portal', [PortalController::class, 'index'], [AuthMiddleware::class]);
 $router->get('/portal/overview', [PortalController::class, 'index'], [AuthMiddleware::class]);
+$router->get('/owner', [OwnerPortalController::class, 'dashboard'], [AuthMiddleware::class]);
 $router->get('/owner/dashboard', [OwnerPortalController::class, 'dashboard'], [AuthMiddleware::class]);
+$router->get('/portal/owner', [OwnerPortalController::class, 'dashboard'], [AuthMiddleware::class]);
+$router->get('/portal/owner/dashboard', [OwnerPortalController::class, 'dashboard'], [AuthMiddleware::class]);
+$router->get('/veterinarian', [VetPortalController::class, 'dashboard'], [AuthMiddleware::class]);
 $router->get('/veterinarian/dashboard', [VetPortalController::class, 'dashboard'], [AuthMiddleware::class]);
+$router->get('/vet', [VetPortalController::class, 'dashboard'], [AuthMiddleware::class]);
+$router->get('/portal/vet', [VetPortalController::class, 'dashboard'], [AuthMiddleware::class]);
+$router->get('/portal/vet/dashboard', [VetPortalController::class, 'dashboard'], [AuthMiddleware::class]);
+$router->get('/shelter', [ShelterPortalController::class, 'dashboard'], [AuthMiddleware::class]);
 $router->get('/shelter/dashboard', [ShelterPortalController::class, 'dashboard'], [AuthMiddleware::class]);
+$router->get('/portal/shelter', [ShelterPortalController::class, 'dashboard'], [AuthMiddleware::class]);
+$router->get('/portal/shelter/dashboard', [ShelterPortalController::class, 'dashboard'], [AuthMiddleware::class]);
+$router->get('/vendor', [VendorPortalController::class, 'dashboard'], [AuthMiddleware::class]);
 $router->get('/vendor/dashboard', [VendorPortalController::class, 'dashboard'], [AuthMiddleware::class]);
+$router->get('/portal/vendor', [VendorPortalController::class, 'dashboard'], [AuthMiddleware::class]);
+$router->get('/portal/vendor/dashboard', [VendorPortalController::class, 'dashboard'], [AuthMiddleware::class]);
 
 // Communication: WebRTC Calling & Messaging Endpoints
 $router->post('/call/request', [CallController::class, 'requestCall'], [AuthMiddleware::class]);
@@ -155,7 +168,10 @@ $router->post('/call/:token/end', [CallController::class, 'endCall'], [AuthMiddl
 $router->post('/call/:token/signal', [CallController::class, 'signal'], [AuthMiddleware::class]);
 $router->get('/call/:token/poll-signal', [CallController::class, 'pollSignal'], [AuthMiddleware::class]);
 $router->get('/call/room/:token', [CallController::class, 'room'], [AuthMiddleware::class]);
+$router->get('/calls', [CallController::class, 'history'], [AuthMiddleware::class]);
+$router->get('/call/history', [CallController::class, 'history'], [AuthMiddleware::class]);
 $router->get('/portal/calls', [CallController::class, 'history'], [AuthMiddleware::class]);
+$router->get('/portal/calls/history', [CallController::class, 'history'], [AuthMiddleware::class]);
 
 // Route Aliases for seamless sub-path AJAX calls
 $router->post('/portal/call/request', [CallController::class, 'requestCall'], [AuthMiddleware::class]);
@@ -169,6 +185,7 @@ $router->post('/portal/call/:token/timeout', [CallController::class, 'timeoutCal
 $router->get('/portal/call/:token/poll-signal', [CallController::class, 'pollSignal'], [AuthMiddleware::class]);
 $router->get('/portal/call/room/:token', [CallController::class, 'room'], [AuthMiddleware::class]);
 
+$router->get('/messages', [MessageController::class, 'index'], [AuthMiddleware::class]);
 $router->get('/portal/messages', [MessageController::class, 'index'], [AuthMiddleware::class]);
 $router->get('/messages/conversation/:id', [MessageController::class, 'conversation'], [AuthMiddleware::class]);
 $router->post('/messages/send', [MessageController::class, 'send'], [AuthMiddleware::class]);
