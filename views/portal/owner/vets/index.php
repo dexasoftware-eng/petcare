@@ -5,32 +5,35 @@ $totalVets = count($vets);
 ?>
 
 <style>
-/* 5-Screen Breakpoint Layout for Veterinarians Directory */
-.vets-directory-wrapper {
+/* 5-Screen Responsive Veterinarians Layout */
+.vets-container {
     max-width: 1400px;
     margin: 0 auto;
 }
-.vet-hero-banner {
+
+.vet-hero {
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    border-radius: 24px;
-    padding: 28px 32px;
+    border-radius: 22px;
+    padding: 26px 30px;
     color: #ffffff;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15);
+    box-shadow: 0 10px 30px -8px rgba(15, 23, 42, 0.25);
 }
-.vet-hero-banner::after {
+.vet-hero::after {
     content: '';
     position: absolute;
-    top: -50%;
+    top: -40%;
     right: -10%;
-    width: 350px;
-    height: 350px;
-    background: radial-gradient(circle, rgba(255, 122, 24, 0.18) 0%, rgba(255, 122, 24, 0) 70%);
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(255, 122, 24, 0.2) 0%, rgba(255, 122, 24, 0) 70%);
     pointer-events: none;
 }
-.vet-card {
-    border-radius: 22px;
+
+/* Vet Card Styling */
+.vet-card-item {
+    border-radius: 20px;
     background: #ffffff;
     border: 1px solid #e2e8f0;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -39,89 +42,108 @@ $totalVets = count($vets);
     justify-content: space-between;
     height: 100%;
 }
-.vet-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 35px -8px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(255, 122, 24, 0.2);
+.vet-card-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 32px -6px rgba(15, 23, 42, 0.1), 0 0 0 1px rgba(255, 122, 24, 0.25);
     border-color: #cbd5e1;
 }
-.vet-avatar-box {
-    width: 64px;
-    height: 64px;
-    min-width: 64px;
-    border-radius: 18px;
-    font-size: 26px;
-    font-weight: 700;
+
+/* Doctor Avatar Box */
+.vet-avatar-squircle {
+    width: 62px;
+    height: 62px;
+    min-width: 62px;
+    border-radius: 16px;
+    font-size: 24px;
+    font-weight: 800;
     color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #ff7a18 0%, #ff9f43 100%);
-    box-shadow: 0 8px 16px rgba(255, 122, 24, 0.25);
+    box-shadow: 0 8px 18px rgba(255, 122, 24, 0.25);
     position: relative;
+    border: 2px solid #ffffff;
 }
-.vet-online-dot {
+.vet-status-dot {
     position: absolute;
     bottom: -2px;
     right: -2px;
-    width: 14px;
-    height: 14px;
+    width: 13px;
+    height: 13px;
     background: #10b981;
     border: 2px solid #ffffff;
     border-radius: 50%;
 }
-.vet-action-btn-row {
+
+/* Clinic Box */
+.vet-clinic-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 12px 14px;
+    font-size: 12px;
+}
+
+/* Card Action Group */
+.vet-card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.vet-action-row-split {
     display: grid;
-    grid-template-columns: 1.2fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 8px;
 }
 
 /* 5-Screen Breakpoints */
 @media (max-width: 575.98px) {
-    .vet-hero-banner {
+    .vet-hero {
         padding: 20px 18px;
-        border-radius: 18px;
+        border-radius: 16px;
     }
-    .vet-avatar-box {
-        width: 54px;
-        height: 54px;
-        min-width: 54px;
-        font-size: 22px;
-        border-radius: 14px;
+    .vet-avatar-squircle {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+        font-size: 20px;
+        border-radius: 13px;
     }
-    .vet-action-btn-row {
-        grid-template-columns: 1fr;
-        gap: 6px;
-    }
-    .vet-filter-scroll {
+    .vet-filter-scroll-wrapper {
         display: flex;
         overflow-x: auto;
-        padding-bottom: 6px;
+        padding-bottom: 4px;
         gap: 6px;
         flex-wrap: nowrap !important;
         -webkit-overflow-scrolling: touch;
     }
-    .vet-filter-btn {
+    .vet-filter-pill-btn {
         white-space: nowrap;
         font-size: 11.5px;
+        padding: 6px 12px;
     }
-}
-@media (min-width: 576px) and (max-width: 767.98px) {
-    .vet-action-btn-row {
-        grid-template-columns: 1.2fr 1fr 1fr;
+    .vet-action-row-split {
+        grid-template-columns: 1fr 1fr;
         gap: 6px;
     }
 }
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .vet-hero {
+        padding: 22px 24px;
+    }
+}
 @media (min-width: 768px) and (max-width: 991.98px) {
-    .vet-hero-banner {
+    .vet-hero {
         padding: 24px 28px;
     }
 }
 </style>
 
-<div class="vets-directory-wrapper py-2">
+<div class="vets-container py-2">
 
-    <!-- Hero Header Banner -->
-    <div class="vet-hero-banner mb-4">
+    <!-- Top Hero Header Banner -->
+    <div class="vet-hero mb-4">
         <div class="row align-items-center g-3">
             <div class="col-12 col-md-8">
                 <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small fw-bold mb-2 border border-white border-opacity-10">
@@ -129,7 +151,7 @@ $totalVets = count($vets);
                 </div>
                 <h2 class="fw-bold text-white mb-2" style="letter-spacing: -0.5px;">Find Certified Veterinarians</h2>
                 <p class="text-white-50 small mb-0" style="max-width: 620px; line-height: 1.6;">
-                    Discover board-certified clinicians, surgical specialists, and emergency care physicians. Connect via 1-click encrypted telemedicine or schedule clinic visits with instant confirmation.
+                    Discover board-certified clinical practitioners, surgical specialists, and emergency doctors. Connect via 1-click encrypted telemedicine or schedule clinic visits with instant confirmation.
                 </p>
             </div>
             <div class="col-12 col-md-4 text-md-end">
@@ -163,7 +185,7 @@ $totalVets = count($vets);
                     </div>
                 </div>
                 <div class="fs-4 fw-bold text-dark mb-0">HD Live</div>
-                <small class="text-muted" style="font-size: 11px;">1-Click Video Calls</small>
+                <small class="text-muted" style="font-size: 11px;">1-Click Video Calling</small>
             </div>
         </div>
         <div class="col-6 col-md-3">
@@ -192,7 +214,7 @@ $totalVets = count($vets);
         </div>
     </div>
 
-    <!-- Search & Specialization Filter Bar -->
+    <!-- Search & Specialization Filter Toolbar -->
     <div class="admin-card p-3 p-md-4 shadow-sm mb-4" style="border-radius: 22px;">
         <div class="row g-3 align-items-center">
             <div class="col-12 col-lg-5">
@@ -202,20 +224,20 @@ $totalVets = count($vets);
                 </div>
             </div>
             <div class="col-12 col-lg-7">
-                <div class="d-flex gap-2 flex-wrap justify-content-lg-end vet-filter-scroll">
-                    <button type="button" class="btn btn-sm btn-dark rounded-pill px-3 py-2 fw-bold vet-filter-btn active" data-spec="all" onclick="filterBySpecialization('all', this)">
+                <div class="d-flex gap-2 flex-wrap justify-content-lg-end vet-filter-scroll-wrapper">
+                    <button type="button" class="btn btn-sm btn-dark rounded-pill px-3 py-2 fw-bold vet-filter-pill-btn active" data-spec="all" onclick="filterBySpecialization('all', this)">
                         All Specialists
                     </button>
-                    <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 py-2 fw-semibold vet-filter-btn" data-spec="surgery" onclick="filterBySpecialization('surgery', this)">
+                    <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 py-2 fw-semibold vet-filter-pill-btn" data-spec="surgery" onclick="filterBySpecialization('surgery', this)">
                         Surgery &amp; Canine
                     </button>
-                    <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 py-2 fw-semibold vet-filter-btn" data-spec="feline" onclick="filterBySpecialization('feline', this)">
+                    <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 py-2 fw-semibold vet-filter-pill-btn" data-spec="feline" onclick="filterBySpecialization('feline', this)">
                         Feline Care
                     </button>
-                    <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 py-2 fw-semibold vet-filter-btn" data-spec="exotic" onclick="filterBySpecialization('exotic', this)">
+                    <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 py-2 fw-semibold vet-filter-pill-btn" data-spec="exotic" onclick="filterBySpecialization('exotic', this)">
                         Exotics &amp; Avian
                     </button>
-                    <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 py-2 fw-semibold vet-filter-btn" data-spec="orthopedic" onclick="filterBySpecialization('orthopedic', this)">
+                    <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 py-2 fw-semibold vet-filter-pill-btn" data-spec="orthopedic" onclick="filterBySpecialization('orthopedic', this)">
                         Orthopedics
                     </button>
                 </div>
@@ -239,30 +261,30 @@ $totalVets = count($vets);
                     $isFav = in_array((int)$v['id'], $favIds ?? []);
                     $initial = strtoupper(substr($v['name'], 0, 1));
                 ?>
-                <div class="col-12 col-md-6 col-lg-4 vet-card-col" 
+                <div class="col-12 col-sm-6 col-lg-4 col-xxl-4 vet-card-col" 
                      data-name="<?= strtolower(htmlspecialchars($v['name'])) ?>" 
                      data-spec="<?= strtolower(htmlspecialchars($v['specialization'])) ?>" 
                      data-clinic="<?= strtolower(htmlspecialchars($v['clinic_name'])) ?>">
                     
-                    <div class="vet-card p-4 shadow-sm">
+                    <div class="vet-card-item p-4 shadow-sm">
                         
                         <div>
-                            <!-- Header / Avatar / Favorite Button -->
-                            <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+                            <!-- Header: Avatar, Name, Specialization & Favorite Heart -->
+                            <div class="d-flex justify-content-between align-items-start gap-2 mb-3">
                                 <div class="d-flex align-items-center gap-3 min-w-0">
-                                    <div class="vet-avatar-box">
+                                    <div class="vet-avatar-squircle">
                                         <?= $initial ?>
-                                        <span class="vet-online-dot" title="Online for Consultations"></span>
+                                        <span class="vet-status-dot" title="Online for Consultations"></span>
                                     </div>
                                     <div class="min-w-0">
                                         <div class="d-flex align-items-center gap-1">
                                             <a href="<?= ViewHelper::url('portal/vets/' . $v['id']) ?>" class="fw-bold text-dark text-decoration-none text-truncate d-block" style="font-size: 16px;">
                                                 <?= ViewHelper::e($v['name']) ?>
                                             </a>
-                                            <i class="fa-solid fa-circle-check text-primary small flex-shrink-0" title="Board-Certified Practitioner"></i>
+                                            <i class="fa-solid fa-circle-check text-primary small flex-shrink-0" title="Board-Certified Specialist"></i>
                                         </div>
                                         <div class="text-brand small fw-semibold text-truncate"><?= ViewHelper::e($v['specialization'] ?: 'General Veterinary Practice') ?></div>
-                                        <div class="text-muted" style="font-size: 11px;"><i class="fa-solid fa-award me-1 text-warning"></i> <?= (int)($v['experience'] ?? 5) ?>+ Years Clinical Experience</div>
+                                        <div class="text-muted" style="font-size: 11px;"><i class="fa-solid fa-award me-1 text-warning"></i> <?= (int)($v['experience'] ?? 5) ?>+ Years Experience</div>
                                     </div>
                                 </div>
 
@@ -276,7 +298,7 @@ $totalVets = count($vets);
                                 </form>
                             </div>
 
-                            <!-- License Number & Review Rating Pills -->
+                            <!-- License ID & Review Rating Pills -->
                             <div class="d-flex gap-2 flex-wrap mb-3">
                                 <span class="badge bg-light text-dark border font-monospace px-2 py-1" style="font-size: 10.5px;">
                                     <i class="fa-solid fa-id-card me-1 text-muted"></i> <?= ViewHelper::e($v['license_number'] ?: 'VET-CERT-APPROVED') ?>
@@ -284,39 +306,51 @@ $totalVets = count($vets);
                                 <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 fw-bold" style="font-size: 10.5px;">
                                     <i class="fa-solid fa-star me-1 text-warning"></i> 4.9 (120+ Reviews)
                                 </span>
+                                <span class="badge bg-info-subtle text-info border border-info-subtle px-2 py-1" style="font-size: 10.5px;">
+                                    <i class="fa-solid fa-video me-1"></i> HD Live Call
+                                </span>
                             </div>
 
-                            <!-- Clinic & Physical Practice Location Card -->
-                            <div class="p-3 rounded-3 bg-light border mb-3 small">
-                                <div class="fw-bold text-dark mb-1 text-truncate" style="font-size: 12.5px;">
+                            <!-- Clinic & Practice Location Box -->
+                            <div class="vet-clinic-box mb-3">
+                                <div class="fw-bold text-dark mb-1 text-truncate">
                                     <i class="fa-solid fa-hospital me-1 text-brand"></i> <?= ViewHelper::e($v['clinic_name'] ?: 'PetGuard Central Hospital') ?>
                                 </div>
-                                <div class="text-muted text-truncate" style="font-size: 11.5px;">
+                                <div class="text-muted text-truncate mb-1" style="font-size: 11.5px;">
                                     <i class="fa-solid fa-location-dot me-1 text-danger"></i> <?= ViewHelper::e($v['clinic_address'] ?: 'Metro Clinical District') ?>
                                 </div>
+                                <?php if (!empty($v['phone'])): ?>
+                                    <div class="text-muted text-truncate" style="font-size: 11px;">
+                                        <i class="fa-solid fa-phone me-1 text-muted"></i> <?= ViewHelper::e($v['phone']) ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
 
-                            <!-- Bio Description Excerpt -->
+                            <!-- Short Bio Excerpt -->
                             <?php if (!empty($v['bio'])): ?>
-                                <p class="text-muted small mb-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 12.5px; line-height: 1.55;">
+                                <p class="text-muted small mb-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 12px; line-height: 1.55;">
                                     <?= ViewHelper::e($v['bio']) ?>
                                 </p>
                             <?php endif; ?>
                         </div>
 
-                        <!-- Card Action Buttons Grid -->
-                        <div class="pt-3 border-top vet-action-btn-row">
-                            <a href="<?= ViewHelper::url('portal/vets/' . $v['id']) ?>" class="btn btn-sm btn-outline-secondary rounded-pill fw-semibold d-inline-flex align-items-center justify-content-center gap-1 shadow-sm" style="font-size: 12px; min-height: 38px;">
-                                <i class="fa-regular fa-eye"></i> View Profile
+                        <!-- Card Action Buttons Hierarchy -->
+                        <div class="pt-3 border-top vet-card-actions">
+                            <!-- Full-Width View Profile Button -->
+                            <a href="<?= ViewHelper::url('portal/vets/' . $v['id']) ?>" class="btn btn-sm btn-outline-secondary rounded-pill fw-semibold d-inline-flex align-items-center justify-content-center gap-1 shadow-sm w-100" style="font-size: 12.5px; min-height: 38px;">
+                                <i class="fa-regular fa-eye"></i> View Profile &amp; Credentials
                             </a>
-                            
-                            <button type="button" class="btn btn-sm btn-success rounded-pill fw-bold d-inline-flex align-items-center justify-content-center gap-1 shadow-sm" style="font-size: 12px; min-height: 38px;" onclick="PetGuardCall.initiateCall(<?= (int)$v['id'] ?>, 'video', 'direct')" title="Launch 1-Click Telemedicine Video Call">
-                                <i class="fa-solid fa-video"></i> Call
-                            </button>
 
-                            <button type="button" class="btn btn-sm btn-admin-primary rounded-pill fw-bold d-inline-flex align-items-center justify-content-center gap-1 shadow-sm" style="font-size: 12px; min-height: 38px;" onclick="openBookModalForVet(<?= (int)$v['id'] ?>, '<?= addslashes($v['name']) ?>')" title="Book Clinic or Video Consultation">
-                                <i class="fa-solid fa-calendar-plus"></i> Book
-                            </button>
+                            <!-- Two-Column Call & Book Action Row -->
+                            <div class="vet-action-row-split">
+                                <button type="button" class="btn btn-sm btn-success rounded-pill fw-bold d-inline-flex align-items-center justify-content-center gap-1 shadow-sm" style="font-size: 12px; min-height: 38px;" onclick="PetGuardCall.initiateCall(<?= (int)$v['id'] ?>, 'video', 'direct')" title="Start 1-Click Video Consultation">
+                                    <i class="fa-solid fa-video"></i> Call Vet
+                                </button>
+
+                                <button type="button" class="btn btn-sm btn-admin-primary rounded-pill fw-bold d-inline-flex align-items-center justify-content-center gap-1 shadow-sm" style="font-size: 12px; min-height: 38px;" onclick="openBookModalForVet(<?= (int)$v['id'] ?>, '<?= addslashes($v['name']) ?>')" title="Book Clinic Visit or Video Call">
+                                    <i class="fa-solid fa-calendar-plus"></i> Book Visit
+                                </button>
+                            </div>
                         </div>
 
                     </div>
@@ -424,7 +458,7 @@ function filterVetCards() {
 }
 
 function filterBySpecialization(specKey, btn) {
-    document.querySelectorAll('.vet-filter-btn').forEach(b => {
+    document.querySelectorAll('.vet-filter-pill-btn').forEach(b => {
         b.classList.remove('btn-dark', 'active');
         b.classList.add('btn-light', 'border');
     });
