@@ -313,6 +313,8 @@ $router->get('/portal/reports/health/:id', [OwnerPortalController::class, 'healt
 // Settings
 $router->get('/portal/settings', [OwnerPortalController::class, 'settings'], $ownerGuards);
 $router->post('/portal/settings/profile', [OwnerPortalController::class, 'updateProfile'], $ownerActionGuards);
+$router->post('/portal/settings/update', [OwnerPortalController::class, 'updateProfile'], $ownerActionGuards);
+$router->post('/portal/settings/password', [OwnerPortalController::class, 'updatePassword'], $ownerActionGuards);
 
 // Super-Fast Live Search API (Strict Owner Privacy)
 $router->get('/portal/api/search', [OwnerPortalController::class, 'apiSearch'], $ownerGuards);

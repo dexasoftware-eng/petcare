@@ -1295,37 +1295,7 @@ class OwnerPortalController extends Controller
     }
 
     // =========================================================================
-    // 14. SETTINGS & PROFILE
-    // =========================================================================
-    public function settings(): void
-    {
-        $this->requireAuth();
-
-        $this->render('portal.owner.settings.index', [
-            'pageTitle' => 'Account Settings & Privacy — PetGuard',
-            'user' => $this->user
-        ], 'portal');
-    }
-
-    public function updateProfile(): void
-    {
-        $this->requireAuth();
-        $name = trim($this->request->input('name', $this->user['name']));
-        $phone = trim($this->request->input('phone', $this->user['phone'] ?? ''));
-        $address = trim($this->request->input('address', $this->user['address'] ?? ''));
-
-        User::update($this->userId, [
-            'name' => $name,
-            'phone' => $phone,
-            'address' => $address
-        ]);
-
-        Flash::success('Your profile details have been saved.');
-        $this->redirect('portal/settings');
-    }
-
-    // =========================================================================
-    // 15. ADVANCED SUPER-FAST OWNER SEARCH (STRICT DATA PRIVACY ISOLATION)
+    // 14. ADVANCED SUPER-FAST OWNER SEARCH (STRICT DATA PRIVACY ISOLATION)
     // =========================================================================
     public function apiSearch(): void
     {
@@ -1443,5 +1413,113 @@ class OwnerPortalController extends Controller
             'count' => count($results),
             'results' => $results
         ]);
+    }
+
+    // =========================================================================
+    // 15. ACCOUNT SETTINGS & PRIVACY
+    // =========================================================================
+    public function settings(): void
+    {
+        $this->requireAuth();
+        $petsCount = Pet::count("user_id = {$this->userId}");
+        $user = User::find($this->userId) ?? $this->user;
+
+        $this->render('portal.owner.settings.index', [
+            'pageTitle' => 'Account Settings & Privacy Controls — PetGuard',
+            'user' => $user,
+            'petsCount' => $petsCount
+        ], 'portal');
+    }
+
+    public function updateProfile(): void
+    {
+        $this->requireAuth();
+        $this->validateCsrf();
+
+        $name = trim($this->request->input('name', ''));
+        $phone = trim($this->request->input('phone', ''));
+        $address = trim($this->request->input('address', ''));
+
+        if (empty($name)) {
+            if ($this->request->isAjax()) {
+                $this->jsonError('Full name is required.');
+            }
+            Flash::error('Full name is required.');
+            $this->redirect('portal/settings');
+            return;
+        }
+
+        User::update($this->userId, [
+            'name' => $name,
+            'phone' => $phone,
+            'address' => $address
+        ]);
+
+        // Refresh session
+        $updatedUser = User::find($this->userId);
+        if ($updatedUser) {
+            \Core\Session::set('user', $updatedUser);
+        }
+
+        AuditLog::log('USER_PROFILE_UPDATED', 'users', $this->userId, ['name' => $name]);
+
+        if ($this->request->isAjax()) {
+            $this->jsonSuccess('Profile information updated successfully.');
+        } else {
+            Flash::success('Profile information updated successfully.');
+            $this->redirect('portal/settings');
+        }
+    }
+
+    public function updatePassword(): void
+    {
+        $this->requireAuth();
+        $this->validateCsrf();
+
+        $currentPassword = $this->request->input('current_password', '');
+        $newPassword = $this->request->input('new_password', '');
+        $confirmPassword = $this->request->input('confirm_password', '');
+
+        $user = User::find($this->userId);
+
+        if (!$user || !password_verify($currentPassword, $user['password_hash'])) {
+            if ($this->request->isAjax()) {
+                $this->jsonError('The current password provided is incorrect.');
+            }
+            Flash::error('The current password provided is incorrect.');
+            $this->redirect('portal/settings');
+            return;
+        }
+
+        if (strlen($newPassword) < 6) {
+            if ($this->request->isAjax()) {
+                $this->jsonError('New password must be at least 6 characters.');
+            }
+            Flash::error('New password must be at least 6 characters.');
+            $this->redirect('portal/settings');
+            return;
+        }
+
+        if ($newPassword !== $confirmPassword) {
+            if ($this->request->isAjax()) {
+                $this->jsonError('New passwords do not match.');
+            }
+            Flash::error('New passwords do not match.');
+            $this->redirect('portal/settings');
+            return;
+        }
+
+        User::update($this->userId, [
+            'password_hash' => password_hash($newPassword, PASSWORD_DEFAULT)
+        ]);
+
+        AuditLog::log('PASSWORD_CHANGED', 'users', $this->userId);
+
+        if ($this->request->isAjax()) {
+            $this->jsonSuccess('Security credentials updated. Your password has been changed.');
+        } else {
+            Flash::success('Security credentials updated. Your password has been changed.');
+            $this->redirect('portal/settings');
+        }
     }
 }

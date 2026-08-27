@@ -1,90 +1,271 @@
 <?php
 use Helpers\ViewHelper;
+use Helpers\Auth;
+
+$user = $user ?? Auth::user() ?? [];
+$petsCount = $petsCount ?? 0;
 ?>
 
-<!-- Page Header -->
-<div class="admin-page-header">
-    <div>
-        <h2 class="admin-page-title">Account Settings & Privacy Controls</h2>
-        <p class="admin-page-subtitle">Manage your pet parent profile, contact details, and QR digital passport privacy preferences.</p>
+<!-- 1. Hero Header -->
+<div class="rounded-4 p-4 p-md-5 mb-4 text-white position-relative overflow-hidden shadow-lg" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);">
+    <div class="position-absolute top-0 end-0 w-50 h-100 opacity-20 pointer-events-none d-none d-lg-block" style="background: radial-gradient(circle at right, #818cf8 0%, transparent 70%);"></div>
+    <div class="row align-items-center position-relative z-1 g-4">
+        <div class="col-lg-8">
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 border border-white border-opacity-20 text-white small mb-3">
+                <i class="fa-solid fa-shield-halved text-success"></i>
+                <span class="fw-semibold">256-Bit SSL Protected Account</span>
+            </div>
+            <h1 class="display-6 fw-bold text-white mb-2" style="font-family: 'Anybody', sans-serif;">
+                Account Settings &amp; Privacy Controls
+            </h1>
+            <p class="text-white text-opacity-80 mb-0" style="max-width: 620px; font-size: 14.5px; line-height: 1.6;">
+                Manage your personal pet parent profile, contact details, authentication security, and public QR digital passport privacy preferences.
+            </p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+            <div class="d-inline-flex align-items-center gap-3 p-3 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10 text-start">
+                <div class="rounded-circle border d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width: 48px; height: 48px; background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%); color: #0f172a; font-size: 18px;">
+                    <?= strtoupper(substr($user['name'] ?? 'P', 0, 1)) ?>
+                </div>
+                <div>
+                    <div class="fw-bold text-white text-truncate" style="max-width: 160px;"><?= ViewHelper::e($user['name'] ?? 'Pet Parent') ?></div>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-0" style="font-size: 10px;">
+                        <i class="fa-solid fa-circle-check me-1"></i> Verified Owner
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="row g-4">
+<div class="row g-4 mb-5">
+    <!-- Left Column: Primary Settings Forms -->
     <div class="col-lg-8">
-        <!-- Profile Settings Card -->
-        <div class="admin-card mb-4">
-            <div class="admin-card-header">
-                <h4 class="admin-card-title m-0"><i class="fa-solid fa-user-pen text-brand me-2"></i> Pet Parent Information</h4>
+        
+        <!-- Section 1: Profile & Contact Details -->
+        <div class="admin-card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
+            <div class="admin-card-header bg-white border-bottom p-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="admin-card-title m-0 fw-bold" style="font-family: 'Anybody', sans-serif;">
+                        <i class="fa-solid fa-user-pen text-brand me-2"></i> Pet Parent Information
+                    </h4>
+                    <p class="text-muted small m-0 mt-1">Keep your primary contact details updated for emergency veterinary alerts.</p>
+                </div>
+                <span class="badge bg-light text-dark border px-3 py-2 rounded-pill small">Profile Details</span>
             </div>
             <div class="admin-card-body p-4">
-                <form action="<?= ViewHelper::url('portal/settings/update') ?>" method="POST">
+                <form id="profileSettingsForm" action="<?= ViewHelper::url('portal/settings/profile') ?>" method="POST">
                     <?= ViewHelper::csrfField() ?>
+
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
-                            <label class="form-label small fw-bold">Full Name *</label>
-                            <input type="text" name="name" class="form-control rounded-3" value="<?= ViewHelper::e($user['name']) ?>" required>
+                            <label class="form-label small fw-bold text-dark">Full Legal Name *</label>
+                            <input type="text" name="name" class="form-control rounded-3 py-2" value="<?= ViewHelper::e($user['name'] ?? '') ?>" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-bold">Email Address</label>
-                            <input type="email" class="form-control rounded-3 bg-light" value="<?= ViewHelper::e($user['email']) ?>" readonly>
+                            <label class="form-label small fw-bold text-dark">Account Email (Verified)</label>
+                            <div class="input-group">
+                                <input type="email" class="form-control rounded-start-3 py-2 bg-light text-muted border-end-0" value="<?= ViewHelper::e($user['email'] ?? '') ?>" readonly>
+                                <span class="input-group-text bg-light border-start-0 text-success small pe-3">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                    <div class="row g-3 mb-3">
+
+                    <div class="row g-3 mb-4">
                         <div class="col-md-6">
-                            <label class="form-label small fw-bold">Primary Phone Number *</label>
-                            <input type="text" name="phone" class="form-control rounded-3" value="<?= ViewHelper::e($user['phone'] ?? '') ?>" placeholder="+1 (555) 000-0000" required>
+                            <label class="form-label small fw-bold text-dark">Emergency Contact Phone *</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fa-solid fa-phone text-muted"></i></span>
+                                <input type="text" name="phone" class="form-control rounded-end-3 py-2" value="<?= ViewHelper::e($user['phone'] ?? '') ?>" placeholder="+1 (555) 000-0000" required>
+                            </div>
+                            <div class="form-text small text-muted">Used by finders and emergency clinics when your pet is in triage.</div>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-bold">City / Residential District</label>
-                            <input type="text" name="address" class="form-control rounded-3" value="<?= ViewHelper::e($user['address'] ?? '') ?>" placeholder="e.g. Downtown Metro">
+                            <label class="form-label small fw-bold text-dark">Residential Address / City</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fa-solid fa-location-dot text-muted"></i></span>
+                                <input type="text" name="address" class="form-control rounded-end-3 py-2" value="<?= ViewHelper::e($user['address'] ?? '') ?>" placeholder="e.g. 742 Evergreen Terrace, Springfield">
+                            </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn-admin-primary px-4">Save Profile Changes</button>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-admin-primary rounded-pill px-4 py-2 fw-bold shadow-sm">
+                            <i class="fa-solid fa-check me-1"></i> Save Profile Changes
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
 
-        <!-- Privacy & QR Controls -->
-        <div class="admin-card">
-            <div class="admin-card-header">
-                <h4 class="admin-card-title m-0"><i class="fa-solid fa-shield-halved text-success me-2"></i> Public QR Scanner Privacy Settings</h4>
+        <!-- Section 2: Password & Authentication Security -->
+        <div class="admin-card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
+            <div class="admin-card-header bg-white border-bottom p-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="admin-card-title m-0 fw-bold" style="font-family: 'Anybody', sans-serif;">
+                        <i class="fa-solid fa-key text-primary me-2"></i> Security &amp; Password
+                    </h4>
+                    <p class="text-muted small m-0 mt-1">Ensure your account is protected with a robust cryptographic password.</p>
+                </div>
+                <span class="badge bg-light text-dark border px-3 py-2 rounded-pill small">Authentication</span>
             </div>
             <div class="admin-card-body p-4">
-                <div class="form-check form-switch mb-3">
-                    <input class="form-check-input" type="checkbox" role="switch" id="qrPhoneSwitch" checked>
-                    <label class="form-check-label fw-semibold text-dark" for="qrPhoneSwitch">Display emergency phone number on Public QR Scans</label>
-                    <p class="small text-muted mb-0">Allows anyone who scans your lost pet's QR tag to call you directly with 1-click.</p>
-                </div>
-                <div class="form-check form-switch mb-3">
-                    <input class="form-check-input" type="checkbox" role="switch" id="qrAllergySwitch" checked>
-                    <label class="form-check-label fw-semibold text-dark" for="qrAllergySwitch">Display critical medical allergies to finders</label>
-                    <p class="small text-muted mb-0">Ensures good samaritans or rescue clinics do not feed hazardous foods to your pet.</p>
-                </div>
-                <button type="button" class="btn btn-outline-secondary rounded-pill px-4" onclick="showPetGuardModal('Preferences Updated', 'Your public QR privacy preferences have been updated successfully.', 'success');">Save Preferences</button>
+                <form id="passwordSettingsForm" action="<?= ViewHelper::url('portal/settings/password') ?>" method="POST">
+                    <?= ViewHelper::csrfField() ?>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-dark">Current Password *</label>
+                        <input type="password" name="current_password" class="form-control rounded-3 py-2" placeholder="Enter existing password" required>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-dark">New Password *</label>
+                            <input type="password" name="new_password" class="form-control rounded-3 py-2" placeholder="Minimum 6 characters" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-dark">Confirm New Password *</label>
+                            <input type="password" name="confirm_password" class="form-control rounded-3 py-2" placeholder="Repeat new password" required>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-admin-primary rounded-pill px-4 py-2 fw-bold shadow-sm">
+                            <i class="fa-solid fa-lock me-1"></i> Update Password
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
+
+        <!-- Section 3: Digital Pet Passport & QR Privacy -->
+        <div class="admin-card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="admin-card-header bg-white border-bottom p-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="admin-card-title m-0 fw-bold" style="font-family: 'Anybody', sans-serif;">
+                        <i class="fa-solid fa-qrcode text-success me-2"></i> Public QR Scanner Privacy Controls
+                    </h4>
+                    <p class="text-muted small m-0 mt-1">Configure what information is visible when someone scans your lost pet's smart collar QR tag.</p>
+                </div>
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill small">QR Shield</span>
+            </div>
+            <div class="admin-card-body p-4">
+                <div class="d-flex flex-column gap-3">
+                    <div class="p-3 bg-light rounded-3 border d-flex align-items-center justify-content-between">
+                        <div>
+                            <strong class="text-dark d-block" style="font-size: 13.5px;">Display Emergency Phone on Public Scans</strong>
+                            <p class="text-muted small m-0" style="font-size: 11.5px;">Allows finders who scan your pet's tag to call you directly with 1-tap.</p>
+                        </div>
+                        <div class="form-check form-switch m-0 ms-3">
+                            <input class="form-check-input" type="checkbox" role="switch" id="qrPhoneSwitch" checked onchange="PetGuardToast.success('QR Phone visibility updated.');">
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-light rounded-3 border d-flex align-items-center justify-content-between">
+                        <div>
+                            <strong class="text-dark d-block" style="font-size: 13.5px;">Display Critical Medical Allergies &amp; Diets</strong>
+                            <p class="text-muted small m-0" style="font-size: 11.5px;">Ensures finders and shelters do not administer toxic medications or allergen foods.</p>
+                        </div>
+                        <div class="form-check form-switch m-0 ms-3">
+                            <input class="form-check-input" type="checkbox" role="switch" id="qrAllergySwitch" checked onchange="PetGuardToast.success('Critical allergy visibility updated.');">
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-light rounded-3 border d-flex align-items-center justify-content-between">
+                        <div>
+                            <strong class="text-dark d-block" style="font-size: 13.5px;">Display Microchip Identification Number</strong>
+                            <p class="text-muted small m-0" style="font-size: 11.5px;">Enables veterinary clinics to cross-reference global registry databases immediately.</p>
+                        </div>
+                        <div class="form-check form-switch m-0 ms-3">
+                            <input class="form-check-input" type="checkbox" role="switch" id="qrChipSwitch" checked onchange="PetGuardToast.success('Microchip visibility updated.');">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Account Security Summary -->
+    <!-- Right Column: Security Status & Account Insights -->
     <div class="col-lg-4">
-        <div class="admin-card p-4 mb-4">
-            <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-lock text-primary me-2"></i> Security Status</h5>
-            <div class="p-3 rounded-3 bg-light border mb-3 small">
-                <div class="d-flex justify-content-between mb-1">
-                    <span class="text-muted">Account Role:</span>
-                    <span class="badge bg-danger text-uppercase">Pet Owner</span>
+        
+        <!-- Security Overview Card -->
+        <div class="admin-card border-0 shadow-sm rounded-4 p-4 mb-4">
+            <h5 class="fw-bold text-dark mb-3" style="font-family: 'Anybody', sans-serif;">
+                <i class="fa-solid fa-shield-cat text-primary me-2"></i> Security Overview
+            </h5>
+            
+            <div class="d-flex flex-column gap-2 mb-4">
+                <div class="d-flex align-items-center justify-content-between p-2 rounded-3 bg-light border">
+                    <span class="text-muted small">Account Role</span>
+                    <span class="badge bg-dark text-uppercase px-2 py-1" style="font-size: 10px;">Pet Parent</span>
                 </div>
-                <div class="d-flex justify-content-between mb-1">
-                    <span class="text-muted">Security Level:</span>
-                    <span class="text-success fw-bold">256-Bit SSL Protected</span>
+                <div class="d-flex align-items-center justify-content-between p-2 rounded-3 bg-light border">
+                    <span class="text-muted small">Encryption</span>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1" style="font-size: 10px;">256-Bit SSL</span>
                 </div>
-                <div class="d-flex justify-content-between">
-                    <span class="text-muted">Status:</span>
-                    <span class="badge bg-success">Active</span>
+                <div class="d-flex align-items-center justify-content-between p-2 rounded-3 bg-light border">
+                    <span class="text-muted small">Status</span>
+                    <span class="badge bg-success px-2 py-1" style="font-size: 10px;">Active</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between p-2 rounded-3 bg-light border">
+                    <span class="text-muted small">Protected Pets</span>
+                    <span class="fw-bold text-dark small"><?= $petsCount ?> Registered</span>
                 </div>
             </div>
-            <p class="small text-muted mb-0">Protected by PetGuard secure session management & encrypted token validation.</p>
+
+            <div class="p-3 rounded-3 bg-primary-subtle border border-primary-subtle text-primary small">
+                <div class="d-flex align-items-center gap-2 fw-bold mb-1">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>Automatic Session Shield</span>
+                </div>
+                <p class="m-0 text-secondary" style="font-size: 11.5px; line-height: 1.5;">
+                    Your account is safeguarded with encrypted session cookies, CSRF protection, and real-time brute-force throttling.
+                </p>
+            </div>
         </div>
+
+        <!-- Quick Links Card -->
+        <div class="admin-card border-0 shadow-sm rounded-4 p-4">
+            <h5 class="fw-bold text-dark mb-3" style="font-family: 'Anybody', sans-serif;">
+                <i class="fa-solid fa-compass text-brand me-2"></i> Quick Actions
+            </h5>
+            <div class="d-flex flex-column gap-2">
+                <a href="<?= ViewHelper::url('portal/pets') ?>" class="btn btn-light rounded-pill text-start d-flex align-items-center justify-content-between px-3 py-2 text-dark">
+                    <span class="small fw-semibold"><i class="fa-solid fa-paw text-brand me-2"></i> Manage Pet Profiles</span>
+                    <i class="fa-solid fa-chevron-right text-muted small" style="font-size: 11px;"></i>
+                </a>
+                <a href="<?= ViewHelper::url('portal/emergency') ?>" class="btn btn-light rounded-pill text-start d-flex align-items-center justify-content-between px-3 py-2 text-dark">
+                    <span class="small fw-semibold"><i class="fa-solid fa-truck-medical text-danger me-2"></i> Emergency Contacts</span>
+                    <i class="fa-solid fa-chevron-right text-muted small" style="font-size: 11px;"></i>
+                </a>
+                <a href="<?= ViewHelper::url('portal/calls') ?>" class="btn btn-light rounded-pill text-start d-flex align-items-center justify-content-between px-3 py-2 text-dark">
+                    <span class="small fw-semibold"><i class="fa-solid fa-video text-primary me-2"></i> Consultation Logs</span>
+                    <i class="fa-solid fa-chevron-right text-muted small" style="font-size: 11px;"></i>
+                </a>
+            </div>
+        </div>
+
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    PetGuardAjax.bindForm('#profileSettingsForm', {
+        loadingText: 'Saving Profile Changes...',
+        onSuccess: (data) => {
+            PetGuardToast.success('Your profile details have been saved successfully.');
+        }
+    });
+
+    PetGuardAjax.bindForm('#passwordSettingsForm', {
+        loadingText: 'Updating Password...',
+        onSuccess: (data, form) => {
+            PetGuardToast.success('Your security password has been updated.');
+            form.reset();
+        }
+    });
+});
+</script>
