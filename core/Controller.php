@@ -75,6 +75,25 @@ abstract class Controller
         exit;
     }
 
+    protected function validateCsrf(): void
+    {
+        $token = $this->request->input('_csrf') 
+              ?: $this->request->input('csrf_token') 
+              ?: $this->request->input('_token') 
+              ?: ($_SERVER['HTTP_X_CSRF_TOKEN'] ?? null) 
+              ?: ($_SERVER['HTTP_X_XSRF_TOKEN'] ?? null);
+
+        if (!Session::validateCsrf($token)) {
+            if ($this->request->isAjax()) {
+                $this->json(['success' => false, 'message' => 'Security token expired. Please refresh the page.'], 419);
+                exit;
+            }
+            \Helpers\Flash::error('Security token expired. Please try submitting the form again.');
+            $this->back();
+            exit;
+        }
+    }
+
     protected function setFlash(string $type, string $message): void
     {
         Session::setFlash($type, $message);

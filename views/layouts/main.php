@@ -7,8 +7,10 @@ use Core\View;
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<?= ViewHelper::csrfToken() ?>">
     <title><?= ViewHelper::e($pageTitle ?? 'PetGuard — Pet Care & Clinic') ?></title>
     <link rel="icon" href="<?= ViewHelper::asset('img/heading-img.png') ?>">
+    <script>window.PetGuardCsrf = '<?= ViewHelper::csrfToken() ?>';</script>
 
     <!-- Core Styles -->
     <link rel="stylesheet" type="text/css" href="<?= ViewHelper::asset('css/bootstrap.min.css') ?>">

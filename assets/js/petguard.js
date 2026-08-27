@@ -274,6 +274,11 @@
         },
 
         async request(url, options = {}) {
+            const csrfToken = window.PetGuardCsrf 
+                || document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') 
+                || document.querySelector('input[name="_csrf"]')?.value 
+                || '';
+
             const defaults = {
                 method: 'GET',
                 headers: {
@@ -282,12 +287,23 @@
                 }
             };
 
+            if (csrfToken) {
+                defaults.headers['X-CSRF-Token'] = csrfToken;
+            }
+
             const config = { ...defaults, ...options };
             config.headers = { ...defaults.headers, ...options.headers };
 
             if (config.body && typeof config.body === 'object' && !(config.body instanceof FormData)) {
+                if (csrfToken && !config.body._csrf && !config.body.csrf_token) {
+                    config.body._csrf = csrfToken;
+                }
                 config.headers['Content-Type'] = 'application/json';
                 config.body = JSON.stringify(config.body);
+            } else if (config.body instanceof FormData && csrfToken) {
+                if (!config.body.has('_csrf') && !config.body.has('csrf_token')) {
+                    config.body.append('_csrf', csrfToken);
+                }
             }
 
             try {
