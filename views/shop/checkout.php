@@ -15,24 +15,24 @@ $lastName = $nameParts[1] ?? '';
 ?>
 
 <!-- 1. Hero Banner -->
-<section class="banner shop-hero-banner">
-    <div class="container position-relative z-1">
+<section class="banner" style="background-image:url(<?= ViewHelper::asset('img/banner.png') ?>);">
+    <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-12 text-center">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill hero-badge mb-3 shadow-sm">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-25 text-white small mb-3">
                     <i class="fa-solid fa-lock text-success"></i>
                     <span class="fw-semibold">256-Bit End-to-End Encrypted Checkout</span>
                 </div>
-                <h1 class="text-white fw-bold mb-2 hero-title" style="font-family: 'Anybody', sans-serif;">
+                <h1 class="text-white fw-bold mb-2" style="font-family: 'Anybody', sans-serif; font-size: 36px;">
                     Checkout &amp; Payment
                 </h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb justify-content-center m-0" style="background: transparent;">
-                        <li class="breadcrumb-item"><a href="<?= ViewHelper::url() ?>" class="text-decoration-none">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?= ViewHelper::url('shop-cart') ?>" class="text-decoration-none">Cart</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
-                    </ol>
-                </nav>
+                <ul class="d-inline-flex list-unstyled gap-2 text-white small justify-content-center m-0">
+                    <li><a href="<?= ViewHelper::url() ?>" class="text-white text-decoration-none">Home</a></li>
+                    <li>/</li>
+                    <li><a href="<?= ViewHelper::url('shop-cart') ?>" class="text-white text-decoration-none">Cart</a></li>
+                    <li>/</li>
+                    <li class="text-white opacity-75">Checkout</li>
+                </ul>
             </div>
         </div>
     </div>

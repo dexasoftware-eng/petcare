@@ -7,23 +7,23 @@ $hasDiscount = !empty($product['old_price']) && (float)$product['old_price'] > (
 ?>
 
 <!-- 1. Breadcrumb Banner -->
-<section class="banner shop-hero-banner">
-    <div class="container position-relative z-1">
+<section class="banner" style="background-image:url(<?= ViewHelper::asset('img/banner.png') ?>);">
+    <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-12 text-center">
-                <span class="badge hero-badge px-3 py-1 rounded-pill mb-2 small shadow-sm">
+                <span class="badge bg-white bg-opacity-25 text-white px-3 py-1 rounded-pill mb-2 small">
                     <?= ViewHelper::e($product['category']) ?>
                 </span>
-                <h1 class="text-white fw-bold mb-2 hero-title" style="font-family: 'Anybody', sans-serif;">
+                <h1 class="text-white fw-bold mb-2" style="font-family: 'Anybody', sans-serif; font-size: 32px;">
                     <?= ViewHelper::e($product['name']) ?>
                 </h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb justify-content-center m-0" style="background: transparent;">
-                        <li class="breadcrumb-item"><a href="<?= ViewHelper::url() ?>" class="text-decoration-none">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?= ViewHelper::url('our-products') ?>" class="text-decoration-none">Shop</a></li>
-                        <li class="breadcrumb-item active text-truncate" style="max-width: 280px;" aria-current="page"><?= ViewHelper::e($product['name']) ?></li>
-                    </ol>
-                </nav>
+                <ul class="d-inline-flex list-unstyled gap-2 text-white small justify-content-center m-0">
+                    <li><a href="<?= ViewHelper::url() ?>" class="text-white text-decoration-none">Home</a></li>
+                    <li>/</li>
+                    <li><a href="<?= ViewHelper::url('our-products') ?>" class="text-white text-decoration-none">Shop</a></li>
+                    <li>/</li>
+                    <li class="text-white opacity-75 text-truncate" style="max-width: 250px;"><?= ViewHelper::e($product['name']) ?></li>
+                </ul>
             </div>
         </div>
     </div>
