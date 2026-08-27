@@ -275,6 +275,8 @@ $router->post('/portal/vets/:id/favorite', [OwnerPortalController::class, 'toggl
 // Emergency Center & Printable Cards
 $router->get('/portal/emergency', [OwnerPortalController::class, 'emergency'], $ownerGuards);
 $router->get('/portal/emergency/card/:id', [OwnerPortalController::class, 'emergencyCard'], $ownerGuards);
+$router->post('/portal/emergency/contacts/add', [OwnerPortalController::class, 'addEmergencyContact'], $ownerActionGuards);
+$router->post('/portal/emergency/contacts/:id/delete', [OwnerPortalController::class, 'deleteEmergencyContact'], $ownerActionGuards);
 
 // Digital Passport & Public Lost Pet QR Scanner
 $router->get('/portal/passport/:token', [OwnerPortalController::class, 'passport'], $ownerGuards);

@@ -342,28 +342,40 @@ use Helpers\ViewHelper;
         <!-- Left: Registered User Emergency Contacts -->
         <div class="col-12 col-lg-7">
             <div class="admin-card p-4 h-100" style="border-radius: 20px;">
-                <div class="d-flex justify-content-between align-items-center pb-3 border-bottom mb-3">
+                <div class="d-flex justify-content-between align-items-center pb-3 border-bottom mb-3 flex-wrap gap-2">
                     <div class="d-flex align-items-center gap-2">
                         <div class="stat-card-icon icon-blue" style="width: 36px; height: 36px; font-size: 14px; border-radius: 10px;">
                             <i class="fa-solid fa-address-book"></i>
                         </div>
-                        <h5 class="fw-bold text-dark m-0">Registered Emergency Contacts</h5>
+                        <div>
+                            <h5 class="fw-bold text-dark m-0">Registered Emergency Contacts</h5>
+                            <small class="text-muted">Direct contacts notified in critical situations</small>
+                        </div>
                     </div>
+                    <button type="button" class="btn btn-sm btn-admin-primary rounded-pill px-3 py-2 fw-bold shadow-sm d-inline-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#addEmergencyContactModal">
+                        <i class="fa-solid fa-plus"></i> Add Contact
+                    </button>
                 </div>
 
                 <?php if (empty($contacts)): ?>
                     <div class="p-4 text-center text-muted bg-light rounded-3 border">
                         <i class="fa-solid fa-phone-slash fs-2 text-muted mb-2 d-block"></i>
-                        <p class="small mb-0">No dedicated emergency contacts added yet. Defaulting to registered pet owner contact.</p>
+                        <p class="small mb-2">No dedicated emergency contacts added yet. Defaulting to registered pet owner contact.</p>
+                        <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#addEmergencyContactModal">
+                            <i class="fa-solid fa-plus me-1"></i> Add First Emergency Contact
+                        </button>
                     </div>
                 <?php else: ?>
                     <div class="d-flex flex-column gap-3">
                         <?php foreach ($contacts as $c): ?>
                             <div class="p-3 rounded-3 border bg-light d-flex justify-content-between align-items-center flex-wrap gap-2">
                                 <div class="min-w-0 flex-grow-1" style="overflow: hidden;">
-                                    <div class="fw-bold text-dark text-truncate">
-                                        <?= ViewHelper::e($c['contact_name']) ?> 
-                                        <span class="badge bg-white text-secondary border font-monospace ms-1"><?= ViewHelper::e($c['relationship']) ?></span>
+                                    <div class="d-flex align-items-center gap-1 flex-wrap">
+                                        <span class="fw-bold text-dark text-truncate"><?= ViewHelper::e($c['contact_name']) ?></span>
+                                        <span class="badge bg-white text-secondary border font-monospace" style="font-size: 10.5px;"><?= ViewHelper::e($c['relationship']) ?></span>
+                                        <?php if (!empty($c['pet_name'])): ?>
+                                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle" style="font-size: 10px;">For: <?= ViewHelper::e($c['pet_name']) ?></span>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="small text-muted mt-1 text-truncate">
                                         <i class="fa-solid fa-phone text-success me-1"></i> <strong><?= ViewHelper::e($c['phone']) ?></strong>
@@ -372,10 +384,16 @@ use Helpers\ViewHelper;
                                         <small class="text-muted d-block mt-1 text-truncate"><i class="fa-solid fa-hospital text-brand me-1"></i> <?= ViewHelper::e($c['clinic_name']) ?></small>
                                     <?php endif; ?>
                                 </div>
-                                <div class="d-flex gap-2 flex-shrink-0">
+                                <div class="d-flex align-items-center gap-2 flex-shrink-0">
                                     <a href="tel:<?= urlencode($c['phone']) ?>" class="btn btn-sm btn-success rounded-pill px-3 py-2 fw-bold shadow-sm d-inline-flex align-items-center gap-1" style="font-size: 12px;">
                                         <i class="fa-solid fa-phone"></i> Call Now
                                     </a>
+                                    <form action="<?= ViewHelper::url('portal/emergency/contacts/' . $c['id'] . '/delete') ?>" method="POST" class="m-0" onsubmit="return confirm('Remove this emergency contact?');">
+                                        <?= ViewHelper::csrfField() ?>
+                                        <button type="submit" class="btn btn-sm btn-light text-danger rounded-circle border shadow-sm d-inline-flex align-items-center justify-content-center" style="width: 34px; height: 34px; padding: 0;" title="Remove Contact">
+                                            <i class="fa-regular fa-trash-can" style="font-size: 12px;"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -391,7 +409,10 @@ use Helpers\ViewHelper;
                     <div class="stat-card-icon icon-red" style="width: 36px; height: 36px; font-size: 14px; border-radius: 10px;">
                         <i class="fa-solid fa-hospital"></i>
                     </div>
-                    <h5 class="fw-bold text-dark m-0">Accredited 24/7 Animal ER Centers</h5>
+                    <div>
+                        <h5 class="fw-bold text-dark m-0">Accredited 24/7 Animal ER Centers</h5>
+                        <small class="text-muted">On-call trauma facilities in network</small>
+                    </div>
                 </div>
 
                 <div class="d-flex flex-column gap-3">
@@ -424,4 +445,84 @@ use Helpers\ViewHelper;
 
     </div>
 
+</div>
+
+<!-- Modal to Add New Emergency Contact -->
+<div class="modal fade" id="addEmergencyContactModal" tabindex="-1" aria-labelledby="addEmergencyContactModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 24px;">
+            <div class="modal-header p-4 border-bottom bg-light" style="border-radius: 24px 24px 0 0;">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="stat-card-icon icon-blue" style="width: 36px; height: 36px; font-size: 14px; border-radius: 10px;">
+                        <i class="fa-solid fa-address-book"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold text-dark m-0" id="addEmergencyContactModalLabel">Add Emergency Contact</h5>
+                        <p class="text-muted small m-0">Designate trusted contact or clinic for your companions</p>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form action="<?= ViewHelper::url('portal/emergency/contacts/add') ?>" method="POST">
+                <?= ViewHelper::csrfField() ?>
+
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-dark">Assign to Companion Pet *</label>
+                        <select name="pet_id" class="form-select rounded-3 py-2" required>
+                            <?php if (empty($pets)): ?>
+                                <option value="" disabled selected>No companions registered</option>
+                            <?php else: ?>
+                                <?php foreach ($pets as $p): ?>
+                                    <option value="<?= $p['id'] ?>"><?= ViewHelper::e($p['name']) ?> (<?= ViewHelper::e($p['species']) ?>)</option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-dark">Contact Person / Hospital Name *</label>
+                        <input type="text" name="contact_name" class="form-control rounded-3 py-2" placeholder="e.g. Dr. Robert Vance or Jane Doe" required>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label fw-bold small text-dark">Relationship / Role *</label>
+                            <select name="relationship" class="form-select rounded-3 py-2" required>
+                                <option value="Primary Veterinarian">Primary Veterinarian</option>
+                                <option value="Co-Owner / Family">Co-Owner / Family</option>
+                                <option value="24/7 Emergency Clinic">24/7 Emergency Clinic</option>
+                                <option value="Pet Sitter / Caretaker">Pet Sitter / Caretaker</option>
+                                <option value="Neighbor / Friend">Neighbor / Friend</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label fw-bold small text-dark">Emergency Phone *</label>
+                            <input type="tel" name="phone" class="form-control rounded-3 py-2" placeholder="+1-555-019-2834" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-dark">Associated Clinic / Hospital Name (Optional)</label>
+                        <input type="text" name="clinic_name" class="form-control rounded-3 py-2" placeholder="e.g. Central Metro Animal Hospital">
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="is_primary" value="1" id="isPrimaryCheck">
+                        <label class="form-check-label small text-dark fw-semibold" for="isPrimaryCheck">
+                            Set as primary emergency contact for this pet
+                        </label>
+                    </div>
+                </div>
+
+                <div class="modal-footer p-3 bg-light border-top d-flex justify-content-between" style="border-radius: 0 0 24px 24px;">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-admin-primary rounded-pill px-4 fw-bold shadow-sm">
+                        <i class="fa-solid fa-plus me-1"></i> Save Emergency Contact
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

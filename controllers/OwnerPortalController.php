@@ -806,6 +806,61 @@ class OwnerPortalController extends Controller
         ], 'portal');
     }
 
+    public function addEmergencyContact(): void
+    {
+        $this->requireAuth();
+        $this->validateCsrf();
+
+        $petId = (int)$this->request->input('pet_id');
+        $contactName = trim($this->request->input('contact_name', ''));
+        $phone = trim($this->request->input('phone', ''));
+        $relationship = trim($this->request->input('relationship', 'Emergency Contact'));
+        $clinicName = trim($this->request->input('clinic_name', ''));
+        $isPrimary = (int)$this->request->input('is_primary', 0);
+
+        if (empty($petId) || empty($contactName) || empty($phone)) {
+            Flash::error('Companion, contact name, and phone number are required.');
+            $this->redirect('portal/emergency');
+            return;
+        }
+
+        $pet = $this->verifyPetOwnership($petId);
+        if (!$pet) {
+            Flash::error('Unauthorized companion selection.');
+            $this->redirect('portal/emergency');
+            return;
+        }
+
+        PetEmergencyContact::create([
+            'pet_id' => $petId,
+            'user_id' => $this->userId,
+            'contact_name' => $contactName,
+            'phone' => $phone,
+            'relationship' => $relationship,
+            'clinic_name' => $clinicName,
+            'is_primary' => $isPrimary
+        ]);
+
+        Flash::success("Emergency contact '{$contactName}' registered successfully.");
+        $this->redirect('portal/emergency');
+    }
+
+    public function deleteEmergencyContact(int|string $id): void
+    {
+        $this->requireAuth();
+        $this->validateCsrf();
+
+        $contact = PetEmergencyContact::find((int)$id);
+        if ($contact && (int)$contact['user_id'] === $this->userId) {
+            PetEmergencyContact::delete((int)$id);
+            Flash::success('Emergency contact removed.');
+        } else {
+            Flash::error('Contact not found or unauthorized.');
+        }
+
+        $this->redirect('portal/emergency');
+    }
+
     // =========================================================================
     // 8. DIGITAL PASSPORT & PUBLIC QR IDENTIFICATION
     // =========================================================================
