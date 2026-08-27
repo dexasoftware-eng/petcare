@@ -2,17 +2,24 @@
 use Helpers\ViewHelper;
 ?>
 
-<!-- Page Header -->
-<div class="admin-page-header">
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title">Notification Center</h2>
-        <p class="admin-page-subtitle">Platform broadcasts, vaccination alerts, appointment updates, and clinical notices.</p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-bell text-warning"></i>
+            <span>Real-Time Alert Feed</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">Direct Updates</span>
+        </div>
+        <h2 class="portal-hero-title">Notification Center 🔔</h2>
+        <p class="portal-hero-subtitle">Platform broadcasts, vaccination alerts, appointment updates, and clinical notices.</p>
     </div>
-    <div>
+    <div class="d-flex flex-wrap gap-2">
         <form action="<?= ViewHelper::url('portal/notifications/read-all') ?>" method="POST" class="m-0">
             <?= ViewHelper::csrfField() ?>
-            <button type="submit" class="btn btn-sm btn-outline-secondary rounded-pill px-4 fw-semibold">
-                <i class="fa-solid fa-check-double me-1"></i> Mark All as Read
+            <button type="submit" class="btn btn-admin-secondary">
+                <i class="fa-solid fa-check-double"></i>
+                <span>Mark All as Read</span>
             </button>
         </form>
     </div>

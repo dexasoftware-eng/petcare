@@ -2,14 +2,24 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h3 class="fw-bold text-dark m-0"><i class="fa-solid fa-brain me-2" style="color: #8b5cf6;"></i> AI Pet Care Assistant</h3>
-        <p class="text-muted small m-0">Ask nutrition, wellness, exercise, and routine questions powered by OpenRouter AI with patient profile context.</p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-brain text-warning"></i>
+            <span>Intelligent Clinical Advisor</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">OpenRouter Free Engine</span>
+        </div>
+        <h2 class="portal-hero-title">AI Pet Care Assistant 🤖</h2>
+        <p class="portal-hero-subtitle">Ask nutrition, wellness, exercise, and routine questions powered by AI with pet health profile context.</p>
     </div>
-    <span class="badge bg-dark rounded-pill px-3 py-2 text-warning fw-semibold">
-        <i class="fa-solid fa-robot me-1"></i> OpenRouter Free AI Engine
-    </span>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('portal/dashboard') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>My Portal</span>
+        </a>
+    </div>
 </div>
 
 <div class="row g-4">

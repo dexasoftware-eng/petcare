@@ -156,22 +156,28 @@ $avatarGradients = [
 <div class="vets-container py-2">
 
     <!-- Top Hero Header Banner -->
-    <div class="vet-hero mb-4">
-        <div class="row align-items-center g-3">
-            <div class="col-12 col-md-8">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small fw-bold mb-2 border border-white border-opacity-10">
-                    <i class="fa-solid fa-hospital-user text-brand"></i> Accredited Healthcare Directory
-                </div>
-                <h2 class="fw-bold text-white mb-2" style="letter-spacing: -0.5px;">Find Certified Veterinarians</h2>
-                <p class="text-white-50 small mb-0" style="max-width: 620px; line-height: 1.6;">
-                    Discover board-certified clinical practitioners, surgical specialists, and emergency doctors. Connect via 1-click encrypted telemedicine or schedule clinic visits with instant confirmation.
-                </p>
+    <div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+                <i class="fa-solid fa-hospital-user text-warning"></i>
+                <span>Accredited Healthcare Directory</span>
+                <span class="text-white-50">&middot;</span>
+                <span class="font-monospace text-warning"><?= $totalVets ?> Clinicians Available</span>
             </div>
-            <div class="col-12 col-md-4 text-md-end">
-                <a href="<?= ViewHelper::url('portal/appointments') ?>" class="btn btn-light rounded-pill px-4 py-2 fw-bold shadow-sm d-inline-flex align-items-center gap-2" style="font-size: 13px;">
-                    <i class="fa-regular fa-calendar-check text-brand"></i> My Appointments
-                </a>
-            </div>
+            <h2 class="portal-hero-title">Find Certified Veterinarians 🩺</h2>
+            <p class="portal-hero-subtitle">
+                Discover board-certified clinical practitioners, surgical specialists, and schedule visits or telehealth.
+            </p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="<?= ViewHelper::url('portal/dashboard') ?>" class="btn btn-admin-secondary">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>My Portal</span>
+            </a>
+            <a href="<?= ViewHelper::url('portal/appointments') ?>" class="btn btn-admin-primary">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>My Appointments</span>
+            </a>
         </div>
     </div>
 

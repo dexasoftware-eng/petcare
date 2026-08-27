@@ -7,16 +7,29 @@ $pending = $stats['pending'] ?? 0;
 $adoptablePets = $stats['adoptablePets'] ?? 0;
 ?>
 
-<!-- Page Header -->
-<div class="admin-page-header mb-4">
-    <div class="page-title-group">
-        <h2 class="admin-page-title">
-            <i class="fa-solid fa-house-medical text-success me-2"></i>
-            Animal Rescue Shelters & Sanctuaries
-        </h2>
-        <p class="admin-page-subtitle">
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-house-medical text-warning"></i>
+            <span>Verified Sanctuaries Network</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= number_format($total) ?> Shelters</span>
+        </div>
+        <h2 class="portal-hero-title">Rescue Shelters &amp; Sanctuaries 🏡</h2>
+        <p class="portal-hero-subtitle">
             Verified rescue facilities, holding capacities, and adoption program governance.
         </p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('admin/dashboard') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Command Center</span>
+        </a>
+        <a href="<?= ViewHelper::url('admin/adoption') ?>" class="btn btn-admin-primary">
+            <i class="fa-solid fa-heart"></i>
+            <span>Adoptions Queue</span>
+        </a>
     </div>
 </div>
 

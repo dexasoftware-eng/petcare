@@ -30,27 +30,24 @@ $durFormatted = $durHours > 0 ? "{$durHours}h {$durMins}m" : ($durMins > 0 ? "{$
 ?>
 
 <!-- 1. Hero Command Header -->
-<div class="rounded-4 p-4 p-md-5 mb-4 text-white position-relative overflow-hidden shadow-lg" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);">
-    <div class="position-absolute top-0 end-0 w-50 h-100 opacity-20 pointer-events-none d-none d-lg-block" style="background: radial-gradient(circle at right, #818cf8 0%, transparent 70%);"></div>
-    <div class="row align-items-center position-relative z-1 g-4">
-        <div class="col-lg-8">
-            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 border border-white border-opacity-20 text-white small mb-3">
-                <span class="d-inline-block rounded-circle bg-emerald-400" style="width: 8px; height: 8px; background-color: #34d399; box-shadow: 0 0 10px #34d399;"></span>
-                <span class="fw-semibold">24/7 WebRTC Encrypted Telemedicine</span>
-            </div>
-            <h1 class="display-6 fw-bold text-white mb-2" style="font-family: 'Anybody', sans-serif;">
-                Consultation &amp; Call Logs
-            </h1>
-            <p class="text-white text-opacity-80 mb-0" style="max-width: 600px; font-size: 14.5px; line-height: 1.6;">
-                End-to-end encrypted clinical video and audio logs with verified veterinary doctors, specialists, and rescue shelters.
-            </p>
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <span class="d-inline-block rounded-circle" style="width: 8px; height: 8px; background-color: #34d399; box-shadow: 0 0 10px #34d399;"></span>
+            <span>24/7 WebRTC Encrypted Telemedicine</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= $totalCalls ?> Total Sessions</span>
         </div>
-        <div class="col-lg-4 text-lg-end">
-            <button type="button" class="btn btn-admin-primary rounded-pill px-4 py-3 fw-bold shadow d-inline-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#quickConsultModal" style="font-size: 14px;">
-                <i class="fa-solid fa-video"></i>
-                <span>Start New Consultation</span>
-            </button>
-        </div>
+        <h2 class="portal-hero-title">Consultations &amp; Video Hub 📞</h2>
+        <p class="portal-hero-subtitle">
+            End-to-end encrypted clinical video and audio logs with verified doctors, specialists, and rescue shelters.
+        </p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <button type="button" class="btn btn-admin-primary" data-bs-toggle="modal" data-bs-target="#quickConsultModal">
+            <i class="fa-solid fa-video"></i>
+            <span>Start Consultation</span>
+        </button>
     </div>
 </div>
 

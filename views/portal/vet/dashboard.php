@@ -12,7 +12,7 @@ use Helpers\Auth;
             <span class="text-white-50">&middot;</span>
             <span class="font-monospace text-warning"><?= ViewHelper::e($profile['license_number'] ?? 'VET-DVM-98421') ?></span>
         </div>
-        <h2 class="portal-hero-title">Good <?= (date('H') < 12 ? 'Morning' : (date('H') < 18 ? 'Afternoon' : 'Evening')) ?>, Dr. <?= ViewHelper::e($user['name']) ?>! 🩺</h2>
+        <h2 class="portal-hero-title">Good <?= (date('H') < 12 ? 'Morning' : (date('H') < 18 ? 'Afternoon' : 'Evening')) ?>, <?= ViewHelper::e((stripos($user['name'] ?? '', 'Dr') === 0 ? '' : 'Dr. ') . ($user['name'] ?? 'Doctor')) ?>! 🩺</h2>
         <p class="portal-hero-subtitle">
             <?= ViewHelper::e($profile['clinic_name'] ?? 'Pet Guard Central Hospital') ?> &middot; 
             <?= ViewHelper::e($profile['specialization'] ?? 'Veterinary Medicine') ?>

@@ -2,17 +2,29 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title"><i class="fa-solid fa-file-contract text-brand me-2"></i> Review Application #<?= $app['id'] ?></h2>
-        <p class="admin-page-subtitle">Applicant: <?= ViewHelper::e($applicant['name']) ?> &middot; Animal: <?= ViewHelper::e($pet['name']) ?></p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-file-contract text-warning"></i>
+            <span>Adoption Dossier Review</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">App #<?= $app['id'] ?></span>
+        </div>
+        <h2 class="portal-hero-title">Application: <?= ViewHelper::e($applicant['name']) ?> 📋</h2>
+        <p class="portal-hero-subtitle">Applicant: <?= ViewHelper::e($applicant['name']) ?> &middot; Requested Pet: <?= ViewHelper::e($pet['name']) ?> (<?= ViewHelper::e($pet['species']) ?>)</p>
     </div>
-    <div class="d-flex gap-2">
-        <button type="button" class="btn btn-success rounded-pill px-4" onclick="PetGuardCall.initiateCall(<?= (int)$applicant['id'] ?>, 'video', 'adoption', <?= (int)$app['id'] ?>)">
-            <i class="fa-solid fa-video me-1"></i> Launch Video Interview
+    <div class="d-flex flex-wrap gap-2">
+        <button type="button" class="btn btn-admin-primary" onclick="PetGuardCall.initiateCall(<?= (int)$applicant['id'] ?>, 'video', 'adoption', <?= (int)$app['id'] ?>)">
+            <i class="fa-solid fa-video"></i>
+            <span>Launch Video Interview</span>
         </button>
-        <a href="<?= ViewHelper::url('portal/messages?target=' . $applicant['id']) ?>" class="btn btn-outline-secondary rounded-pill px-3">
-            <i class="fa-solid fa-comments me-1"></i> Chat
+        <a href="<?= ViewHelper::url('portal/messages?target=' . $applicant['id']) ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-comments"></i>
+            <span>Direct Chat</span>
+        </a>
+        <a href="<?= ViewHelper::url('shelter/applications') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Queue</span>
         </a>
     </div>
 </div>

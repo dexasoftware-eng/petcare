@@ -2,25 +2,35 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <a href="<?= ViewHelper::url('admin/marketplace/orders') ?>" class="btn btn-sm btn-light rounded-pill mb-2">
-            <i class="fa-solid fa-arrow-left me-1"></i> Back to Orders
-        </a>
-        <h2 class="admin-page-title">Order #<?= ViewHelper::e($order['order_number']) ?></h2>
-        <p class="admin-page-subtitle">Placed: <?= date('F d, Y at H:i', strtotime($order['created_at'])) ?> · Status: <span class="badge-status status-<?= $order['status'] ?>"><?= ViewHelper::e($order['status']) ?></span></p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-cart-shopping text-warning"></i>
+            <span>Commercial Order Details</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">#<?= ViewHelper::e($order['order_number']) ?></span>
+        </div>
+        <h2 class="portal-hero-title">Order #<?= ViewHelper::e($order['order_number']) ?> 📦</h2>
+        <p class="portal-hero-subtitle">Placed: <?= date('F d, Y \a\t H:i', strtotime($order['created_at'])) ?> &middot; Total: $<?= number_format((float)$order['total'], 2) ?> &middot; Status: <span class="badge-status status-<?= $order['status'] ?>"><?= ucfirst(ViewHelper::e($order['status'])) ?></span></p>
     </div>
-    <div>
-        <form action="<?= ViewHelper::url("admin/marketplace/orders/{$order['id']}/status") ?>" method="POST" class="d-flex align-items-center gap-2">
+    <div class="d-flex flex-wrap align-items-center gap-2">
+        <form action="<?= ViewHelper::url("admin/marketplace/orders/{$order['id']}/status") ?>" method="POST" class="d-flex align-items-center gap-2 m-0">
             <?= ViewHelper::csrfField() ?>
-            <select name="status" class="form-select form-select-sm rounded-pill px-3">
+            <select name="status" class="form-select form-select-sm rounded-pill px-3 bg-white" style="font-size: 13px; height: 38px;">
                 <option value="placed" <?= $order['status'] === 'placed' ? 'selected' : '' ?>>Placed</option>
                 <option value="processing" <?= $order['status'] === 'processing' ? 'selected' : '' ?>>Processing / Packaging</option>
                 <option value="completed" <?= $order['status'] === 'completed' ? 'selected' : '' ?>>Completed / Delivered</option>
                 <option value="cancelled" <?= $order['status'] === 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
             </select>
-            <button type="submit" class="btn btn-sm btn-brand rounded-pill px-4 fw-bold text-nowrap">Update Status</button>
+            <button type="submit" class="btn btn-admin-primary">
+                <i class="fa-solid fa-floppy-disk"></i>
+                <span>Update</span>
+            </button>
         </form>
+        <a href="<?= ViewHelper::url('admin/marketplace/orders') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back</span>
+        </a>
     </div>
 </div>
 

@@ -2,28 +2,29 @@
 use Helpers\ViewHelper;
 ?>
 
-<!-- Page Header -->
-<div class="admin-page-header mb-4">
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 w-100">
-        <div class="page-title-group">
-            <h2 class="admin-page-title">
-                <i class="fa-solid fa-boxes-stacked text-brand me-2"></i>
-                Marketplace Products Catalog
-            </h2>
-            <p class="admin-page-subtitle">
-                Global product directory, catalog pricing, inventory telemetry, and product status oversight.
-            </p>
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-boxes-stacked text-warning"></i>
+            <span>Global Marketplace Catalog</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= number_format($stats['total'] ?? count($products)) ?> SKUs Listed</span>
         </div>
-        <div class="d-flex align-items-center gap-2">
-            <a href="<?= ViewHelper::url('admin/marketplace/inventory') ?>" class="btn btn-outline-dark rounded-pill px-4 py-2 fw-semibold d-flex align-items-center gap-2 shadow-sm">
-                <i class="fa-solid fa-warehouse"></i>
-                <span>Stock Management</span>
-            </a>
-            <a href="<?= ViewHelper::url('our-products') ?>" class="btn btn-dark rounded-pill px-4 py-2 fw-semibold d-flex align-items-center gap-2 shadow-sm" style="background: #fa441d; border: none;" target="_blank">
-                <i class="fa-solid fa-store"></i>
-                <span>Live Pet Store</span>
-            </a>
-        </div>
+        <h2 class="portal-hero-title">Marketplace Products Catalog 🛍️</h2>
+        <p class="portal-hero-subtitle">
+            Global product directory, catalog pricing, inventory telemetry, and product status oversight.
+        </p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('admin/marketplace/inventory') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-warehouse"></i>
+            <span>Stock Management</span>
+        </a>
+        <a href="<?= ViewHelper::url('our-products') ?>" target="_blank" class="btn btn-admin-primary">
+            <i class="fa-solid fa-store"></i>
+            <span>Live Pet Store</span>
+        </a>
     </div>
 </div>
 

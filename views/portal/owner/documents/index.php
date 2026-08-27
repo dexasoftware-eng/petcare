@@ -2,15 +2,22 @@
 use Helpers\ViewHelper;
 ?>
 
-<!-- Page Header -->
-<div class="admin-page-header">
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title">Pet Document Vault</h2>
-        <p class="admin-page-subtitle">Store vaccination certificates, clinical diagnostic reports, adoption agreements, and insurance policies.</p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-folder-open text-warning"></i>
+            <span>Encrypted Health Vault</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= count($docs ?? []) ?> Files</span>
+        </div>
+        <h2 class="portal-hero-title">Pet Document Vault 📁</h2>
+        <p class="portal-hero-subtitle">Store vaccination certificates, diagnostic reports, adoption agreements, and insurance policies.</p>
     </div>
-    <div>
-        <button type="button" class="btn-admin-primary" data-bs-toggle="modal" data-bs-target="#uploadDocVaultModal">
-            <i class="fa-solid fa-cloud-arrow-up me-1"></i> Upload Document
+    <div class="d-flex flex-wrap gap-2">
+        <button type="button" class="btn btn-admin-primary" data-bs-toggle="modal" data-bs-target="#uploadDocVaultModal">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <span>Upload Document</span>
         </button>
     </div>
 </div>

@@ -2,10 +2,29 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title"><i class="fa-solid fa-cart-shopping text-warning me-2"></i> Marketplace Customer Orders</h2>
-        <p class="admin-page-subtitle">Platform customer purchases, Stripe checkout transactions, payment statuses, and fulfillment tracking.</p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-cart-shopping text-warning"></i>
+            <span>Stripe Commercial Checkout</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= number_format(count($orders ?? [])) ?> Orders</span>
+        </div>
+        <h2 class="portal-hero-title">Marketplace Customer Orders 🛒</h2>
+        <p class="portal-hero-subtitle">
+            Platform customer purchases, Stripe checkout transactions, payment statuses, and fulfillment tracking.
+        </p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('admin/marketplace/products') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            <span>Products Catalog</span>
+        </a>
+        <a href="<?= ViewHelper::url('admin/marketplace/inventory') ?>" class="btn btn-admin-primary">
+            <i class="fa-solid fa-warehouse"></i>
+            <span>Inventory</span>
+        </a>
     </div>
 </div>
 

@@ -2,15 +2,22 @@
 use Helpers\ViewHelper;
 ?>
 
-<!-- Page Header -->
-<div class="admin-page-header">
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title">My Store Orders</h2>
-        <p class="admin-page-subtitle">Track your marketplace purchases, nutritional formulas, wellness supplements, and invoice receipts.</p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-bag-shopping text-warning"></i>
+            <span>Marketplace Order History</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= count($orders ?? []) ?> Orders</span>
+        </div>
+        <h2 class="portal-hero-title">My Store Orders 🛍️</h2>
+        <p class="portal-hero-subtitle">Track your marketplace purchases, nutritional formulas, wellness supplements, and receipts.</p>
     </div>
-    <div>
-        <a href="<?= ViewHelper::url('our-products') ?>" class="btn-admin-primary">
-            <i class="fa-solid fa-shop me-1"></i> Browse Pet Store
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('our-products') ?>" class="btn btn-admin-primary">
+            <i class="fa-solid fa-shop"></i>
+            <span>Browse Pet Store</span>
         </a>
     </div>
 </div>

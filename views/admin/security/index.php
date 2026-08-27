@@ -7,23 +7,29 @@ $authEvents = $stats['authEvents'] ?? 0;
 $adminActions = $stats['adminActions'] ?? 0;
 ?>
 
-<!-- Page Header -->
-<div class="admin-page-header mb-4">
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 w-100">
-        <div class="page-title-group">
-            <h2 class="admin-page-title">
-                <i class="fa-solid fa-shield-halved text-brand me-2"></i>
-                Security, Governance & Audit Trail
-            </h2>
-            <p class="admin-page-subtitle">
-                Immutable access telemetry, administrative modifications, authentication logs, and role authorizations.
-            </p>
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-shield-halved text-warning"></i>
+            <span>Platform Governance &amp; Audit</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= number_format($totalLogs) ?> Events Logged</span>
         </div>
-        <div class="d-flex align-items-center gap-2">
-            <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fw-semibold" style="font-size: 13px;">
-                <i class="fa-solid fa-circle-check me-1"></i> Audit Engine Active
-            </span>
-        </div>
+        <h2 class="portal-hero-title">Security &amp; Audit Trail 🔒</h2>
+        <p class="portal-hero-subtitle">
+            Immutable access telemetry, administrative modifications, authentication logs, and role authorizations.
+        </p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('admin/moderation') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Moderation</span>
+        </a>
+        <a href="<?= ViewHelper::url('admin/dashboard') ?>" class="btn btn-admin-primary">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Command Center</span>
+        </a>
     </div>
 </div>
 

@@ -6,35 +6,25 @@ $user = $user ?? Auth::user() ?? [];
 $petsCount = $petsCount ?? 0;
 ?>
 
-<!-- 1. Hero Header -->
-<div class="rounded-4 p-4 p-md-5 mb-4 text-white position-relative overflow-hidden shadow-lg" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);">
-    <div class="position-absolute top-0 end-0 w-50 h-100 opacity-20 pointer-events-none d-none d-lg-block" style="background: radial-gradient(circle at right, #818cf8 0%, transparent 70%);"></div>
-    <div class="row align-items-center position-relative z-1 g-4">
-        <div class="col-lg-8">
-            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 border border-white border-opacity-20 text-white small mb-3">
-                <i class="fa-solid fa-shield-halved text-success"></i>
-                <span class="fw-semibold">256-Bit SSL Protected Account</span>
-            </div>
-            <h1 class="display-6 fw-bold text-white mb-2" style="font-family: 'Anybody', sans-serif;">
-                Account Settings &amp; Privacy Controls
-            </h1>
-            <p class="text-white text-opacity-80 mb-0" style="max-width: 620px; font-size: 14.5px; line-height: 1.6;">
-                Manage your personal pet parent profile, contact details, authentication security, and public QR digital passport privacy preferences.
-            </p>
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-shield-halved text-success"></i>
+            <span>256-Bit SSL Protected Account</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= $petsCount ?> Registered Pets</span>
         </div>
-        <div class="col-lg-4 text-lg-end">
-            <div class="d-inline-flex align-items-center gap-3 p-3 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10 text-start">
-                <div class="rounded-circle border d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width: 48px; height: 48px; background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%); color: #0f172a; font-size: 18px;">
-                    <?= strtoupper(substr($user['name'] ?? 'P', 0, 1)) ?>
-                </div>
-                <div>
-                    <div class="fw-bold text-white text-truncate" style="max-width: 160px;"><?= ViewHelper::e($user['name'] ?? 'Pet Parent') ?></div>
-                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-0" style="font-size: 10px;">
-                        <i class="fa-solid fa-circle-check me-1"></i> Verified Owner
-                    </span>
-                </div>
-            </div>
-        </div>
+        <h2 class="portal-hero-title">Account Settings &amp; Privacy ⚙️</h2>
+        <p class="portal-hero-subtitle">
+            Manage your personal profile, credentials, security, and QR digital passport privacy preferences.
+        </p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('portal/dashboard') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>My Portal</span>
+        </a>
     </div>
 </div>
 

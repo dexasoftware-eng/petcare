@@ -2,17 +2,29 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title"><i class="fa-solid fa-box text-brand me-2"></i> <?= ViewHelper::e($product['name']) ?></h2>
-        <p class="admin-page-subtitle">SKU: <span class="font-monospace fw-bold text-dark"><?= ViewHelper::e($product['sku']) ?></span> &middot; Category: <?= ViewHelper::e($product['category']) ?></p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-box text-warning"></i>
+            <span>Product Catalog Item</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">SKU: <?= ViewHelper::e($product['sku']) ?></span>
+        </div>
+        <h2 class="portal-hero-title"><?= ViewHelper::e($product['name']) ?> 🛍️</h2>
+        <p class="portal-hero-subtitle">Category: <?= ViewHelper::e($product['category']) ?> &middot; Price: $<?= number_format((float)$product['price'], 2) ?> &middot; Stock: <?= (int)$product['stock'] ?> units</p>
     </div>
-    <div class="d-flex gap-2">
-        <a href="<?= ViewHelper::url('vendor/products/' . $product['id'] . '/edit') ?>" class="btn btn-outline-brand rounded-pill px-4">
-            <i class="fa-solid fa-pen-to-square me-1"></i> Edit Product
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('vendor/products/' . $product['id'] . '/edit') ?>" class="btn btn-admin-primary">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <span>Edit Product</span>
         </a>
-        <a href="<?= ViewHelper::url('product-details/' . $product['slug']) ?>" target="_blank" class="btn btn-outline-secondary rounded-pill px-3">
-            <i class="fa-solid fa-eye me-1"></i> View on Storefront
+        <a href="<?= ViewHelper::url('product-details/' . ($product['slug'] ?? '')) ?>" target="_blank" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-eye"></i>
+            <span>View on Store</span>
+        </a>
+        <a href="<?= ViewHelper::url('vendor/products') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Catalog</span>
         </a>
     </div>
 </div>

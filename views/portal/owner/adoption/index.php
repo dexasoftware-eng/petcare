@@ -2,11 +2,23 @@
 use Helpers\ViewHelper;
 ?>
 
-<!-- Page Header -->
-<div class="admin-page-header">
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title">Shelter Adoption Hub</h2>
-        <p class="admin-page-subtitle">Browse rescue animals available for adoption, submit adoption requests, and track your application status.</p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-heart text-warning"></i>
+            <span>Sanctuary Adoption Network</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= count($myApplications ?? []) ?> Applications</span>
+        </div>
+        <h2 class="portal-hero-title">Shelter Adoption Hub 🐾</h2>
+        <p class="portal-hero-subtitle">Browse rescue animals available for adoption, submit adoption requests, and track status.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('portal/dashboard') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>My Portal</span>
+        </a>
     </div>
 </div>
 

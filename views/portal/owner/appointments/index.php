@@ -8,7 +8,33 @@ $telehealthCount = count(array_filter($appointments ?? [], fn($a) => !empty($a['
 $completedCount = count(array_filter($appointments ?? [], fn($a) => $a['status'] === 'completed'));
 ?>
 
-<!-- Top Metric Stat Cards -->
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-calendar-check text-warning"></i>
+            <span>Clinical Appointments &amp; Telehealth</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= $upcomingCount ?> Upcoming</span>
+        </div>
+        <h2 class="portal-hero-title">Appointments &amp; Consultations 🩺</h2>
+        <p class="portal-hero-subtitle">
+            Schedule clinic visits, manage follow-ups, and launch encrypted telehealth consultations.
+        </p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('portal/vets') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-user-doctor"></i>
+            <span>Find Doctors</span>
+        </a>
+        <button type="button" class="btn btn-admin-primary" data-bs-toggle="modal" data-bs-target="#bookApptModal">
+            <i class="fa-solid fa-calendar-plus"></i>
+            <span>Book Consultation</span>
+        </button>
+    </div>
+</div>
+
+<!-- 2. Top Metric Stat Cards -->
 <div class="row g-3 mb-4">
     <div class="col-6 col-lg-3">
         <div class="stat-card shadow-sm h-100" style="border-radius: 18px;">

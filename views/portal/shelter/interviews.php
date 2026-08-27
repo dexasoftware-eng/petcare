@@ -19,26 +19,28 @@ $totalInterviews = count($interviews);
 <div class="shelter-interviews-container py-2">
 
     <!-- 1. Hero Header Banner -->
-    <div class="rounded-4 p-4 p-md-5 mb-4 text-white position-relative overflow-hidden shadow-lg" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);">
-        <div class="position-absolute top-0 end-0 w-50 h-100 opacity-20 pointer-events-none d-none d-lg-block" style="background: radial-gradient(circle at right, #818cf8 0%, transparent 70%);"></div>
-        <div class="row align-items-center position-relative z-1 g-3">
-            <div class="col-12 col-lg-8">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small fw-bold mb-2 border border-white border-opacity-10">
-                    <i class="fa-solid fa-video text-warning"></i> Adoption Video Assessment Hub
-                </div>
-                <h1 class="display-6 fw-bold text-white mb-2" style="font-family: 'Anybody', sans-serif;">
-                    Adoption Video Interviews
-                </h1>
-                <p class="text-white text-opacity-80 small mb-0" style="max-width: 620px; line-height: 1.6;">
-                    Host virtual home checks and face-to-face video assessments with prospective adoptive families via WebRTC encryption.
-                </p>
+    <div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+                <i class="fa-solid fa-video text-warning"></i>
+                <span>Adoption Video Assessment</span>
+                <span class="text-white-50">&middot;</span>
+                <span class="font-monospace text-warning"><?= $totalInterviews ?> Interviews</span>
             </div>
-            <div class="col-12 col-lg-4 text-lg-end">
-                <a href="<?= ViewHelper::url('shelter/applications') ?>" class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold shadow-sm d-inline-flex align-items-center gap-2" style="font-size: 13.5px;">
-                    <i class="fa-solid fa-file-signature"></i>
-                    <span>All Applications</span>
-                </a>
-            </div>
+            <h2 class="portal-hero-title">Adoption Video Interviews 🎥</h2>
+            <p class="portal-hero-subtitle">
+                Host virtual home checks and face-to-face video assessments with prospective adoptive families via WebRTC.
+            </p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="<?= ViewHelper::url('shelter/dashboard') ?>" class="btn btn-admin-secondary">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Sanctuary Portal</span>
+            </a>
+            <a href="<?= ViewHelper::url('shelter/applications') ?>" class="btn btn-admin-primary">
+                <i class="fa-solid fa-file-signature"></i>
+                <span>All Applications</span>
+            </a>
         </div>
     </div>
 

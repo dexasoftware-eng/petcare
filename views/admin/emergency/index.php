@@ -2,10 +2,25 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4" style="background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 60%, #450a0a 100%);">
     <div>
-        <h2 class="admin-page-title text-danger"><i class="fa-solid fa-truck-medical me-2"></i> Emergency Center & Triage</h2>
-        <p class="admin-page-subtitle">Critical pet incidents, poisoning alerts, trauma triage, and emergency veterinarian dispatch.</p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-truck-medical text-warning"></i>
+            <span>Rapid Critical Response</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= count($events) ?> Incidents Logged</span>
+        </div>
+        <h2 class="portal-hero-title">Emergency Center &amp; Triage 🚨</h2>
+        <p class="portal-hero-subtitle text-white text-opacity-75">
+            Critical pet incidents, poisoning alerts, trauma triage, and emergency veterinarian dispatch.
+        </p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('admin/dashboard') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Command Center</span>
+        </a>
     </div>
 </div>
 

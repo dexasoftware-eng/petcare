@@ -2,27 +2,37 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <a href="<?= ViewHelper::url('admin/users') ?>" class="btn btn-sm btn-light rounded-pill mb-2">
-            <i class="fa-solid fa-arrow-left me-1"></i> Back to Users Directory
-        </a>
-        <h2 class="admin-page-title"><?= ViewHelper::e($targetUser['name']) ?></h2>
-        <p class="admin-page-subtitle">Role: <span class="text-uppercase fw-bold text-brand"><?= ViewHelper::e($targetUser['role']) ?></span> · Joined: <?= date('F d, Y', strtotime($targetUser['created_at'])) ?></p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-user-shield text-warning"></i>
+            <span class="text-uppercase"><?= ViewHelper::e($targetUser['role']) ?> Account</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">UID #<?= $targetUser['id'] ?></span>
+        </div>
+        <h2 class="portal-hero-title"><?= ViewHelper::e($targetUser['name']) ?> 👤</h2>
+        <p class="portal-hero-subtitle">Email: <?= ViewHelper::e($targetUser['email']) ?> &middot; Joined: <?= date('F d, Y', strtotime($targetUser['created_at'])) ?> &middot; Status: <span class="badge <?= $targetUser['status'] === 'active' ? 'bg-success' : 'bg-danger' ?> text-white"><?= ucfirst($targetUser['status']) ?></span></p>
     </div>
-    <div class="d-flex gap-2">
-        <button class="btn btn-sm btn-outline-warning rounded-pill px-3" onclick="triggerConfirmModal('<?= ViewHelper::url("admin/users/{$targetUser['id']}/reset-password") ?>', 'Reset Password', 'Generate temporary password for <?= ViewHelper::e($targetUser['name']) ?>?', 'Reset Password', 'btn-warning')">
-            <i class="fa-solid fa-key me-1"></i> Reset Password
+    <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-admin-secondary" onclick="triggerConfirmModal('<?= ViewHelper::url("admin/users/{$targetUser['id']}/reset-password") ?>', 'Reset Password', 'Generate temporary password for <?= ViewHelper::e($targetUser['name']) ?>?', 'Reset Password', 'btn-warning')">
+            <i class="fa-solid fa-key"></i>
+            <span>Reset Password</span>
         </button>
         <?php if ($targetUser['status'] === 'active'): ?>
-            <button class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="triggerConfirmModal('<?= ViewHelper::url("admin/users/{$targetUser['id']}/status") ?>', 'Suspend Account', 'Suspend access for <?= ViewHelper::e($targetUser['name']) ?>?', 'Suspend User', 'btn-danger', 'suspended')">
-                <i class="fa-solid fa-ban me-1"></i> Suspend User
+            <button class="btn btn-admin-danger" onclick="triggerConfirmModal('<?= ViewHelper::url("admin/users/{$targetUser['id']}/status") ?>', 'Suspend Account', 'Suspend access for <?= ViewHelper::e($targetUser['name']) ?>?', 'Suspend User', 'btn-danger', 'suspended')">
+                <i class="fa-solid fa-ban"></i>
+                <span>Suspend User</span>
             </button>
         <?php else: ?>
-            <button class="btn btn-sm btn-outline-success rounded-pill px-3" onclick="triggerConfirmModal('<?= ViewHelper::url("admin/users/{$targetUser['id']}/status") ?>', 'Activate Account', 'Restore access for <?= ViewHelper::e($targetUser['name']) ?>?', 'Activate User', 'btn-success', 'active')">
-                <i class="fa-solid fa-check me-1"></i> Activate Account
+            <button class="btn btn-admin-success" onclick="triggerConfirmModal('<?= ViewHelper::url("admin/users/{$targetUser['id']}/status") ?>', 'Activate Account', 'Restore access for <?= ViewHelper::e($targetUser['name']) ?>?', 'Activate User', 'btn-success', 'active')">
+                <i class="fa-solid fa-check"></i>
+                <span>Activate Account</span>
             </button>
         <?php endif; ?>
+        <a href="<?= ViewHelper::url('admin/users') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Users</span>
+        </a>
     </div>
 </div>
 

@@ -2,14 +2,25 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title"><i class="fa-solid fa-box text-brand me-2"></i> Order #<?= ViewHelper::e($order['order_number']) ?></h2>
-        <p class="admin-page-subtitle">Placed on <?= date('F d, Y \a\t h:i A', strtotime($order['created_at'])) ?> &middot; Total: $<?= number_format((float)$order['total'], 2) ?></p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-box text-warning"></i>
+            <span>Order Fulfillment</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">#<?= ViewHelper::e($order['order_number']) ?></span>
+        </div>
+        <h2 class="portal-hero-title">Order #<?= ViewHelper::e($order['order_number']) ?> 📦</h2>
+        <p class="portal-hero-subtitle">Placed on <?= date('F d, Y \a\t h:i A', strtotime($order['created_at'])) ?> &middot; Total: $<?= number_format((float)$order['total'], 2) ?></p>
     </div>
-    <div class="d-flex gap-2">
-        <a href="<?= ViewHelper::url('portal/messages?target=' . ($customer['id'] ?? 0)) ?>" class="btn btn-outline-secondary rounded-pill px-3">
-            <i class="fa-solid fa-comments me-1"></i> Customer Support Chat
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('portal/messages?target=' . ($customer['id'] ?? 0)) ?>" class="btn btn-admin-primary">
+            <i class="fa-solid fa-comments"></i>
+            <span>Customer Chat</span>
+        </a>
+        <a href="<?= ViewHelper::url('vendor/orders') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Orders</span>
         </a>
     </div>
 </div>

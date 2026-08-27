@@ -6,21 +6,30 @@ $regCode = 'PG-REG-' . strtoupper(substr(md5($pet['id'] . $pet['name']), 0, 8));
 $securityHash = strtoupper(hash('crc32b', $pet['id'] . $pet['qr_token'] . ($pet['microchip_id'] ?? 'CHIP')));
 ?>
 
-<!-- Header -->
-<div class="admin-page-header">
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title"><i class="fa-solid fa-passport text-brand me-2"></i> Official Digital Pet Passport</h2>
-        <p class="admin-page-subtitle">Cryptographically verified companion animal identity document & emergency recovery passport.</p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-passport text-warning"></i>
+            <span>Cryptographic Digital Passport</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= $regCode ?></span>
+        </div>
+        <h2 class="portal-hero-title">Official Pet Passport: <?= ViewHelper::e($pet['name']) ?> 🛂</h2>
+        <p class="portal-hero-subtitle">Cryptographically verified companion animal identity document &amp; emergency recovery passport.</p>
     </div>
-    <div class="d-flex gap-2 flex-wrap align-items-center">
-        <a href="<?= ViewHelper::url('portal/pets/' . $pet['id']) ?>" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold">
-            <i class="fa-solid fa-arrow-left me-1"></i> Back to Profile
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= $publicUrl ?>" target="_blank" class="btn btn-admin-primary">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span>Public QR View</span>
         </a>
-        <button onclick="window.print()" class="btn btn-outline-dark rounded-pill px-4 py-2 fw-semibold">
-            <i class="fa-solid fa-print me-1"></i> Print Passport
+        <button onclick="window.print()" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-print"></i>
+            <span>Print Passport</span>
         </button>
-        <a href="<?= $publicUrl ?>" target="_blank" class="btn btn-admin-primary px-4 py-2 fw-bold">
-            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Public QR View
+        <a href="<?= ViewHelper::url('portal/pets/' . $pet['id']) ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Profile</span>
         </a>
     </div>
 </div>

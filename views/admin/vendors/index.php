@@ -7,16 +7,29 @@ $pending = $stats['pending'] ?? 0;
 $rejected = $stats['rejected'] ?? 0;
 ?>
 
-<!-- Page Header -->
-<div class="admin-page-header mb-4">
-    <div class="page-title-group">
-        <h2 class="admin-page-title">
-            <i class="fa-solid fa-store text-info me-2"></i>
-            Merchant Vendors & Verification
-        </h2>
-        <p class="admin-page-subtitle">
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-store text-warning"></i>
+            <span>Verified Merchant Network</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= number_format($total) ?> Merchants</span>
+        </div>
+        <h2 class="portal-hero-title">Merchant Vendors &amp; Storefronts 🛍️</h2>
+        <p class="portal-hero-subtitle">
             Manage store merchants, business licenses, and ecommerce vendor queues.
         </p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('admin/dashboard') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Command Center</span>
+        </a>
+        <a href="<?= ViewHelper::url('admin/marketplace/products') ?>" class="btn btn-admin-primary">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            <span>Store Products</span>
+        </a>
     </div>
 </div>
 

@@ -2,10 +2,25 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title"><i class="fa-solid fa-gear text-brand me-2"></i> Platform Settings & Configuration</h2>
-        <p class="admin-page-subtitle">Ecosystem parameters, AI engine configuration, emergency hotlines, and security session policies.</p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-gear text-warning"></i>
+            <span>Global Ecosystem Engine</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">PHP <?= phpversion() ?></span>
+        </div>
+        <h2 class="portal-hero-title">Platform Settings &amp; Configuration ⚙️</h2>
+        <p class="portal-hero-subtitle">
+            Ecosystem parameters, AI engine configuration, emergency hotlines, and security policies.
+        </p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('admin/dashboard') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Command Center</span>
+        </a>
     </div>
 </div>
 

@@ -2511,6 +2511,94 @@ body.admin-body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
+.btn-admin-danger {
+    background: #ef4444;
+    color: #ffffff;
+    border: 1px solid #ef4444;
+    font-weight: 700;
+    border-radius: 50px;
+    padding: 10px 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    min-height: 44px;
+}
+
+.btn-admin-danger:hover {
+    background: #dc2626;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -2px rgba(239, 68, 68, 0.35);
+}
+
+.btn-admin-success {
+    background: #10b981;
+    color: #ffffff;
+    border: 1px solid #10b981;
+    font-weight: 700;
+    border-radius: 50px;
+    padding: 10px 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    min-height: 44px;
+}
+
+.btn-admin-success:hover {
+    background: #059669;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -2px rgba(16, 185, 129, 0.35);
+}
+
+.btn-admin-dark {
+    background: #0f172a;
+    color: #ffffff;
+    border: 1px solid #1e293b;
+    font-weight: 700;
+    border-radius: 50px;
+    padding: 10px 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    min-height: 44px;
+}
+
+.btn-admin-dark:hover {
+    background: #1e293b;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -2px rgba(15, 23, 42, 0.35);
+}
+
+.btn-admin-sm {
+    min-height: 36px !important;
+    padding: 6px 14px !important;
+    font-size: 12.5px !important;
+    border-radius: 50px !important;
+    gap: 6px !important;
+}
+
+.btn-admin-icon {
+    width: 40px;
+    height: 40px;
+    min-height: 40px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* 5. Mobile Bottom Quick Bar */
 .mobile-bottom-nav {
     display: none;

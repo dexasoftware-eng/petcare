@@ -2,18 +2,30 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title"><i class="fa-solid fa-stethoscope text-brand me-2"></i> Clinical Consultation #<?= $appointment['id'] ?></h2>
-        <p class="admin-page-subtitle">Patient: <?= ViewHelper::e($pet['name']) ?> &middot; Scheduled: <?= date('F d, Y', strtotime($appointment['appointment_date'])) ?> at <?= ViewHelper::e($appointment['appointment_time']) ?></p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-stethoscope text-warning"></i>
+            <span>Clinical Consultation</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">#<?= $appointment['id'] ?></span>
+        </div>
+        <h2 class="portal-hero-title">Consultation with <?= ViewHelper::e($pet['name']) ?> 🩺</h2>
+        <p class="portal-hero-subtitle">Patient: <?= ViewHelper::e($pet['name']) ?> (<?= ViewHelper::e($pet['species']) ?>) &middot; Scheduled: <?= date('F d, Y', strtotime($appointment['appointment_date'])) ?> at <?= ViewHelper::e($appointment['appointment_time']) ?></p>
     </div>
-    <div class="d-flex gap-2">
-        <button type="button" class="btn btn-success rounded-pill px-4" onclick="PetGuardCall.initiateCall(<?= (int)$owner['id'] ?>, 'video', 'appointment', <?= (int)$appointment['id'] ?>)">
-            <i class="fa-solid fa-video me-1"></i> Start Video Consultation
+    <div class="d-flex flex-wrap gap-2">
+        <button type="button" class="btn btn-admin-primary" onclick="PetGuardCall.initiateCall(<?= (int)$owner['id'] ?>, 'video', 'appointment', <?= (int)$appointment['id'] ?>)">
+            <i class="fa-solid fa-video"></i>
+            <span>Start Video Consult</span>
         </button>
-        <button type="button" class="btn btn-outline-secondary rounded-pill px-3" onclick="PetGuardCall.initiateCall(<?= (int)$owner['id'] ?>, 'audio', 'appointment', <?= (int)$appointment['id'] ?>)">
-            <i class="fa-solid fa-phone me-1"></i> Audio
+        <button type="button" class="btn btn-admin-secondary" onclick="PetGuardCall.initiateCall(<?= (int)$owner['id'] ?>, 'audio', 'appointment', <?= (int)$appointment['id'] ?>)">
+            <i class="fa-solid fa-phone"></i>
+            <span>Audio Call</span>
         </button>
+        <a href="<?= ViewHelper::url('vet/appointments') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Queue</span>
+        </a>
     </div>
 </div>
 

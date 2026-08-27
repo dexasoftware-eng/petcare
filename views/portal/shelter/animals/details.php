@@ -2,17 +2,29 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title"><i class="fa-solid fa-paw text-brand me-2"></i> Rescue Animal Profile: <?= ViewHelper::e($pet['name']) ?></h2>
-        <p class="admin-page-subtitle"><?= ViewHelper::e($pet['breed']) ?> &middot; Microchip: <?= ViewHelper::e($pet['microchip_id'] ?? 'Not microchipped') ?></p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-paw text-warning"></i>
+            <span>Rescue Resident Profile</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">ID: <?= $pet['id'] ?></span>
+        </div>
+        <h2 class="portal-hero-title">Rescue: <?= ViewHelper::e($pet['name']) ?> 🐾</h2>
+        <p class="portal-hero-subtitle"><?= ViewHelper::e($pet['breed']) ?> (<?= ViewHelper::e($pet['species']) ?>) &middot; Microchip: <?= ViewHelper::e($pet['microchip_id'] ?? 'Not microchipped') ?></p>
     </div>
-    <div class="d-flex gap-2">
-        <a href="<?= ViewHelper::url('shelter/animals/' . $pet['id'] . '/edit') ?>" class="btn btn-outline-secondary rounded-pill px-4">
-            <i class="fa-solid fa-pen-to-square me-1"></i> Edit Profile
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('shelter/animals/' . $pet['id'] . '/edit') ?>" class="btn btn-admin-primary">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <span>Edit Profile</span>
         </a>
-        <a href="<?= ViewHelper::url('pet-passport/' . ($pet['qr_token'] ?? '')) ?>" target="_blank" class="btn btn-outline-brand rounded-pill px-3">
-            <i class="fa-solid fa-qrcode me-1"></i> Public Adoption QR
+        <a href="<?= ViewHelper::url('pet-passport/' . ($pet['qr_token'] ?? '')) ?>" target="_blank" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-qrcode"></i>
+            <span>Public Adoption QR</span>
+        </a>
+        <a href="<?= ViewHelper::url('shelter/animals') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Directory</span>
         </a>
     </div>
 </div>

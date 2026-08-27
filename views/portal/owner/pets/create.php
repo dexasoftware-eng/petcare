@@ -2,20 +2,22 @@
 use Helpers\ViewHelper;
 ?>
 
-<!-- 1. Page Header -->
-<div class="admin-page-header d-flex justify-content-between align-items-center mb-4 gap-3">
-    <div class="min-w-0 flex-grow-1">
-        <div class="d-flex align-items-center gap-2 mb-1">
-            <a href="<?= ViewHelper::url('portal/pets') ?>" class="btn btn-sm btn-outline-secondary rounded-circle" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;">
-                <i class="fa-solid fa-arrow-left"></i>
-            </a>
-            <h2 class="admin-page-title m-0 text-truncate">Register New Pet Family Member</h2>
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-shield-cat text-warning"></i>
+            <span>Universal Pet Registry</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">Cryptographic QR Passport</span>
         </div>
-        <p class="admin-page-subtitle m-0 text-truncate">Official PetGuard Universal Registration & Cryptographic QR Passport Generation</p>
+        <h2 class="portal-hero-title">Register New Companion 🐕</h2>
+        <p class="portal-hero-subtitle">Official PetGuard Universal Registration &amp; Cryptographic QR Digital Passport Generation.</p>
     </div>
-    <div class="admin-page-header-actions d-flex gap-2 flex-shrink-0 align-items-center">
-        <a href="<?= ViewHelper::url('portal/pets') ?>" class="btn btn-outline-secondary rounded-pill px-3 py-2 fw-semibold">
-            <i class="fa-solid fa-xmark me-1"></i> Cancel
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('portal/pets') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Pets</span>
         </a>
     </div>
 </div>

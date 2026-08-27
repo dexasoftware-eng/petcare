@@ -133,14 +133,26 @@ use Helpers\ViewHelper;
 <div class="emergency-container py-2">
 
     <!-- Urgent 24/7 Emergency Hotline Hero Banner -->
-    <div class="emergency-hero-banner mb-4">
-        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white text-danger small fw-bold mb-2 shadow-sm" style="font-size: 11px; letter-spacing: 0.4px;">
-            <span class="emergency-live-pulse"></span> 24/7 Rapid Triage &amp; Critical Trauma Support
+    <div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4" style="background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 60%, #450a0a 100%);">
+        <div>
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white text-danger small fw-bold mb-2 shadow-sm" style="font-size: 11px; letter-spacing: 0.4px;">
+                <span class="emergency-live-pulse"></span> 24/7 Rapid Triage &amp; Critical Trauma Support
+            </div>
+            <h2 class="portal-hero-title">Emergency Veterinary Center 🚨</h2>
+            <p class="portal-hero-subtitle text-white text-opacity-75">
+                If your companion is in acute distress, follow emergency protocols or call on-call emergency hospital centers.
+            </p>
         </div>
-        <h2 class="fw-bold text-white mb-2" style="letter-spacing: -0.5px;">Emergency Veterinary Center</h2>
-        <p class="text-white-50 small mb-0" style="max-width: 780px; line-height: 1.6;">
-            If your companion is in acute distress (breathing difficulty, toxic ingestion, severe trauma, or continuous seizures), follow the emergency action protocol below or reach out to on-call emergency hospital centers.
-        </p>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="tel:8884264435" class="btn btn-admin-danger">
+                <i class="fa-solid fa-phone"></i>
+                <span>ASPCA Poison Control</span>
+            </a>
+            <a href="<?= ViewHelper::url('portal/dashboard') ?>" class="btn btn-admin-secondary">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>My Portal</span>
+            </a>
+        </div>
     </div>
 
     <!-- 4 Triage Quick Metric Cards -->

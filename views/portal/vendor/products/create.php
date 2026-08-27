@@ -2,14 +2,21 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title"><i class="fa-solid fa-circle-plus text-brand me-2"></i> Add New Store Product</h2>
-        <p class="admin-page-subtitle">Publish a new pet care product, food, supplement, or accessory to the Pet Guard store.</p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-boxes-stacked text-warning"></i>
+            <span>Merchant Catalog Publishing</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">New SKU Listing</span>
+        </div>
+        <h2 class="portal-hero-title">Add New Store Product 🛍️</h2>
+        <p class="portal-hero-subtitle">Publish a new pet care product, food, supplement, or accessory to the PetCare marketplace.</p>
     </div>
-    <div>
-        <a href="<?= ViewHelper::url('vendor/products') ?>" class="btn btn-outline-secondary rounded-pill px-4">
-            <i class="fa-solid fa-arrow-left me-1"></i> Back to Catalog
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('vendor/products') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Catalog</span>
         </a>
     </div>
 </div>

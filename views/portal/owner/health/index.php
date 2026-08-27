@@ -7,7 +7,33 @@ $totalVaccines = count($vaccines ?? []);
 $avgCareScore = $totalPets > 0 ? round(array_sum(array_column($pets, 'care_score')) / $totalPets) : 95;
 ?>
 
-<!-- Top Metric Stat Cards -->
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-heart-pulse text-warning"></i>
+            <span>Preventive Veterinary Wellness</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= $avgCareScore ?>/100 Avg Care Score</span>
+        </div>
+        <h2 class="portal-hero-title">Health, Vaccines &amp; Rx 🩺</h2>
+        <p class="portal-hero-subtitle">
+            Comprehensive pet clinical wellness telemetry, vaccine history, and smart medication dosing tracker.
+        </p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('portal/care') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Care Routine</span>
+        </a>
+        <a href="<?= ViewHelper::url('portal/appointments') ?>" class="btn btn-admin-primary">
+            <i class="fa-solid fa-calendar-plus"></i>
+            <span>Book Clinic</span>
+        </a>
+    </div>
+</div>
+
+<!-- 2. Top Metric Stat Cards -->
 <div class="row g-3 mb-4">
     <div class="col-6 col-lg-3">
         <div class="stat-card shadow-sm h-100" style="border-radius: 18px;">

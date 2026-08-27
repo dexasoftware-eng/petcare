@@ -7,24 +7,25 @@ $totalTips = $stats['totalTips'] ?? count($tips);
 $totalPublished = $stats['totalPublished'] ?? ($totalArticles + $totalFaqs + $totalTips);
 ?>
 
-<!-- Page Header -->
-<div class="admin-page-header mb-4">
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 w-100">
-        <div class="page-title-group">
-            <h2 class="admin-page-title">
-                <i class="fa-solid fa-book-medical text-primary me-2"></i>
-                Care Content & Health Knowledge
-            </h2>
-            <p class="admin-page-subtitle">
-                Educational wellness articles, clinical FAQs, and seasonal preventive health guidance.
-            </p>
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-book-medical text-warning"></i>
+            <span>Veterinary Knowledge Base</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= number_format($totalPublished) ?> Published Items</span>
         </div>
-        <div>
-            <button class="btn btn-dark rounded-pill px-4 py-2 fw-semibold d-flex align-items-center gap-2 shadow-sm" style="background: #fa441d; border: none;" data-bs-toggle="modal" data-bs-target="#contentModal" onclick="resetContentModal()">
-                <i class="fa-solid fa-plus"></i>
-                <span>Create Content Item</span>
-            </button>
-        </div>
+        <h2 class="portal-hero-title">Care Content &amp; Health Knowledge 📚</h2>
+        <p class="portal-hero-subtitle">
+            Educational wellness articles, clinical FAQs, and seasonal preventive health guidance.
+        </p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-admin-primary" data-bs-toggle="modal" data-bs-target="#contentModal" onclick="resetContentModal()">
+            <i class="fa-solid fa-plus"></i>
+            <span>Create Content Item</span>
+        </button>
     </div>
 </div>
 

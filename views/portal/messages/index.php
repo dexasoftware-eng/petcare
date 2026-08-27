@@ -90,26 +90,24 @@ $activeMessages = $activeMessages ?? [];
 <div class="portal-messages-container py-2">
 
     <!-- 1. Hero Header Banner -->
-    <div class="rounded-4 p-4 mb-4 text-white position-relative overflow-hidden shadow-lg" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);">
-        <div class="position-absolute top-0 end-0 w-50 h-100 opacity-20 pointer-events-none d-none d-lg-block" style="background: radial-gradient(circle at right, #818cf8 0%, transparent 70%);"></div>
-        <div class="row align-items-center position-relative z-1 g-3">
-            <div class="col-12 col-md-8">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small fw-bold mb-2 border border-white border-opacity-10">
-                    <i class="fa-solid fa-shield-halved text-success"></i> 256-Bit Encrypted Telehealth Messenger
-                </div>
-                <h2 class="fw-bold text-white mb-1" style="font-family: 'Anybody', sans-serif;">
-                    Messages &amp; Direct Consultations
-                </h2>
-                <p class="text-white text-opacity-80 small mb-0" style="max-width: 580px;">
-                    Real-time secure communication with verified veterinary clinics, rescue shelters, and store customers.
-                </p>
+    <div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+                <i class="fa-solid fa-shield-halved text-success"></i>
+                <span>256-Bit Encrypted Telehealth Messenger</span>
+                <span class="text-white-50">&middot;</span>
+                <span class="font-monospace text-warning"><?= count($conversations ?? []) ?> Active Chats</span>
             </div>
-            <div class="col-12 col-md-4 text-md-end">
-                <button type="button" class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold shadow-sm d-inline-flex align-items-center gap-2" style="font-size: 13px;" onclick="window.location.reload()">
-                    <i class="fa-solid fa-arrows-rotate"></i>
-                    <span>Refresh Inbox</span>
-                </button>
-            </div>
+            <h2 class="portal-hero-title">Messages &amp; Direct Consultations 💬</h2>
+            <p class="portal-hero-subtitle">
+                Real-time secure communication with verified veterinary clinics, rescue shelters, and customers.
+            </p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <button type="button" class="btn btn-admin-secondary" onclick="window.location.reload()">
+                <i class="fa-solid fa-arrows-rotate"></i>
+                <span>Refresh Inbox</span>
+            </button>
         </div>
     </div>
 

@@ -2,10 +2,29 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title"><i class="fa-solid fa-shield-cat text-primary me-2"></i> Pets & Digital Passport Registry</h2>
-        <p class="admin-page-subtitle">Centralized animal registry, dynamic NFC/QR passports, microchip identifiers, and lost alerts.</p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-shield-cat text-warning"></i>
+            <span>Global Animal Identification</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= number_format($stats['total'] ?? count($pets)) ?> Companions</span>
+        </div>
+        <h2 class="portal-hero-title">Pets &amp; Digital Passport Registry 🐾</h2>
+        <p class="portal-hero-subtitle">
+            Centralized animal registry, dynamic QR digital passports, microchip identifiers, and lost alerts.
+        </p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('admin/dashboard') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Command Center</span>
+        </a>
+        <a href="<?= ViewHelper::url('admin/adoption') ?>" class="btn btn-admin-primary">
+            <i class="fa-solid fa-heart"></i>
+            <span>Rescue Animals</span>
+        </a>
     </div>
 </div>
 

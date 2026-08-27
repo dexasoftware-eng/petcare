@@ -111,33 +111,32 @@ foreach ($products as $p) {
 <div class="vendor-products-container py-2">
 
     <!-- 1. Hero Header Banner -->
-    <div class="rounded-4 p-4 p-md-5 mb-4 text-white position-relative overflow-hidden shadow-lg" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);">
-        <div class="position-absolute top-0 end-0 w-50 h-100 opacity-20 pointer-events-none d-none d-lg-block" style="background: radial-gradient(circle at right, #818cf8 0%, transparent 70%);"></div>
-        <div class="row align-items-center position-relative z-1 g-3">
-            <div class="col-12 col-lg-7">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small fw-bold mb-2 border border-white border-opacity-10">
-                    <i class="fa-solid fa-wand-magic-sparkles text-warning"></i> Merchant Inventory &amp; Catalog Command
-                </div>
-                <h1 class="display-6 fw-bold text-white mb-2" style="font-family: 'Anybody', sans-serif;">
-                    Store Products Catalog
-                </h1>
-                <p class="text-white text-opacity-80 small mb-0" style="max-width: 620px; line-height: 1.6;">
-                    Manage your merchant inventory, real-time prices, SKU codes, stock thresholds, and auto-add products instantly using AI title analysis.
-                </p>
+    <div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+                <i class="fa-solid fa-wand-magic-sparkles text-warning"></i>
+                <span>Merchant Catalog Management</span>
+                <span class="text-white-50">&middot;</span>
+                <span class="font-monospace text-warning"><?= $totalProducts ?> SKUs Listed</span>
             </div>
-            <div class="col-12 col-lg-5 text-lg-end">
-                <div class="d-flex flex-column flex-sm-row gap-2 justify-content-lg-end flex-wrap">
-                    <button type="button" class="btn btn-success rounded-pill px-3 py-2 fw-bold shadow-sm d-inline-flex align-items-center justify-content-center gap-2" style="font-size: 13px;" data-bs-toggle="modal" data-bs-target="#aiProductModal">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i> AI Instant Add
-                    </button>
-                    <a href="<?= ViewHelper::url('vendor/products/create') ?>" class="btn btn-admin-primary rounded-pill px-3 py-2 fw-bold shadow-sm d-inline-flex align-items-center justify-content-center gap-2" style="font-size: 13px;">
-                        <i class="fa-solid fa-plus"></i> Add Product
-                    </a>
-                    <a href="<?= ViewHelper::url('our-products') ?>" target="_blank" class="btn btn-outline-light rounded-pill px-3 py-2 fw-semibold d-inline-flex align-items-center justify-content-center gap-1 shadow-sm" style="font-size: 13px;">
-                        <i class="fa-solid fa-store"></i> Live Store
-                    </a>
-                </div>
-            </div>
+            <h2 class="portal-hero-title">Store Products Catalog 🛍️</h2>
+            <p class="portal-hero-subtitle">
+                Manage your merchant inventory, real-time prices, SKU codes, and auto-add products using AI title analysis.
+            </p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <button type="button" class="btn btn-admin-success" data-bs-toggle="modal" data-bs-target="#aiProductModal">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>AI Instant Add</span>
+            </button>
+            <a href="<?= ViewHelper::url('vendor/products/create') ?>" class="btn btn-admin-primary">
+                <i class="fa-solid fa-plus"></i>
+                <span>Add Product</span>
+            </a>
+            <a href="<?= ViewHelper::url('our-products') ?>" target="_blank" class="btn btn-admin-secondary">
+                <i class="fa-solid fa-store"></i>
+                <span>Live Store</span>
+            </a>
         </div>
     </div>
 

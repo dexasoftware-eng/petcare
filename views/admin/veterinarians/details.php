@@ -2,28 +2,36 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header mb-4">
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <a href="<?= ViewHelper::url('admin/veterinarians') ?>" class="btn btn-sm btn-light border rounded-pill px-3 py-1 fw-semibold mb-2">
-            <i class="fa-solid fa-arrow-left me-1"></i> Back to Veterinarians
-        </a>
-        <h2 class="admin-page-title"><?= ViewHelper::e($vet['name']) ?></h2>
-        <p class="admin-page-subtitle">
-            <?= ViewHelper::e($vet['clinic_name'] ?? 'Private Practice') ?> &bull; 
-            Verification: <span class="badge-status status-<?= $vet['verification_status'] ?? 'pending' ?>"><?= ucfirst(ViewHelper::e($vet['verification_status'] ?? 'pending')) ?></span>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-user-doctor text-warning"></i>
+            <span>Veterinary Credential Review</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">Status: <?= ucfirst($vet['verification_status'] ?? 'pending') ?></span>
+        </div>
+        <h2 class="portal-hero-title"><?= ViewHelper::e($vet['name']) ?> 🩺</h2>
+        <p class="portal-hero-subtitle">
+            <?= ViewHelper::e($vet['clinic_name'] ?? 'Private Practice') ?> &middot; License: <?= ViewHelper::e($vet['license_number'] ?? 'N/A') ?> &middot; Specialization: <?= ViewHelper::e($vet['specialization'] ?? 'General Veterinary Medicine') ?>
         </p>
     </div>
-    <div class="d-flex gap-2 mt-2">
+    <div class="d-flex flex-wrap gap-2">
         <?php if (($vet['verification_status'] ?? '') !== 'approved'): ?>
-            <button class="btn btn-sm btn-success rounded-pill px-3 py-2 fw-semibold" onclick="triggerConfirmModal('<?= ViewHelper::url('admin/veterinarians/' . $vet['id'] . '/verification') ?>', 'Approve Veterinarian', 'Verify and approve credentials for <?= ViewHelper::e($vet['name']) ?>?', 'Approve Credentials', 'btn-success', 'approved')">
-                <i class="fa-solid fa-check me-1"></i> Approve Practice
+            <button class="btn btn-admin-success" onclick="triggerConfirmModal('<?= ViewHelper::url('admin/veterinarians/' . $vet['id'] . '/verification') ?>', 'Approve Veterinarian', 'Verify and approve credentials for <?= ViewHelper::e($vet['name']) ?>?', 'Approve Credentials', 'btn-success', 'approved')">
+                <i class="fa-solid fa-check"></i>
+                <span>Approve Practice</span>
             </button>
         <?php endif; ?>
         <?php if (($vet['verification_status'] ?? '') !== 'rejected'): ?>
-            <button class="btn btn-sm btn-outline-danger rounded-pill px-3 py-2 fw-semibold" onclick="triggerConfirmModal('<?= ViewHelper::url('admin/veterinarians/' . $vet['id'] . '/verification') ?>', 'Reject Application', 'Reject verification for <?= ViewHelper::e($vet['name']) ?>?', 'Reject Application', 'btn-danger', 'rejected')">
-                <i class="fa-solid fa-ban me-1"></i> Reject
+            <button class="btn btn-admin-danger" onclick="triggerConfirmModal('<?= ViewHelper::url('admin/veterinarians/' . $vet['id'] . '/verification') ?>', 'Reject Application', 'Reject verification for <?= ViewHelper::e($vet['name']) ?>?', 'Reject Application', 'btn-danger', 'rejected')">
+                <i class="fa-solid fa-ban"></i>
+                <span>Reject</span>
             </button>
         <?php endif; ?>
+        <a href="<?= ViewHelper::url('admin/veterinarians') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Clinicians</span>
+        </a>
     </div>
 </div>
 

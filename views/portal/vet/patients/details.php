@@ -2,18 +2,30 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title"><i class="fa-solid fa-notes-medical text-brand me-2"></i> Patient Medical File: <?= ViewHelper::e($pet['name']) ?></h2>
-        <p class="admin-page-subtitle"><?= ViewHelper::e($pet['breed']) ?> (<?= ViewHelper::e($pet['species']) ?>) &middot; Microchip: <?= ViewHelper::e($pet['microchip_id'] ?? 'N/A') ?></p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-notes-medical text-warning"></i>
+            <span>Veterinary Patient EHR</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">ID: <?= $pet['id'] ?></span>
+        </div>
+        <h2 class="portal-hero-title">Medical File: <?= ViewHelper::e($pet['name']) ?> 🩺</h2>
+        <p class="portal-hero-subtitle"><?= ViewHelper::e($pet['breed']) ?> (<?= ViewHelper::e($pet['species']) ?>) &middot; Microchip: <?= ViewHelper::e($pet['microchip_id'] ?? 'N/A') ?></p>
     </div>
-    <div class="d-flex gap-2">
-        <a href="<?= ViewHelper::url('portal/pets/' . $pet['id']) ?>" target="_blank" class="btn btn-outline-secondary rounded-pill px-3">
-            <i class="fa-solid fa-passport me-1"></i> Public QR Passport
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('portal/pets/' . $pet['id']) ?>" target="_blank" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-qrcode"></i>
+            <span>Digital Passport</span>
         </a>
-        <button type="button" class="btn btn-admin-primary rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#newConsultModal">
-            <i class="fa-solid fa-plus me-1"></i> Log Clinical Note / Rx
+        <button type="button" class="btn btn-admin-primary" data-bs-toggle="modal" data-bs-target="#newConsultModal">
+            <i class="fa-solid fa-plus"></i>
+            <span>Log Note / Rx</span>
         </button>
+        <a href="<?= ViewHelper::url('vet/patients') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Patients</span>
+        </a>
     </div>
 </div>
 

@@ -6,23 +6,44 @@ $role = $user['role'] ?? 'petowner';
 ?>
 
 <!-- 1. Unified Dashboard Page Header -->
-<div class="admin-page-header">
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title">Welcome back, <?= ViewHelper::e($user['name']) ?>! 👋</h2>
-        <p class="admin-page-subtitle">
-            <?= ucfirst($role) ?> Portal Workspace &middot; <?= ViewHelper::e($user['email']) ?>
-            <?php if (!empty($user['phone'])): ?> &middot; <?= ViewHelper::e($user['phone']) ?><?php endif; ?>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-shield-cat text-warning"></i>
+            <span><?= ucfirst($role) ?> Portal Workspace</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= ViewHelper::e($user['email']) ?></span>
+        </div>
+        <h2 class="portal-hero-title">Welcome back, <?= ViewHelper::e($user['name']) ?>! 👋</h2>
+        <p class="portal-hero-subtitle">
+            Unified PetCare ecosystem &middot; Everything you need for clinical care, rescue management, or store commerce today.
         </p>
     </div>
-    <div class="d-flex gap-2 flex-wrap">
+    <div class="d-flex flex-wrap gap-2">
         <?php if ($role === 'veterinarian'): ?>
-            <a href="<?= ViewHelper::url('portal/emergency') ?>" class="btn btn-outline-danger rounded-pill px-3 fw-semibold">
-                <i class="fa-solid fa-truck-medical me-1"></i> Emergency Triage
+            <a href="<?= ViewHelper::url('vet/appointments') ?>" class="btn btn-admin-primary">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Consultations Queue</span>
+            </a>
+            <a href="<?= ViewHelper::url('portal/emergency') ?>" class="btn btn-admin-danger">
+                <i class="fa-solid fa-truck-medical"></i>
+                <span>Emergency Triage</span>
             </a>
         <?php elseif ($role === 'shelter'): ?>
-            <button type="button" class="btn-admin-primary" data-bs-toggle="modal" data-bs-target="#addRescuePetModal">
-                <i class="fa-solid fa-plus me-1"></i> List Animal for Adoption
-            </button>
+            <a href="<?= ViewHelper::url('shelter/animals/create') ?>" class="btn btn-admin-primary">
+                <i class="fa-solid fa-plus"></i>
+                <span>List Rescue Animal</span>
+            </a>
+        <?php elseif ($role === 'vendor'): ?>
+            <a href="<?= ViewHelper::url('vendor/products/create') ?>" class="btn btn-admin-primary">
+                <i class="fa-solid fa-plus"></i>
+                <span>Add Product</span>
+            </a>
+        <?php else: ?>
+            <a href="<?= ViewHelper::url('portal/pets/create') ?>" class="btn btn-admin-primary">
+                <i class="fa-solid fa-plus"></i>
+                <span>Register Pet</span>
+            </a>
         <?php endif; ?>
     </div>
 </div>

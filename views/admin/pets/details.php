@@ -2,24 +2,33 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <a href="<?= ViewHelper::url('admin/pets') ?>" class="btn btn-sm btn-light rounded-pill mb-2">
-            <i class="fa-solid fa-arrow-left me-1"></i> Back to Pets Directory
-        </a>
-        <h2 class="admin-page-title"><?= ViewHelper::e($pet['name']) ?>'s Medical Passport</h2>
-        <p class="admin-page-subtitle"><?= ViewHelper::e($pet['species']) ?> · <?= ViewHelper::e($pet['breed']) ?> · Parent: <a href="<?= ViewHelper::url("admin/users/{$owner['id']}") ?>" class="text-brand fw-bold text-decoration-none"><?= ViewHelper::e($owner['name'] ?? '—') ?></a></p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-shield-cat text-warning"></i>
+            <span>Cryptographic Digital Passport</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">ID #<?= $pet['id'] ?></span>
+        </div>
+        <h2 class="portal-hero-title"><?= ViewHelper::e($pet['name']) ?>'s Passport 🐾</h2>
+        <p class="portal-hero-subtitle"><?= ViewHelper::e($pet['species']) ?> &middot; <?= ViewHelper::e($pet['breed']) ?> &middot; Owner: <?= ViewHelper::e($owner['name'] ?? '—') ?></p>
     </div>
-    <div class="d-flex gap-2">
+    <div class="d-flex flex-wrap gap-2">
         <?php if (($pet['passport_status'] ?? 'active') === 'active'): ?>
-            <button class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="triggerConfirmModal('<?= ViewHelper::url("admin/pets/{$pet['id']}/passport") ?>', 'Revoke Digital Passport', 'Revoke public QR cryptographic passport for <?= ViewHelper::e($pet['name']) ?>?', 'Revoke Passport', 'btn-danger')">
-                <i class="fa-solid fa-ban me-1"></i> Revoke Passport
+            <button class="btn btn-admin-danger" onclick="triggerConfirmModal('<?= ViewHelper::url("admin/pets/{$pet['id']}/passport") ?>', 'Revoke Digital Passport', 'Revoke public QR cryptographic passport for <?= ViewHelper::e($pet['name']) ?>?', 'Revoke Passport', 'btn-danger')">
+                <i class="fa-solid fa-ban"></i>
+                <span>Revoke Passport</span>
             </button>
         <?php else: ?>
-            <button class="btn btn-sm btn-outline-success rounded-pill px-3" onclick="triggerConfirmModal('<?= ViewHelper::url("admin/pets/{$pet['id']}/passport") ?>', 'Reactivate Passport', 'Reactivate verified passport for <?= ViewHelper::e($pet['name']) ?>?', 'Reactivate', 'btn-success')">
-                <i class="fa-solid fa-check me-1"></i> Reactivate Passport
+            <button class="btn btn-admin-success" onclick="triggerConfirmModal('<?= ViewHelper::url("admin/pets/{$pet['id']}/passport") ?>', 'Reactivate Passport', 'Reactivate verified passport for <?= ViewHelper::e($pet['name']) ?>?', 'Reactivate', 'btn-success')">
+                <i class="fa-solid fa-check"></i>
+                <span>Reactivate Passport</span>
             </button>
         <?php endif; ?>
+        <a href="<?= ViewHelper::url('admin/pets') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Pets</span>
+        </a>
     </div>
 </div>
 

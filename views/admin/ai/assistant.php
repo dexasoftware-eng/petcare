@@ -2,13 +2,25 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <a href="<?= ViewHelper::url('admin/ai') ?>" class="btn btn-sm btn-light rounded-pill mb-2">
-            <i class="fa-solid fa-arrow-left me-1"></i> Back to AI Intelligence
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-robot text-warning"></i>
+            <span>Diagnostic Sandbox Engine</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">OpenRouter Free</span>
+        </div>
+        <h2 class="portal-hero-title">AI Assistant Sandbox 🤖</h2>
+        <p class="portal-hero-subtitle">
+            Test prompt safety, emergency triage detection, and veterinary educational guidance.
+        </p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('admin/ai') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Intelligence</span>
         </a>
-        <h2 class="admin-page-title"><i class="fa-solid fa-robot text-purple me-2"></i> AI Pet Care Assistant Sandbox</h2>
-        <p class="admin-page-subtitle">Test clinical prompt safety, emergency triage detection, and veterinary educational guidance using OpenRouter.</p>
     </div>
 </div>
 

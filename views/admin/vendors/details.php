@@ -2,14 +2,21 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title"><i class="fa-solid fa-store text-brand me-2"></i> <?= ViewHelper::e($vendor['store_name']) ?></h2>
-        <p class="admin-page-subtitle">Merchant Business Registration: <span class="font-monospace fw-bold text-dark"><?= ViewHelper::e($vendor['business_registration'] ?? 'TX-BUS-98231') ?></span></p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-store text-warning"></i>
+            <span>Merchant Business Review</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">Status: <?= ucfirst($vendor['verification_status'] ?? 'pending') ?></span>
+        </div>
+        <h2 class="portal-hero-title"><?= ViewHelper::e($vendor['store_name']) ?> 🛍️</h2>
+        <p class="portal-hero-subtitle">Registration: <?= ViewHelper::e($vendor['business_registration'] ?? 'TX-BUS-98231') ?> &middot; Email: <?= ViewHelper::e($vendor['email']) ?></p>
     </div>
-    <div>
-        <a href="<?= ViewHelper::url('admin/vendors') ?>" class="btn btn-outline-secondary rounded-pill px-4">
-            <i class="fa-solid fa-arrow-left me-1"></i> Back to Vendors
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('admin/vendors') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Vendors</span>
         </a>
     </div>
 </div>

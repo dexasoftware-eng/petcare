@@ -7,24 +7,25 @@ $avgLatency = $stats['avgLatency'] ?? 145;
 $successRate = $stats['successRate'] ?? 99.2;
 ?>
 
-<!-- Page Header -->
-<div class="admin-page-header mb-4">
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 w-100">
-        <div class="page-title-group">
-            <h2 class="admin-page-title">
-                <i class="fa-solid fa-brain text-purple me-2"></i>
-                AI & Intelligence Hub
-            </h2>
-            <p class="admin-page-subtitle">
-                OpenRouter LLM integrations, real-time latency telemetry, emergency detection logs, and Care Score engines.
-            </p>
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-brain text-warning"></i>
+            <span>OpenRouter Multi-Model Inference</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= number_format($totalQueries) ?> AI Inferences</span>
         </div>
-        <div class="d-flex align-items-center gap-2">
-            <a href="<?= ViewHelper::url('admin/ai/assistant') ?>" class="btn btn-dark rounded-pill px-4 py-2 fw-semibold d-flex align-items-center gap-2 shadow-sm" style="background: #fa441d; border: none;">
-                <i class="fa-solid fa-robot"></i>
-                <span>Open AI Assistant Sandbox</span>
-            </a>
-        </div>
+        <h2 class="portal-hero-title">AI &amp; Intelligence Hub 🤖</h2>
+        <p class="portal-hero-subtitle">
+            OpenRouter LLM integrations, real-time latency telemetry, emergency detection logs, and Care Score engines.
+        </p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('admin/ai/assistant') ?>" class="btn btn-admin-primary">
+            <i class="fa-solid fa-robot"></i>
+            <span>AI Assistant Sandbox</span>
+        </a>
     </div>
 </div>
 

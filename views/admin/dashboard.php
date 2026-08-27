@@ -3,23 +3,23 @@ use Helpers\ViewHelper;
 ?>
 
 <!-- Executive Hero Welcome Banner -->
-<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-radius: 20px; padding: 28px 32px; color: #fff; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);">
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
         <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
             <i class="fa-solid fa-user-shield text-warning"></i>
-            <span>Platform Governance & Oversight</span>
+            <span>Platform Governance &amp; Oversight</span>
             <span class="text-white-50">&middot;</span>
             <span class="badge bg-success text-white px-2 py-0" style="font-size: 10px;">Systems Healthy</span>
         </div>
-        <h2 class="h3 fw-bold text-white mb-1">Executive Command Center <i class="fa-solid fa-bolt text-warning ms-1"></i></h2>
-        <p class="text-white-50 mb-0 small">Real-time telemetry, multi-role verification queues & ecosystem operations.</p>
+        <h2 class="portal-hero-title">Executive Command Center ⚡</h2>
+        <p class="portal-hero-subtitle">Real-time telemetry, multi-role verification queues &amp; ecosystem operations.</p>
     </div>
     <div class="d-flex flex-wrap gap-2">
-        <a href="<?= ViewHelper::url('admin/notifications') ?>" class="btn btn-light rounded-pill px-3 py-2 fw-semibold d-flex align-items-center gap-2" style="font-size: 13px;">
-            <i class="fa-solid fa-bullhorn text-primary"></i>
+        <a href="<?= ViewHelper::url('admin/notifications') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-bullhorn"></i>
             <span>Broadcast Alert</span>
         </a>
-        <a href="<?= ViewHelper::url('admin/emergency') ?>" class="btn btn-outline-danger rounded-pill px-3 py-2 fw-semibold d-flex align-items-center gap-2" style="font-size: 13px; background: rgba(239,68,68,0.15); border-color: #ef4444; color: #fff;">
+        <a href="<?= ViewHelper::url('admin/emergency') ?>" class="btn btn-admin-danger">
             <i class="fa-solid fa-truck-medical"></i>
             <span>Emergency Center</span>
         </a>

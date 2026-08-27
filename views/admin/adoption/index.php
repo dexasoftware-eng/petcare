@@ -2,10 +2,29 @@
 use Helpers\ViewHelper;
 ?>
 
-<div class="admin-page-header">
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title"><i class="fa-solid fa-heart text-danger me-2"></i> Adoption Applications & Placement Hub</h2>
-        <p class="admin-page-subtitle">Multi-tier adoption screening, background validations, shelter coordination, and pet placement reviews.</p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-heart text-warning"></i>
+            <span>Sanctuary Placement Review</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning"><?= number_format($stats['total'] ?? count($applications)) ?> Applications</span>
+        </div>
+        <h2 class="portal-hero-title">Adoption &amp; Placement Hub 🏡</h2>
+        <p class="portal-hero-subtitle">
+            Multi-tier adoption screening, background validations, shelter coordination, and pet placement reviews.
+        </p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= ViewHelper::url('admin/dashboard') ?>" class="btn btn-admin-secondary">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Command Center</span>
+        </a>
+        <a href="<?= ViewHelper::url('admin/shelters') ?>" class="btn btn-admin-primary">
+            <i class="fa-solid fa-house-medical"></i>
+            <span>Shelters Network</span>
+        </a>
     </div>
 </div>
 

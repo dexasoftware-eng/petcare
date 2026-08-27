@@ -37,26 +37,28 @@ foreach ($products as $p) {
 <div class="vendor-inventory-container py-2">
 
     <!-- 1. Hero Header Banner -->
-    <div class="rounded-4 p-4 p-md-5 mb-4 text-white position-relative overflow-hidden shadow-lg" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);">
-        <div class="position-absolute top-0 end-0 w-50 h-100 opacity-20 pointer-events-none d-none d-lg-block" style="background: radial-gradient(circle at right, #818cf8 0%, transparent 70%);"></div>
-        <div class="row align-items-center position-relative z-1 g-3">
-            <div class="col-12 col-lg-8">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small fw-bold mb-2 border border-white border-opacity-10">
-                    <i class="fa-solid fa-boxes-stacked text-warning"></i> Real-Time Stock Management
-                </div>
-                <h1 class="display-6 fw-bold text-white mb-2" style="font-family: 'Anybody', sans-serif;">
-                    Inventory &amp; Stock Control
-                </h1>
-                <p class="text-white text-opacity-80 small mb-0" style="max-width: 620px; line-height: 1.6;">
-                    Monitor warehouse stock levels, adjust SKU inventory counts in real time, and prevent stockouts on high-demand clinical nutrition.
-                </p>
+    <div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+                <i class="fa-solid fa-boxes-stacked text-warning"></i>
+                <span>Real-Time Warehouse Stock</span>
+                <span class="text-white-50">&middot;</span>
+                <span class="font-monospace text-warning"><?= $inStockCount ?> In Stock</span>
             </div>
-            <div class="col-12 col-lg-4 text-lg-end">
-                <a href="<?= ViewHelper::url('vendor/products/create') ?>" class="btn btn-admin-primary rounded-pill px-4 py-2 fw-bold shadow-sm d-inline-flex align-items-center gap-2" style="font-size: 13.5px;">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>Add New SKU</span>
-                </a>
-            </div>
+            <h2 class="portal-hero-title">Inventory &amp; Stock Control 📦</h2>
+            <p class="portal-hero-subtitle">
+                Monitor warehouse stock levels, adjust SKU inventory counts in real time, and prevent stockouts.
+            </p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="<?= ViewHelper::url('vendor/products') ?>" class="btn btn-admin-secondary">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>Products Catalog</span>
+            </a>
+            <a href="<?= ViewHelper::url('vendor/products/create') ?>" class="btn btn-admin-primary">
+                <i class="fa-solid fa-plus"></i>
+                <span>Add New SKU</span>
+            </a>
         </div>
     </div>
 

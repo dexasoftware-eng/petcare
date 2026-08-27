@@ -2,15 +2,22 @@
 use Helpers\ViewHelper;
 ?>
 
-<!-- Page Header -->
-<div class="admin-page-header">
+<!-- 1. Hero Header Banner -->
+<div class="portal-hero-welcome d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h2 class="admin-page-title">Today's Care & Smart Daily Schedule</h2>
-        <p class="admin-page-subtitle">Track feeding, walking, medications, and grooming tasks for all your companion animals.</p>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-2">
+            <i class="fa-solid fa-list-check text-warning"></i>
+            <span>Daily Care Schedule &amp; Habit Streak</span>
+            <span class="text-white-50">&middot;</span>
+            <span class="font-monospace text-warning">Smart Reminders</span>
+        </div>
+        <h2 class="portal-hero-title">Care &amp; Daily Schedule 🐾</h2>
+        <p class="portal-hero-subtitle">Track feeding, walking, medications, and grooming tasks for all your companion animals.</p>
     </div>
-    <div>
-        <button type="button" class="btn-admin-primary" data-bs-toggle="modal" data-bs-target="#newCareTaskModal">
-            <i class="fa-solid fa-plus me-1"></i> New Care Routine
+    <div class="d-flex flex-wrap gap-2">
+        <button type="button" class="btn btn-admin-primary" data-bs-toggle="modal" data-bs-target="#newCareTaskModal">
+            <i class="fa-solid fa-plus"></i>
+            <span>New Care Routine</span>
         </button>
     </div>
 </div>
