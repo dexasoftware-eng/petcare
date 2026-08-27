@@ -182,9 +182,13 @@ abstract class Model
             'items' => $items,
             'pagination' => [
                 'page' => $page,
+                'current_page' => $page,
                 'perPage' => $perPage,
+                'per_page' => $perPage,
                 'totalItems' => $totalItems,
+                'total_items' => $totalItems,
                 'totalPages' => $totalPages,
+                'total_pages' => $totalPages,
                 'hasPrev' => $page > 1,
                 'hasNext' => $page < $totalPages
             ]

@@ -284,14 +284,18 @@ $maxPrice = $maxPrice ?? '';
                     </div>
 
                     <!-- Pagination -->
-                    <?php if (!empty($pagination) && $pagination['total_pages'] > 1): ?>
+                    <?php 
+                    $totalPages = (int)($pagination['total_pages'] ?? $pagination['totalPages'] ?? 1);
+                    $currentPage = (int)($pagination['current_page'] ?? $pagination['page'] ?? 1);
+                    if ($totalPages > 1): 
+                    ?>
                         <div class="d-flex justify-content-center mt-5">
                             <nav aria-label="Product pages">
                                 <ul class="pagination pagination-rounded gap-1">
-                                    <?php for ($p = 1; $p <= $pagination['total_pages']; $p++): 
+                                    <?php for ($p = 1; $p <= $totalPages; $p++): 
                                         $pageUrl = ViewHelper::url('our-products?' . http_build_query(array_merge($_GET, ['page' => $p])));
                                     ?>
-                                        <li class="page-item <?= $p === (int)$pagination['current_page'] ? 'active' : '' ?>">
+                                        <li class="page-item <?= $p === $currentPage ? 'active' : '' ?>">
                                             <a class="page-link rounded-circle px-3 py-2 fw-bold" href="<?= $pageUrl ?>"><?= $p ?></a>
                                         </li>
                                     <?php endfor; ?>
