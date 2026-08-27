@@ -107,17 +107,27 @@ $dashboardLink = $isAuthenticated ? ViewHelper::url('portal') : ViewHelper::url(
                     </a>
                 </div>
                 <div class="line"></div>
-                <a href="<?= ViewHelper::url('our-products') ?>">
-                    <i class="fa-regular fa-heart"></i>
+                <a href="<?= ViewHelper::url('wishlist') ?>" class="position-relative d-inline-flex align-items-center text-dark text-decoration-none" title="View Wishlist">
+                    <i class="fa-regular fa-heart" style="font-size: 19px;"></i>
+                    <?php if (ViewHelper::wishlistCount() > 0): ?>
+                        <span class="badge rounded-circle bg-danger position-absolute top-0 start-100 translate-middle d-flex align-items-center justify-content-center" style="width: 17px; height: 17px; font-size: 9px; padding: 0;">
+                            <?= ViewHelper::wishlistCount() ?>
+                        </span>
+                    <?php endif; ?>
                 </a>
                 <div class="hamburger-icon">
                     <div class="donation">
-                        <a href="<?= ViewHelper::url('shop-cart') ?>" class="mx-0" id="show" aria-label="Shopping Cart">
+                        <a href="<?= ViewHelper::url('shop-cart') ?>" class="mx-0 position-relative d-inline-flex align-items-center" id="show" aria-label="Shopping Cart">
                             <svg enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                                 <g>
                                     <path d="m452 120h-60.946c-7.945-67.478-65.477-120-135.054-120s-127.109 52.522-135.054 120h-60.946c-11.046 0-20 8.954-20 20v352c0 11.046 8.954 20 20 20h392c11.046 0 20-8.954 20-20v-352c0-11.046-8.954-20-20-20zm-196-80c47.484 0 87.019 34.655 94.659 80h-189.318c7.64-45.345 47.175-80 94.659-80zm176 432h-352v-312h40v60c0 11.046 8.954 20 20 20s20-8.954 20-20v-60h192v60c0 11.046 8.954 20 20 20s20-8.954 20-20v-60h40z"/>
                                 </g>
                             </svg>
+                            <?php if (ViewHelper::cartCount() > 0): ?>
+                                <span class="badge rounded-circle bg-danger position-absolute top-0 start-100 translate-middle d-flex align-items-center justify-content-center" style="width: 17px; height: 17px; font-size: 9px; padding: 0;">
+                                    <?= ViewHelper::cartCount() ?>
+                                </span>
+                            <?php endif; ?>
                         </a>
                     </div>
                 </div>
@@ -143,33 +153,32 @@ $dashboardLink = $isAuthenticated ? ViewHelper::url('portal') : ViewHelper::url(
     <!-- User Status Banner in Drawer -->
     <div style="padding: 16px 20px; background: #fff8e5; border-bottom: 1px solid #faecd0;">
         <?php if ($isAuthenticated && $user): ?>
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <div style="width: 40px; height: 40px; border-radius: 50%; background: #ffffff; border: 1.5px solid #fa441d; color: #fa441d; display: flex; align-items: center; justify-content: center; font-weight: 800;">
-                    <?= strtoupper(substr($user['name'] ?? 'U', 0, 1)) ?>
-                </div>
-                <div style="overflow: hidden;">
-                    <div style="font-weight: 700; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 14px;"><?= ViewHelper::e($user['name']) ?></div>
-                    <span class="badge bg-danger text-uppercase" style="font-size: 10px;"><?= ucfirst($role) ?></span>
-                </div>
+            <div style="font-weight: 700; font-size: 15px; color: #0f172a; margin-bottom: 2px;">
+                <?= ViewHelper::e($user['name']) ?>
+            </div>
+            <div style="font-size: 12px; color: #64748b; text-transform: capitalize;">
+                <span class="badge bg-danger" style="font-size: 10px; padding: 2px 6px;"><?= ViewHelper::e($user['role'] ?? 'petowner') ?></span>
+                <?= ViewHelper::e($user['email']) ?>
             </div>
         <?php else: ?>
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-                <div>
-                    <div style="font-weight: 700; color: #1e293b; font-size: 14px;">Pet Parent Access</div>
-                    <small style="color: #64748b;">Sign in to your records</small>
-                </div>
-                <a href="<?= ViewHelper::url('login') ?>" class="btn btn-sm btn-brand rounded-pill px-3 fw-bold" style="font-size: 12px;">Log In</a>
+            <div style="font-weight: 700; font-size: 14px; color: #0f172a; margin-bottom: 6px;">
+                Welcome to PetGuard
+            </div>
+            <div style="display: flex; gap: 8px;">
+                <a href="<?= ViewHelper::url('login') ?>" class="btn-brand" style="padding: 6px 14px; font-size: 12px; border-radius: 20px;">Sign In</a>
+                <a href="<?= ViewHelper::url('register/owner') ?>" style="padding: 6px 14px; font-size: 12px; border-radius: 20px; background: #ffffff; border: 1px solid #cbd5e1; color: #334155; text-decoration: none; font-weight: 600;">Register</a>
             </div>
         <?php endif; ?>
     </div>
 
-    <!-- Drawer Navigation Links -->
-    <div style="flex: 1; overflow-y: auto; padding: 16px 12px;">
+    <!-- Navigation Links in Drawer -->
+    <div style="flex: 1; overflow-y: auto; padding: 12px;">
         <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px;">
             <li><a href="<?= ViewHelper::url('/') ?>" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; color: #334155; text-decoration: none; font-weight: 600; font-size: 15px;"><i class="fa-solid fa-house text-muted" style="width: 20px;"></i> Home</a></li>
             <li><a href="<?= ViewHelper::url('about') ?>" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; color: #334155; text-decoration: none; font-weight: 600; font-size: 15px;"><i class="fa-solid fa-circle-info text-muted" style="width: 20px;"></i> About Us</a></li>
             <li><a href="<?= ViewHelper::url('services') ?>" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; color: #334155; text-decoration: none; font-weight: 600; font-size: 15px;"><i class="fa-solid fa-stethoscope text-muted" style="width: 20px;"></i> Clinical Services</a></li>
             <li><a href="<?= ViewHelper::url('our-products') ?>" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; color: #334155; text-decoration: none; font-weight: 600; font-size: 15px;"><i class="fa-solid fa-bag-shopping text-muted" style="width: 20px;"></i> Pet Care Shop</a></li>
+            <li><a href="<?= ViewHelper::url('wishlist') ?>" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; color: #334155; text-decoration: none; font-weight: 600; font-size: 15px;"><i class="fa-regular fa-heart text-danger" style="width: 20px;"></i> My Saved Wishlist</a></li>
             <li><a href="<?= ViewHelper::url('our-blog') ?>" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; color: #334155; text-decoration: none; font-weight: 600; font-size: 15px;"><i class="fa-solid fa-newspaper text-muted" style="width: 20px;"></i> Health News</a></li>
             <li><a href="<?= ViewHelper::url('contact') ?>" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; color: #334155; text-decoration: none; font-weight: 600; font-size: 15px;"><i class="fa-solid fa-headset text-muted" style="width: 20px;"></i> Contact & Support</a></li>
             <?php if ($isAuthenticated): ?>
@@ -180,7 +189,10 @@ $dashboardLink = $isAuthenticated ? ViewHelper::url('portal') : ViewHelper::url(
 
     <!-- Drawer Footer Actions -->
     <div style="padding: 16px 20px; border-top: 1px solid #f1f5f9; background: #f8fafc; display: flex; align-items: center; justify-content: space-between;">
-        <a href="<?= ViewHelper::url('shop-cart') ?>" style="display: inline-flex; align-items: center; gap: 8px; color: #334155; text-decoration: none; font-weight: 600; font-size: 14px;">
+        <a href="<?= ViewHelper::url('wishlist') ?>" style="display: inline-flex; align-items: center; gap: 6px; color: #334155; text-decoration: none; font-weight: 600; font-size: 13.5px;">
+            <i class="fa-regular fa-heart text-danger"></i> Wishlist (<?= ViewHelper::wishlistCount() ?>)
+        </a>
+        <a href="<?= ViewHelper::url('shop-cart') ?>" style="display: inline-flex; align-items: center; gap: 6px; color: #334155; text-decoration: none; font-weight: 600; font-size: 13.5px;">
             <i class="fa-solid fa-cart-shopping text-brand"></i> Cart (<?= ViewHelper::cartCount() ?>)
         </a>
         <?php if ($isAuthenticated): ?>

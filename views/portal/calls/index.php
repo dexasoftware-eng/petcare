@@ -15,6 +15,7 @@ $totalDurationSeconds = 0;
 foreach ($calls as $c) {
     if (in_array($c['status'], ['connected', 'ended'])) {
         $connectedCalls++;
+        
     }
     if (($c['call_type'] ?? '') === 'video') {
         $videoCalls++;

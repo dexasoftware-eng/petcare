@@ -94,4 +94,24 @@ class ViewHelper
         }
         return $subtotal;
     }
+
+    public static function wishlistCount(): int
+    {
+        $userId = Auth::id();
+        if ($userId) {
+            return \Models\UserFavorite::count("user_id = {$userId} AND entity_type = 'product'");
+        }
+        $wishlist = Session::get('wishlist', []);
+        return count($wishlist);
+    }
+
+    public static function isInWishlist(int $productId): bool
+    {
+        $userId = Auth::id();
+        if ($userId) {
+            return \Models\UserFavorite::isFavorited($userId, 'product', $productId);
+        }
+        $wishlist = Session::get('wishlist', []);
+        return in_array($productId, $wishlist);
+    }
 }

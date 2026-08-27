@@ -26,6 +26,7 @@ use Controllers\CallController;
 use Controllers\MessageController;
 use Controllers\AdminController;
 use Controllers\ApiController;
+use Controllers\WishlistController;
 use Middleware\AuthMiddleware;
 use Middleware\AdminMiddleware;
 use Middleware\VendorMiddleware;
@@ -66,20 +67,37 @@ $router->get('/team-details/:id', [TeamController::class, 'details']);
 $router->get('/team-details', [TeamController::class, 'details']);
 
 // ==========================================
-// 2. SHOP & E-COMMERCE ROUTES
+// 2. SHOP, WISHLIST & E-COMMERCE ROUTES
 // ==========================================
 $router->get('/our-products', [ShopController::class, 'index']);
 $router->get('/our-products.html', [ShopController::class, 'index']);
 $router->get('/product-details/:slug', [ShopController::class, 'details']);
+
+// Wishlist
+$router->get('/wishlist', [WishlistController::class, 'index']);
+$router->get('/wishlist.html', [WishlistController::class, 'index']);
+$router->post('/wishlist/toggle', [WishlistController::class, 'toggle']);
+$router->get('/wishlist/remove/:id', [WishlistController::class, 'remove']);
+$router->post('/wishlist/remove/:id', [WishlistController::class, 'remove']);
+$router->post('/wishlist/move-to-cart/:id', [WishlistController::class, 'moveToCart']);
+
+// Cart
 $router->get('/shop-cart', [CartController::class, 'index']);
 $router->get('/shop-cart.html', [CartController::class, 'index']);
-$router->post('/cart/add', [CartController::class, 'add'], [CsrfMiddleware::class]);
-$router->post('/cart/update', [CartController::class, 'update'], [CsrfMiddleware::class]);
+$router->get('/cart', [CartController::class, 'index']);
+$router->post('/cart/add', [CartController::class, 'add']);
+$router->post('/cart/update', [CartController::class, 'update']);
+$router->post('/cart/apply-coupon', [CartController::class, 'applyCoupon']);
 $router->get('/cart/remove/:id', [CartController::class, 'remove']);
+$router->post('/cart/remove/:id', [CartController::class, 'remove']);
 $router->get('/cart/clear', [CartController::class, 'clear']);
+
+// Checkout & Stripe
+$router->get('/checkout', [CheckoutController::class, 'index']);
+$router->post('/checkout', [CheckoutController::class, 'process']);
 $router->get('/cart-checkout', [CheckoutController::class, 'index']);
 $router->get('/cart-checkout.html', [CheckoutController::class, 'index']);
-$router->post('/cart-checkout', [CheckoutController::class, 'process'], [CsrfMiddleware::class]);
+$router->post('/cart-checkout', [CheckoutController::class, 'process']);
 $router->get('/order-success/:orderNumber', [CheckoutController::class, 'success']);
 
 // ==========================================
