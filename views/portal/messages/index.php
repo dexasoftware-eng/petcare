@@ -260,18 +260,112 @@ function filterConversations() {
 
 document.addEventListener('DOMContentLoaded', () => {
     const msgBox = document.getElementById('messagesBox');
-    if (msgBox) {
-        msgBox.scrollTop = msgBox.scrollHeight;
+    const form = document.getElementById('sendMessageForm');
+    const msgInput = document.getElementById('messageInput');
+    const convId = <?= (int)($activeConvId ?? 0) ?>;
+
+    const scrollToBottom = () => {
+        if (msgBox) {
+            msgBox.scrollTop = msgBox.scrollHeight;
+        }
+    };
+
+    scrollToBottom();
+
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const text = msgInput ? msgInput.value.trim() : '';
+            if (!text) return;
+
+            const sendBtn = form.querySelector('button[type="submit"]');
+            if (sendBtn) sendBtn.disabled = true;
+
+            // Immediate optimistic UI append
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const bubbleHtml = `
+                <div class="d-flex flex-column align-items-end" id="tempMsg_${Date.now()}">
+                    <div class="chat-bubble-mine">
+                        ${PetGuardToast.escapeHtml(text).replace(/\n/g, '<br>')}
+                    </div>
+                    <span class="text-muted mt-1" style="font-size: 10.5px;">
+                        ${timeStr} &middot; <i class="fa-solid fa-check text-muted" style="font-size: 9px;"></i>
+                    </span>
+                </div>
+            `;
+
+            // If empty placeholder was showing, clear it
+            if (msgBox && msgBox.querySelector('.fa-comment-dots')) {
+                msgBox.innerHTML = '';
+            }
+
+            if (msgBox) {
+                msgBox.insertAdjacentHTML('beforeend', bubbleHtml);
+                scrollToBottom();
+            }
+
+            msgInput.value = '';
+            msgInput.focus();
+
+            try {
+                const formData = new FormData(form);
+                formData.set('message', text);
+                const res = await PetGuardAjax.request(form.getAttribute('action') || 'portal/messages/send', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!res.ok) {
+                    PetGuardToast.error(res.message || 'Could not send message.');
+                }
+            } catch (err) {
+                PetGuardToast.error('Network error sending message.');
+            } finally {
+                if (sendBtn) sendBtn.disabled = false;
+            }
+        });
     }
 
-    PetGuardAjax.bindForm('#sendMessageForm', {
-        loadingText: '',
-        onSuccess: () => {
-            window.location.reload();
-        },
-        onError: (err) => {
-            PetGuardToast.error(err.message || 'Failed to send message.');
-        }
-    });
+    // Live Polling for new incoming messages every 4 seconds
+    if (convId > 0 && msgBox) {
+        let lastCount = msgBox.querySelectorAll('.chat-bubble-mine, .chat-bubble-theirs').length;
+        setInterval(async () => {
+            const res = await PetGuardAjax.get(`messages/conversation/${convId}`);
+            if (res.ok && res.data && res.data.messages) {
+                const messages = res.data.messages;
+                if (messages.length > lastCount) {
+                    lastCount = messages.length;
+                    // Re-render conversation stream
+                    const currentUserId = <?= (int)($currentUser['id'] ?? 0) ?>;
+                    let html = '';
+                    messages.forEach(msg => {
+                        const isMine = parseInt(msg.sender_id, 10) === currentUserId;
+                        const date = new Date(msg.created_at);
+                        const time = isNaN(date.getTime()) ? '' : date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        const text = (msg.message_text || msg.message || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
+
+                        if (isMine) {
+                            html += `
+                                <div class="d-flex flex-column align-items-end">
+                                    <div class="chat-bubble-mine">${text}</div>
+                                    <span class="text-muted mt-1" style="font-size: 10.5px;">${time}</span>
+                                </div>
+                            `;
+                        } else {
+                            html += `
+                                <div class="d-flex flex-column align-items-start">
+                                    <div class="chat-bubble-theirs">${text}</div>
+                                    <span class="text-muted mt-1" style="font-size: 10.5px;">${time}</span>
+                                </div>
+                            `;
+                        }
+                    });
+                    msgBox.innerHTML = html;
+                    scrollToBottom();
+                }
+            }
+        }, 4000);
+    }
 });
 </script>

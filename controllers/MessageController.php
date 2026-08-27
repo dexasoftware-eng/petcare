@@ -116,7 +116,11 @@ class MessageController extends Controller
         $message = Message::find($msgId);
         $message['sender_name'] = Auth::name() ?? (Auth::user()['name'] ?? 'User');
 
-        $this->jsonSuccess('Message sent.', ['message' => $message]);
+        if ($this->request->isAjax()) {
+            $this->jsonSuccess('Message sent.', ['message' => $message]);
+        } else {
+            $this->redirect('portal/messages?conv=' . $convId);
+        }
     }
 
     /**
