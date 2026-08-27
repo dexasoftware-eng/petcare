@@ -246,25 +246,19 @@ use Helpers\ViewHelper;
                                 <?php endfor; ?>
                             </ul>
                             <div class="add-to-cart">
-                                <form action="<?= ViewHelper::url('cart/add') ?>" method="POST" class="d-inline">
-                                    <?= ViewHelper::csrfField() ?>
-                                    <input type="hidden" name="product_id" value="<?= $prod['id'] ?>">
-                                    <input type="hidden" name="name" value="<?= ViewHelper::e($prod['title']) ?>">
-                                    <input type="hidden" name="price" value="<?= floatval(str_replace('$', '', $prod['price'])) ?>">
-                                    <input type="hidden" name="quantity" value="1">
-                                    <input type="hidden" name="image" value="<?= $prod['image'] ?>">
-                                    <button type="submit" style="background: none; border: none; color: inherit; font: inherit; cursor: pointer; padding: 0;">Add to Cart</button>
-                                </form>
-                                <a href="<?= ViewHelper::url('our-products') ?>" class="heart-wishlist" aria-label="Add to wishlist">
-                                    <i class="fa-regular fa-heart"></i>
-                                </a>
+                                <button type="button" class="btn btn-sm btn-brand rounded-pill px-3 py-1 fw-bold text-white border-0" onclick="quickAddToCart(<?= (int)$prod['id'] ?>, '<?= addslashes($prod['title']) ?>')">
+                                    <i class="fa-solid fa-cart-plus me-1"></i> Add to Cart
+                                </button>
+                                <button type="button" class="heart-wishlist border-0 bg-transparent cursor-pointer p-0 ms-2" onclick="toggleMarketWishlist(this, <?= (int)$prod['id'] ?>)" aria-label="Add to wishlist">
+                                    <i class="<?= ViewHelper::isInWishlist((int)$prod['id']) ? 'fa-solid fa-heart text-danger' : 'fa-regular fa-heart' ?>"></i>
+                                </button>
                             </div>
                             <?php if (!empty($prod['discount'])): ?>
                                 <h4><?= $prod['discount'] ?></h4>
                             <?php endif; ?>
                         </div>
                         <span><?= $prod['category'] ?></span>
-                        <a href="<?= ViewHelper::url('our-products') ?>"><?= ViewHelper::e($prod['title']) ?></a>
+                        <a href="<?= ViewHelper::url('product-details/' . ($prod['slug'] ?? 'royal-canin-veterinary-diet-gastrointestinal-dog-food-12kg')) ?>"><?= ViewHelper::e($prod['title']) ?></a>
                         <h6>
                             <?php if (!empty($prod['oldPrice'])): ?><del><?= $prod['oldPrice'] ?></del><?php endif; ?>
                             <?= $prod['price'] ?>
@@ -289,25 +283,19 @@ use Helpers\ViewHelper;
                     </div>
                     <div class="healthy-product">
                         <span>Canine Health Diet</span>
-                        <a href="<?= ViewHelper::url('our-products') ?>">Balanced Organic Chicken & Rice Formula</a>
+                        <a href="<?= ViewHelper::url('product-details/royal-canin-veterinary-diet-gastrointestinal-dog-food-12kg') ?>">Royal Canin Gastrointestinal Diet 12kg</a>
                         <h6>
-                            <del>$32.00</del>
-                            $22.00
+                            <del>$89.99</del>
+                            $74.99
                         </h6>
-                        <h5>14% off</h5>
+                        <h5>17% off</h5>
                         <div class="add-to-cart">
-                            <form action="<?= ViewHelper::url('cart/add') ?>" method="POST" class="d-inline">
-                                <?= ViewHelper::csrfField() ?>
-                                <input type="hidden" name="product_id" value="6">
-                                <input type="hidden" name="name" value="Balanced Organic Chicken & Rice Formula">
-                                <input type="hidden" name="price" value="22.00">
-                                <input type="hidden" name="quantity" value="1">
-                                <input type="hidden" name="image" value="img/food-6.png">
-                                <button type="submit" class="button border-0">Add to Cart</button>
-                            </form>
-                            <a href="<?= ViewHelper::url('our-products') ?>" class="heart-wishlist ms-2" aria-label="Add to wishlist">
-                                <i class="fa-regular fa-heart"></i>
-                            </a>
+                            <button type="button" class="button border-0 cursor-pointer" onclick="quickAddToCart(1, 'Royal Canin Gastrointestinal Diet 12kg')">
+                                <i class="fa-solid fa-cart-plus me-1"></i> Add to Cart
+                            </button>
+                            <button type="button" class="heart-wishlist ms-2 border-0 bg-transparent cursor-pointer p-0" onclick="toggleMarketWishlist(this, 1)" aria-label="Add to wishlist">
+                                <i class="<?= ViewHelper::isInWishlist(1) ? 'fa-solid fa-heart text-danger' : 'fa-regular fa-heart' ?>"></i>
+                            </button>
                         </div>
                         <div id="countdown">
                             <ul>

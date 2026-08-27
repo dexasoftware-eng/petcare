@@ -96,5 +96,6 @@ use Core\View;
     <script src="<?= ViewHelper::asset('js/slick.min.js') ?>"></script>
     <script src="<?= ViewHelper::asset('js/jquery.fancybox.min.js') ?>"></script>
     <script src="<?= ViewHelper::asset('js/custom.js') ?>"></script>
+    <script src="<?= ViewHelper::asset('js/petguard.js') ?>"></script>
 </body>
 </html>

@@ -979,6 +979,71 @@
         };
     }
 
+    // ==========================================
+    // 6. GLOBAL E-COMMERCE CART & WISHLIST HELPERS
+    // ==========================================
+    window.quickAddToCart = async function(productId, productName) {
+        try {
+            const res = await PetGuardAjax.post('cart/add', { product_id: productId, quantity: 1 });
+            if (res.ok) {
+                PetGuardToast.success(`Added "${productName}" to your cart!`);
+                const cartBadges = document.querySelectorAll('a[href*="shop-cart"] span.badge, .mobile-nav-drawer a[href*="shop-cart"]');
+                cartBadges.forEach(b => {
+                    if (b.tagName === 'SPAN') {
+                        b.textContent = res.data.cartCount || (parseInt(b.textContent || '0') + 1);
+                    }
+                });
+            } else {
+                PetGuardToast.error(res.message || 'Could not add product to cart.');
+            }
+        } catch (e) {
+            console.error(e);
+            PetGuardToast.error('An unexpected error occurred.');
+        }
+    };
+
+    window.toggleMarketWishlist = async function(btn, productId) {
+        if (btn) {
+            btn.style.transform = 'scale(1.25)';
+            setTimeout(() => btn.style.transform = 'scale(1)', 200);
+        }
+
+        try {
+            const res = await PetGuardAjax.post('wishlist/toggle', { product_id: productId });
+            if (res.ok) {
+                if (btn) {
+                    const icon = btn.querySelector('i');
+                    if (icon) {
+                        if (res.data.in_wishlist) {
+                            icon.className = 'fa-solid fa-heart text-danger';
+                            btn.title = 'Remove from Wishlist';
+                        } else {
+                            icon.className = 'fa-regular fa-heart text-muted';
+                            btn.title = 'Add to Wishlist';
+                        }
+                    }
+                }
+
+                if (res.data.in_wishlist) {
+                    PetGuardToast.success(res.data.message || 'Added to wishlist.');
+                } else {
+                    PetGuardToast.info(res.data.message || 'Removed from wishlist.');
+                }
+
+                // Update wishlist count in header
+                const wishlistBadges = document.querySelectorAll('a[href*="wishlist"] span.badge');
+                wishlistBadges.forEach(b => {
+                    b.textContent = res.data.count;
+                });
+            } else {
+                PetGuardToast.error(res.message || 'Wishlist update failed.');
+            }
+        } catch (e) {
+            console.error(e);
+            PetGuardToast.error('Wishlist update failed.');
+        }
+    };
+
     // Expose PetGuard Globals to window
     window.PetGuardToast = PetGuardToast;
     window.PetGuardModal = PetGuardModal;
