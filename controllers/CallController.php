@@ -312,11 +312,21 @@ class CallController extends Controller
             $this->redirect('login');
         }
 
-        $calls = CallSession::getCallHistoryForUser($userId, 50);
+        $calls = CallSession::getCallHistoryForUser($userId, 100);
+
+        // Fetch verified practitioners for quick consultation launcher
+        $vets = User::query("
+            SELECT u.id, u.name, u.email, vp.clinic_name, vp.specialization
+            FROM users u
+            JOIN veterinarian_profiles vp ON u.id = vp.user_id
+            WHERE u.status = 'active' AND u.id != :uid
+            LIMIT 20
+        ", ['uid' => $userId]);
 
         $this->render('portal.calls.index', [
-            'pageTitle' => 'Call Logs & History — Pet Guard',
-            'calls' => $calls
+            'pageTitle' => 'Telemedicine & Audio Call Logs — PetGuard',
+            'calls' => $calls,
+            'availableVets' => $vets
         ], 'portal');
     }
 }
