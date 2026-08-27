@@ -93,43 +93,37 @@ $dashboardLink = $isAuthenticated ? ViewHelper::url('portal') : ViewHelper::url(
                 </ul>
             </nav>
 
-            <div class="menu-end">
-                <div class="bar-menu" id="openMobileNavBtn" style="cursor: pointer;">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
-                <div class="header-search-button search-box-outer" id="openSearchBtn" style="cursor: pointer;">
-                    <a href="javascript:void(0)" class="search-btn">
-                        <svg height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg">
-                            <g id="_12" data-name="12">
-                                <path d="M21.71 20.29l-2.83-2.82A9.52 9.52 0 1 0 17.47 18.88l2.82 2.83a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM4 11.5a7.5 7.5 0 1 1 7.5 7.5A7.5 7.5 0 0 1 4 11.5z"/>
-                            </g>
-                        </svg>
+            <div class="menu-end d-flex align-items-center gap-3">
+                <!-- Search Button -->
+                <div class="header-search-button search-box-outer" id="openSearchBtn" style="cursor: pointer;" title="Search Catalog">
+                    <a href="javascript:void(0)" class="search-btn text-dark text-decoration-none d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; border-radius: 50%; background: #f8fafc; border: 1px solid #e2e8f0;">
+                        <i class="fa-solid fa-magnifying-glass" style="font-size: 15px; color: #475569;"></i>
                     </a>
                 </div>
-                <div class="line"></div>
-                <a href="<?= ViewHelper::url('wishlist') ?>" class="position-relative d-inline-flex align-items-center text-dark text-decoration-none" title="View Wishlist">
-                    <i class="fa-regular fa-heart" style="font-size: 19px;"></i>
+
+                <!-- Wishlist Heart Button -->
+                <a href="<?= ViewHelper::url('wishlist') ?>" class="position-relative d-flex align-items-center justify-content-center text-dark text-decoration-none" title="View Wishlist" style="width: 38px; height: 38px; border-radius: 50%; background: #f8fafc; border: 1px solid #e2e8f0; transition: transform 0.2s ease;">
+                    <i class="fa-regular fa-heart" style="font-size: 16px; color: #475569;"></i>
                     <?php if (ViewHelper::wishlistCount() > 0): ?>
-                        <span class="badge rounded-circle bg-danger position-absolute top-0 start-100 translate-middle d-flex align-items-center justify-content-center" style="width: 17px; height: 17px; font-size: 9px; padding: 0;">
+                        <span class="badge rounded-circle bg-danger position-absolute top-0 start-100 translate-middle d-flex align-items-center justify-content-center shadow-sm" style="width: 18px; height: 18px; font-size: 9.5px; padding: 0;">
                             <?= ViewHelper::wishlistCount() ?>
                         </span>
                     <?php endif; ?>
                 </a>
-                <div class="hamburger-icon">
-                    <div class="donation">
-                        <a href="<?= ViewHelper::url('shop-cart') ?>" class="mx-0 position-relative d-inline-flex align-items-center" id="show" aria-label="Shopping Cart">
-                            <svg enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                                <g>
-                                    <path d="m452 120h-60.946c-7.945-67.478-65.477-120-135.054-120s-127.109 52.522-135.054 120h-60.946c-11.046 0-20 8.954-20 20v352c0 11.046 8.954 20 20 20h392c11.046 0 20-8.954 20-20v-352c0-11.046-8.954-20-20-20zm-196-80c47.484 0 87.019 34.655 94.659 80h-189.318c7.64-45.345 47.175-80 94.659-80zm176 432h-352v-312h40v60c0 11.046 8.954 20 20 20s20-8.954 20-20v-60h192v60c0 11.046 8.954 20 20 20s20-8.954 20-20v-60h40z"/>
-                                </g>
-                            </svg>
-                            <?php if (ViewHelper::cartCount() > 0): ?>
-                                <span class="badge rounded-circle bg-danger position-absolute top-0 start-100 translate-middle d-flex align-items-center justify-content-center" style="width: 17px; height: 17px; font-size: 9px; padding: 0;">
-                                    <?= ViewHelper::cartCount() ?>
-                                </span>
-                            <?php endif; ?>
-                        </a>
-                    </div>
+
+                <!-- Shopping Cart Button -->
+                <a href="<?= ViewHelper::url('shop-cart') ?>" class="position-relative d-flex align-items-center justify-content-center text-white text-decoration-none shadow-sm" title="View Shopping Cart" style="width: 42px; height: 42px; border-radius: 50%; background: #fa441d; transition: transform 0.2s ease, background 0.2s ease;">
+                    <i class="fa-solid fa-cart-shopping" style="font-size: 16px; color: #ffffff;"></i>
+                    <?php if (ViewHelper::cartCount() > 0): ?>
+                        <span class="badge rounded-circle bg-dark text-white border border-white position-absolute top-0 start-100 translate-middle d-flex align-items-center justify-content-center shadow-sm" style="width: 20px; height: 20px; font-size: 10px; padding: 0; font-weight: 700;">
+                            <?= ViewHelper::cartCount() ?>
+                        </span>
+                    <?php endif; ?>
+                </a>
+
+                <!-- Mobile Hamburger Menu Button -->
+                <div class="bar-menu d-lg-none" id="openMobileNavBtn" style="cursor: pointer; width: 40px; height: 40px; border-radius: 50%; background: #f8fafc; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center;" title="Open Menu">
+                    <i class="fa-solid fa-bars" style="font-size: 18px; color: #1e293b;"></i>
                 </div>
             </div>
         </div>

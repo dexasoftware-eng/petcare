@@ -404,3 +404,64 @@ footer .img-4,
     height: 100% !important;
     width: 100% !important;
 }
+
+/* ==========================================================================
+   HEADER ACTIONS & CART/WISHLIST RESPONSIVE ALIGNMENT
+   ========================================================================== */
+.bottom-bar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+}
+
+.menu-end {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.menu-end > a,
+.menu-end .header-search-button,
+.menu-end .bar-menu {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.menu-end a[href*="shop-cart"]:hover {
+    background-color: #e03612 !important;
+    transform: scale(1.06) !important;
+}
+
+.menu-end a[href*="wishlist"]:hover {
+    background-color: #fee2e2 !important;
+    transform: scale(1.06) !important;
+}
+
+@media (max-width: 991.98px) {
+    .navbar {
+        display: none !important;
+    }
+    .menu-end {
+        gap: 10px !important;
+    }
+    .menu-end > a,
+    .menu-end .header-search-button {
+        display: flex !important;
+    }
+    .menu-end a[href*="shop-cart"] {
+        width: 38px !important;
+        height: 38px !important;
+    }
+    .menu-end a[href*="wishlist"] {
+        width: 36px !important;
+        height: 36px !important;
+    }
+    .bar-menu {
+        width: 38px !important;
+        height: 38px !important;
+        margin-right: 0 !important;
+    }
+}
+
