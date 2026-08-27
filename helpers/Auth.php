@@ -39,6 +39,18 @@ class Auth
         return $user['role'] ?? null;
     }
 
+    public static function name(): ?string
+    {
+        $user = self::user();
+        return $user['name'] ?? null;
+    }
+
+    public static function email(): ?string
+    {
+        $user = self::user();
+        return $user['email'] ?? null;
+    }
+
     public static function isRole(string $role): bool
     {
         return self::role() === $role;

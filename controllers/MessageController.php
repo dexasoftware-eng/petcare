@@ -114,7 +114,7 @@ class MessageController extends Controller
         ]);
 
         $message = Message::find($msgId);
-        $message['sender_name'] = Auth::name();
+        $message['sender_name'] = Auth::name() ?? (Auth::user()['name'] ?? 'User');
 
         $this->jsonSuccess('Message sent.', ['message' => $message]);
     }
