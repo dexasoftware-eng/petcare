@@ -7,14 +7,14 @@ $hasDiscount = !empty($product['old_price']) && (float)$product['old_price'] > (
 ?>
 
 <!-- 1. Breadcrumb Banner -->
-<section class="banner" style="background-image:url(<?= ViewHelper::asset('img/banner.png') ?>); background-size: cover; background-position: center; padding: 60px 0 45px;">
-    <div class="container">
+<section class="banner shop-hero-banner" style="background-image: url('<?= ViewHelper::asset('img/banner.png') ?>');">
+    <div class="container position-relative z-1">
         <div class="row align-items-center">
             <div class="col-lg-12 text-center">
-                <span class="badge bg-white bg-opacity-25 text-white px-3 py-1 rounded-pill mb-2 small">
+                <span class="badge bg-white bg-opacity-25 text-white px-3 py-1 rounded-pill mb-2 small hero-badge">
                     <?= ViewHelper::e($product['category']) ?>
                 </span>
-                <h1 class="text-white fw-bold mb-2" style="font-family: 'Anybody', sans-serif; font-size: 32px;">
+                <h1 class="text-white fw-bold mb-2 hero-title" style="font-family: 'Anybody', sans-serif;">
                     <?= ViewHelper::e($product['name']) ?>
                 </h1>
                 <ul class="d-inline-flex list-unstyled gap-2 text-white small justify-content-center m-0">

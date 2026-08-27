@@ -3,15 +3,15 @@ use Helpers\ViewHelper;
 ?>
 
 <!-- Banner Section -->
-<section class="banner" style="background-image:url(<?= ViewHelper::asset('img/banner.png') ?>); background-size: cover; background-position: center; padding: 70px 0 50px;">
-    <div class="container">
+<section class="banner shop-hero-banner" style="background-image: url('<?= ViewHelper::asset('img/banner.png') ?>');">
+    <div class="container position-relative z-1">
         <div class="row align-items-center">
             <div class="col-lg-12 text-center">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-25 text-white small mb-3">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-25 text-white small mb-3 hero-badge">
                     <i class="fa-solid fa-heart text-danger"></i>
                     <span class="fw-semibold">Personal Saved Items</span>
                 </div>
-                <h2 class="text-white fw-bold mb-2" style="font-family: 'Anybody', sans-serif; font-size: 38px;">My Wishlist</h2>
+                <h1 class="text-white fw-bold mb-2 hero-title" style="font-family: 'Anybody', sans-serif;">My Wishlist</h1>
                 <ul class="d-inline-flex list-unstyled gap-2 text-white small justify-content-center m-0">
                     <li><a href="<?= ViewHelper::url() ?>" class="text-white text-decoration-none">Home</a></li>
                     <li>/</li>

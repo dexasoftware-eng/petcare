@@ -465,3 +465,57 @@ footer .img-4,
     }
 }
 
+/* ==========================================================================
+   MARKETPLACE & SHOP HERO BANNER PERFECTION (CLEAR ABSOLUTE HEADER)
+   ========================================================================== */
+.shop-hero-banner {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    padding-top: 175px !important;
+    padding-bottom: 55px !important;
+    overflow: hidden;
+}
+
+.shop-hero-banner .hero-badge {
+    font-size: 12.5px;
+    letter-spacing: 0.3px;
+}
+
+.shop-hero-banner .hero-title {
+    font-size: 38px;
+    line-height: 1.25;
+}
+
+.shop-hero-banner .hero-search-box {
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+@media (max-width: 991.98px) {
+    .shop-hero-banner {
+        padding-top: 130px !important;
+        padding-bottom: 45px !important;
+    }
+    .shop-hero-banner .hero-title {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .shop-hero-banner {
+        padding-top: 110px !important;
+        padding-bottom: 35px !important;
+    }
+    .shop-hero-banner .hero-title {
+        font-size: 22px;
+    }
+    .shop-hero-banner .hero-badge {
+        font-size: 11px;
+    }
+    .shop-hero-banner p {
+        font-size: 12.5px !important;
+    }
+}
+
+
