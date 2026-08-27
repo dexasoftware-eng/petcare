@@ -34,17 +34,17 @@ use Helpers\ViewHelper;
 /* Pulsing Red Dot */
 .emergency-live-pulse {
     display: inline-block;
-    width: 10px;
-    height: 10px;
-    background: #ef4444;
+    width: 8px;
+    height: 8px;
+    background: #dc2626;
     border-radius: 50%;
-    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
     animation: emergencyPulse 1.5s infinite;
 }
 @keyframes emergencyPulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
 }
 
 /* Emergency Pet Card */
@@ -134,27 +134,13 @@ use Helpers\ViewHelper;
 
     <!-- Urgent 24/7 Emergency Hotline Hero Banner -->
     <div class="emergency-hero-banner mb-4">
-        <div class="row align-items-center g-3">
-            <div class="col-12 col-lg-7 col-xl-8">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-20 text-white small fw-bold mb-2 border border-white border-opacity-20">
-                    <span class="emergency-live-pulse"></span> 24/7 Rapid Triage &amp; Critical Trauma Support
-                </div>
-                <h2 class="fw-bold text-white mb-2" style="letter-spacing: -0.5px;">Emergency Veterinary Center</h2>
-                <p class="text-white-50 small mb-0" style="max-width: 650px; line-height: 1.6;">
-                    If your companion is in acute distress (breathing difficulty, toxic ingestion, severe trauma, or seizure), connect immediately with our rapid response triage team.
-                </p>
-            </div>
-            <div class="col-12 col-lg-5 col-xl-4 text-lg-end">
-                <div class="d-flex flex-column gap-2 justify-content-lg-end">
-                    <a href="tel:+18005557389" class="btn btn-light rounded-pill px-4 py-2 fw-bold text-danger shadow-sm d-inline-flex align-items-center justify-content-center gap-2" style="height: 44px; font-size: 14px;">
-                        <i class="fa-solid fa-phone-volume fs-5"></i> Call Hotline: +1 (800) 555-PETS
-                    </a>
-                    <a href="<?= ViewHelper::url('portal/vets') ?>" class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold d-inline-flex align-items-center justify-content-center gap-2" style="height: 40px; font-size: 13px;">
-                        <i class="fa-solid fa-video"></i> 1-Click Video Telemedicine Triage
-                    </a>
-                </div>
-            </div>
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white text-danger small fw-bold mb-2 shadow-sm" style="font-size: 11px; letter-spacing: 0.4px;">
+            <span class="emergency-live-pulse"></span> 24/7 Rapid Triage &amp; Critical Trauma Support
         </div>
+        <h2 class="fw-bold text-white mb-2" style="letter-spacing: -0.5px;">Emergency Veterinary Center</h2>
+        <p class="text-white-50 small mb-0" style="max-width: 780px; line-height: 1.6;">
+            If your companion is in acute distress (breathing difficulty, toxic ingestion, severe trauma, or continuous seizures), follow the emergency action protocol below or reach out to on-call emergency hospital centers.
+        </p>
     </div>
 
     <!-- 4 Triage Quick Metric Cards -->
