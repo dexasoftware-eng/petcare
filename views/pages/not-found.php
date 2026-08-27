@@ -17,8 +17,37 @@ if ($role === 'veterinarian') {
 }
 ?>
 
-<section class="py-5 text-center d-flex align-items-center justify-content-center" style="background: radial-gradient(circle at 50% 30%, #fff8e5 0%, #ffffff 70%); min-height: 75vh;">
-    <div class="container py-5">
+<style>
+.not-found-banner {
+    padding-top: 190px !important;
+    padding-bottom: 90px !important;
+    min-height: calc(100vh - 180px);
+    background-color: #fff8e5;
+    background-image: url('<?= ViewHelper::asset('img/banner.png') ?>');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+@media (max-width: 991.98px) {
+    .not-found-banner {
+        padding-top: 150px !important;
+        padding-bottom: 60px !important;
+    }
+}
+@media (max-width: 575.98px) {
+    .not-found-banner {
+        padding-top: 120px !important;
+        padding-bottom: 40px !important;
+    }
+}
+</style>
+
+<section class="banner not-found-banner text-center">
+    <div class="container py-4">
         <div class="row justify-content-center">
             <div class="col-lg-7 col-md-9 text-center">
                 
