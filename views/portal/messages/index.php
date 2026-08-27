@@ -370,13 +370,28 @@ document.addEventListener('DOMContentLoaded', () => {
             const sendBtn = form.querySelector('button[type="submit"]');
             if (sendBtn) sendBtn.disabled = true;
 
+            // Safe string escape helper
+            const escapeText = (str) => {
+                return (window.PetGuardToast && window.PetGuardToast.escapeHtml)
+                    ? window.PetGuardToast.escapeHtml(str)
+                    : String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+            };
+
+            const showToastError = (msg) => {
+                if (window.PetGuardToast && window.PetGuardToast.error) {
+                    window.PetGuardToast.error(msg);
+                } else {
+                    console.warn(msg);
+                }
+            };
+
             // Immediate optimistic UI append
             const now = new Date();
             const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             const bubbleHtml = `
                 <div class="d-flex flex-column align-items-end" id="tempMsg_${Date.now()}">
                     <div class="chat-bubble-mine">
-                        ${PetGuardToast.escapeHtml(text).replace(/\n/g, '<br>')}
+                        ${escapeText(text).replace(/\n/g, '<br>')}
                     </div>
                     <span class="text-muted mt-1" style="font-size: 10.5px;">
                         ${timeStr} &middot; <i class="fa-solid fa-check text-muted" style="font-size: 9px;"></i>
@@ -400,16 +415,27 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const formData = new FormData(form);
                 formData.set('message', text);
-                const res = await PetGuardAjax.request(form.getAttribute('action') || 'portal/messages/send', {
-                    method: 'POST',
-                    body: formData
-                });
+                let res;
+                if (window.PetGuardAjax && window.PetGuardAjax.request) {
+                    res = await PetGuardAjax.request(form.getAttribute('action') || 'portal/messages/send', {
+                        method: 'POST',
+                        body: formData
+                    });
+                } else {
+                    const response = await fetch(form.getAttribute('action') || 'portal/messages/send', {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                    });
+                    res = await response.json();
+                    res.ok = response.ok && res.success;
+                }
 
                 if (!res.ok) {
-                    PetGuardToast.error(res.message || 'Could not send message.');
+                    showToastError(res.message || 'Could not send message.');
                 }
             } catch (err) {
-                PetGuardToast.error('Network error sending message.');
+                showToastError('Network error sending message.');
             } finally {
                 if (sendBtn) sendBtn.disabled = false;
             }
@@ -420,39 +446,53 @@ document.addEventListener('DOMContentLoaded', () => {
     if (convId > 0 && msgBox) {
         let lastCount = msgBox.querySelectorAll('.chat-bubble-mine, .chat-bubble-theirs').length;
         setInterval(async () => {
-            const res = await PetGuardAjax.get(`messages/conversation/${convId}`);
-            if (res.ok && res.data && res.data.messages) {
-                const messages = res.data.messages;
-                if (messages.length > lastCount) {
-                    lastCount = messages.length;
-                    // Re-render conversation stream
-                    const currentUserId = <?= (int)($currentUser['id'] ?? 0) ?>;
-                    let html = '';
-                    messages.forEach(msg => {
-                        const isMine = parseInt(msg.sender_id, 10) === currentUserId;
-                        const date = new Date(msg.created_at);
-                        const time = isNaN(date.getTime()) ? '' : date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                        const text = (msg.message_text || msg.message || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
-
-                        if (isMine) {
-                            html += `
-                                <div class="d-flex flex-column align-items-end">
-                                    <div class="chat-bubble-mine">${text}</div>
-                                    <span class="text-muted mt-1" style="font-size: 10.5px;">${time}</span>
-                                </div>
-                            `;
-                        } else {
-                            html += `
-                                <div class="d-flex flex-column align-items-start">
-                                    <div class="chat-bubble-theirs">${text}</div>
-                                    <span class="text-muted mt-1" style="font-size: 10.5px;">${time}</span>
-                                </div>
-                            `;
-                        }
+            try {
+                let res;
+                if (window.PetGuardAjax && window.PetGuardAjax.get) {
+                    res = await PetGuardAjax.get(`messages/conversation/${convId}`);
+                } else {
+                    const response = await fetch(`${window.PetGuardAppBase || ''}/messages/conversation/${convId}`, {
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
                     });
-                    msgBox.innerHTML = html;
-                    scrollToBottom();
+                    res = await response.json();
+                    res.ok = response.ok && res.success;
                 }
+
+                if (res.ok && res.data && res.data.messages) {
+                    const messages = res.data.messages;
+                    if (messages.length > lastCount) {
+                        lastCount = messages.length;
+                        // Re-render conversation stream
+                        const currentUserId = <?= (int)($currentUser['id'] ?? 0) ?>;
+                        let html = '';
+                        messages.forEach(msg => {
+                            const isMine = parseInt(msg.sender_id, 10) === currentUserId;
+                            const date = new Date(msg.created_at);
+                            const time = isNaN(date.getTime()) ? '' : date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                            const text = (msg.message_text || msg.message || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
+
+                            if (isMine) {
+                                html += `
+                                    <div class="d-flex flex-column align-items-end">
+                                        <div class="chat-bubble-mine">${text}</div>
+                                        <span class="text-muted mt-1" style="font-size: 10.5px;">${time}</span>
+                                    </div>
+                                `;
+                            } else {
+                                html += `
+                                    <div class="d-flex flex-column align-items-start">
+                                        <div class="chat-bubble-theirs">${text}</div>
+                                        <span class="text-muted mt-1" style="font-size: 10.5px;">${time}</span>
+                                    </div>
+                                `;
+                            }
+                        });
+                        msgBox.innerHTML = html;
+                        scrollToBottom();
+                    }
+                }
+            } catch (pollErr) {
+                // silent polling catch
             }
         }, 4000);
     }

@@ -487,5 +487,6 @@ use Core\View;
     <!-- Scripts -->
     <script src="<?= ViewHelper::asset('js/jquery-3.6.0.min.js') ?>"></script>
     <script src="<?= ViewHelper::asset('js/bootstrap.bundle.min.js') ?>"></script>
+    <script src="<?= ViewHelper::asset('js/petguard.js') ?>?v=<?= time() ?>"></script>
 </body>
 </html>
